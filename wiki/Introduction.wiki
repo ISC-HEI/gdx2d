@@ -1,0 +1,5 @@
+#summary What is gdx2d?
+
+= Introduction =
+
+This page describes the gdx2d library which can be used to simplify the development of 2D games on Android and desktop computers (on Mac, Windows or Linux). 

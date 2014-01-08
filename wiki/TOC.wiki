@@ -1,0 +1,10 @@
+#summary Table of contents
+
+<wiki:toc max_depth="2" />
+
+  * [Introduction What is gdx2d]
+     * [Presentation A nice presentation of the lib]
+     * [Install Installing the library]
+     * [Definitions Definitions of terms used in the lib]
+  * [Screenshots Screenshots]
+  * [Improvements Future things we are working on]
