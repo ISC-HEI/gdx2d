@@ -11,7 +11,6 @@ import java.util.Vector;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 /**
  * Performance demo animation rendering multiple circles at the same scale. This
