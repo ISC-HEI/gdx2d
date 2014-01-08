@@ -60,7 +60,7 @@ public class DemoSimpleAnimation extends PortableApplication {
 		new DemoSimpleAnimation(false);
 	}
 }
-```java
+```
 
 ## Who did this and why?
 It was developped for the [inf1 course](http://inf1.begincoding.net) taught at [HES-SO Valais / Systems engineering](http://www.hevs.ch) by Pierre-André Mudry. The framework was written P.-A. Mudry & N. Chatton with the help of C. Métrailler.
