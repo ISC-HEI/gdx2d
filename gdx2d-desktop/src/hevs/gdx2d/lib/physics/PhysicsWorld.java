@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
@@ -21,7 +22,7 @@ public class PhysicsWorld {
 	private static World instance = null;
 	
 	// Contains the object to be removed at each simulation step
-	private static final Vector<AbstractPhysicsObject> toRemove = new Vector<AbstractPhysicsObject>();
+	private static final Vector<Body> toRemove = new Vector<Body>();
 
 	// Exists only to defeat normal instantiation
 	private PhysicsWorld() {
@@ -44,7 +45,7 @@ public class PhysicsWorld {
 	 * Schedules an object for deletion when it is doable
 	 * @param obj The object to remove from simulation
 	 */
-	static public void scheduleForDeletion(AbstractPhysicsObject obj) {
+	static public void scheduleForDeletion(Body obj) {
 		toRemove.add(obj);
 	}
 
@@ -62,24 +63,23 @@ public class PhysicsWorld {
 	 *            The amount of time that should be simulated
 	 **/
 	static public void updatePhysics(float dt) {
-		/**
-		 *  Handles object deletions, synchronized takes more time but we have to be 
-		 *  sure no one tries to modify the 
-		 */
-		synchronized (toRemove) {
-			for (AbstractPhysicsObject obj : toRemove) {
-				instance.destroyBody(obj.getBody());
-			}
-			toRemove.clear();
-		}
-
 		accumulator += dt;
 
 		while (accumulator >= step) {
-			instance.step(step, PhysicsConstants.VELOCITY_IT,
-					PhysicsConstants.POSITION_IT);
+			instance.step(step, PhysicsConstants.VELOCITY_IT, PhysicsConstants.POSITION_IT);
 			accumulator -= step / PhysicsConstants.SPEEDUP;
 		}
+		
+		/**
+		 *  Handles object deletions, synchronized takes more time but we have to be 
+		 *  sure no one tries to modify the 
+		 */		
+		for (Body obj : toRemove) {
+			obj.setUserData(null);
+			instance.destroyBody(obj);
+		}
+		
+		toRemove.clear();		
 	}
 
 	/**

@@ -149,8 +149,8 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	 * Warning, deletion will happen at the next simulation step, not immediately
 	 */
 	public void destroy(){		
-		PhysicsWorld.scheduleForDeletion(this);
-	}
+		PhysicsWorld.scheduleForDeletion(this.body);
+	}	
 		
 	/**
 	 * Makes the object react on collisions
