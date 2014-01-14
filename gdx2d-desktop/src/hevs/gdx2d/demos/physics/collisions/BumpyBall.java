@@ -27,7 +27,8 @@ public class BumpyBall extends PhysicsCircle implements DrawableObject{
 	 */
 	@Override
 	public void collision(AbstractPhysicsObject other, float energy) {
-		if(energy > 1){
+		// Big enough collisions have a visual effect
+		if(energy > 0.1){
 			Logger.log(name + " collided " + other.name + " with energy " + energy);
 			lastCollision = 1.0f;
 		}
@@ -35,7 +36,6 @@ public class BumpyBall extends PhysicsCircle implements DrawableObject{
 	
 	@Override
 	public void draw(GdxGraphics g) {
-		// We have to convert meters (physics) to pixels (display)
 		Vector2 position = getBodyPosition(); 
 		float radius = getBodyRadius();
 		
