@@ -71,8 +71,7 @@ public class PhysicsWorld {
 		}
 		
 		/**
-		 *  Handles object deletions, synchronized takes more time but we have to be 
-		 *  sure no one tries to modify the 
+		 *  Handles object deletions 
 		 */		
 		for (Body obj : toRemove) {
 			obj.setUserData(null);
