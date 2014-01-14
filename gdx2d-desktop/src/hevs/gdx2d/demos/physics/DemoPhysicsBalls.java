@@ -8,7 +8,9 @@ import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -25,7 +27,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class DemoPhysicsBalls extends PortableApplication {
 
-	ConcurrentLinkedQueue<PhysicsCircle> list = new ConcurrentLinkedQueue<PhysicsCircle>();	
+	LinkedList<PhysicsCircle> list = new LinkedList<PhysicsCircle>();	
 	
 	// A world with gravity, pointing down
 	World world = PhysicsWorld.getInstance();
@@ -89,13 +91,12 @@ public class DemoPhysicsBalls extends PortableApplication {
 //		debugRenderer.render(world, g.getCamera().combined);		
 		
 		// For every body in the world
-		for(int i = 0; i < list.size(); i++){
-			PhysicsCircle c = list.poll();
+		for(Iterator<PhysicsCircle> it = list.iterator(); it.hasNext();){
+			PhysicsCircle c = it.next();
 			Float radius = c.getBodyRadius();		
 			Vector2 pos = c.getBodyPosition();
 			g.drawTransformedPicture(pos.x, pos.y, c.getBodyAngleDeg(), radius, radius, img);
-			c.setBodyAwake(true);
-			list.add(c);			
+			c.setBodyAwake(true);			
 		}
 
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
