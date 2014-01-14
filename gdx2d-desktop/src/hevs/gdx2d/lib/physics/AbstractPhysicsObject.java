@@ -27,7 +27,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * {@link PhysicsCircle} and {@link PhysicsStaticBox}.
  * 
  * @author Pierre-André Mudry (mui)
- * @version 1.0
+ * @version 1.01
  */
 public abstract class AbstractPhysicsObject implements ContactListener, BodyInterface{
 	// A name for the object
@@ -42,8 +42,7 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	// Reusable object for creating other objects
 	static final private BodyDef bodyDef = new BodyDef();
 	
-	// FIXME: the objects do not react correctly on screen orientation changes...
-	
+	// FIXME: the objects do not react correctly on screen orientation changes...	
 	/**
 	 * The abstract constructor
 	 * @param t
@@ -146,12 +145,13 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	}
 	
 	/**
-	 * Should be called before destroying the object
+	 * Should be called to destroy a simulated object
+	 * Warning, deletion will happen at the next simulation step, not immediately
 	 */
 	public void destroy(){		
-		PhysicsWorld.getInstance().destroyBody(body);	
+		PhysicsWorld.scheduleForDeletion(this);
 	}
-
+		
 	/**
 	 * Makes the object react on collisions
 	 */
