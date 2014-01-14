@@ -76,5 +76,5 @@ This project contains the library as well as all the demo programs. All the demo
 
 This is the Android counterpart of the library. This project depends on the gdx2d-desktop project, which means that this other project must be available in Eclipse. In addition, most of the files that will be executed come from that project as well. As such, it mainly consists of a Java file GameActivity.java which determines which is the main program that will be launched on Android.
 
-### License
+## License
 The content of this project itself is licensed under the [Creative Commons CC BY-NC 4.0 license](http://creativecommons.org/licenses/by-nc/4.0/), and the underlying source code used to format and display that content is licensed under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0).
