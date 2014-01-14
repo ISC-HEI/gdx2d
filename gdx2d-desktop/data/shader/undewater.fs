@@ -1,5 +1,7 @@
 // water turbulence effect by joltz0r 2013-07-04, improved 2013-07-07
-// Altered
+// taken from http://glsl.heroku.com/e#10577.0
+// Altered and not working properly
+
 #ifdef GL_ES
 precision mediump float;
 #endif
