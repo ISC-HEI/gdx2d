@@ -63,8 +63,8 @@ public class DemoShader implements ApplicationListener {
 		ShaderProgram.pedantic = false;
 		
 //		fragmentShader = Gdx.files.internal("data/shader/uniform.fs");
-		fragmentShader = Gdx.files.internal("data/shader/pulse.fs");
-//		fragmentShader = Gdx.files.internal("data/shader/colorRect.fs");
+//		fragmentShader = Gdx.files.internal("data/shader/pulse.fs");
+		fragmentShader = Gdx.files.internal("data/shader/colorRect.fs");
 //		fragmentShader = Gdx.files.internal("data/shader/watermix.fs");
 		//fragmentShader = Gdx.files.internal("data/shader/plasma.fs");
 
