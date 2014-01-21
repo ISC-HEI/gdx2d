@@ -82,22 +82,21 @@ public class ShaderRenderer implements Disposable{
 
 		shader.begin();
 
-		// Pass resolution to the shader
-		shader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());		
+		// Pass resolution to the shader, once
+		shader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
 		shader.end();
 	}
 
-	// FIXME Should handle resolution changes (notably for Android)	
-	private float time = 0.0f;
-	
-	public void render(){
+	// FIXME Should handle resolution changes (notably for Android)			
+	public void render(int posX, int posY, float time){
 		batch.begin();
 			// Pass time to the shader
-			shader.setUniformf("time", time+=Gdx.graphics.getDeltaTime());
-			shader.setUniformf("surfacePosition", 0, 0);
+			shader.setUniformf("time", time);
+			shader.setUniformf("surfacePosition", posX, posY);
 		
 			// Note that LibGDX coordinate system origin is lower-left
-			batch.draw(tex, 0,0);
+			batch.draw(tex, posX, posY);
 		batch.end();
 	}
 	

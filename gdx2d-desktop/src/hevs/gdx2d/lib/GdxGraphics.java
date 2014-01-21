@@ -535,8 +535,16 @@ public class GdxGraphics implements Disposable
 	 * Shaders stuff
 	 ****************************************************/	
 	public void drawShader(){
+		drawShader(getScreenWidth()/4, getScreenHeight()/4, 0);
+	}
+	
+	public void drawShader(float shaderTime){
+		drawShader(getScreenWidth()/4, getScreenHeight()/4, shaderTime);
+	}
+	
+	public void drawShader(int posX, int posY, float shaderTime){
 		if(shaderRenderer != null)
-			shaderRenderer.render();
+			shaderRenderer.render(posX, posY, shaderTime);
 		else{
 			try{
 				new Exception("Shader renderer not set, aborting.");

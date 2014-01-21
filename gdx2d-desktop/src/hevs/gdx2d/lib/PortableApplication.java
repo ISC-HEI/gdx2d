@@ -26,6 +26,12 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class PortableApplication implements TouchInterface,
 		KeyboardInterface, GameInterface {
 
+	/**
+	 * Default window dimensions
+	 */
+	private static final int DEFAULT_HEIGHT = 500;
+	private static final int DEFAULT_WIDTH = 500;
+	
 	protected boolean onAndroid;
 
 	private AndroidResolver resolver = null;
@@ -249,6 +255,6 @@ public abstract class PortableApplication implements TouchInterface,
 	 * @param onAndroid True if running on Android
 	 */
 	public PortableApplication(boolean onAndroid) {
-		this(onAndroid, 500, 500);
+		this(onAndroid, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 }
