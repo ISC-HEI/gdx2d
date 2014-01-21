@@ -5,6 +5,7 @@ import hevs.gdx2d.components.graphics.Polygon;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
 /**
@@ -24,36 +25,26 @@ public class DemoShaderSimple extends PortableApplication{
 		this.setTitle("Simple shader demo, mui 2013");
 	}
 	
+	private float time = 0;
+	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if(g.shaderRenderer == null)
 			g.setShader("data/shader/pulse.fs");
 		
 		g.clear();
-		
-		// Draws a yellow circle
-		g.setColor(Color.YELLOW);
-		g.drawCircle(30, 30, 20);
+		g.drawFPS();
 		
 		// Draws the shader
-		g.drawShader();
+		time+=Gdx.graphics.getDeltaTime();
+		g.drawShader(time);
+
+		// FIXME If drawFilledCircled used, not visible
+		g.drawCircle(125, 100, 50, Color.YELLOW);
 		
-		// Draws a green rectangle
-		g.setColor(Color.GREEN);
-		
-		g.drawFilledRectangle(80, 30, 10, 10, 0, Color.RED);
+		g.drawFilledRectangle(120, 150, 30, 30, 0, Color.RED);
 		g.drawFilledRectangle(80, 30, 20, 20, 0, new Color(0.5f, 0.5f, 0.5f, 0.5f));
-		
-		// Draws a blue polygon
-		Vector2D points[] = {
-				new Vector2D(200, 200),
-				new Vector2D(250, 250),
-				new Vector2D(300, 200)				
-		};
-		
-		Polygon p = new Polygon(points);
-		g.drawFilledPolygon(p, Color.BLUE);
-		
+		g.drawSchoolLogo();
 	}
 		
 	public static void main(String args[]){
