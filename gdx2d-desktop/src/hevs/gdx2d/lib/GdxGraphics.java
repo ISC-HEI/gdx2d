@@ -33,6 +33,8 @@ public class GdxGraphics implements Disposable
 	
 	public ShapeRenderer shapeRenderer;
 	public SpriteBatch spriteBatch;
+	public ShaderRenderer shaderRenderer;
+	
 	protected Color currentColor = Color.WHITE;
 	protected Color backgroundColor = Color.BLACK;
 
@@ -60,8 +62,9 @@ public class GdxGraphics implements Disposable
 		checkmode(t_rendering_mode.SHAPE_LINE);
 	}
 	
-	public GdxGraphics(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch, OrthographicCamera camera) {
-		this.shapeRenderer = shapeRenderer;
+	public GdxGraphics(ShapeRenderer shapeRenderer, 
+					   SpriteBatch spriteBatch, OrthographicCamera camera) {
+		this.shapeRenderer = shapeRenderer;	
 		this.spriteBatch = spriteBatch;
 		this.font = new BitmapFont();
 		this.camera = camera;
@@ -85,6 +88,9 @@ public class GdxGraphics implements Disposable
 		circleTex.dispose();		
 		font.dispose();
 		spriteBatch.dispose();
+		
+		if(shaderRenderer != null)
+			shaderRenderer.dispose();
 	}
 	
 	/**
@@ -271,6 +277,7 @@ public class GdxGraphics implements Disposable
 		shapeRenderer.point(x, y, 0);
 	}
 
+	
 	public void drawLine(float p1x, float p1y, float p2x, float p2y) {
 		checkmode(t_rendering_mode.SHAPE_LINE);
 		shapeRenderer.setColor(currentColor);
@@ -521,5 +528,36 @@ public class GdxGraphics implements Disposable
 	public void zoom(float factor){
 		camera.zoom = factor;
 		camera.update();
+	}
+
+	
+	/****************************************************
+	 * Shaders stuff
+	 ****************************************************/	
+	public void drawShader(){
+		if(shaderRenderer != null)
+			shaderRenderer.render();
+		else{
+			try{
+				new Exception("Shader renderer not set, aborting.");
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * Sets a shader that will be drawable
+	 * @param s The path of the shader
+	 */
+	public void setShader(String s) {		
+		// Dispose of the allocated resources
+		// FIXME Test this
+		if(shaderRenderer != null){
+			shaderRenderer.dispose();
+		}
+		
+		shaderRenderer = new ShaderRenderer(s);		
 	}
 }

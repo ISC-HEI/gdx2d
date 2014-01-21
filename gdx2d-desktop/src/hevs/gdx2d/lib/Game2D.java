@@ -1,13 +1,14 @@
 package hevs.gdx2d.lib;
 
 import hevs.gdx2d.lib.physics.PhysicsWorld;
+import hevs.gdx2d.lib.utils.Logger;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -17,9 +18,13 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * A wrapper for the {@link ApplicationListener} class provided for the INF1
- * class.
+ * class. Used mainly for creating a {@link LwjglApplication} in {@link PortableApplication}.
  * 
- * @author Pierre-Andre Mudry (mui)
+ * Links together a {@link PortableApplication}, which is the class instantiated
+ * by the user and {@link GdxGraphics}. This link is made by proper calls at {@link GdxGraphics}
+ * for important events such as rendering (in {@link #render()} method) or scaling (in {@link #resize(int, int)}). 
+ * 
+ * @author Pierre-André Mudry (mui)
  * @author Nils Chatton
  * @date 2013
  * @version 1.1
@@ -35,7 +40,6 @@ public class Game2D implements ApplicationListener {
 
 	/**
 	 * Default constructor
-	 * 
 	 * @param app
 	 */
 	public Game2D(PortableApplication app) {
@@ -48,16 +52,15 @@ public class Game2D implements ApplicationListener {
 		batch = new SpriteBatch();
 
 		// Log level for the application
-		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		Gdx.app.log("[GDX2Dlib]", "Version " + Version.version + " / mui, chn");
+		Logger.log("Version " + Version.version + " / mui, chn");
 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.update();
 
 		g = new GdxGraphics(shapeRenderer, batch, camera);
 
+		// TODO Should the following comment be removed ?
 		// batch.setProjectionMatrix(camera.combined);
 		// shapeRenderer.setProjectionMatrix(camera.combined);
 

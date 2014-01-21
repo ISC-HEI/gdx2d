@@ -25,9 +25,6 @@ public class ShaderRenderer implements Disposable{
 	private ShaderProgram shader;
 	private Texture tex;
 	private SpriteBatch batch;
-	private FileHandle fragmentShader, vertexShader;
-	
-	OrthographicCamera cam;
 	
 	// Default vertex shader
 	// TODO Should be in a file, however comes the question on how
@@ -58,6 +55,10 @@ public class ShaderRenderer implements Disposable{
 		create(handle.readString());
 	}
 	
+	ShaderRenderer(){
+		this(Gdx.files.internal("data/shader/colorRect.fs"));
+	}
+	
 	private void create(String fragmentShader) {
 		//the texture does not matter since we will ignore it anyways
 		tex = new Texture(256, 256, Format.RGBA8888);
@@ -79,10 +80,27 @@ public class ShaderRenderer implements Disposable{
 		batch = new SpriteBatch(1000, shader);
 		batch.setShader(shader);
 
-		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		cam.setToOrtho(false);
+		shader.begin();
+
+		// Pass resolution to the shader
+		shader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());		
+		shader.end();
 	}
 
+	// FIXME Should handle resolution changes (notably for Android)	
+	private float time = 0.0f;
+	
+	public void render(){
+		batch.begin();
+			// Pass time to the shader
+			shader.setUniformf("time", time+=Gdx.graphics.getDeltaTime());
+			shader.setUniformf("surfacePosition", 0, 0);
+		
+			// Note that LibGDX coordinate system origin is lower-left
+			batch.draw(tex, 0,0);
+		batch.end();
+	}
+	
 	/**
 	 * Release the used resources properly
 	 */

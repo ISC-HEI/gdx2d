@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * The base class that should be sub-classed by all
- * gdx2d applications. To get the functionalities you simply have
+ * <code>gdx2d</code> applications. To get the functionalities you simply have
  * to overload the methods you need.
  * 
  * @author Pierre-André Mudry (mui)
