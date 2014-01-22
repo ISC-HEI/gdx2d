@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -349,7 +348,9 @@ public class GdxGraphics implements Disposable
 			checkmode(t_rendering_mode.SPRITE);
 			spriteBatch.setColor(c);		
 
-			// FIXME Check if this is the correct location
+			/**
+			 * FIXME Not the correct location, see DemoSimpleAnimation.java 
+			 */
 			spriteBatch.draw(circleTex, centerX, centerY, (int)radius, (int)radius);
 			spriteBatch.setColor(old);
 		}
