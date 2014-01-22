@@ -7,7 +7,6 @@ import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 import java.util.Iterator;
 import java.util.Random;
-import java.util.Vector;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * no boundaries.
  * 
  * @author Pierre-Andre Mudry (mui)
- * @version 1.1
+ * @version 1.2
  */
 public class DemoParticlePhysics extends PortableApplication {
 	DebugRenderer dbgRenderer;
@@ -45,7 +44,6 @@ public class DemoParticlePhysics extends PortableApplication {
 	public void onGraphicRender(GdxGraphics g) {
 		g.clear();
  
-		Vector<Particle> toBeRemoved = new Vector<Particle>();
 		Iterator<Body> it = world.getBodies();
 
 		while (it.hasNext()) {
@@ -57,24 +55,15 @@ public class DemoParticlePhysics extends PortableApplication {
 				particle.render(g);
 
 				if(particle.shouldbeDestroyed()){
-					toBeRemoved.add(particle);
+					particle.destroy();
 				}
 			}
 		}
 
-		// Destroy the particles from the world
-		for (Particle particle : toBeRemoved) {
-			particle.destroy();
-		}
-
-		// Remove the particles that shall be destroyed
-		toBeRemoved.clear();
-
-		if (mouseActive){
-			createParticles();			
-		}
-			
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+		
+		if (mouseActive)
+			createParticles();			
 		
 		g.drawSchoolLogo();
 		g.drawFPS();

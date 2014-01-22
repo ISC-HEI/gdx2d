@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Demonstrates the basic usage of the physics with a simple demo
+ * Based on examples from box2d
  * 
  * @author Pierre-André Mudry (mui)
  * @version 1.13

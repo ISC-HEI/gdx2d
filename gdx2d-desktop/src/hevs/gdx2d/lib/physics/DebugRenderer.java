@@ -3,9 +3,7 @@ package hevs.gdx2d.lib.physics;
 
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 import hevs.gdx2d.lib.Game2D;
-import hevs.gdx2d.lib.GdxGraphics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;

@@ -33,6 +33,8 @@ public class GdxGraphics implements Disposable
 	
 	public ShapeRenderer shapeRenderer;
 	public SpriteBatch spriteBatch;
+	public ShaderRenderer shaderRenderer;
+	
 	protected Color currentColor = Color.WHITE;
 	protected Color backgroundColor = Color.BLACK;
 
@@ -44,9 +46,6 @@ public class GdxGraphics implements Disposable
 	private enum t_rendering_mode {SHAPE_FILLED, SHAPE_LINE, SHAPE_POINT, SPRITE}; 
 	private t_rendering_mode rendering_mode = t_rendering_mode.SPRITE; 
 
-	// For sprite-based circles
-	final Sprite circleSprite;					
-	
 	// For sprite-based logo
 	final protected Texture logoTex = new Texture(Gdx.files.internal("data/logo_hes.png"));	
 	final protected Texture circleTex = new Texture(Gdx.files.internal("data/circle.png"));
@@ -60,8 +59,9 @@ public class GdxGraphics implements Disposable
 		checkmode(t_rendering_mode.SHAPE_LINE);
 	}
 	
-	public GdxGraphics(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch, OrthographicCamera camera) {
-		this.shapeRenderer = shapeRenderer;
+	public GdxGraphics(ShapeRenderer shapeRenderer, 
+					   SpriteBatch spriteBatch, OrthographicCamera camera) {
+		this.shapeRenderer = shapeRenderer;	
 		this.spriteBatch = spriteBatch;
 		this.font = new BitmapFont();
 		this.camera = camera;
@@ -73,10 +73,7 @@ public class GdxGraphics implements Disposable
 		// Enable alpha blending for shape renderer
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glEnable(GL10.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-			
-		// Create a default circleSprite for filled circles
-		circleSprite = new Sprite(circleTex, 0, 0, 128, 128);
+		Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);			
 	}
 		
 	@Override
@@ -85,6 +82,9 @@ public class GdxGraphics implements Disposable
 		circleTex.dispose();		
 		font.dispose();
 		spriteBatch.dispose();
+		
+		if(shaderRenderer != null)
+			shaderRenderer.dispose();
 	}
 	
 	/**
@@ -109,15 +109,11 @@ public class GdxGraphics implements Disposable
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 	
-	public void checkmode(t_rendering_mode mode) {
-		if(mode == rendering_mode)
-			return;
-	
+	public void checkmode(t_rendering_mode mode) {	
 		if(rendering_mode != t_rendering_mode.SPRITE){
 			shapeRenderer.end();
 		}
-	
-		if(rendering_mode == t_rendering_mode.SPRITE)
+		else
 		{
 			spriteBatch.end();
 		}
@@ -198,7 +194,6 @@ public class GdxGraphics implements Disposable
 	public void drawRectangle(float x, float y, float w, float h, float angle) {
 		checkmode(t_rendering_mode.SHAPE_LINE);
 		shapeRenderer.setColor(currentColor);
-//		shapeRenderer.identity();
 		shapeRenderer.translate(x + w / 2, y + w / 2, 0);		
 		if(angle != 0)
 			shapeRenderer.rotate(0, 0, 1, angle);		
@@ -237,6 +232,7 @@ public class GdxGraphics implements Disposable
 	 */
 	public void setColor(Color c) {
 		currentColor = c;
+		shapeRenderer.setColor(c);
 	}
 
 	/**
@@ -263,7 +259,7 @@ public class GdxGraphics implements Disposable
 		shapeRenderer.setColor(c);
 		shapeRenderer.point(x, y, 0);
 	}
-		
+	
 	public void clearPixel(float x, float y) {
 		checkmode(t_rendering_mode.SHAPE_POINT);
 		shapeRenderer.identity();
@@ -271,17 +267,41 @@ public class GdxGraphics implements Disposable
 		shapeRenderer.point(x, y, 0);
 	}
 
+	/**
+	 * Draws a line that start at P(p1x, p1y) and ends at P(p2x, p2y)
+	 * @param p1x Start coordinate X
+	 * @param p1y Start coordinate Y
+	 * @param p2x End coordinate X
+	 * @param p2y End coordinate Y
+	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y) {
 		checkmode(t_rendering_mode.SHAPE_LINE);
 		shapeRenderer.setColor(currentColor);
 		shapeRenderer.line(p1x, p1y, p2x, p2y);		
 	}
 
+	/**
+	 * Draws a line that start at P(p1x, p1y) and ends at P(p2x, p2y) with color c
+	 * @param p1x Start coordinate X
+	 * @param p1y Start coordinate Y
+	 * @param p2x End coordinate X
+	 * @param p2y End coordinate Y
+	 * @param c The color for drawing the line
+	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y, Color c) {
 		shapeRenderer.setColor(c);
 		drawLine(p1x, p1y, p2x, p2y);		
 	}
 
+	/**
+	 * 
+	 * @see #drawFilledRectangle(float, float, float, float, float, Color)
+	 * @param x
+	 * @param y
+	 * @param w
+	 * @param h
+	 * @param angle
+	 */
 	public void drawFilledRectangle(float x, float y, float w, float h, float angle) {
 		checkmode(t_rendering_mode.SHAPE_FILLED);
 		shapeRenderer.identity();			
@@ -290,6 +310,15 @@ public class GdxGraphics implements Disposable
 		shapeRenderer.rect(-w / 2, -w / 2, w, h);		
 	}
 	
+	/**
+	 * Draws a filled rectangle
+	 * @param x Center x coordinate
+	 * @param y Center y
+	 * @param w Width of the rectangle
+	 * @param h Height of the rectangle
+	 * @param angle Rotation angle of the rectangle
+	 * @param c The color to fill the rectangle with
+	 */
 	public void drawFilledRectangle(float x, float y, float w, float h, float angle, Color c) {
 		shapeRenderer.setColor(c);		
 		drawFilledRectangle(x, y, w, h, angle);
@@ -302,26 +331,27 @@ public class GdxGraphics implements Disposable
 	
 	public void drawCircle(float centerX, float centerY, float radius) {
 		checkmode(t_rendering_mode.SHAPE_LINE);		
-		shapeRenderer.identity(); // Useless ?		
 		shapeRenderer.circle(centerX, centerY, radius);
 	}
 
 	public void drawFilledCircle(float centerX, float centerY, float radius, Color c) {		
 		if(radius > 64)
 		{
+			// Draw a circle with mathematical formulas
 			checkmode(t_rendering_mode.SHAPE_FILLED);
-				shapeRenderer.setColor(c);
-				shapeRenderer.identity();
-				shapeRenderer.circle(centerX, centerY, radius);
+			shapeRenderer.setColor(c);
+			shapeRenderer.identity();
+			shapeRenderer.circle(centerX, centerY, radius);
 		}
 		else
 		{		
+			Color old = spriteBatch.getColor();
 			checkmode(t_rendering_mode.SPRITE);
-			// Use a circleSprite-based approach to rendering circle			
-			circleSprite.setScale(radius / 64.0f);
-			circleSprite.setPosition(centerX-64, centerY-64);
-			circleSprite.setColor(c);
-			circleSprite.draw(spriteBatch);
+			spriteBatch.setColor(c);		
+
+			// FIXME Check if this is the correct location
+			spriteBatch.draw(circleTex, centerX, centerY, (int)radius, (int)radius);
+			spriteBatch.setColor(old);
 		}
 	}
 	
@@ -338,10 +368,10 @@ public class GdxGraphics implements Disposable
 //			circleSprite.setColor(inner);
 //			circleSprite.draw(spriteBatch);
 			
+			// TODO This does not work properly because locations are different between those two methods
+			drawCircle(centerX, centerY, radius, outer);			
 			drawFilledCircle(centerX, centerY, radius, inner);
-			drawCircle(centerX, centerY, radius, outer);
 	}
-
 
 	public void drawString(float posX, float posY, String str) {
 		checkmode(t_rendering_mode.SPRITE);
@@ -521,5 +551,44 @@ public class GdxGraphics implements Disposable
 	public void zoom(float factor){
 		camera.zoom = factor;
 		camera.update();
+	}
+
+	
+	/****************************************************
+	 * Shaders stuff
+	 ****************************************************/	
+	public void drawShader(){
+		drawShader(getScreenWidth()/4, getScreenHeight()/4, 0);
+	}
+	
+	public void drawShader(float shaderTime){
+		drawShader(getScreenWidth()/4, getScreenHeight()/4, shaderTime);
+	}
+	
+	public void drawShader(int posX, int posY, float shaderTime){
+		if(shaderRenderer != null)
+			shaderRenderer.render(posX, posY, shaderTime);
+		else{
+			try{
+				new Exception("Shader renderer not set, aborting.");
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * Sets a shader that will be drawable
+	 * @param s The path of the shader
+	 */
+	public void setShader(String s) {		
+		// Dispose of the allocated resources
+		// FIXME Test this
+		if(shaderRenderer != null){
+			shaderRenderer.dispose();
+		}
+		
+		shaderRenderer = new ShaderRenderer(s);		
 	}
 }

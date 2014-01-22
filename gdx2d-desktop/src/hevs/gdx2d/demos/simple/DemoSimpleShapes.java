@@ -31,12 +31,21 @@ public class DemoSimpleShapes extends PortableApplication{
 		
 		// Draws a yellow circle
 		g.setColor(Color.YELLOW);
-		g.drawCircle(30, 30, 20);
+		g.drawCircle(250, 400, 20);
 		
 		// Draws a green rectangle
 		g.setColor(Color.GREEN);
+		g.drawRectangle(20,250,40,40,0);
 		
-		g.drawFilledRectangle(80, 30, 10, 10, 0, Color.RED);
+		// Some filled shapes
+		g.drawFilledCircle(400, 100, 30, Color.PINK);
+		g.drawFilledCircle(400, 100, 20, Color.ORANGE);
+		g.drawFilledCircle(400, 100, 10, Color.MAGENTA);
+		
+		// TODO Fix this, not working properly
+		g.drawFilledBorderedCircle(300, 100, 40, Color.BLUE, Color.WHITE);
+		
+		g.drawFilledRectangle(100, 250, 10, 10, 0, Color.RED);
 		g.drawFilledRectangle(80, 30, 20, 20, 0, new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		
 		// Draws a blue polygon

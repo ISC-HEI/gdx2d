@@ -2,8 +2,6 @@ package hevs.gdx2d.demos.simple;
 
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.interfaces.AndroidResolver;
-
 import com.badlogic.gdx.graphics.Color;
 
 /**

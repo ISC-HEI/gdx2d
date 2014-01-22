@@ -1,6 +1,5 @@
 package hevs.gdx2d.components.physics.utils;
 
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
 /**
