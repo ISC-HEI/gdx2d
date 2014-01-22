@@ -41,6 +41,8 @@ public class DemoSimpleShapes extends PortableApplication{
 		g.drawFilledCircle(400, 100, 30, Color.PINK);
 		g.drawFilledCircle(400, 100, 20, Color.ORANGE);
 		g.drawFilledCircle(400, 100, 10, Color.MAGENTA);
+		
+		// TODO Fix this, not working properly
 		g.drawFilledBorderedCircle(300, 100, 40, Color.BLUE, Color.WHITE);
 		
 		g.drawFilledRectangle(100, 250, 10, 10, 0, Color.RED);
