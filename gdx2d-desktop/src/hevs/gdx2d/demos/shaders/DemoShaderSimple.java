@@ -1,7 +1,5 @@
 package hevs.gdx2d.demos.shaders;
 
-import hevs.gdx2d.components.geometry.Vector2D;
-import hevs.gdx2d.components.graphics.Polygon;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 

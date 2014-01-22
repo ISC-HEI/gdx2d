@@ -1,4 +1,4 @@
-package hevs.gdx2d.demos.simple.mistfy;
+package hevs.gdx2d.demos.simple.mistify;
 
 import hevs.gdx2d.lib.GdxGraphics;
 

@@ -1,15 +1,15 @@
-package hevs.gdx2d.demos.simple.mistfy;
+package hevs.gdx2d.demos.simple.mistify;
 
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
 /**
- * A classical Mistify screen saver clone. 
+ * A classical Mistify screen saver clone.<br> 
  * 
- * Code adapted from http://r3dux.org/2010/11/mystify-2-0/
+ * Code adapted from <a href="http://r3dux.org/2010/11/mystify-2-0/"> http://r3dux.org/2010/11/mystify-2-0</a>
  * @author Pierre-André Mudry
  * @version 1.0
- * 
+ * @see <a href="http://r3dux.org/2010/11/mystify-2-0/"> http://r3dux.org/2010/11/mystify-2-0</a> for the original source code
  */
 public class DemoLines extends PortableApplication {
 	BounceShape[] s;
@@ -48,6 +48,9 @@ public class DemoLines extends PortableApplication {
 			shape.shiftShapeColour(frame++);
 		}
 		
+		/**
+		 *  TODO it would be nice to have something like an accumulation buffer that fades here
+		 */ 
 		g.drawFPS();
 		g.drawSchoolLogo();
 	}
