@@ -39,9 +39,7 @@ public class DemoShaderSimple extends PortableApplication{
 		time+=Gdx.graphics.getDeltaTime();
 		g.drawShader(time);
 
-		// FIXME If drawFilledCircled used, not visible
-		g.drawCircle(125, 100, 50, Color.YELLOW);
-		
+		g.drawFilledCircle(125, 100, 40, Color.BLUE);
 		g.drawFilledRectangle(120, 150, 30, 30, 0, Color.RED);
 		g.drawFilledRectangle(80, 30, 20, 20, 0, new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		g.drawSchoolLogo();
