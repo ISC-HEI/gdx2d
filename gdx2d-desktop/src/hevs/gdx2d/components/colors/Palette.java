@@ -2,6 +2,10 @@ package hevs.gdx2d.components.colors;
 
 import com.badlogic.gdx.graphics.Color;
 
+/**
+ * Nice palettes for drawing nice stuff
+ * @author Pierre-André Mudry
+ */
 public class Palette {
 	public static final Color pastel1[] = {
 		ColorUtils.intToColor(0xB1654B),

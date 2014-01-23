@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 /**
  * Color conversion utilities. This was
  * originally taken on 
- * http://stackoverflow.com/questions/7896280/converting-from-hsv-hsb-in-java-to-rgb-without-using-java-awt-color-disallowe
+ * <a href=http://stackoverflow.com/questions/7896280/converting-from-hsv-hsb-in-java-to-rgb-without-using-java-awt-color-disallowe"> stack overflow</a>
  * 
  * @author Pierre-André Mudry (mui)
  * @version 1.0 
@@ -15,6 +15,13 @@ public class ColorUtils {
 		return intToColor(hsvToRgb(hue, saturation, value));
 	}
 	
+	/**
+	 * Converts hsv to rgb int
+	 * @param hue
+	 * @param saturation
+	 * @param value
+	 * @return
+	 */
 	public static int hsvToRgb(float hue, float saturation, float value) {
 
 	    int h = (int)(hue * 6);
@@ -34,10 +41,22 @@ public class ColorUtils {
 	    }
 	}
 
+	/**
+	 * Creates an int representation of rgb color
+	 * @param r
+	 * @param g
+	 * @param b
+	 * @return
+	 */
 	public static int rgbToInt(float r, float g, float b){
 		return Color.rgb888(r, g, b);
 	}	
 	
+	/**
+	 * Creates a Color from an int
+	 * @param col
+	 * @return
+	 */
 	public static Color intToColor(int col){
 		float r = ((col & 0x00ff0000) >>> 16) / 255f;
 		float g = ((col & 0x0000ff00) >>> 8) / 255f;
