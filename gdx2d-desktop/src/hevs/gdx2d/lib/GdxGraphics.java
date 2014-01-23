@@ -334,9 +334,9 @@ public class GdxGraphics implements Disposable
 	}
 
 	public void drawFilledCircle(float centerX, float centerY, float radius, Color c) {		
-		if(radius > 64)
+		// Draw big circles with mathematical formulas
+		if(radius > 100)
 		{
-			// Draw a circle with mathematical formulas
 			checkmode(t_rendering_mode.SHAPE_FILLED);
 			shapeRenderer.setColor(c);
 			shapeRenderer.identity();
@@ -344,34 +344,22 @@ public class GdxGraphics implements Disposable
 		}
 		else
 		{		
+			// Draw smaller circles with an image, this goes faster
 			Color old = spriteBatch.getColor();
 			checkmode(t_rendering_mode.SPRITE);
 			spriteBatch.setColor(c);		
 
-			/**
-			 * FIXME Not the correct location, see DemoSimpleAnimation.java 
-			 */
-			spriteBatch.draw(circleTex, centerX, centerY, (int)radius, (int)radius);
+			spriteBatch.draw(circleTex, centerX-64, centerY-64, 64, 64, 128, 128, radius/64, radius/64, 0, 0, 0, 128, 128, false, false);
 			spriteBatch.setColor(old);
 		}
 	}
 	
 	public void drawFilledBorderedCircle(float centerX, float centerY, float radius, Color inner, Color outer) {		
 			checkmode(t_rendering_mode.SPRITE);			
-
-			// This was slow...
-//			// Use a circleSprite-based approach to rendering circle			
-//			circleSprite.setPosition(centerX-64, centerY-64);
-//			circleSprite.setScale(radius / 64.0f);
-//			circleSprite.setColor(outer);
-//			circleSprite.draw(spriteBatch);
-//			circleSprite.setScale((radius - borderWidth) / 64.0f);
-//			circleSprite.setColor(inner);
-//			circleSprite.draw(spriteBatch);
-			
-			// TODO This does not work properly because locations are different between those two methods
-			drawCircle(centerX, centerY, radius, outer);			
-			drawFilledCircle(centerX, centerY, radius, inner);
+			// This is not really beautiful but it works more or less
+			// TODO Improve this
+			drawFilledCircle(centerX, centerY, radius+3, outer);
+			drawFilledCircle(centerX, centerY, radius+1, inner);			
 	}
 
 	public void drawString(float posX, float posY, String str) {
