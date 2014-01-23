@@ -44,7 +44,7 @@ import com.badlogic.gdx.files.FileHandle;
  * A demo selector class, most of the code taken from Libgdx own demo selector
  * 
  * @author Pierre-André Mudry (mui)
- * @version 1.11
+ * @version 1.12
  */
 @SuppressWarnings("serial")
 public class DemoSelector extends JFrame {
@@ -55,6 +55,8 @@ public class DemoSelector extends JFrame {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2013");
 
 		tests.put("Simple shapes", "simple.DemoSimpleShapes");
+		tests.put("Drawing circles", "simple.DemoCircles");
+		tests.put("Mistify screen saver", "simple.mistify.DemoLines");
 		tests.put("Basic animation", "simple.DemoSimpleAnimation");
 		tests.put("Image drawing", "image_drawing.DemoSimpleImage");
 		tests.put("Mirroring image", "image_drawing.DemoMirrorImage");
