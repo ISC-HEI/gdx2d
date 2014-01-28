@@ -1,7 +1,5 @@
 package hevs.gdx2d.demos.simple;
 
-import hevs.gdx2d.components.colors.Palette;
-import hevs.gdx2d.components.colors.PaletteGenerator;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
@@ -50,7 +48,7 @@ public class DemoCircles extends PortableApplication {
 				getWindowWidth() / 10 + i * (getWindowWidth() - getWindowWidth() / 10)/8,
 				getWindowHeight() / 2,
 				radius[i],
-				Color.RED);
+				new Color(radius[i] / 40.0f , 0, 0, 1));
 		}
 
 		g.drawFPS();
