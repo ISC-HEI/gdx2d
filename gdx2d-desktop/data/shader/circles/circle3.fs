@@ -1,6 +1,7 @@
 // Draws a mouse controlled circle, which radius changes over time
 // Its color is dependent on its position
 // Pierre-André Mudry, 2014
+
 uniform vec2 resolution;
 uniform vec2 mouse;
 uniform float radius;

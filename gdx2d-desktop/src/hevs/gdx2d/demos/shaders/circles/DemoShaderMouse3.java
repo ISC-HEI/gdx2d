@@ -49,13 +49,13 @@ public class DemoShaderMouse3 extends PortableApplication {
 		}
 
 		g.clear();
-		g.drawFPS();
 
 		// Pass the mouse position to the shader, always
 		g.shaderRenderer.setUniform("mouse", new Vector2(c.x, c.y));
 		t += 4*Gdx.graphics.getDeltaTime();
 		g.drawShader(t);
 
+		g.drawFPS();
 		g.drawSchoolLogo();
 	}
 

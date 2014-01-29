@@ -41,15 +41,14 @@ import com.badlogic.gdx.backends.lwjgl.LwjglPreferences;
 import com.badlogic.gdx.files.FileHandle;
 
 /**
- * A demo selector class, most of the code taken from Libgdx own demo selector
- * 
+ * A demo selector class, most of the code taken from Libgdx own demo selector.
  * @author Pierre-André Mudry (mui)
  * @version 1.12
  */
 @SuppressWarnings("serial")
 public class DemoSelector extends JFrame {
 
-	LinkedHashMap<String, String> tests = new LinkedHashMap<String, String>();
+	final LinkedHashMap<String, String> tests = new LinkedHashMap<String, String>();
 
 	public DemoSelector() throws HeadlessException {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2013");
@@ -75,7 +74,8 @@ public class DemoSelector extends JFrame {
 		tests.put("Physics collision detection", "physics.collisions.DemoCollisionListener");
 		tests.put("Lights", "lights.DemoLight");
 		tests.put("Rotating lights", "lights.DemoRotateLight");
-		
+		tests.put("Shaders test", "shaders.DemoShaderSimple");
+
 		// Populate the window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(new TestList());		
