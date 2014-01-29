@@ -2,6 +2,7 @@ package hevs.gdx2d.demos.physics;
 
 import hevs.gdx2d.components.colors.Palette;
 import hevs.gdx2d.components.physics.PhysicsChain;
+import hevs.gdx2d.demos.physics.object.PhysicsBall;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.physics.PhysicsWorld;

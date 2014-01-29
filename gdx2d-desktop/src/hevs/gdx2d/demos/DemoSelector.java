@@ -68,7 +68,7 @@ public class DemoSelector extends JFrame {
 		tests.put("Complex shapes", "complex_shapes.DemoComplexShapes");
 		tests.put("Simple physics (dominoes)", "physics.DemoSimplePhysics");
 		tests.put("Physics soccer ball", "physics.DemoPhysicsBalls");
-		tests.put("Physics chain physics", "physics.DemoChainPhysics");
+		tests.put("Physics chain collisions", "physics.DemoChainPhysics");
 		tests.put("Physics particles", "physics.particle.DemoParticlePhysics");
 		tests.put("Physics mouse interactions", "physics.DemoPhysicsMouse");
 		tests.put("Physics collision detection", "physics.collisions.DemoCollisionListener");

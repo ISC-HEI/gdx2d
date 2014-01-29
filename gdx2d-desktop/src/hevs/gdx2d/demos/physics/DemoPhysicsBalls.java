@@ -7,10 +7,10 @@ import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
+import hevs.gdx2d.lib.utils.Logger;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -42,7 +42,10 @@ public class DemoPhysicsBalls extends PortableApplication {
 
 	@Override
 	public void onInit() {			
+		
 		setTitle("Physics demo with box2d, mui 2013");
+		Logger.log("Click to create a ball");
+		
 		hasAccelerometers = Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
 		
 		world.setGravity(new Vector2(0, -10));
