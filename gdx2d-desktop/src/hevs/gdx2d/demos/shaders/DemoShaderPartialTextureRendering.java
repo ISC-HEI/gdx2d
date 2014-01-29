@@ -3,44 +3,41 @@ package hevs.gdx2d.demos.shaders;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
-import com.badlogic.gdx.Gdx;
-
 /**
- * 
  * Shows how to interwind shaders and normal GDX operations
  * 
  * @author Pierre-André Mudry (mui)
  * @version 0.1
  */
-public class DemoShaderSimple extends PortableApplication {
+public class DemoShaderPartialTextureRendering extends PortableApplication {
 
-	public DemoShaderSimple(boolean onAndroid) {
+	public DemoShaderPartialTextureRendering(boolean onAndroid) {
 		super(onAndroid);
 	}
 
 	@Override
 	public void onInit() {
-		this.setTitle("Simple shader demo, mui 2013");
+		this.setTitle("Partial screen shader demo, mui 2013");
 	}
 
-	private float time = 0;
+	double t = 0;
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		if(g.shaderRenderer == null)
-			g.setShader("data/shader/colorRect.fs");
-		
-		g.clear();
-		
-		// Draws the shader
-		time+=Gdx.graphics.getDeltaTime();
-		g.drawShader(time);
+		if (g.shaderRenderer == null)
+			g.setShader("data/shader/bicolor.fs", 200, 200);
 
+		g.clear();
 		g.drawFPS();
+
+		g.drawShader(256, (int) (256 + 128.0 * Math.sin(t)), 0);
+
+		t += 0.05;
+
 		g.drawSchoolLogo();
 	}
 
 	public static void main(String args[]) {
-		new DemoShaderSimple(false);
+		new DemoShaderPartialTextureRendering(false);
 	}
 }
