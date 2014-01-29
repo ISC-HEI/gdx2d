@@ -4,12 +4,14 @@ import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.graphics.Polygon;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -62,9 +64,17 @@ public class GdxGraphics implements Disposable
 					   SpriteBatch spriteBatch, OrthographicCamera camera) {
 		this.shapeRenderer = shapeRenderer;	
 		this.spriteBatch = spriteBatch;
-		this.font = new BitmapFont();
 		this.camera = camera;
-			
+
+
+		/**
+		 * Generates the fonts images from the TTF file
+		 */
+		FileHandle robotoF = Gdx.files.internal("font/RobotoSlab-Regular.ttf");
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(robotoF);
+		font = generator.generateFont(15);
+		generator.dispose();
+		
 		// A camera that never moves
 		this.fixedcamera = new OrthographicCamera();
 		fixedcamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -390,7 +400,17 @@ public class GdxGraphics implements Disposable
 		float w = f.getBounds(str).width;
 		drawString((getScreenWidth() - w )/ 2.0f, posY, str, f);
 	}
-	
+
+	/**
+	 * Draws a string in the middle of the screen with a specific font
+	 * @param posY
+	 * @param str
+	 * @param f
+	 */
+	public void drawStringCentered(float posY, String str){
+		float w = font.getBounds(str).width;
+		drawString((getScreenWidth() - w )/ 2.0f, posY, str);
+	}
 	
 	/**
 	 * Draws an image in the background that will not move with the camera
