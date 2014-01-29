@@ -10,8 +10,7 @@ uniform sampler2D bb;
 uniform vec2 resolution;
 float motionblur_size = 3.0;
 
-vec3 thing(vec2 uv, vec2 pos, vec3 color, float rad)
-{
+vec3 thing(vec2 uv, vec2 pos, vec3 color, float rad){
 	return color * (1.0 / distance(uv, pos) * rad);	
 }
 

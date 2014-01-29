@@ -1,5 +1,11 @@
+// The current time
 uniform float time;
-uniform vec2 resolution;
+
+/**
+ * Stores the dimension of the size available for the shader to draw something
+ * It normally set at the beginning, once
+ */ 
+uniform vec2 resolution; 
 
 void main( void ) {	
 	vec2 position = ( gl_FragCoord.xy / resolution.xy );
