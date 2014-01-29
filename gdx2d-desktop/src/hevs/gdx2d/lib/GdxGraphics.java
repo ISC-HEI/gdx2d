@@ -334,6 +334,7 @@ public class GdxGraphics implements Disposable
 	}
 
 	public void drawFilledCircle(float centerX, float centerY, float radius, Color c) {		
+		// TODO Do this with a shader instead of formulas or textures !!
 		// Draw big circles with mathematical formulas
 		if(radius > 100)
 		{
@@ -547,13 +548,20 @@ public class GdxGraphics implements Disposable
 	 * Shaders stuff
 	 ****************************************************/	
 	public void drawShader(){
-		drawShader(getScreenWidth()/4, getScreenHeight()/4, 0);
+		drawShader(getScreenWidth()/2, getScreenHeight()/2, 0f);
 	}
 	
 	public void drawShader(float shaderTime){
-		drawShader(getScreenWidth()/4, getScreenHeight()/4, shaderTime);
+		drawShader(getScreenWidth()/2, getScreenHeight()/2, shaderTime);
 	}
 	
+	/**
+	 * Request shader rendering that passes an uniform value with
+	 * the current rendering location.
+	 * @param posX The value passed to the shader, might be discarded
+	 * @param posY The value passed to the shader, might be discarded
+	 * @param shaderTime The value passed to the shader, might be discarded
+	 */
 	public void drawShader(int posX, int posY, float shaderTime){
 		if(shaderRenderer != null)
 			shaderRenderer.render(posX, posY, shaderTime);
@@ -569,15 +577,28 @@ public class GdxGraphics implements Disposable
 	
 	/**
 	 * Sets a shader that will be drawable
-	 * @param s The path of the shader
+	 * @param s The path of the shader file
 	 */
-	public void setShader(String s) {		
+	public void setShader(String s) {
+		setShader(s, getScreenWidth(), getScreenHeight());
+	}
+	
+	/**
+	 * Sets a shader that will be drawn
+	 * @param s The path of the shader
+	 * @param height The height of the texture to draw the shader on
+	 * @param width The width of the texture to draw the shader on
+	 */
+	public void setShader(String s, int width, int height) {
+		
+		// TODO Allowing multiple shaders would be nice
+		
 		// Dispose of the allocated resources
 		// FIXME Test this
 		if(shaderRenderer != null){
 			shaderRenderer.dispose();
 		}
 		
-		shaderRenderer = new ShaderRenderer(s);		
+		shaderRenderer = new ShaderRenderer(s, width, height);		
 	}
 }

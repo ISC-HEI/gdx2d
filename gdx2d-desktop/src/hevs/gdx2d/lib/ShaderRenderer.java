@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
@@ -18,17 +20,18 @@ import com.badlogic.gdx.utils.Disposable;
  * but should be improved in a future version.
  * 
  * @author Pierre-André Mudry (mui)
- * @version 0.1
+ * @version 0.2
  */
 public class ShaderRenderer implements Disposable{
 	private ShaderProgram shader;
 	private Texture tex;
 	private SpriteBatch batch;
+	private int w, h;
 	
 	// Default vertex shader
 	// TODO Should be in a file, however comes the question on how
 	// to interpolate the string.
-	final String VERT =  
+	private final String VERTEX_SHADER =  
 			"attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n" +	
 		    "attribute vec2 surfacePosAttrib;\n" + 
 			"varying vec2 surfacePosition;\n" +
@@ -39,33 +42,33 @@ public class ShaderRenderer implements Disposable{
 			"	gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" +
 			"}";
 	
+	ShaderRenderer(){
+		this(Gdx.files.internal("data/shader/colorRect.fs"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
 	
 	ShaderRenderer(String shaderFileName){
-		this(Gdx.files.internal(shaderFileName));
-		//fragmentShader = Gdx.files.internal("data/shader/uniform.fs");
-		//fragmentShader = Gdx.files.internal("data/shader/pulse.fs");
-		//fragmentShader = Gdx.files.internal("data/shader/colorRect.fs");
-		//fragmentShader = Gdx.files.internal("data/shader/watermix.fs");
-		//fragmentShader = Gdx.files.internal("data/shader/plasma.fs");
+		this(shaderFileName, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
+
+	ShaderRenderer(String shaderFileName, int width, int height){
+		this(Gdx.files.internal(shaderFileName), width, height);
 		//vertexShader = Gdx.files.internal("data/shader/default.vs");
 	}
-	
-	ShaderRenderer(FileHandle handle){		
+		
+	ShaderRenderer(FileHandle handle, int width, int height){	
+		w = width;
+		h = height;
 		create(handle.readString());
-	}
-	
-	ShaderRenderer(){
-		this(Gdx.files.internal("data/shader/colorRect.fs"));
 	}
 	
 	private void create(String fragmentShader) {
 		//the texture does not matter since we will ignore it anyways
-		tex = new Texture(256, 256, Format.RGBA8888);
+		tex = new Texture(w, h, Format.RGBA8888);
 		
 		//important since we aren't using some uniforms and attributes that SpriteBatch expects
 		ShaderProgram.pedantic = false;
 		
-		shader = new ShaderProgram(VERT, fragmentShader);
+		shader = new ShaderProgram(VERTEX_SHADER, fragmentShader);
 
 		if (!shader.isCompiled()) {
 			Logger.log(shader.getLog());
@@ -76,29 +79,65 @@ public class ShaderRenderer implements Disposable{
 		if (shader.getLog().length()!=0)
 			Logger.log(shader.getLog());
 
-		batch = new SpriteBatch(1000, shader);
+		// Creates a batch with the size of the texture
+		batch = new SpriteBatch(1, shader);
 		batch.setShader(shader);
 
 		shader.begin();
-
-		// Pass resolution to the shader, once
-		shader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
+			// Pass the size of the shader, once
+			shader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());		
 		shader.end();
 	}
 
-	// FIXME Should handle resolution changes (notably for Android)			
+	/**
+	 * Renders the shaders
+	 * @param posX Center, x-position of the texture shader to draw
+	 * @param posY Center, y-position of the texture shader to draw
+	 * @param time The time information to pass to the shader
+	 */
 	public void render(int posX, int posY, float time){
+		// FIXME Should handle resolution changes (notably for Android)
 		batch.begin();
 			// Pass time to the shader
 			shader.setUniformf("time", time);
-			shader.setUniformf("surfacePosition", posX, posY);
-		
 			// Note that LibGDX coordinate system origin is lower-left
-			batch.draw(tex, posX, posY);
+			batch.draw(tex, posX-w/2, posY-h/2);
 		batch.end();
 	}
 	
+	/**
+	 * Sets an uniform pair (key, value) that is passed to the shader
+	 * @param uniform The uniform variable to change
+	 * @param value The value of the variable, float
+	 */
+	public void setUniform(String uniform, float value){
+		batch.begin();
+			shader.setUniformf(uniform, value);
+		batch.end();
+	}
+	
+	/**
+	 * Sets an uniform pair (key, value) that is passed to the shader
+	 * @param uniform The uniform variable to change
+	 * @param value The value of the variable, vec2
+	 */
+	public void setUniform(String uniform, Vector2 values){
+		batch.begin();
+			shader.setUniformf(uniform, values);
+		batch.end();
+	}
+	
+	/**
+	 * Sets an uniform pair (key, value) that is passed to the shader
+	 * @param uniform The uniform variable to change
+	 * @param value The value of the variable, vec3
+	 */
+	public void setUniform(String uniform, Vector3 values){
+		batch.begin();
+			shader.setUniformf(uniform, values);
+		batch.end();
+	}
+		
 	/**
 	 * Release the used resources properly
 	 */
