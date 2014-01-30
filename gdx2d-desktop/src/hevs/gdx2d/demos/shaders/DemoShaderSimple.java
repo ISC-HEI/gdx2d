@@ -28,7 +28,7 @@ public class DemoShaderSimple extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if(g.shaderRenderer == null)
-			g.setShader("data/shader/colorRect.fs");
+			g.setShader("data/shader/colorRect.fp");
 		
 		g.clear();
 		

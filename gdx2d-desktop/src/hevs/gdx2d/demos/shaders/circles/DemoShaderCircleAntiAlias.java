@@ -47,7 +47,7 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
 		if (g.shaderRenderer == null) {
-			g.setShader("data/shader/circles/circle_aa.fs");
+			g.setShader("data/shader/circles/circle_aa.fp");
 			g.shaderRenderer.setUniform("radius", 30);
 		}
 

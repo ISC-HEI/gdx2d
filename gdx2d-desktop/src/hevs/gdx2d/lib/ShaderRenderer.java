@@ -19,8 +19,8 @@ import com.badlogic.gdx.utils.Disposable;
  * TODO The interface is rather basic as of now
  * but should be improved in a future version.
  * 
- * @author Pierre-André Mudry (mui)
- * @version 0.2
+ * @author Pierre-André Mudry
+ * @version 0.3
  */
 public class ShaderRenderer implements Disposable{
 	private ShaderProgram shader;
@@ -43,7 +43,7 @@ public class ShaderRenderer implements Disposable{
 			"}";
 	
 	ShaderRenderer(){
-		this(Gdx.files.internal("data/shader/colorRect.fs"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this(Gdx.files.internal("data/shader/colorRect.fp"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
 	ShaderRenderer(String shaderFileName){
@@ -71,13 +71,13 @@ public class ShaderRenderer implements Disposable{
 		shader = new ShaderProgram(VERTEX_SHADER, fragmentShader);
 
 		if (!shader.isCompiled()) {
-			Logger.log(shader.getLog());
+			Logger.log("ShaderRenderer - " + shader.getLog());
 			// FIXME This should call the proper gdx2 method to exit
 			System.exit(0);
 		}
 		
 		if (shader.getLog().length()!=0)
-			Logger.log(shader.getLog());
+			Logger.log("ShaderRenderer - " + shader.getLog());
 
 		// Creates a batch with the size of the texture
 		batch = new SpriteBatch(1, shader);
@@ -147,5 +147,4 @@ public class ShaderRenderer implements Disposable{
 		shader.dispose();
 		tex.dispose();
 	}
-	
 }
