@@ -7,14 +7,14 @@ uniform vec2 mouse;
 uniform float radius;
 uniform float time;
 
-void main() {
+void main() {	
+	float dist = distance(gl_FragCoord.xy, mouse.xy);	
 	vec2 position = gl_FragCoord.xy / resolution.xy;
-	float dist = distance(position, mouse.xy / resolution.xy);
 
 	// Change the radius with time
-	if(dist > (abs(sin(time) * radius) + 0.02)) 
+	if(dist > (abs(sin(time) * radius) + 30)) 
 		discard;	
 
-	// Interpolate nicely color
+	// Nicely interpolate the color of the circle
 	gl_FragColor = vec4(smoothstep(0.0,1.0,position.y), smoothstep(0.0,1.0,position.x), 1.0, 1.0);  	
 }
