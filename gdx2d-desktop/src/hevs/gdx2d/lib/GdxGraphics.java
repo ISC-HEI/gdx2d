@@ -415,7 +415,7 @@ public class GdxGraphics implements Disposable
 	/**
 	 * Draws an image in the background that will not move with the camera
 	 * @param t 
-	 * @param i x coordinate in the screen space
+	 * @param currentMatrix x coordinate in the screen space
 	 * @param j y coordinate in the screen space
 	 */
 	public void drawBackground(BitmapImage t, float i, float j){
@@ -425,7 +425,7 @@ public class GdxGraphics implements Disposable
 	/**
 	 * Draws a texture in background that will not move with the camera
 	 * @param t
-	 * @param i x coordinate in the screen space
+	 * @param currentMatrix x coordinate in the screen space
 	 * @param j y coordinate in the screen space
 	 */
 	public void drawBackground(Texture t, float i, float j){
@@ -618,7 +618,8 @@ public class GdxGraphics implements Disposable
 		if(shaderRenderer != null){
 			shaderRenderer.dispose();
 		}
-		
+				
 		shaderRenderer = new ShaderRenderer(s, width, height);		
 	}
+		
 }

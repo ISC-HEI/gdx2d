@@ -3,22 +3,23 @@
 	precision mediump float;
 #endif
 
-//our attributes
-attribute vec4 a_position;
-attribute vec2 surfacePosAttrib;
-
-// attribute vec4 a_color; // Not really used
-
-//our camera matrix
+//combined projection and view matrix
 uniform mat4 u_projTrans;
 
-// varying vec4 vColor; // Not really used
+//"in" attributes from our Java
+attribute vec4 a_position;
+attribute vec2 a_texCoord0;
+attribute vec4 a_color;
+attribute vec2 surfacePosAttrib;
 
-varying vec2 surfacePosition;
+//"out" varyings to our fragment shader
+varying vec4 vColor;
+varying vec2 vTexCoord;
+varying vec2 vSurfacePosition;
 
-void main()
-{    
-	// vColor = a_color; // Not really used
-	surfacePosition = surfacePosAttrib;
-	gl_Position = u_projTrans * vec4(a_position.xy, 0.0, 1.0);
+void main() {
+        vColor = a_color;
+        vTexCoord = a_texCoord0;
+        vSurfacePosition = surfacePosAttrib;
+        gl_Position = u_projTrans * a_position;
 }

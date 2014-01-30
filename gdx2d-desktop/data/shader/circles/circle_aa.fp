@@ -1,6 +1,10 @@
 // An anti-aliased circled shader, made with the circle equation
 // Pierre-André Mudry, 2014
 
+#ifdef GL_ES
+	precision mediump float;
+#endif
+
 uniform vec2 resolution;
 uniform vec2 mouse;
 uniform float radius;
@@ -16,7 +20,5 @@ void main() {
 	// see for instance http://www.geeks3d.com/20130705/shader-library-circle-disc-fake-sphere-in-glsl-opengl-glslhacker/2/	
 	gl_FragColor = mix(vec4(.70, .50, .99, 1.0), 
 					   vec4(0, 0, 0, 1), 
-					   smoothstep(r, r + antialias_distance, dist));
-					   
-	
+					   smoothstep(r, r + antialias_distance, dist));	
 }
