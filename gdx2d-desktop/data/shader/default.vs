@@ -1,19 +1,24 @@
-// A default vertex shader, original from libgdx
+// A default vertex shader, adapted from the original from libgdx
+#ifdef GL_ES
+	precision mediump float;
+#endif
 
-attribute vec3 position;
-attribute vec3 normal;
+//our attributes
+attribute vec4 a_position;
+attribute vec2 surfacePosAttrib;
 
-uniform mat3 normalMatrix;
-uniform mat4 modelViewMatrix;
-uniform mat4 projectionMatrix;
+// attribute vec4 a_color; // Not really used
 
-varying vec3 fNormal;
-varying vec3 fPosition;
+//our camera matrix
+uniform mat4 u_projTrans;
+
+// varying vec4 vColor; // Not really used
+
+varying vec2 surfacePosition;
 
 void main()
-{
-  fNormal = normalize(normalMatrix * normal);
-  vec4 pos = modelViewMatrix * vec4(position, 1.0);
-  fPosition = pos.xyz;
-  gl_Position = projectionMatrix * pos;
+{    
+	// vColor = a_color; // Not really used
+	surfacePosition = surfacePosAttrib;
+	gl_Position = u_projTrans * vec4(a_position.xy, 0.0, 1.0);
 }

@@ -56,7 +56,7 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 		g.shaderRenderer.setUniform("mouse", new Vector2(c.x, c.y));
 
 		// Update time
-		t += 2*Gdx.graphics.getDeltaTime();
+		t += 3*Gdx.graphics.getDeltaTime();
 		g.drawShader(t);
 
 		g.drawFPS();

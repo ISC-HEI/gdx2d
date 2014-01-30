@@ -28,22 +28,23 @@ public class ShaderRenderer implements Disposable{
 	private SpriteBatch batch;
 	private int w, h;
 	
+	private FileHandle vertexShader;
 	// Default vertex shader
 	// TODO Should be in a file, however comes the question on how
 	// to interpolate the string.
-	private final String VERTEX_SHADER =  
-			"attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n" +	
-		    "attribute vec2 surfacePosAttrib;\n" + 
-			"varying vec2 surfacePosition;\n" +
-			"uniform mat4 u_projTrans;\n" + 
-			" \n" + 
-			"void main() {\n" +  
-			"   surfacePosition = surfacePosAttrib;\n"+
-			"	gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" +
-			"}";
+//	private final String VERTEX_SHADER =  
+//			"attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n" +	
+//		    "attribute vec2 surfacePosAttrib;\n" + 
+//			"varying vec2 surfacePosition;\n" +
+//			"uniform mat4 u_projTrans;\n" + 
+//			" \n" + 
+//			"void main() {\n" +  
+//			"   surfacePosition = surfacePosAttrib;\n"+
+//			"	gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" +
+//			"}";
 	
 	ShaderRenderer(){
-		this(Gdx.files.internal("data/shader/colorRect.fp"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this(Gdx.files.internal("data/shader/colorRect.fp"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());		
 	}
 	
 	ShaderRenderer(String shaderFileName){
@@ -51,24 +52,24 @@ public class ShaderRenderer implements Disposable{
 	}
 
 	ShaderRenderer(String shaderFileName, int width, int height){
-		this(Gdx.files.internal(shaderFileName), width, height);
-		//vertexShader = Gdx.files.internal("data/shader/default.vs");
+		this(Gdx.files.internal(shaderFileName), width, height);		
 	}
 		
 	ShaderRenderer(FileHandle handle, int width, int height){	
 		w = width;
 		h = height;
-		create(handle.readString());
+		vertexShader = Gdx.files.internal("data/shader/default.vs");
+		create(handle.readString(), vertexShader.readString());
 	}
 	
-	private void create(String fragmentShader) {
+	private void create(String fragmentShader, String vertexShader) {
 		//the texture does not matter since we will ignore it anyways
 		tex = new Texture(w, h, Format.RGBA8888);
 		
 		//important since we aren't using some uniforms and attributes that SpriteBatch expects
 		ShaderProgram.pedantic = false;
-		
-		shader = new ShaderProgram(VERTEX_SHADER, fragmentShader);
+				
+		shader = new ShaderProgram(vertexShader, fragmentShader);
 
 		if (!shader.isCompiled()) {
 			Logger.log("ShaderRenderer - " + shader.getLog());
