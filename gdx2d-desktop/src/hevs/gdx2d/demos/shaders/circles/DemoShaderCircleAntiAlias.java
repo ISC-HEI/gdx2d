@@ -36,7 +36,7 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 
 	@Override
 	public void onInit() {
-		this.setTitle("Mouse shader interactions #2, mui 2013");
+		this.setTitle("Antialiasing of a circle using shaders, mui 2013");
 		c = new Circle(this.getWindowWidth() / 2, this.getWindowHeight() / 2);
 		Logger.log("Press mouse anywhere to move the circle to that location");
 	}
@@ -48,7 +48,7 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 		// Sets some values, once
 		if (g.shaderRenderer == null) {
 			g.setShader("data/shader/circles/circle_aa.fs");
-			g.shaderRenderer.setUniform("radius", 0.2f);
+			g.shaderRenderer.setUniform("radius", 30);
 		}
 
 		g.clear();
@@ -56,7 +56,7 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 		g.shaderRenderer.setUniform("mouse", new Vector2(c.x, c.y));
 
 		// Update time
-		t += Gdx.graphics.getDeltaTime();
+		t += 2*Gdx.graphics.getDeltaTime();
 		g.drawShader(t);
 
 		g.drawFPS();

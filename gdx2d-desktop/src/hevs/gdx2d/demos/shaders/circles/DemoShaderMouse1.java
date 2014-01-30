@@ -1,27 +1,15 @@
 package hevs.gdx2d.demos.shaders.circles;
 
-import com.badlogic.gdx.math.Vector2;
-
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
 /**
- * 
- * Shows how to interwind shaders and normal GDX operations
+ * Draws a simple, yet ugly, circle. This uses a shader.
  * 
  * @author Pierre-André Mudry (mui)
- * @version 0.1
+ * @version 0.2
  */
 public class DemoShaderMouse1 extends PortableApplication {
-
-	class Circle {
-		int x, y;
-
-		Circle(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
 
 	Circle c;
 
@@ -40,28 +28,14 @@ public class DemoShaderMouse1 extends PortableApplication {
 		// Sets some values, once
 		if (g.shaderRenderer == null) {
 			g.setShader("data/shader/circles/circle1.fs");
+			// Pass the some information to the shader.
+			g.shaderRenderer.setUniform("center", c.pos);
 		}
 
 		g.clear();
-
-		// Pass the mouse position to the shader, always
-		g.shaderRenderer.setUniform("mouse", new Vector2(c.x, c.y));
 		g.drawShader();
-
 		g.drawFPS();
 		g.drawSchoolLogo();
-	}
-
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);			
-		c = new Circle(x,y);
-	}
-
-	@Override
-	public void onDrag(int x, int y) {
-		super.onDrag(x, y);
-		c = new Circle(x, y);
 	}
 
 	public static void main(String args[]) {

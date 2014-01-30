@@ -1,29 +1,19 @@
 package hevs.gdx2d.demos.shaders.circles;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
 
+import com.badlogic.gdx.Gdx;
+
 /**
- * 
- * Shows how to interwind shaders and normal GDX operations
+ * A circle that moves with the mouse, giggles and 
+ * has a nice color.
  * 
  * @author Pierre-André Mudry (mui)
- * @version 0.1
+ * @version 0.3
  */
 public class DemoShaderMouse3 extends PortableApplication {
-
-	class Circle {
-		int x, y;
-
-		Circle(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
 
 	Circle c;
 
@@ -45,13 +35,13 @@ public class DemoShaderMouse3 extends PortableApplication {
 		// Sets some values, once
 		if (g.shaderRenderer == null) {
 			g.setShader("data/shader/circles/circle3.fs");
-			g.shaderRenderer.setUniform("radius", 0.05f);
+			g.shaderRenderer.setUniform("radius", 30f);
 		}
 
 		g.clear();
 
 		// Pass the mouse position to the shader, always
-		g.shaderRenderer.setUniform("mouse", new Vector2(c.x, c.y));
+		g.shaderRenderer.setUniform("mouse", c.pos);
 		t += 4*Gdx.graphics.getDeltaTime();
 		g.drawShader(t);
 
