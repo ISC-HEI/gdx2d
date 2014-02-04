@@ -6,7 +6,6 @@ import hevs.gdx2d.lib.PortableApplication;
 import com.badlogic.gdx.Gdx;
 
 /**
- * 
  * Shows how to interwind shaders and normal GDX operations
  * 
  * @author Pierre-André Mudry (mui)

@@ -6,7 +6,7 @@
 // IN
 varying vec4 vColor;
 varying vec2 vTexCoord;
-uniform sampler2D u_texture;
+uniform sampler2D texture0;
 uniform int matrix;
 
 const float width = 256.0;
@@ -51,7 +51,7 @@ void main(void)
       // fetch the 3x3 neighbourhood and use the RGB vector's length as intensity value
       for (int i=0; i<3; i++){
         for (int j=0; j<3; j++) {
-          sample = texture2D(u_texture, vTexCoord.xy + vec2(i-1,j-1)/vec2(width, height)).rgb;
+          sample = texture2D(texture0, vTexCoord.xy + vec2(i-1,j-1)/vec2(width, height)).rgb;
           I[i][j] = length(sample); //intensity (or illumination)
           R[i][j] = sample.r; 
           G[i][j] = sample.g;
@@ -81,7 +81,7 @@ void main(void)
   }
    else if( vTexCoord.x >0.51 )
    {
-        sum = texture2D(u_texture, vTexCoord.xy);
+        sum = texture2D(texture0, vTexCoord.xy);
    }
    else // Draw a red line
    {

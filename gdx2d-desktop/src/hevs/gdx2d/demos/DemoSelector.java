@@ -75,9 +75,7 @@ public class DemoSelector extends JFrame {
 		tests.put("Lights", "lights.DemoLight");
 		tests.put("Rotating lights", "lights.DemoRotateLight");
 		tests.put("Shaders test", "shaders.DemoShaderSimple");
-		tests.put("Shaders particles", "shaders.DemoShaderParticles");
-		tests.put("Shaders anti-aliased circle", "shaders.circles.DemoShaderCircleAntiAlias");
-		
+		tests.put("Shaders demos", "shaders.DemoAllShaders");		
 
 		// Populate the window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

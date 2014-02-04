@@ -66,7 +66,6 @@ public class GdxGraphics implements Disposable
 		this.spriteBatch = spriteBatch;
 		this.camera = camera;
 
-
 		/**
 		 * Generates the fonts images from the TTF file
 		 */
@@ -611,10 +610,9 @@ public class GdxGraphics implements Disposable
 	 */
 	public void setShader(String s, int width, int height) {
 		
-		// TODO Allowing multiple shaders would be nice
+		// TODO Allowing multiple shaders at once would be nice
 		
 		// Dispose of the allocated resources
-		// FIXME Test this
 		if(shaderRenderer != null){
 			shaderRenderer.dispose();
 		}

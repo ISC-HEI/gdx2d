@@ -3,7 +3,9 @@
 //I have no idea what is it
 //Looks cool tho
 
-precision highp float;
+#ifdef GL_ES
+	precision highp float;
+#endif
 
 uniform float time;
 uniform sampler2D bb;

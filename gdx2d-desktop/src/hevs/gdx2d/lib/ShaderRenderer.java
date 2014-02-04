@@ -4,10 +4,11 @@ import hevs.gdx2d.lib.utils.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
@@ -24,7 +25,8 @@ import com.badlogic.gdx.utils.Disposable;
  */
 public class ShaderRenderer implements Disposable{
 	private ShaderProgram shader;
-	private Texture tex;
+	private Texture tex[] = new Texture[10];
+	private int textureCount = 0;	
 	private SpriteBatch batch;
 	private int w, h;
 	
@@ -46,11 +48,10 @@ public class ShaderRenderer implements Disposable{
 		w = width;
 		h = height;
 		vertexShader = Gdx.files.internal("data/shader/default.vs");
-		create(handle.readString(), vertexShader.readString());
+		create(handle.readString(), vertexShader.readString());			
 		
 		String[] att = shader.getAttributes();
-		String[] unif = shader.getUniforms();
-		
+		String[] unif = shader.getUniforms();	
 		System.out.println("Shader uniforms are :");
 		for (String string : unif) {			
 			System.out.println("\t" + string);
@@ -64,13 +65,13 @@ public class ShaderRenderer implements Disposable{
 	
 	private void create(String fragmentShader, String vertexShader) {
 		//the texture does not matter since we will ignore it anyways
-		//tex = new Texture(w, h, Format.RGBA8888);
-		tex = new Texture(Gdx.files.internal("data/images/back1_512.png"));
+		tex[0] = new Texture(w, h, Format.RGBA8888);
+				
 		//important since we aren't using some uniforms and attributes that SpriteBatch expects
 		ShaderProgram.pedantic = false;
-				
+					
 		shader = new ShaderProgram(vertexShader, fragmentShader);
-
+		
 		if (!shader.isCompiled()) {
 			Logger.log("ShaderRenderer - " + shader.getLog());
 			// FIXME This should call the proper gdx2 method to exit
@@ -102,8 +103,7 @@ public class ShaderRenderer implements Disposable{
 			// Pass time to the shader
 			shader.setUniformf("time", time);
 			// Note that LibGDX coordinate system origin is lower-left
-			//batch.draw(tex2, 0, 0);						
-			batch.draw(tex, posX-w/2, posY-h/2);
+			batch.draw(tex[0], posX-w/2, posY-h/2);
 		batch.end();
 	}
 	
@@ -161,13 +161,66 @@ public class ShaderRenderer implements Disposable{
 			shader.setUniformf(uniform, values);
 		batch.end();
 	}
-
-	public void setTexture(FileHandle h){
-		tex = new Texture(h);
+	
+	public void setTexture(FileHandle h, int id){
+		tex[id] = new Texture(h);	
 	}
 	
-	public void setTexture(String texturePath){
-		setTexture(Gdx.files.internal(texturePath));
+	public void setTexture(String texturePath, int id){
+		setTexture(Gdx.files.internal(texturePath), id);
+	}	
+	
+	public int addTexture(String texturePath){		
+		try{
+			if(textureCount == 9){
+				throw new Exception("Out of texture space!");
+			}
+			
+			textureCount++;
+			tex[textureCount]= new Texture(Gdx.files.internal(texturePath));
+			
+			// Transmit the texture as an uniform to the shader
+			shader.begin();
+				shader.setUniformi("texture"+textureCount, textureCount);
+			shader.end();
+						
+			//bind mask to glActiveTexture(GL_TEXTUREXXX)
+			tex[textureCount].bind(textureCount);
+			
+			//now we need to reset glActiveTexture to zero!!!! since sprite batch does not do this for us
+			Gdx.gl.glActiveTexture(GL10.GL_TEXTURE0);
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return textureCount;
+	}
+	
+	public void addTextureBuffer(){		
+		try{
+			if(textureCount == 9){
+				throw new Exception("Out of texture space!");
+			}
+			
+			textureCount++;
+			
+			tex[textureCount]= new Texture(w, h, Format.RGBA8888);
+			
+			shader.begin();
+				shader.setUniformi("texture"+textureCount, textureCount);
+			shader.end();
+			
+			//bind mask to glActiveTexture(GL_TEXTUREXXX)
+			tex[textureCount].bind(textureCount);
+			
+			//now we need to reset glActiveTexture to zero!!!! since sprite batch does not do this for us
+			Gdx.gl.glActiveTexture(GL10.GL_TEXTURE0);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}					
 	}
 	
 	/**
@@ -177,6 +230,8 @@ public class ShaderRenderer implements Disposable{
 	public void dispose() {
 		batch.dispose();
 		shader.dispose();
-		tex.dispose();
+		
+		for(int i = 0; i < textureCount; i++)
+			tex[i].dispose();
 	}
 }

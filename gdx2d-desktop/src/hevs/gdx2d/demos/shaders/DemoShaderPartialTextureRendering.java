@@ -5,7 +5,7 @@ import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * Shows how to interwind shaders and normal GDX operations
- * 
+ * TODO Regression does not work anymore
  * @author Pierre-André Mudry (mui)
  * @version 0.1
  */

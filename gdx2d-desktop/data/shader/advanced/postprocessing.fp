@@ -1,10 +1,4 @@
-// Creates a shadow circle in the middle of a texture
-// Code inspired (parts have been copied as well) from the incredible tutorials 
-// from https://gist.github.com/mattdesl/4254954
-
-uniform sampler2D texture0;
-uniform sampler2D texture1; // The first added texture
-
+uniform sampler2D u_texture;
 uniform vec2 resolution;
 uniform float time;
 
@@ -17,7 +11,7 @@ const float SOFTNESS = 0.25;
 
 void main() {
 	//sample the texture
-	vec4 texColor = texture2D(texture1, vTexCoord);
+	vec4 texColor = texture2D(u_texture, vTexCoord);
 		
 	// determines the center of the screen
 	vec2 center = (gl_FragCoord.xy / resolution.xy) - vec2(0.5, 0.5);
