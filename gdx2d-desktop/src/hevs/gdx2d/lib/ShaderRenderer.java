@@ -5,6 +5,7 @@ import hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.ScreenUtils;
 
 /**
  * Renders things using a GLSL shader program included
@@ -50,17 +52,17 @@ public class ShaderRenderer implements Disposable{
 		vertexShader = Gdx.files.internal("data/shader/default.vs");
 		create(handle.readString(), vertexShader.readString());			
 		
-		String[] att = shader.getAttributes();
-		String[] unif = shader.getUniforms();	
-		System.out.println("Shader uniforms are :");
-		for (String string : unif) {			
-			System.out.println("\t" + string);
-		}
-		
-		System.out.println("Shader attributes are :");
-		for (String string : att) {			
-			System.out.println("\t" + string);
-		}
+//		String[] att = shader.getAttributes();
+//		String[] unif = shader.getUniforms();	
+//		System.out.println("Shader uniforms are :");
+//		for (String string : unif) {			
+//			System.out.println("\t" + string);
+//		}
+//		
+//		System.out.println("Shader attributes are :");
+//		for (String string : att) {			
+//			System.out.println("\t" + string);
+//		}
 	}
 	
 	private void create(String fragmentShader, String vertexShader) {
@@ -110,11 +112,22 @@ public class ShaderRenderer implements Disposable{
 	/**
 	 * Sets an uniform pair (key, value) that is passed to the shader
 	 * @param uniform The uniform variable to change
-	 * @param value The value of the variable, float
+	 * @param value The value of the variable, int
 	 */
 	public void setUniform(String uniform, int value){
 		batch.begin();
 			shader.setUniformi(uniform, value);
+		batch.end();
+	}
+	
+	/**
+	 * Sets an uniform pair (key, value) that is passed to the shader
+	 * @param uniform The uniform variable to change
+	 * @param value The value of the variable, boolean
+	 */
+	public void setUniform(String uniform, boolean value){		
+		batch.begin();
+			shader.setUniformi(uniform, value ? 1 : 0);
 		batch.end();
 	}
 	
@@ -162,17 +175,9 @@ public class ShaderRenderer implements Disposable{
 		batch.end();
 	}
 	
-	public void setTexture(FileHandle h, int id){
-		tex[id] = new Texture(h);	
-	}
-	
-	public void setTexture(String texturePath, int id){
-		setTexture(Gdx.files.internal(texturePath), id);
-	}	
-	
-	public int addTexture(String texturePath){		
+	public int addTexture(String texturePath, String textureIdentifier){		
 		try{
-			if(textureCount == 9){
+			if(textureCount == 20){
 				throw new Exception("Out of texture space!");
 			}
 			
@@ -181,14 +186,16 @@ public class ShaderRenderer implements Disposable{
 			
 			// Transmit the texture as an uniform to the shader
 			shader.begin();
-				shader.setUniformi("texture"+textureCount, textureCount);
+				shader.setUniformi(textureIdentifier, textureCount);
 			shader.end();
-						
+			
+			Gdx.graphics.getGL20().glActiveTexture(GL20.GL_TEXTURE0 + textureCount);
 			//bind mask to glActiveTexture(GL_TEXTUREXXX)
 			tex[textureCount].bind(textureCount);
 			
-			//now we need to reset glActiveTexture to zero!!!! since sprite batch does not do this for us
-			Gdx.gl.glActiveTexture(GL10.GL_TEXTURE0);
+			//now we need to reset glActiveTexture to zero!!!! 
+			// since sprite batch does not do this for us
+			Gdx.graphics.getGL20().glActiveTexture(GL10.GL_TEXTURE0);
 			
 		}
 		catch(Exception e){
@@ -233,5 +240,9 @@ public class ShaderRenderer implements Disposable{
 		
 		for(int i = 0; i < textureCount; i++)
 			tex[i].dispose();
+	}
+
+	public void setTexture(Texture colorBufferTexture) {
+		tex[0] = colorBufferTexture;
 	}
 }

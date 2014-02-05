@@ -29,9 +29,9 @@ public class DemoAllShaders extends PortableApplication {
 		mouse.y = this.getWindowHeight() / 2;
 	}
 
-	public final String[] shaders = { "galaxy.fp", "joyDivision.fp",
-			"colorRect.fp", "gradient.fp", "particles.fp", "pulse.fp",
-			"circles/circle3.fp", "advanced/texture.fp" };
+	public final String[] shaders = {"underwater.fp", "galaxy.fp", "joyDivision.fp",
+			"colorRect.fp", "plasma.fp", "gradient.fp", "particles.fp", "pulse.fp",
+			"circles/circle3.fp", "advanced/vignette.fp" };
 
 	private float time = 0;
 	private int current = 0;
@@ -43,12 +43,12 @@ public class DemoAllShaders extends PortableApplication {
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.shaderRenderer == null) {
 			g.setShader("data/shader/" + shaders[current]);
-			g.shaderRenderer.addTexture("data/images/lena.png");
+			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");
 		}
 
 		if (current != old) {
 			g.setShader("data/shader/" + shaders[current]);
-			g.shaderRenderer.addTexture("data/images/lena.png");
+			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");
 			Logger.log("Current shader set to " + shaders[current]);
 			old = current;
 		}

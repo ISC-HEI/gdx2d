@@ -28,7 +28,7 @@ public class DemoConvolution extends PortableApplication{
 	public void onGraphicRender(GdxGraphics g) {
 		if(g.shaderRenderer == null){
 			g.setShader("data/shader/advanced/convolution.fp");
-			g.shaderRenderer.setTexture("data/images/lena.png", 0);	
+			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");	
 		}
 		
 		// TODO Improve this, pass the matrix directly

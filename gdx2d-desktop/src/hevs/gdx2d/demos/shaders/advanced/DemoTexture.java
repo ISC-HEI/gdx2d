@@ -30,16 +30,16 @@ public class DemoTexture extends PortableApplication{
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if(g.shaderRenderer == null){
-			g.setShader("data/shader/advanced/texture.fp");
-			g.shaderRenderer.addTexture("data/images/lena.png");				
+			g.setShader("data/shader/advanced/vignette.fp");
+			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");				
 		}			
 		
 		g.clear();
 		t+= Gdx.graphics.getDeltaTime();			
+		g.drawShader(t);		
 		
 		g.drawFPS();		
 		g.drawSchoolLogo();
-		g.drawShader(t);		
 	}
 	
 	public void onClick(int x, int y, int button) {
