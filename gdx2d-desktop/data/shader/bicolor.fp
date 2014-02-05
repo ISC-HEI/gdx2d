@@ -1,9 +1,4 @@
 // A simple gradient that spans the entire resolution
-
-/**
- * Stores the dimension of the size of the whole screen.
- * It normally set at the beginning, once
- */
 uniform vec2 resolution;
 varying vec2 vSurfacePosition;
 

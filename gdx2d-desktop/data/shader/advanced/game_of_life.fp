@@ -28,7 +28,7 @@ precision highp float;
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
-uniform sampler2D texture0;
+uniform sampler2D texture1;
 
 //---------------------------------------------------------
 // GLOBALS
@@ -67,7 +67,7 @@ int countNeighbors(vec2 p) {
   for (int y=-KERNEL_R; y<=KERNEL_R; ++y)
   for (int x=-KERNEL_R; x<=KERNEL_R; ++x) {
     vec2 spoint = uvUnit*vec2(float(x),float(y));
-    if ( texture2D(texture0, uv+spoint).a > 0.0 )
+    if ( texture2D(texture1, uv+spoint).a > 0.0 )
       ++count;
   }
   
@@ -78,7 +78,7 @@ int countNeighbors(vec2 p) {
 }
 
 float gameStep() {
-  isLive = texture2D(texture0, uv).a > 0.0;
+  isLive = texture2D(texture1, uv).a > 0.0;
   int neighbors = countNeighbors(uv);
   
   if (isLive) {
@@ -99,7 +99,7 @@ float gameStep() {
 
 vec3 ghosting() {
   #define DECAY 0.90
-  return DECAY * texture2D(texture0, uv).rgb;
+  return DECAY * texture2D(texture1, uv).rgb;
 }
 
 //---------------------------------------------------------

@@ -11,10 +11,13 @@ varying vec4 vColor;
 varying vec2 vTexCoord;
 
 void main() {
-	vec3 sample = (gl_FragCoord.xy / resolution.xy).y > 0.5? texture2D(texture0, vTexCoord.xy).gbb : texture2D(texture1, vTexCoord.xy).rgb;
-	
-	
-	//final color
+	vec3 sample;
+	if(textureChosen == 1)
+		sample = (gl_FragCoord.xy / resolution.xy).y > 0.5? texture2D(texture0, vTexCoord.xy).rgb : texture2D(texture1, vTexCoord.xy).rgb;
+	else{
+		sample = (gl_FragCoord.xy / resolution.xy).y > 0.5? texture2D(texture1, vTexCoord.xy).rgb : texture2D(texture0, vTexCoord.xy).rgb;
+	}
+
 	gl_FragColor = vec4(sample, 1.0);
 }
 
