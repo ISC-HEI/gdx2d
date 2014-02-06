@@ -29,9 +29,10 @@ public class DemoAllShaders extends PortableApplication {
 		mouse.y = this.getWindowHeight() / 2;
 	}
 
-	public final String[] shaders = {"underwater.fp", "galaxy.fp", "joyDivision.fp",
-			"colorRect.fp", "plasma.fp", "gradient.fp", "particles.fp", "pulse.fp",
-			"circles/circle3.fp", "advanced/vignette.fp" };
+	public final String[] shaders = { "underwater.fp", "galaxy.fp",
+			"joyDivision.fp", "stars.fp", "colorRect.fp", "plasma.fp", "gradient.fp",
+			"particles.fp", "pulse.fp", "circles/circle3.fp",
+			"advanced/vignette.fp" };
 
 	private float time = 0;
 	private int current = 0;
@@ -57,12 +58,14 @@ public class DemoAllShaders extends PortableApplication {
 
 		// Draws the shader
 		g.shaderRenderer.setUniform("mouse", mouse);
+
 		time += Gdx.graphics.getDeltaTime();
 		g.drawShader(time);
 
 		g.drawFPS();
-		g.drawStringCentered((int) (0.98 * g.getScreenHeight()), "Shader demo \""
-				+ shaders[current] + "\" " + (current+1)+ "/" + (shaders.length));
+		g.drawStringCentered((int) (0.98 * g.getScreenHeight()),
+				"Shader demo \"" + shaders[current] + "\" " + (current + 1)
+						+ "/" + (shaders.length));
 		g.drawSchoolLogo();
 	}
 
