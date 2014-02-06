@@ -63,7 +63,7 @@ public class DemoPostProcessing extends PortableApplication{
 		g.shaderRenderer.setUniform("enabled", shaderEnabled);
 		
 		time+= Gdx.graphics.getDeltaTime();			
-		g.drawShader(time);		
+		g.drawShader(time);
 	}
 	
 	public void onClick(int x, int y, int button) {

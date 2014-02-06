@@ -2,7 +2,6 @@ package hevs.gdx2d.demos.shaders.advanced.inprogress;
 
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.utils.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -26,7 +25,6 @@ public class DemoBackbuffer extends PortableApplication {
 	@Override
 	public void onInit() {
 		this.setTitle("Backbuffer - mui 2013");
-		Logger.log("Click to change shader");
 		fbo = new FrameBuffer(Format.RGBA8888, this.getWindowWidth(), this.getWindowHeight(), false);
 		mouse = new Vector2(0, 0);
 	}
@@ -37,28 +35,33 @@ public class DemoBackbuffer extends PortableApplication {
 
 	// Used for off screen rendering
 	FrameBuffer fbo;
-
 	Texture t;
+	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.shaderRenderer == null) {
-			g.setShader("data/shader/advanced/tbd/watermix.fp");
+			g.setShader("data/shader/advanced/tbd/test.fp");
+			t = new Texture(512, 512, Format.RGB888);
+			g.shaderRenderer.addTexture(t, "backbuffer");
 		}
 		
-		t = fbo.getColorBufferTexture();
-
 		fbo.begin();
-			g.clear();
-			g.drawSchoolLogo();
-			g.drawFilledCircle(256, 256, 20, Color.BLUE);
-			g.drawFilledCircle(0, 0, 20, Color.BLUE);
-			g.drawFilledCircle(400, 400, 20, Color.BLUE);
-			g.spriteBatch.draw(t, 256, 256);
-			g.drawShader(time);
+			g.clear();			
+//			g.drawFilledCircle(256, 256, 20, Color.RED);
+//			g.drawFilledCircle(0, 0, 20, Color.GREEN);
+			g.drawFilledCircle(400, 400, 20, Color.YELLOW);
+//			g.drawSchoolLogo();
+			g.spriteBatch.flush();
 		fbo.end();
 
 		// Copy the offscreen buffer to the displayed bufer
-		g.shaderRenderer.setTexture(fbo.getColorBufferTexture(),0);
+		t = fbo.getColorBufferTexture();
+		t.bind(1);
+		//g.shaderRenderer.setTexture(t, 1);
+
+//		g.clear();
+//		g.spriteBatch.draw(t, 0, 0);
+		
 		time += Gdx.graphics.getDeltaTime();
 		g.drawShader(time);
 	}
