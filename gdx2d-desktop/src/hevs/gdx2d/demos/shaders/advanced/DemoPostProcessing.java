@@ -59,7 +59,7 @@ public class DemoPostProcessing extends PortableApplication{
 		fbo.end();
 		
 		// Copy the offscreen buffer to the displayed bufer
-		g.shaderRenderer.setTexture(fbo.getColorBufferTexture());
+		g.shaderRenderer.setTexture(fbo.getColorBufferTexture(), 0);
 		g.shaderRenderer.setUniform("enabled", shaderEnabled);
 		
 		time+= Gdx.graphics.getDeltaTime();			

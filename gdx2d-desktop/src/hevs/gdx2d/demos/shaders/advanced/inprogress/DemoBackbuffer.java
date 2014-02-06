@@ -5,7 +5,9 @@ import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -35,22 +37,30 @@ public class DemoBackbuffer extends PortableApplication {
 
 	// Used for off screen rendering
 	FrameBuffer fbo;
-	
+
+	Texture t;
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.shaderRenderer == null) {
-			g.setShader("data/shader/plasma2.fp");
-			g.shaderRenderer.addTextureBuffer();
+			g.setShader("data/shader/advanced/tbd/watermix.fp");
 		}
+		
+		t = fbo.getColorBufferTexture();
 
 		fbo.begin();
 			g.clear();
+			g.drawSchoolLogo();
+			g.drawFilledCircle(256, 256, 20, Color.BLUE);
+			g.drawFilledCircle(0, 0, 20, Color.BLUE);
+			g.drawFilledCircle(400, 400, 20, Color.BLUE);
+			g.spriteBatch.draw(t, 256, 256);
 			g.drawShader(time);
 		fbo.end();
 
 		// Copy the offscreen buffer to the displayed bufer
-		g.shaderRenderer.setTexture(fbo.getColorBufferTexture());
+		g.shaderRenderer.setTexture(fbo.getColorBufferTexture(),0);
 		time += Gdx.graphics.getDeltaTime();
+		g.drawShader(time);
 	}
 
 	@Override

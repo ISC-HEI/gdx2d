@@ -2,10 +2,10 @@
 precision mediump float;
 #endif
 
-uniform vec2 resolution;
 uniform float time;
+uniform vec2 mouse;
+uniform vec2 resolution;
 
-const float Pi = 3.14159;
 //eat some pi
 const float pi   = 3.1415926535897932384626433832795; //pi
 const float pisq = 9.8696044010893586188344909998762; //pi squared
@@ -23,23 +23,22 @@ const int   complexity  =7;
 const float   rez      	= pipi; 
 const float speed  	= rcpi/pi; 
 
-uniform sampler2D texture0;
-uniform sampler2D texture1;
+uniform sampler2D backbuffer;
 
 vec3 smear(vec3 xyz)
 {
 	
 	vec2 fcn= gl_FragCoord.xy/resolution;
 	const float ssiz= .005;
-	vec4 xp= texture2D(texture0, fcn+vec2( ssiz,0));
-	vec4 xn= texture2D(texture0, fcn+vec2(-ssiz,0));
-	vec4 yp= texture2D(texture0, fcn+vec2(0, ssiz));
-	vec4 yn= texture2D(texture0, fcn+vec2(0,-ssiz));
+	vec4 xp= texture2D(backbuffer, fcn+vec2( ssiz,0));
+	vec4 xn= texture2D(backbuffer, fcn+vec2(-ssiz,0));
+	vec4 yp= texture2D(backbuffer, fcn+vec2(0, ssiz));
+	vec4 yn= texture2D(backbuffer, fcn+vec2(0,-ssiz));
 	
-	vec4 xpyp= texture2D(texture0, fcn+vec2( ssiz, ssiz));
-	vec4 xpyn= texture2D(texture0, fcn+vec2( ssiz,-ssiz));
-	vec4 xnyp= texture2D(texture0, fcn+vec2(-ssiz, ssiz));
-	vec4 xnyn= texture2D(texture0, fcn+vec2(-ssiz,-ssiz));
+	vec4 xpyp= texture2D(backbuffer, fcn+vec2( ssiz, ssiz));
+	vec4 xpyn= texture2D(backbuffer, fcn+vec2( ssiz,-ssiz));
+	vec4 xnyp= texture2D(backbuffer, fcn+vec2(-ssiz, ssiz));
+	vec4 xnyn= texture2D(backbuffer, fcn+vec2(-ssiz,-ssiz));
 	
 		
 	//return vec3(0.,0.,0.);
@@ -77,34 +76,17 @@ vec3 smoot(vec3 xy)
 	return smear(col);
 	
 }
-void main()
-{
-	const float scale=0.02;
-	const float scale2=200.0;
-	const float timescale=0.03;
-	const float timescale2=0.1;
+void main( void ) {
 
-	vec2 p=(2.0*gl_FragCoord.xy-resolution)/max(resolution.x,resolution.y);
-	for(int i=0;i<50;i++)
-	{
-		vec2 newp=p;
-		vec2 p2=p*160.0;
-
-		float tx1=cos((time+float(i)*timescale)*3.0*timescale2)*scale2;
-		float ty1=sin((time+float(i)*timescale)*3.0*timescale2)*scale2;
-		float tx2=cos(-(time+float(i)*timescale)*2.0*timescale2)*scale2;
-		float ty2=sin(-(time+float(i)*timescale)*2.0*timescale2)*scale2;
-		float tx3=cos(-(time+float(i)*timescale)*2.0*timescale2)*scale2;
-		float ty3=sin(-(time+float(i)*timescale)*2.0*timescale2)*scale2;
-		newp.x+=sin((p2.y+ty1)/64.0/0.5*3.141592)*0.5*scale;
-		newp.y-=cos((p2.x+tx1)/64.0/0.5*3.141592)*0.5*scale;
-		newp.x+=sin((p2.y+ty2)/128.0/0.5*3.141592)*scale;
-		newp.y-=cos((p2.x+tx2)/128.0/0.5*3.141592)*scale;
-		newp.x+=sin((p2.y+ty3)/256.0/0.5*3.141592)*2.0*scale;
-		newp.y-=cos((p2.x+tx3)/256.0/0.5*3.141592)*2.0*scale;
-		p=newp;
-	}
-	p*=1.0;
-	vec3 col=vec3(0.5*sin(3.0*p.x)+0.5,0.5*sin(3.0*p.y)+0.5,sin(p.x+p.y));
-	gl_FragColor=vec4(smoot(col)*col+smear(col), 1.0);
+	vec2 p = ( gl_FragCoord.xy / resolution.xy );
+	float t = time/picu;
+	
+	float r = (1.0-p.x)*p.y*abs(cos(t));
+	float b = p.x*p.y*abs(sin(t));
+	float v = p.x*(p.x+0.1)*(1.0-p.x)*(1.0-p.y)*3.0*abs(cos(t))*abs(sin(t));
+	
+	gl_FragColor = vec4(smoot(vec3(r*1.0, v*1.0, b*1.0)), 1.0 );
+	//vec2 position = ( gl_FragCoord.xy / resolution.xy );
+	//vec4 me = texture2D(backbuffer, position);
+	//gl_FragColor = me; 
 }

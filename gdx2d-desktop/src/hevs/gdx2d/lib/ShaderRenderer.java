@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 /**
  * Renders things using a GLSL shader program included
@@ -80,7 +79,7 @@ public class ShaderRenderer implements Disposable{
 			System.exit(0);
 		}
 		
-		if (shader.getLog().length()!=0)
+		if (shader.getLog().length()!=0 && !shader.getLog().contains("No errors"))
 			Logger.log("ShaderRenderer - " + shader.getLog());
 
 		// Creates a batch with the size of the texture
@@ -174,19 +173,19 @@ public class ShaderRenderer implements Disposable{
 			shader.setUniformf(uniform, values);
 		batch.end();
 	}
-	
-	public int addTexture(String texturePath, String textureIdentifier){		
+
+	private int addTexture(Texture t, String n){
 		try{
-			if(textureCount == 20){
+			if(textureCount >= Gdx.gl20.GL_MAX_TEXTURE_UNITS){
 				throw new Exception("Out of texture space!");
 			}
 			
 			textureCount++;
-			tex[textureCount]= new Texture(Gdx.files.internal(texturePath));
+			tex[textureCount]= t;
 			
 			// Transmit the texture as an uniform to the shader
 			shader.begin();
-				shader.setUniformi(textureIdentifier, textureCount);
+				shader.setUniformi(n, textureCount);
 			shader.end();
 			
 			Gdx.graphics.getGL20().glActiveTexture(GL20.GL_TEXTURE0 + textureCount);
@@ -201,33 +200,32 @@ public class ShaderRenderer implements Disposable{
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
+			
 		return textureCount;
 	}
 	
-	public void addTextureBuffer(){		
-		try{
-			if(textureCount == 9){
-				throw new Exception("Out of texture space!");
-			}
-			
-			textureCount++;
-			
-			tex[textureCount]= new Texture(w, h, Format.RGBA8888);
-			
-			shader.begin();
-				shader.setUniformi("texture"+textureCount, textureCount);
-			shader.end();
-			
-			//bind mask to glActiveTexture(GL_TEXTUREXXX)
-			tex[textureCount].bind(textureCount);
-			
-			//now we need to reset glActiveTexture to zero!!!! since sprite batch does not do this for us
-			Gdx.gl.glActiveTexture(GL10.GL_TEXTURE0);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}					
+	/**
+	 * See {@link #addTexture(String, String)}
+	 * @param width The width of the texture to create
+	 * @param height The height of the texture to create 
+	 * @param textureIdentifier The uniform name passed to the shader 
+	 */
+	public int addEmptyTexture(int width, int height, String textureIdentifier) {
+		Texture t = new Texture(width, height, Format.RGBA8888);
+		return addTexture(t, textureIdentifier);
+	}
+	
+	/**
+	 * Adds a new texture from an image to the OpenGL pipeline. It is bound with
+	 * a name and a number. 
+	 * 
+	 * @param texturePath The image to load as a texture
+	 * @param textureIdentifier The identifier uniform that will be passed to the shader
+	 * @return The texture number that was created
+	 */
+	public int addTexture(String texturePath, String textureIdentifier){		
+		Texture t = new Texture(Gdx.files.internal(texturePath));
+		return addTexture(t, textureIdentifier);
 	}
 	
 	/**
@@ -242,7 +240,7 @@ public class ShaderRenderer implements Disposable{
 			tex[i].dispose();
 	}
 
-	public void setTexture(Texture colorBufferTexture) {
-		tex[0] = colorBufferTexture;
+	public void setTexture(Texture colorBufferTexture, int id) {
+		tex[id] = colorBufferTexture;
 	}
 }
