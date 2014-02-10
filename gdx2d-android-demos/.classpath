@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="lib" path="libs/android-support-v4.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/gdx2d-desktop"/>
+	<classpathentry exported="true" kind="lib" path="/gdx2d-desktop/libs/box2dlights.jar" sourcepath="/gdx2d-desktop/libs/box2dlights-sources.jar"/>
+	<classpathentry kind="lib" path="/gdx2d-desktop/libs/gdx-natives.jar"/>
+	<classpathentry kind="lib" path="/gdx2d-desktop/libs/gdx-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/gdx2d-desktop/libs/gdx.jar" sourcepath="/gdx2d-desktop/libs/gdx-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/gdx2d-desktop/libs/tween-engine-api.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
