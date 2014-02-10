@@ -74,8 +74,9 @@ public class DemoSelector extends JFrame {
 		tests.put("Physics collision detection", "physics.collisions.DemoCollisionListener");
 		tests.put("Lights", "lights.DemoLight");
 		tests.put("Rotating lights", "lights.DemoRotateLight");
-		tests.put("Shaders test", "shaders.DemoShaderSimple");
-		tests.put("Shaders demos", "shaders.DemoAllShaders");		
+		tests.put("Shaders postprocessing", "shaders.advanced.DemoPostProcessing");
+		tests.put("Shaders convolution", "shaders.advanced.DemoConvolution");
+		tests.put("Shaders collection", "shaders.DemoAllShaders");
 
 		// Populate the window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

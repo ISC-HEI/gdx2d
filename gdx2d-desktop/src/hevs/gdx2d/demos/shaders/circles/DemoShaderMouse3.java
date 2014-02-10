@@ -28,7 +28,7 @@ public class DemoShaderMouse3 extends PortableApplication {
 		Logger.log("Press mouse anywhere to move the circle to that location");
 	}
 	
-	float t = 0;
+	float time = 0;
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -42,9 +42,9 @@ public class DemoShaderMouse3 extends PortableApplication {
 
 		// Pass the mouse position to the shader, always
 		g.shaderRenderer.setUniform("mouse", c.pos);
-		t += Gdx.graphics.getDeltaTime();
-		g.drawShader(t);
-
+		time += Gdx.graphics.getDeltaTime();
+		
+		g.drawShader(time);
 		g.drawFPS();
 		g.drawSchoolLogo();
 	}

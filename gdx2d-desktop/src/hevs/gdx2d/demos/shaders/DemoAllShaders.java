@@ -10,10 +10,12 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * 
- * Shows how to interwind shaders and normal GDX operations
+ * A demo that shows many shaders, some of them from 
+ * Heroku, some of them original. The source of the shader
+ * is always clearly indicated in the .fp file. 
  * 
  * @author Pierre-André Mudry (mui)
- * @version 0.1
+ * @version 1.0
  */
 public class DemoAllShaders extends PortableApplication {
 
@@ -23,7 +25,7 @@ public class DemoAllShaders extends PortableApplication {
 
 	@Override
 	public void onInit() {
-		this.setTitle("All the shaders - Right click to change, mui 2013");
+		this.setTitle("Shaders demos (some from Heroku), right click to change, mui 2014");
 		Logger.log("Right click to change the shader");
 		mouse.x = this.getWindowWidth() / 2;
 		mouse.y = this.getWindowHeight() / 2;
@@ -35,36 +37,39 @@ public class DemoAllShaders extends PortableApplication {
 			"advanced/vignette.fp" };
 
 	private float time = 0;
-	private int current = 0;
-	private int old = current;
+	private int currentShaderID = 0;
+	private int previousShaderID = currentShaderID;
 
 	private Vector2 mouse = new Vector2();
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.shaderRenderer == null) {
-			g.setShader("data/shader/" + shaders[current]);
+			g.setShader("data/shader/" + shaders[currentShaderID]);
 			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");
 		}
 
-		if (current != old) {
-			g.setShader("data/shader/" + shaders[current]);
+		if (currentShaderID != previousShaderID) {
+			g.setShader("data/shader/" + shaders[currentShaderID]);
 			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");
-			Logger.log("Current shader set to " + shaders[current]);
-			old = current;
+			Logger.log("Current shader set to " + shaders[currentShaderID]);
+			previousShaderID = currentShaderID;
 		}
 
+		// Clears the screen
 		g.clear();
 
 		// Draws the shader
 		g.shaderRenderer.setUniform("mouse", mouse);
-
-		time += Gdx.graphics.getDeltaTime();
 		g.drawShader(time);
 
+		// Update time
+		time += Gdx.graphics.getDeltaTime();
+
+		// Draws the rest of the stuff
 		g.drawFPS();
 		g.drawStringCentered((int) (0.98 * g.getScreenHeight()),
-				"Shader demo \"" + shaders[current] + "\" " + (current + 1)
+				"Shader demo \"" + shaders[currentShaderID] + "\" " + (currentShaderID + 1)
 						+ "/" + (shaders.length));
 		g.drawSchoolLogo();
 	}
@@ -74,7 +79,7 @@ public class DemoAllShaders extends PortableApplication {
 		super.onClick(x, y, button);
 
 		if (button == Buttons.RIGHT)
-			current = (current + 1) % shaders.length;
+			currentShaderID = (currentShaderID + 1) % shaders.length;
 
 		mouse.x = x;
 		mouse.y = y;

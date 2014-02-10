@@ -62,7 +62,7 @@ public class DemoPostProcessing extends PortableApplication{
 		g.shaderRenderer.setTexture(fbo.getColorBufferTexture(), 0);
 		g.shaderRenderer.setUniform("enabled", shaderEnabled);
 		
-		time+= Gdx.graphics.getDeltaTime();			
+		time += Gdx.graphics.getDeltaTime();			
 		g.drawShader(time);
 	}
 	

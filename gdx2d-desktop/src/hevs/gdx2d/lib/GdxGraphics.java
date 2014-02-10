@@ -108,7 +108,9 @@ public class GdxGraphics implements Disposable
 	}
 	
 	/**
-	 * Draws school logo
+	 * Draws the University of Applied Sciences Western Switzerland logo<br> As this project is mainly aimed the students
+	 * from the <a href='http://inf1.begincoding.net'> inf1 course given at the HES-SO Valais</a>, systems engineering,
+	 * it is nice to have a logo for them !
 	 */
 	public void drawSchoolLogo(){
 		checkmode(t_rendering_mode.SPRITE);
@@ -117,7 +119,26 @@ public class GdxGraphics implements Disposable
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 	
-	public void checkmode(t_rendering_mode mode) {	
+	/**
+	 * Draws the school logo in the upper right corner of the screen.
+	 * See {@link #drawSchoolLogo()}
+	 */
+	public void drawSchoolLogoUpperRight(){
+		checkmode(t_rendering_mode.SPRITE);
+		int width = Gdx.graphics.getWidth();
+		int height = Gdx.graphics.getHeight();
+
+		spriteBatch.setProjectionMatrix(fixedcamera.combined);
+		spriteBatch.draw(logoTex, width - logoTex.getWidth(), height - logoTex.getHeight());
+		spriteBatch.setProjectionMatrix(camera.combined);
+	}
+	
+	/**
+	 * Switches to the correct rendering mode if needed, calling the
+	 * required begin and end.
+	 * @param mode
+	 */
+	private void checkmode(t_rendering_mode mode) {	
 		if(rendering_mode != t_rendering_mode.SPRITE){
 			shapeRenderer.end();
 		}
@@ -150,19 +171,6 @@ public class GdxGraphics implements Disposable
 		
 	}
 
-	/**
-	 * Draws the school logo in the upper right corner of the screen
-	 */
-	public void drawSchoolLogoUpperRight(){
-		checkmode(t_rendering_mode.SPRITE);
-		int width = Gdx.graphics.getWidth();
-		int height = Gdx.graphics.getHeight();
-
-		spriteBatch.setProjectionMatrix(fixedcamera.combined);
-		spriteBatch.draw(logoTex, width - logoTex.getWidth(), height - logoTex.getHeight());
-		spriteBatch.setProjectionMatrix(camera.combined);
-	}
-	
 	/**
 	 * A very simple way to change line width for shape operators (line, ...)
 	 * @param width

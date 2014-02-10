@@ -30,3 +30,4 @@ out/
 .idea/
 .gradle/
 build/
+gdx2d-desktop/data/images/Thumbs.db

@@ -18,16 +18,6 @@ import hevs.gdx2d.lib.utils.Logger;
  * @version 0.4
  */
 public class DemoShaderCircleAntiAlias extends PortableApplication {
-
-	class Circle {
-		int x, y;
-
-		Circle(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
-
 	Circle c;
 
 	public DemoShaderCircleAntiAlias(boolean onAndroid) {
@@ -41,7 +31,7 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 		Logger.log("Press mouse anywhere to move the circle to that location");
 	}
 	
-	float t = 0;
+	float time = 0;
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -53,12 +43,12 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 
 		g.clear();
 		// Pass the mouse position to the shader, always
-		g.shaderRenderer.setUniform("mouse", new Vector2(c.x, c.y));
+		g.shaderRenderer.setUniform("mouse", new Vector2(c.pos.x, c.pos.y));
 
 		// Update time
-		t += 3*Gdx.graphics.getDeltaTime();
-		g.drawShader(t);
-
+		time += 3*Gdx.graphics.getDeltaTime();
+		
+		g.drawShader(time);
 		g.drawFPS();
 		g.drawSchoolLogo();
 	}

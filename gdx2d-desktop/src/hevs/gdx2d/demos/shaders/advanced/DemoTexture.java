@@ -34,10 +34,10 @@ public class DemoTexture extends PortableApplication{
 			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");				
 		}			
 		
-		g.clear();
 		t+= Gdx.graphics.getDeltaTime();			
+
+		g.clear();
 		g.drawShader(t);		
-		
 		g.drawFPS();		
 		g.drawSchoolLogo();
 	}

@@ -29,8 +29,9 @@ public class DemoShaderPartialTextureRendering extends PortableApplication {
 		g.clear();
 		g.drawFPS();
 		g.drawShader(256, (int) (256 + 128.0 * Math.sin(t)), 0);
-		t += 0.05;
 		g.drawSchoolLogo();
+
+		t += 0.05;
 	}
 
 	public static void main(String args[]) {

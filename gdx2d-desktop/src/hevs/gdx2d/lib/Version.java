@@ -5,5 +5,5 @@ package hevs.gdx2d.lib;
  * @author Pierre-André Mudry
  */
 public class Version {
-	public static final String version = "1.0.0 \u03B2";
+	public static final String version = "1.0.0\u03B3";
 }
