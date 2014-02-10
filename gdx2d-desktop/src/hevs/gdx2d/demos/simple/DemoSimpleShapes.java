@@ -31,12 +31,13 @@ public class DemoSimpleShapes extends PortableApplication{
 		
 		// Draws a yellow circle
 		g.setColor(Color.YELLOW);
-		g.drawCircle(30, 30, 20);
+		g.drawCircle(250, 400, 20);
 		
 		// Draws a green rectangle
 		g.setColor(Color.GREEN);
-		
-		g.drawFilledRectangle(80, 30, 10, 10, 0, Color.RED);
+		g.drawRectangle(20,250,40,40,0);
+
+		g.drawFilledCircle(50, 50, 20, Color.PINK);
 		g.drawFilledRectangle(80, 30, 20, 20, 0, new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		
 		// Draws a blue polygon

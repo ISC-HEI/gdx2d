@@ -41,20 +41,21 @@ import com.badlogic.gdx.backends.lwjgl.LwjglPreferences;
 import com.badlogic.gdx.files.FileHandle;
 
 /**
- * A demo selector class, most of the code taken from Libgdx own demo selector
- * 
- * @author Pierre-Andre Mudry (mui)
- * @version 1.11
+ * A demo selector class, most of the code taken from Libgdx own demo selector.
+ * @author Pierre-André Mudry (mui)
+ * @version 1.12
  */
 @SuppressWarnings("serial")
 public class DemoSelector extends JFrame {
 
-	LinkedHashMap<String, String> tests = new LinkedHashMap<String, String>();
+	final LinkedHashMap<String, String> tests = new LinkedHashMap<String, String>();
 
 	public DemoSelector() throws HeadlessException {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2013");
 
 		tests.put("Simple shapes", "simple.DemoSimpleShapes");
+		tests.put("Drawing circles", "simple.DemoCircles");
+		tests.put("Mistify screen saver", "simple.mistify.DemoLines");
 		tests.put("Basic animation", "simple.DemoSimpleAnimation");
 		tests.put("Image drawing", "image_drawing.DemoSimpleImage");
 		tests.put("Mirroring image", "image_drawing.DemoMirrorImage");
@@ -67,13 +68,15 @@ public class DemoSelector extends JFrame {
 		tests.put("Complex shapes", "complex_shapes.DemoComplexShapes");
 		tests.put("Simple physics (dominoes)", "physics.DemoSimplePhysics");
 		tests.put("Physics soccer ball", "physics.DemoPhysicsBalls");
-		tests.put("Physics chain physics", "physics.DemoChainPhysics");
+		tests.put("Physics chain collisions", "physics.DemoChainPhysics");
 		tests.put("Physics particles", "physics.particle.DemoParticlePhysics");
 		tests.put("Physics mouse interactions", "physics.DemoPhysicsMouse");
 		tests.put("Physics collision detection", "physics.collisions.DemoCollisionListener");
 		tests.put("Lights", "lights.DemoLight");
 		tests.put("Rotating lights", "lights.DemoRotateLight");
-		
+		tests.put("Shaders test", "shaders.DemoShaderSimple");
+		tests.put("Shaders demos", "shaders.DemoAllShaders");		
+
 		// Populate the window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(new TestList());		
