@@ -1,3 +1,0 @@
-# view AndroidManifest.xml #generated:19
--keep class hevs.androidgame.GameActivity { <init>(...); }
-
