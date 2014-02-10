@@ -1,1 +1,32 @@
 /gdx2d-desktop-pregit
+
+# Eclipse Android project and workspace
+# source: https://github.com/github/gitignore
+bin/
+gen/
+target/
+proguard/
+
+*.class
+*.dex
+*.apk
+*.ap_
+.metadata
+*.keystore
+*.swp
+*.orig
+*.log
+seed.txt
+map.txt
+##
+# .settings
+# .classpath
+# .project
+# local.properties
+##
+
+# IntelliJ IDEA
+out/
+.idea/
+.gradle/
+build/
