@@ -69,7 +69,7 @@ public class GdxGraphics implements Disposable
 		/**
 		 * Generates the fonts images from the TTF file
 		 */
-		FileHandle robotoF = Gdx.files.internal("font/RobotoSlab-Regular.ttf");
+		FileHandle robotoF = Gdx.files.internal("data/font/RobotoSlab-Regular.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(robotoF);
 		font = generator.generateFont(15);
 		generator.dispose();

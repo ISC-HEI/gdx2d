@@ -107,9 +107,13 @@ public class DemoSelector extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					ImageIcon icon = new ImageIcon(getClass().getResource("/icon64.png"));
-					// TODO: add real link in dialog
+					String msg = "<HTML><BODY>"
+							+ "DemoSelector application for gdx2d lib<br>"
+							+ "Pierre-André Mudry, 2013-2014<br>"
+							+ "Made for the <a href=\"http://inf1.begincoding.net\"/>inf1 course</a>"
+							+ "</BODY></HTML>";
 					JOptionPane.showMessageDialog(null,							
-						    "DemoSelector application for gdx2d lib\nPierre-André Mudry, 2013\nHES-SO Valais 2013",
+						    msg,
 						    "About this application",
 						    JOptionPane.INFORMATION_MESSAGE,
 						    icon);
