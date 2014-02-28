@@ -1,6 +1,7 @@
 // A very nice plasma shader, taken and adapted from http://www.bidouille.org/prog/plasma
 // Nice job !
-precision mediump float;
+
+// precision mediump float; // Fix issue #18
 #define PI 3.1415926535897932384626433832795
  
 uniform float time;
