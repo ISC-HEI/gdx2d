@@ -51,8 +51,8 @@ public class Game2D implements ApplicationListener {
 		shapeRenderer = new ShapeRenderer();
 		batch = new SpriteBatch();
 
-		// Log level for the application
-		Logger.log("Version " + Version.version + " / mui, chn");
+		// Print the library version
+		Logger.log(Version.print());
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

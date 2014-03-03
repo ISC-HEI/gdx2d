@@ -43,7 +43,7 @@ import com.badlogic.gdx.files.FileHandle;
 /**
  * A demo selector class, most of the code taken from Libgdx own demo selector.
  * @author Pierre-André Mudry (mui)
- * @version 1.12
+ * @version 1.13
  */
 @SuppressWarnings("serial")
 public class DemoSelector extends JFrame {
@@ -51,7 +51,7 @@ public class DemoSelector extends JFrame {
 	final LinkedHashMap<String, String> tests = new LinkedHashMap<String, String>();
 
 	public DemoSelector() throws HeadlessException {
-		super("GDX2D demos " + Version.version + " - mui, chn, mei 2013");
+		super("GDX2D demos " + Version.version + " - mui, chn, mei 2013-2014");
 
 		tests.put("Simple shapes", "simple.DemoSimpleShapes");
 		tests.put("Drawing circles", "simple.DemoCircles");
@@ -107,10 +107,13 @@ public class DemoSelector extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					ImageIcon icon = new ImageIcon(getClass().getResource("/icon64.png"));
-					String msg = "<HTML><BODY>"
+					final String[] version = Version.print().split("/ ");
+					final String msg = "<HTML><BODY>"
 							+ "DemoSelector application for gdx2d lib<br>"
-							+ "Pierre-André Mudry, 2013-2014<br>"
-							+ "Made for the <a href=\"http://inf1.begincoding.net\"/>inf1 course</a>"
+							+ "Pierre-Andr� Mudry, 2013-2014<br>"
+							+ "Made for the <a href=\"http://inf1.begincoding.net\"/>inf1 course</a> "
+							+ "(http://inf1.begincoding.net)."
+							+ "<pre>" + version[0] + "<br>" + version[1] + "</pre>"
 							+ "</BODY></HTML>";
 					JOptionPane.showMessageDialog(null,							
 						    msg,
