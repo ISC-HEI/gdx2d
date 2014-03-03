@@ -176,7 +176,7 @@ public class ShaderRenderer implements Disposable{
 
 	public int addTexture(Texture t, String n){
 		try{
-			if(textureCount >= Gdx.gl20.GL_MAX_TEXTURE_UNITS){
+			if(textureCount >= GL20.GL_MAX_TEXTURE_UNITS){
 				throw new Exception("Out of texture space!");
 			}
 			
