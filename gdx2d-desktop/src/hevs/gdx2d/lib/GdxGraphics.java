@@ -23,10 +23,10 @@ import com.badlogic.gdx.utils.Disposable;
  * 
  * @author Pierre-André Mudry (mui)
  * @author Nils Chatton (chn)
- * @version 1.51
+ * @author Christopher Metrailler (mei)
+ * @version 1.52
  */
-public class GdxGraphics implements Disposable
-{
+public class GdxGraphics implements Disposable {
 	/**
 	 * For camera operations
 	 */
@@ -383,6 +383,7 @@ public class GdxGraphics implements Disposable
 	public void drawString(float posX, float posY, String str) {
 		checkmode(t_rendering_mode.SPRITE);
 		font.drawMultiLine(spriteBatch, str, posX, posY);
+		spriteBatch.flush(); // Fix issue #25 (mei)
 	}
 	
 	/**
@@ -392,7 +393,7 @@ public class GdxGraphics implements Disposable
 	 * @param str
 	 * @param f
 	 */
-	public void drawString(float posX, float posY, String str, BitmapFont f){
+	public void drawString(float posX, float posY, String str, BitmapFont f) {
 		checkmode(t_rendering_mode.SPRITE);
 		f.drawMultiLine(spriteBatch, str, posX, posY);
 	}
@@ -403,7 +404,7 @@ public class GdxGraphics implements Disposable
 	 * @param str
 	 * @param f
 	 */
-	public void drawStringCentered(float posY, String str, BitmapFont f){
+	public void drawStringCentered(float posY, String str, BitmapFont f) {
 		float w = f.getBounds(str).width;
 		drawString((getScreenWidth() - w )/ 2.0f, posY, str, f);
 	}
@@ -414,28 +415,30 @@ public class GdxGraphics implements Disposable
 	 * @param str
 	 * @param f
 	 */
-	public void drawStringCentered(float posY, String str){
+	public void drawStringCentered(float posY, String str) {
 		float w = font.getBounds(str).width;
 		drawString((getScreenWidth() - w )/ 2.0f, posY, str);
 	}
 	
 	/**
-	 * Draws an image in the background that will not move with the camera
+	 * Draws an image in the background that will not move with the camera.
+	 * 
 	 * @param t 
-	 * @param currentMatrix x coordinate in the screen space
+	 * @param i x coordinate in the screen space
 	 * @param j y coordinate in the screen space
 	 */
-	public void drawBackground(BitmapImage t, float i, float j){
+	public void drawBackground(BitmapImage t, float i, float j) {
 		drawBackground(t.getImage(), i, j);
 	}
 	
 	/**
-	 * Draws a texture in background that will not move with the camera
+	 * Draws a texture in background that will not move with the camera.
+	 * 
 	 * @param t
-	 * @param currentMatrix x coordinate in the screen space
+	 * @param i x coordinate in the screen space
 	 * @param j y coordinate in the screen space
 	 */
-	public void drawBackground(Texture t, float i, float j){
+	public void drawBackground(Texture t, float i, float j) {
 		checkmode(t_rendering_mode.SPRITE);
 		spriteBatch.setProjectionMatrix(fixedcamera.combined);		
 		spriteBatch.disableBlending();
@@ -490,19 +493,19 @@ public class GdxGraphics implements Disposable
 	 * @param alpha
 	 * @param img
 	 */
-	public void drawAlphaPicture(Vector2 pos, float alpha, BitmapImage img){
+	public void drawAlphaPicture(Vector2 pos, float alpha, BitmapImage img) {
 		drawAlphaPicture(pos.x, pos.y, alpha, img);
 	}
 
-	public void drawAlphaPicture(float posX, float posY, float scale, float alpha, BitmapImage img){
+	public void drawAlphaPicture(float posX, float posY, float scale, float alpha, BitmapImage img) {
 		drawAlphaPicture(posX, posY, img.getImage().getWidth() / 2, img.getImage().getHeight() / 2, 0, 1.0f, alpha, img);
 	}
 	
-	public void drawAlphaPicture(float posX, float posY, float alpha, BitmapImage img){
+	public void drawAlphaPicture(float posX, float posY, float alpha, BitmapImage img) {
 		drawAlphaPicture(posX, posY, img.getImage().getWidth() / 2, img.getImage().getHeight() / 2, 0, 1.0f, alpha, img);
 	}
 	
-	public void drawAlphaPicture(float posX, float posY, float centerX, float centerY, float angle, float scale, float alpha, BitmapImage img){		
+	public void drawAlphaPicture(float posX, float posY, float centerX, float centerY, float angle, float scale, float alpha, BitmapImage img) {		
 		Color old = spriteBatch.getColor();
 		spriteBatch.setColor(1.0f, 1.0f, 1.0f, alpha);
 		drawTransformedPicture(posX, posY, angle, scale, img);
@@ -530,7 +533,7 @@ public class GdxGraphics implements Disposable
 	/****************************************************
 	 * Camera stuff
 	 ****************************************************/
-	public OrthographicCamera getCamera(){
+	public OrthographicCamera getCamera() {
 		return camera;
 	}
 	
@@ -539,7 +542,7 @@ public class GdxGraphics implements Disposable
 	 * @param x
 	 * @param y
 	 */
-	public void moveCamera(float x, float y){
+	public void moveCamera(float x, float y) {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.translate(x, y);		
 	}
@@ -547,7 +550,7 @@ public class GdxGraphics implements Disposable
 	/**
 	 * Puts the camera at its original location
 	 */
-	public void resetCamera(){
+	public void resetCamera() {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());				
 	}
 	
@@ -556,7 +559,7 @@ public class GdxGraphics implements Disposable
 	 * @param dx
 	 * @param dy
 	 */
-	public void scroll(float dx, float dy){
+	public void scroll(float dx, float dy) {
 		camera.translate(dx, dy);
 		camera.update();
 	}
@@ -565,7 +568,7 @@ public class GdxGraphics implements Disposable
 	 * Zooms in and out the camera, 1 is the default zoom-level
 	 * @param factor
 	 */
-	public void zoom(float factor){
+	public void zoom(float factor) {
 		camera.zoom = factor;
 		camera.update();
 	}
@@ -574,11 +577,11 @@ public class GdxGraphics implements Disposable
 	/****************************************************
 	 * Shaders stuff
 	 ****************************************************/	
-	public void drawShader(){
+	public void drawShader() {
 		drawShader(getScreenWidth()/2, getScreenHeight()/2, 0f);
 	}
 	
-	public void drawShader(float shaderTime){
+	public void drawShader(float shaderTime) {
 		drawShader(getScreenWidth()/2, getScreenHeight()/2, shaderTime);
 	}
 	
@@ -589,7 +592,7 @@ public class GdxGraphics implements Disposable
 	 * @param posY The value passed to the shader, might be discarded
 	 * @param shaderTime The value passed to the shader, might be discarded
 	 */
-	public void drawShader(int posX, int posY, float shaderTime){
+	public void drawShader(int posX, int posY, float shaderTime) {
 		if(shaderRenderer != null)
 			shaderRenderer.render(posX, posY, shaderTime);
 		else{
