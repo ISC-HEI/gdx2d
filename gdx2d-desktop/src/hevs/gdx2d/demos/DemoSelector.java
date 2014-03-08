@@ -42,8 +42,9 @@ import com.badlogic.gdx.files.FileHandle;
 
 /**
  * A demo selector class, most of the code taken from Libgdx own demo selector.
+ * 
  * @author Pierre-André Mudry (mui)
- * @version 1.13
+ * @version 1.14
  */
 @SuppressWarnings("serial")
 public class DemoSelector extends JFrame {
@@ -61,6 +62,7 @@ public class DemoSelector extends JFrame {
 		tests.put("Mirroring image", "image_drawing.DemoMirrorImage");
 		tests.put("Alpha transparency", "image_drawing.DemoAlphaImage");
 		tests.put("Rotating image", "image_drawing.DemoRotatingImage");
+		tests.put("Julia fractal", "simple.DemoJuliaFractal");
 		tests.put("Music player", "music.DemoMusicPlay");
 		tests.put("Font generation", "fonts.DemoFontGeneration");
 		tests.put("Scrolling", "scrolling.DemoScrolling");
