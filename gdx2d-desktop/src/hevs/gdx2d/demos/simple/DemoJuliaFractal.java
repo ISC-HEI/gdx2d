@@ -1,5 +1,6 @@
 package hevs.gdx2d.demos.simple;
 
+import hevs.gdx2d.components.colors.ColorUtils;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
@@ -125,36 +126,10 @@ public class DemoJuliaFractal extends PortableApplication {
 		if (k == MAX_ITER)
 			// Draw red pixels when max iteration is reached
 			pixmap.drawPixel(i, j, Color.rgba8888(1.0f, 0, 0, 1.0f));
-		else
-			// Custom HSV conversion function because java.awt.Color does not
-			// work with alpha
-			pixmap.drawPixel(i, j, hsvToRgb(k / ((float) MAX_ITER), 1.0f, 1.0f));
-	}
-
-	// Source from
-	// http://stackoverflow.com/questions/7896280/converting-from-hsv-hsb-in-java-to-rgb-without-using-java-awt-color-disallowe
-	private static int hsvToRgb(float hue, float saturation, float value) {
-		int h = (int) (hue * 6);
-		float f = hue * 6 - h;
-		float p = value * (1 - saturation);
-		float q = value * (1 - f * saturation);
-		float t = value * (1 - (1 - f) * saturation);
-
-		switch (h) {
-		case 0:
-			return new Color(value, t, p, 1.0f).toIntBits();
-		case 1:
-			return new Color(q, value, p, 1.0f).toIntBits();
-		case 2:
-			return new Color(p, value, t, 1.0f).toIntBits();
-		case 3:
-			return new Color(p, q, value, 1.0f).toIntBits();
-		case 4:
-			return new Color(t, p, value, 1.0f).toIntBits();
-		case 5:
-			return new Color(value, p, q, 1.0f).toIntBits();
-		default:
-			throw new RuntimeException("Something went wrong...");
+		else {
+			// Use HSV to have a better color contrast
+			final Color color = ColorUtils.hsvToColor(k / ((float) MAX_ITER), 1.0f, 1.0f);
+			pixmap.drawPixel(i, j, color.toIntBits()); // Convert to ABGR to draw
 		}
 	}
 
