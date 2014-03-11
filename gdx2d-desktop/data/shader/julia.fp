@@ -1,12 +1,15 @@
 uniform sampler2D texture0;
 uniform vec2 center;
-const int iter = 1000;
+uniform vec2 offset;
+uniform float scale;
+
+const int iter = 1500;
 varying vec2 vTexCoord;
 
 void main() {
     vec2 z;
-    z.x = 2.0 * (vTexCoord.x - 0.5);
-    z.y = 2.0 * (vTexCoord.y - 0.5);
+    z.x = 2.0 * (vTexCoord.x - 0.5) * scale + offset.x;
+    z.y = 2.0 * (vTexCoord.y - 0.5) * scale + offset.y;
 
     int i;
     for(i=0; i<iter; i++) {
