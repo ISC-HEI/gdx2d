@@ -20,4 +20,10 @@ public interface TouchInterface {
 	 * Invoked when the pointer (mouse or touch) is released
 	 */
 	public abstract void onRelease(int x, int y, int button);
+	
+	/**
+	 * Invoked when the mouse scroll has been moved
+	 * @param amount
+	 */
+	public abstract void onScroll(int amount);
 }
