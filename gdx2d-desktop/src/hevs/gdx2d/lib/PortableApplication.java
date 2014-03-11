@@ -85,6 +85,13 @@ public abstract class PortableApplication implements TouchInterface,
 	}
 
 	/**
+	 * Invoked when the mouse is crolled
+	 */
+	@Override
+	public void onScroll(int amount) {
+	}
+	
+	/**
 	 * Invoked when the pointer (mouse or touch) is released
 	 */
 	@Override

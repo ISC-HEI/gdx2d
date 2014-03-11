@@ -134,6 +134,7 @@ public class Game2D implements ApplicationListener {
 
 			@Override
 			public boolean scrolled(int amount) {
+				app.onScroll(amount);
 				return false;
 			}
 
