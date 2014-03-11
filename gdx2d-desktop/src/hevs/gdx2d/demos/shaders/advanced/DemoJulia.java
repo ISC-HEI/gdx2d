@@ -1,12 +1,10 @@
 package hevs.gdx2d.demos.shaders.advanced;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
+
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Julian set as a shader, based on mei code 
