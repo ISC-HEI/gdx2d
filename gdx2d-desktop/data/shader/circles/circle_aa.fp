@@ -7,13 +7,13 @@
 
 uniform vec2 resolution;
 uniform vec2 mouse;
-uniform float radius;
-uniform float time;
+uniform int radius;
+
 const int antialias_distance = 2; // In pixels, the distance from the border of the circle to fade to transparent
 
 void main() {	
 	float dist = distance(gl_FragCoord.xy, mouse.xy); // Distance from center
-	float r = abs(sin(time) * radius) + 20; // Change the radius with time
+	float r = abs(radius) + 20;
 
 	// Interpolate nicely color for having an anti-aliased circle
 	// The smoothstep function which is applied uses Hermite interpolation

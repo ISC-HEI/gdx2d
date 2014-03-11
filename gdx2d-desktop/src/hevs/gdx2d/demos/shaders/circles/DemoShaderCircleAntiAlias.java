@@ -29,20 +29,22 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 		this.setTitle("Antialiasing of a circle using shaders, mui 2013");
 		c = new Circle(this.getWindowWidth() / 2, this.getWindowHeight() / 2);
 		Logger.log("Press mouse anywhere to move the circle to that location");
+		Logger.log("Scroll mouse to change the radius");
 	}
 	
-	float time = 0;
 
+	private float time = 0;
+	private int radius = 100;
+	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
 		if (g.shaderRenderer == null) {
 			g.setShader("data/shader/circles/circle_aa.fp");
-			g.shaderRenderer.setUniform("radius", 30);
 		}
 
 		g.clear();
-		// Pass the mouse position to the shader, always
+		g.shaderRenderer.setUniform("radius", radius);
 		g.shaderRenderer.setUniform("mouse", new Vector2(c.pos.x, c.pos.y));
 
 		// Update time
@@ -57,6 +59,12 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 	public void onClick(int x, int y, int button) {
 		super.onClick(x, y, button);			
 		c = new Circle(x,y);
+	}
+	
+	@Override
+	public void onScroll(int amount) {
+		super.onScroll(amount);
+		radius += 8*amount;
 	}
 
 	@Override
