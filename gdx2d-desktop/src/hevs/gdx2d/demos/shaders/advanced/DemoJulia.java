@@ -7,14 +7,14 @@ import hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Julian set as a shader, based on mei code 
+ * Julia set as a shader, based on mei code 
  * @author Pierre-André Mudry (mui)
  * @version 0.2
  */
 public class DemoJulia extends PortableApplication {
 
-	public DemoJulia(boolean onAndroid) {
-		super(onAndroid);
+	public DemoJulia() {
+		super(false, 700, 700);
 	}
 
 	@Override
@@ -27,9 +27,9 @@ public class DemoJulia extends PortableApplication {
 	boolean clicked = false;
 	boolean image1 = true;
 
-	float scaling = 0.35f;
 	int direction = 1;
-	float scale = 0.55f;
+	float juliaPrm = 0.35f;
+	float scale = 1.10f;
 	Vector2 offset = new Vector2(0, 0);
 
 	@Override
@@ -41,10 +41,10 @@ public class DemoJulia extends PortableApplication {
 
 		g.shaderRenderer.setUniform("scale", scale);
 		g.shaderRenderer.setUniform("offset", offset);
-		g.shaderRenderer.setUniform("center", new Vector2(scaling, scaling));
-		scaling += direction * (10 / 20000.0f);
+		g.shaderRenderer.setUniform("center", new Vector2(juliaPrm, juliaPrm));
+		juliaPrm += direction * (10.0f / 30000.0f);
 		
-		if (scaling < 0.35 || scaling > 0.4)
+		if (juliaPrm < 0.33 || juliaPrm > 0.4)
 			direction *= -1;
 		
 		g.clear();
@@ -67,6 +67,6 @@ public class DemoJulia extends PortableApplication {
 	}
 
 	public static void main(String args[]) {
-		new DemoJulia(false);
+		new DemoJulia();
 	}
 }

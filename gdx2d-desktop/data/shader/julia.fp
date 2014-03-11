@@ -3,7 +3,7 @@ uniform vec2 center;
 uniform vec2 offset;
 uniform float scale;
 
-const int iter = 1500;
+const int iter = 1000;
 varying vec2 vTexCoord;
 
 void main() {
