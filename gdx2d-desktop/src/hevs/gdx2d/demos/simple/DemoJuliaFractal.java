@@ -48,7 +48,7 @@ public class DemoJuliaFractal extends PortableApplication {
 		super(isOnAndroid, IMAGE_SIZE, IMAGE_SIZE);
 		
 		if(onAndroid) {	
-			Logger.error("This demo only works on Android! Exiting");			
+			Logger.error("This demo only works on desktop! Exiting");			
 			Gdx.app.exit(); // For now too slow on Android			
 		}
 	}
