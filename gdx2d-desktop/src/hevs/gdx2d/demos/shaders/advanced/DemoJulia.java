@@ -8,8 +8,7 @@ import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
 
 /**
- * Demonstrates the use of a texture in a shader
- * 
+ * Julian set as a shader, based on mei code 
  * @author Pierre-André Mudry (mui)
  * @version 0.2
  */
@@ -21,7 +20,7 @@ public class DemoJulia extends PortableApplication {
 
 	@Override
 	public void onInit() {
-		this.setTitle("Texture shader / simple animation, mui 2013");
+		this.setTitle("Julia set shader, mui 2013");
 		Logger.log("Click to change picture");
 	}
 
@@ -29,13 +28,13 @@ public class DemoJulia extends PortableApplication {
 	boolean clicked = false;
 	boolean image1 = true;
 
-	Vector2 v = new Vector2(0.05f, 0.05f);
+	Vector2 v = new Vector2(0.005f, 0.005f);
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.shaderRenderer == null) {
 			g.setShader("data/shader/julia.fp");
-			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");
+			g.shaderRenderer.addTexture("data/shader/pal.png", "texture0");
 
 		}
 

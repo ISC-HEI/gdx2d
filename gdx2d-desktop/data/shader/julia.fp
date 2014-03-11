@@ -5,7 +5,7 @@ varying vec2 vTexCoord;
 
 void main() {
     vec2 z;
-    z.x = 3.0 * (vTexCoord.x - 0.5);
+    z.x = 2.0 * (vTexCoord.x - 0.5);
     z.y = 2.0 * (vTexCoord.y - 0.5);
 
     int i;
@@ -18,6 +18,6 @@ void main() {
         z.y = y;
     }
 
-    gl_FragColor = texture2D(texture0, vec2(0, (i == iter ? 0.0 : float(i)) / 100.0));
+    gl_FragColor = texture2D(texture0, vec2((i == iter ? 0.0 : float(i)) / 100.0), 0);
 }
 	
