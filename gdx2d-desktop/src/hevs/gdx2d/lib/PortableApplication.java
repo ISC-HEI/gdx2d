@@ -147,7 +147,7 @@ public abstract class PortableApplication implements TouchInterface,
 	}
 		
 	/**
-	 * Invoked for a pan gesture on Android (see {@link GestureListener})
+	 * Invoked for a pan gesture (see {@link GestureListener})
 	 * @param x
 	 * @param y
 	 * @param deltaX
@@ -159,7 +159,7 @@ public abstract class PortableApplication implements TouchInterface,
 	}
 		
 	/**
-	 * Invoked for a long press on Android (see {@link GestureListener})
+	 * Invoked for a long press (see {@link GestureListener})
 	 * @param x
 	 * @param y
 	 * @return
@@ -168,7 +168,7 @@ public abstract class PortableApplication implements TouchInterface,
 	}
 	
 	/**
-	 * Invoked on a fling gesture on Android (see {@link GestureListener})
+	 * Invoked on a fling gesture (see {@link GestureListener})
 	 * @param velocityX
 	 * @param velocityY
 	 * @param button
