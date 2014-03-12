@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="data"/>
+	<classpathentry kind="src" output="data" path="data"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar" sourcepath="libs/gdx-backend-lwjgl-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/D:/coding/libgdx/docs/api/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="libs/tween-engine-api.jar"/>
 	<classpathentry kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
