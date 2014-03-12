@@ -52,7 +52,7 @@ public class DemoSelector extends JFrame {
 	final LinkedHashMap<String, String> tests = new LinkedHashMap<String, String>();
 
 	public DemoSelector() throws HeadlessException {
-		super("GDX2D demos " + Version.version + " - mui, chn, mei 2013-2014");
+		super("GDX2D demos ** " + Version.version + " - mui, chn, mei 2013-2014");
 
 		tests.put("Simple shapes", "simple.DemoSimpleShapes");
 		tests.put("Drawing circles", "simple.DemoCircles");
@@ -95,9 +95,9 @@ public class DemoSelector extends JFrame {
 
 		private void setIcon(){
 			List<Image> icons = new ArrayList<Image>();
-			icons.add(new ImageIcon(getClass().getResource("/icon16.png")).getImage());
-			icons.add(new ImageIcon(getClass().getResource("/icon32.png")).getImage());
-			icons.add(new ImageIcon(getClass().getResource("/icon64.png")).getImage());
+			icons.add(new ImageIcon(getClass().getResource("/lib/icon16.png")).getImage());
+			icons.add(new ImageIcon(getClass().getResource("/lib/icon32.png")).getImage());
+			icons.add(new ImageIcon(getClass().getResource("/lib/icon64.png")).getImage());
 			setIconImages(icons);
 		}
 		
@@ -108,7 +108,7 @@ public class DemoSelector extends JFrame {
 			it.addActionListener(new ActionListener() {			
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ImageIcon icon = new ImageIcon(getClass().getResource("/icon64.png"));
+					ImageIcon icon = new ImageIcon(getClass().getResource("/lib/icon64.png"));
 					final String[] version = Version.print().split("/ ");
 					final String msg = "<HTML><BODY>"
 							+ "DemoSelector application for gdx2d lib<br>"

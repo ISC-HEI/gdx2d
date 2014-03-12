@@ -48,8 +48,8 @@ public class GdxGraphics implements Disposable {
 	private t_rendering_mode rendering_mode = t_rendering_mode.SPRITE; 
 
 	// For sprite-based logo
-	final protected Texture logoTex = new Texture(Gdx.files.internal("data/logo_hes.png"));	
-	final protected Texture circleTex = new Texture(Gdx.files.internal("data/circle.png"));
+	final protected Texture logoTex = new Texture(Gdx.files.internal("lib/logo_hes.png"));	
+	final protected Texture circleTex = new Texture(Gdx.files.internal("lib/circle.png"));
 	
 	/**
 	 * When rendering with other methods than the one present here (for instance
@@ -69,7 +69,7 @@ public class GdxGraphics implements Disposable {
 		/**
 		 * Generates the fonts images from the TTF file
 		 */
-		FileHandle robotoF = Gdx.files.internal("data/font/RobotoSlab-Regular.ttf");
+		FileHandle robotoF = Gdx.files.internal("font/RobotoSlab-Regular.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(robotoF);
 		font = generator.generateFont(15);
 		generator.dispose();

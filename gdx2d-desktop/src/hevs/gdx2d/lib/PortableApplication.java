@@ -248,11 +248,11 @@ public abstract class PortableApplication implements TouchInterface,
 			
 			// Under windows, the icon *must* be the small one
 			if(os.contains("win")){						
-				config.addIcon("data/icon16.png", FileType.Internal);
+				config.addIcon("lib/icon16.png", FileType.Internal);
 			}
 			
-			config.addIcon("data/icon32.png", FileType.Internal);
-			config.addIcon("data/icon64.png", FileType.Internal);			
+			config.addIcon("lib/icon32.png", FileType.Internal);
+			config.addIcon("lib/icon64.png", FileType.Internal);			
 			new LwjglApplication(new Game2D(this), config);
 		}
 	}
