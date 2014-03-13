@@ -2,82 +2,101 @@
 <!--
 	ANT Build script for the gdx2d-desktop project.
 	
+	This project contains the gdx2d library and a lot
+	of demos running on PC.
+	
 	The project is compiled in the "bin" folder and
-	the runnable jar file is available in the "dist" folder.
+	runnables jar files are exported to the "dist" folder.
 	
 	@author Christopher Métrailler (mei@hevs.ch)
-	@version 1.0
+	@version 1.0.1
 -->
-<project default="export-all" name="gdx2d-desktop" basedir=".">
-    
-    <description>
-		ANT build script for the gdx2d-desktop project.
+<project default="demos-jar" name="gdx2d-desktop" basedir=".">
+
+	<description>
+		ANT build script for "${ant.project.name}".
     </description>
 
+    <!-- Folders input locations -->
+	<property name="src.dir" location="src"/>
+	<property name="data.dir" location="data"/>
+    <property name="libs.dir" location="libs"/>
+    
+    <!-- Folders output locations -->
+    <property name="build.dir" location="bin"/>
+	<property name="dist.dir"  location="dist"/>
+    <property name="doc.dir" location="doc"/>
+    
     <!-- Build properties -->
     <property file="build.properties" />
     
-	<property name="src" location="src"/>
-	<property name="build" location="bin"/>
-	<property name="dist"  location="dist"/>
-	<property name="data" location="data"/>
-    <property name="libs" location="libs"/>
-    <property name="main-class" value="hevs.gdx2d.demos.DemoSelector"/>
-    <property name="jar-filename" value="${project-name}-${project-version}"/>
-        
+    <property name="demos.main" value="hevs.gdx2d.demos.DemoSelector"/>
+    <property name="demos.version" value="${version.major}.${version.minor}.${version.patch}"/>
+	<property name="demos.file" value="${ant.project.name}-demos_${demos.version}"/>
     
+    <property name="lib.version" value="${demos.version}"/>
+	<property name="lib.file" value="${ant.project.name}-lib_${lib.version}" />
+
 	<tstamp>
 		<format property="today" pattern="yyyy-MM-dd HH:mm:ss" />
 	</tstamp>
 	
 	<path id="project-classpath">
 	    <!-- Include all external jar -->
-		<fileset dir="libs" includes="*.jar" />
+		<fileset dir="${libs.dir}" includes="*.jar" />
 	</path>
 	
-    <target name="init" description="init build folder">
-        <echo>Build script for the "${project-name}" project, version ${project-version}.</echo>
+	<!-- Build targets -->
+	<echo>ANT build script for "${ant.project.name}", version "${lib.version}".</echo>
+	
+    <target name="init" description="Init build folders.">
     	<tstamp/>
-    	<mkdir dir="${build}"/>
-    	<mkdir dir="${dist}"/>
+    	<!-- Create output folders -->
+    	<mkdir dir="${build.dir}"/>
+    	<mkdir dir="${dist.dir}"/>
+    	<mkdir dir="${doc.dir}"/>
   	</target>
     
-    <target name="clean" description="clean all">
-        <delete dir="${build}"/>
-        <delete dir="${dist}"/>
+    <target name="clean" description="Clean all unused folders.">
+        <!-- Remove all output folders -->
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${doc.dir}"/>
     </target>
     
-    <target name="compile-all" depends="clean, init" description="compile Java source" >
-    	<!-- Compile gdx2d Java source files -->
-    	<javac srcdir="${src}" destdir="${build}" classpathref="project-classpath" includeantruntime="false">
-    	    <!-- Exclude doc files -->
+    <!-- Targets for demos -->
+    
+    <target name="demos-compile" depends="clean, init" description="Compile the library with all demos." >
+    	<!-- Compile all gdx2d Java source files. -->
+    	<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="project-classpath" includeantruntime="false">
+    	    <!-- Exclude javadoc files -->
     	    <exclude name="**/package-info.java"/>
     	</javac>
 	</target>
     
-    <target name="export-all" depends="compile-all">
-        <jar destfile="${dist}/${jar-filename}.jar" basedir="${build}">
+    <target name="demos-jar" depends="demos-compile" description="Export all demos to a runnable jar.">
+        <jar destfile="${dist.dir}/${demos.file}.jar" basedir="${build.dir}">
             
-            <!-- Includes all class and libraries into the jar -->
-            <fileset dir="${data}"/>
-            <fileset dir="${libs}"/>
+            <!-- Includes all class and libraries into the jar. -->
+            <fileset dir="${data.dir}"/>
+            <fileset dir="${libs.dir}"/>
             
-            <zipfileset excludes="META-INF/*.SF" src="${libs}/gdx-backend-lwjgl-natives.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs}/gdx-backend-lwjgl.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs}/gdx-natives.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs}/tween-engine-api.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs}/gdx.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs}/box2dlights.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs}/gdx-freetype-natives.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs}/gdx-freetype.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-backend-lwjgl-natives.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-backend-lwjgl.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-natives.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/tween-engine-api.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/box2dlights.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype-natives.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype.jar"/>
 
             <manifest>
                 <!-- Demo selector launcher -->
-                <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Main-Class" value="${demos.main}"/>
                 
-                <attribute name="Implementation-Vendor" value="isi-hevs"/>
-				<attribute name="Implementation-Title" value="${project-name}"/>
-				<attribute name="Implementation-Version" value="${project-version}"/>
+                <attribute name="Implementation-Vendor" value="http://isi.hevs.ch/"/>
+				<attribute name="Implementation-Title" value="${ant.project.name}"/>
+				<attribute name="Implementation-Version" value="${lib.version}"/>
 				
 				<attribute name="Built-By" value="mei@hevs.ch"/>
 				<attribute name="Built-Date" value="${today}"/>
@@ -85,13 +104,50 @@
         </jar>
     </target>
     
-    <!-- TODO: export javadoc (mei) -->
-    
-    <!-- TODO: export gdx2d library only, without demos (mei) -->
-    
-    <target name="run-demo">
-        <!-- Run demos if the jar is already exported -->
-        <java jar="${dist}/${jar-filename}.jar" fork="true"/>
+	<target name="demos-run" description="Run demos using the compiled Jar file.">	    
+        <!-- Run only if the jar is available. -->
+        <fail message="Runnable jar ${demos.file}.jar not found. It must be exported first.">
+			<condition><not><and>
+				<available file="${dist.dir}/${demos.file}.jar" type="file"/>
+      		</and></not></condition>
+		</fail>
+        <java jar="${dist.dir}/${demos.file}.jar" fork="true"/>
     </target>
+    
+    <!-- Target for the gdx2d library -->
+
+	<target name="lib-compile" description="Compile the gdx2d library">
+		<!-- FIXME: for now, all files are compiled and not only the library. -->
+		<antcall target="demos-compile"/>
+	</target>
+        
+	<target name="lib-jar" depends="lib-compile" description="Export the gdx2d library only.">
+	    <!-- TODO: export only the library file to a jar. -->
+	    <fail message="Not implemented yet..."></fail>
+	</target>
+	
+	<target name="lib-doc" depends="init" description="Generate the library documentation (javadoc).">
+		<!-- Generate the javadoc for the current library -->
+		<echo>Generate javadoc version "${lib.version}".</echo>
+		
+		<javadoc destdir="${doc.dir}/${lib.version}"
+			author="true" version="true" use="true" windowtitle="gdx2d API version ${lib.version}">
+		
+		    <!-- Demos files are not included in the javadoc -->
+			<fileset dir="${src.dir}" defaultexcludes="yes">
+			    <include name="hevs/gdx2d/lib/**"/>
+			    <include name="hevs/gdx2d/components/**"/>
+				<exclude name="hevs/gdx2d/demos/**"/>
+			</fileset>
+		
+			<doctitle><![CDATA[
+			    <h1>gdx2d library API</h1>
+			    Build date: ${today}<br>
+			    Version: <b>${lib.version}</b>
+			]]></doctitle>
+			<bottom><![CDATA[Copyright &#169; 2014 gdx2d - isi.hevs.ch]]></bottom>
+			<link href="https://github.com/pmudry/gdx2d"/>
+		</javadoc>
+	</target>
     
 </project>
