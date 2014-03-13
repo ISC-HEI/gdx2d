@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Gdx2d by pmudry</title>
+    <title>Gdx2d</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,10 +16,11 @@
     <div class="wrapper">
       <header>
         <h1>Gdx2d</h1>
-        <p>A simple to use Java library to make 2d games (based on Libgdx) for desktop and Android</p>
+        <p>A simple to use Java library to make 2d games (based on Libgdx) for desktop and Android.</p>
 
+		<p class="view"><a href="http://pmudry.github.io/gdx2d/javadoc/">Current library <i>javadoc</i><small>version 1.0.0</small></a></p>
+		
         <p class="view"><a href="https://github.com/pmudry/gdx2d">View the Project on GitHub <small>pmudry/gdx2d</small></a></p>
-
 
         <ul>
           <li><a href="https://github.com/pmudry/gdx2d/zipball/master">Download <strong>ZIP File</strong></a></li>
@@ -28,37 +29,89 @@
         </ul>
       </header>
       <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+	  
+<h2>What is gdx2d ?</h2>
+<p>Gdx2d is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. Here is an example of what the library is capable of:</p>
+<img src="https://raw.github.com/wiki/pmudry/gdx2d/multi_screenshot.png" alt="gdx2d screenshots" style="margin-bottom:15px;" />
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h3>Why this framework?</h3>
+<p>The advantage of using Gdx2d is that you can develop your code in Java on your standard desktop computer like any other Java application and then deploy the same code, with a single click, on an Android phone or tablet. Of course, you have to take into consideration the fact that some of your code is a bit different for Android (for instance, you do not have accelerometers on your PC).</p>
+<p>The library itself is a wrapper around a very very nice library called <a href="https://github.com/libgdx/libgdx">libgdx</a> which provides almost everything to the library.</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3>What do I get?</h3>
+<p>It is multi-platform so that you can run your code on desktop computers (running either Windows, Linux or Mac) but also on mobile devices running Android. It is based on libgdx but provides a much simpler interface and multiple demo programs to get started.</p>
+<p>Using the framework, the following code displays a shrinking/growing circle running smoothly:</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<pre><code>package hevs.gdx2d.demos.simple;
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+import com.badlogic.gdx.graphics.Color;
+import hevs.gdx2d.lib.GdxGraphics;
+import hevs.gdx2d.lib.PortableApplication;
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+/**
+ * A very simple demonstration on how to display something
+ * animated with the library
+ * @author Pierre-André Mudry (mui)
+ */
+public class DemoSimpleAnimation extends PortableApplication {
+	int radius = 5, speed = 1;
+	
+	public DemoSimpleAnimation(boolean onAndroid) {
+		super(onAndroid);
+	}
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+	public void onInit() {
+		// Sets the window title
+		setTitle("Simple demo, mui 2013");
+	}
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+	public void onGraphicRender(GdxGraphics g) {		
+		
+		// Clears the screen
+		g.clear();
+		g.drawFilledCircle(g.getScreenWidth()/2,
+			g.getScreenHeight()/2, radius, Color.BLUE);		
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+		// Update the circle radius
+		if (radius >= 50|| radius <= 3)
+			speed *= -1;
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+		radius += speed;
+		
+		g.drawSchoolLogo();
+	}
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+	public static void main(String[] args) {
+		/**
+		 * Note that the constructor parameter is used to
+		 * determine if running on Android or not.
+		 * As we are in main there, it means we are
+		 * on desktop computer.
+		 */
+		new DemoSimpleAnimation(false);
+	}
+}</code></pre>
+
+<h3>Who did this and why?</h3>
+<p>It was developped for the <a href="http://inf1.begincoding.net">inf1 course</a> taught at <a href="http://isi.hevs.ch">HES-SO Valais / Systems engineering</a> by Pierre-André Mudry. The framework was written <a href="https://github.com/pmudry">P.-A. Mudry</a> & N. Chatton with the help of <a href="https://github.com/metc">C. Métrailler</a>.</p>
+
+
+<h3>Installing the code</h3>
+<p>The library consists of two Eclipse projects (one for Android, one for desktop) that can be imported easily. Once downloaded, an archive can be imported in Eclipse using "File->Import->Existing project into workspace". You can then either give the path of the archive or extract the data manually and then point to that directory.</p>
+
+<ul>
+	<li><strong>gdx2d-desktop</strong></li>
+	<p>This project contains the library as well as all the demo programs. All the demos can be run on PC or on Android. In order to run a demo, either use the "DemoSelector" class which provides a simple way to choose which demo to run or run each demo individually.</p>
+	
+	<li><strong>gdx2d-android</strong></li>
+	<p>This is the Android counterpart of the library. This project depends on the gdx2d-desktop project, which means that this other project must be available in Eclipse. In addition, most of the files that will be executed come from that project as well. As such, it mainly consists of a Java file GameActivity.java which determines which is the main program that will be launched on Android.</p>
+</ul>
+
+
+<h3>License</h3>
+<p>The content of this project itself is licensed under the <a href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons CC BY-NC 4.0 license</a>, and the underlying source code used to format and display that content is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
+
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/pmudry">pmudry</a></p>
