@@ -1,6 +1,5 @@
 package hevs.gdx2d.lib;
 
-
 /**
  * Version of the library.
  * 
@@ -9,7 +8,7 @@ package hevs.gdx2d.lib;
 public class Version {
 	
 	// Current version name of the gdx2d library
-	public static final String version = "1.0.0-gamma";
+	public static final String version = "1.0.0";
 
 	/**
 	 * Print the current version of the library and libgdx.

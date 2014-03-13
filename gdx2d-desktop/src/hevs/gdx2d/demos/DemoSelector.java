@@ -112,7 +112,7 @@ public class DemoSelector extends JFrame {
 					final String[] version = Version.print().split("/ ");
 					final String msg = "<HTML><BODY>"
 							+ "DemoSelector application for gdx2d lib<br>"
-							+ "Pierre-André Mudry, 2013-2014<br>"
+							+ "Pierre-AndrÃ© Mudry, 2013-2014<br>"
 							+ "Made for the <a href=\"http://inf1.begincoding.net\"/>inf1 course</a> "
 							+ "(http://inf1.begincoding.net)."
 							+ "<pre>" + version[0] + "<br>" + version[1] + "</pre>"

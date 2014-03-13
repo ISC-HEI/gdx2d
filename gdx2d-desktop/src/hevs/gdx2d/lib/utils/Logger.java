@@ -6,8 +6,8 @@ import com.badlogic.gdx.Gdx;
 /**
  * Simple logging facility using underlying libgdx.
  * 
- * @author Pierre-Andre Mudry (mui)
- * @author Christopher M�trailler (mei)
+ * @author Pierre-André Mudry (mui)
+ * @author Christopher Métrailler (mei)
  * @version 1.1
  */
 public class Logger {
