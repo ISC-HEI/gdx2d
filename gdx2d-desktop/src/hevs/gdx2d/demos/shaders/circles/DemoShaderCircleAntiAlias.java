@@ -1,11 +1,13 @@
 package hevs.gdx2d.demos.shaders.circles;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * 
@@ -34,18 +36,19 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 	
 
 	private float time = 0;
-	private int radius = 100;
+	private float radius = 100;
 	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
 		if (g.shaderRenderer == null) {
 			g.setShader("data/shader/circles/circle_aa.fp");
+			g.shaderRenderer.setUniform("color", new Vector3(Color.PINK.r, Color.PINK.g, Color.PINK.b));
 		}
 
 		g.clear();
 		g.shaderRenderer.setUniform("radius", radius);
-		g.shaderRenderer.setUniform("mouse", new Vector2(c.pos.x, c.pos.y));
+		g.shaderRenderer.setUniform("position", new Vector2(c.pos.x, c.pos.y));
 
 		// Update time
 		time += 3*Gdx.graphics.getDeltaTime();

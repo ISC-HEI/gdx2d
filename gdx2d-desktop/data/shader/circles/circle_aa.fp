@@ -6,19 +6,19 @@
 #endif
 
 uniform vec2 resolution;
-uniform vec2 mouse;
-uniform int radius;
+uniform vec2 position;
+uniform vec3 color;
+uniform float radius;
 
-const int antialias_distance = 2; // In pixels, the distance from the border of the circle to fade to transparent
+const float antialias_distance = 2; // In pixels, the distance from the border of the circle to fade to transparent
 
 void main() {	
-	float dist = distance(gl_FragCoord.xy, mouse.xy); // Distance from center
-	float r = abs(radius) + 20;
+	float dist = distance(gl_FragCoord.xy, position.xy); // Distance from center
 
 	// Interpolate nicely color for having an anti-aliased circle
 	// The smoothstep function which is applied uses Hermite interpolation
 	// see for instance http://www.geeks3d.com/20130705/shader-library-circle-disc-fake-sphere-in-glsl-opengl-glslhacker/2/	
-	gl_FragColor = mix(vec4(.70, .50, .99, 1.0), 
-					   vec4(0, 0, 0, 1), 
-					   smoothstep(r, r + antialias_distance, dist));	
+	gl_FragColor = mix(vec4(color, 1.0), 
+					   vec4(0, 0, 0, 0), 
+					   smoothstep(radius, radius + antialias_distance, dist));	
 }

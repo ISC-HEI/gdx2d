@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
@@ -35,6 +36,7 @@ public class GdxGraphics implements Disposable {
 	public ShapeRenderer shapeRenderer;
 	public SpriteBatch spriteBatch;
 	public ShaderRenderer shaderRenderer;
+	private CircleShaderRenderer circleRenderer;
 	
 	protected Color currentColor = Color.WHITE;
 	protected Color backgroundColor = Color.BLACK;
@@ -66,6 +68,8 @@ public class GdxGraphics implements Disposable {
 		this.spriteBatch = spriteBatch;
 		this.camera = camera;
 
+		circleRenderer = new CircleShaderRenderer();
+		
 		/**
 		 * Generates the fonts images from the TTF file
 		 */
@@ -350,6 +354,13 @@ public class GdxGraphics implements Disposable {
 		shapeRenderer.circle(centerX, centerY, radius);
 	}
 
+	public void drawAntiAliasedCircle(float centerX, float centerY, float radius, Color c){
+		circleRenderer.setColor(new Vector3(c.r, c.g, c.b));
+		circleRenderer.setPosition(new Vector2(centerX, centerY));
+		circleRenderer.setRadius(radius);
+		circleRenderer.render();
+	}
+	
 	public void drawFilledCircle(float centerX, float centerY, float radius, Color c) {		
 		// TODO Do this with a shader instead of formulas or textures !!
 		// Draw big circles with mathematical formulas
@@ -366,7 +377,6 @@ public class GdxGraphics implements Disposable {
 			Color old = spriteBatch.getColor();
 			checkmode(t_rendering_mode.SPRITE);
 			spriteBatch.setColor(c);		
-
 			spriteBatch.draw(circleTex, centerX-64, centerY-64, 64, 64, 128, 128, radius/64, radius/64, 0, 0, 0, 128, 128, false, false);
 			spriteBatch.setColor(old);
 		}
@@ -620,9 +630,7 @@ public class GdxGraphics implements Disposable {
 	 * @param width The width of the texture to draw the shader on
 	 */
 	public void setShader(String s, int width, int height) {
-		
 		// TODO Allowing multiple shaders at once would be nice
-		
 		// Dispose of the allocated resources
 		if(shaderRenderer != null){
 			shaderRenderer.dispose();
