@@ -43,7 +43,7 @@
 	
 	<path id="project-classpath">
 	    <!-- Include all external jar -->
-		<fileset dir="${libs.dir}" includes="*.jar" />
+		<fileset dir="${libs.dir}" includes="**/*.jar" />
 	</path>
 	
 	<!-- Build targets -->
@@ -64,9 +64,23 @@
         <delete dir="${doc.dir}"/>
     </target>
     
-    <!-- Targets for demos -->
     
     <target name="demos-compile" depends="clean, init" description="Compile the library with all demos." >
+    	
+        <!-- Resources are copied to the data folder -->
+    	<copy todir="${build.dir}/data">
+			<fileset dir="${data.dir}"/>
+		</copy>
+		
+    	<!-- Library icons for Swing -->
+    	<copy todir="${build.dir}/lib">
+			<fileset dir="${data.dir}/lib"/>
+		</copy>
+		
+    	<copy todir="${build.dir}/font">
+			<fileset dir="${data.dir}/font"/>
+		</copy>
+        
     	<!-- Compile all gdx2d Java source files. -->
     	<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="project-classpath" includeantruntime="false">
     	    <!-- Exclude javadoc files -->
@@ -75,11 +89,11 @@
 	</target>
     
     <target name="demos-jar" depends="demos-compile" description="Export all demos to a runnable jar.">
-        <jar destfile="${dist.dir}/${demos.file}.jar" basedir="${build.dir}">
+        <jar destfile="${dist.dir}/${demos.file}.jar" update="true" basedir="${build.dir}">
             
-            <!-- Includes all class and libraries into the jar. -->
-            <fileset dir="${data.dir}"/>
+            <!-- Includes libraries and data. -->
             <fileset dir="${libs.dir}"/>
+           	<!-- <fileset dir="${data.dir}"/> -->
             
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-backend-lwjgl-natives.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-backend-lwjgl.jar"/>

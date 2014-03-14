@@ -52,7 +52,7 @@ public class DemoSelector extends JFrame {
 	final LinkedHashMap<String, String> tests = new LinkedHashMap<String, String>();
 
 	public DemoSelector() throws HeadlessException {
-		super("GDX2D demos ** " + Version.version + " - mui, chn, mei 2013-2014");
+		super("GDX2D demos " + Version.version + " - mui, chn, mei 2013-2014");
 
 		tests.put("Simple shapes", "simple.DemoSimpleShapes");
 		tests.put("Drawing circles", "simple.DemoCircles");
@@ -215,6 +215,9 @@ public class DemoSelector extends JFrame {
 	}
 
 	public static void main(String[] argv) throws Exception {
+		
+		//TODO: launch directly a specific demo using a parameter when launched (mei)
+		
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
