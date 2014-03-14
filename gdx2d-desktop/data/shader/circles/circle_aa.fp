@@ -10,7 +10,7 @@ uniform vec2 position;
 uniform vec3 color;
 uniform float radius;
 
-const float antialias_distance = 2; // In pixels, the distance from the border of the circle to fade to transparent
+const float antialias_distance = 2.0; // In pixels, the distance from the border of the circle to fade to transparent
 
 void main() {	
 	float dist = distance(gl_FragCoord.xy, position.xy); // Distance from center
