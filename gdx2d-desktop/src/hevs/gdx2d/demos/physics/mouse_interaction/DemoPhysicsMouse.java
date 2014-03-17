@@ -1,4 +1,4 @@
-package hevs.gdx2d.demos.physics;
+package hevs.gdx2d.demos.physics.mouse_interaction;
 
 import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsCircle;

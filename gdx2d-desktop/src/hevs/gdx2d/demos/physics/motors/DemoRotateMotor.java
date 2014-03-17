@@ -1,4 +1,4 @@
-package hevs.gdx2d.demos.physics;
+package hevs.gdx2d.demos.physics.motors;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;

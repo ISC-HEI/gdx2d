@@ -1,7 +1,7 @@
 package hevs.gdx2d.components.physics;
 
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
-import hevs.gdx2d.demos.physics.DemoChainPhysics;
+import hevs.gdx2d.demos.physics.chains.DemoChainPhysics;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.interfaces.DrawableObject;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
