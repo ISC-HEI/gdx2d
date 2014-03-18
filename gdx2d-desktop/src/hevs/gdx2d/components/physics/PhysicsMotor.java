@@ -1,0 +1,142 @@
+package hevs.gdx2d.components.physics;
+
+import hevs.gdx2d.lib.physics.PhysicsWorld;
+
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+
+public class PhysicsMotor
+{
+	Body body1;
+	Body body2;
+	Vector2 anchorPoint;
+	
+	RevoluteJointDef rjd;
+	RevoluteJoint joint;
+	
+	public PhysicsMotor( Body body1, Body body2, Vector2 anchorPoint, float motorSpeed, float maxMotorTorque, boolean motorEnable )
+	{
+		this.body1 = body1;
+		this.body2 = body2;
+		this.anchorPoint = anchorPoint;
+		
+		rjd = new RevoluteJointDef();
+		rjd.initialize( this.body1, this.body2, anchorPoint );
+		
+		rjd.motorSpeed = motorSpeed;
+		rjd.maxMotorTorque = maxMotorTorque;
+		rjd.enableMotor = motorEnable;
+		
+		joint = ( RevoluteJoint )PhysicsWorld.getInstance().createJoint( rjd );
+	}
+	
+	public PhysicsMotor( Body body1, Body body2, Vector2 anchorPoint )
+	{
+		this.body1 = body1;
+		this.body2 = body2;
+		this.anchorPoint = anchorPoint;
+		
+		rjd = new RevoluteJointDef();
+		rjd.initialize( this.body1, this.body2, anchorPoint );
+		
+		rjd.motorSpeed = 0;
+		rjd.maxMotorTorque = 0;
+		rjd.enableMotor = false;
+		
+		joint = ( RevoluteJoint )PhysicsWorld.getInstance().createJoint( rjd );
+	}
+	
+	public void enableLimit( boolean flag )
+	{
+		joint.enableLimit( flag );
+	}
+	
+	public void enableMotor( boolean flag )
+	{
+		joint.enableMotor( flag );
+	}
+	
+	public float getAngle()
+	{
+		return joint.getJointAngle();
+	}
+	
+	public float getSpeed()
+	{
+		return joint.getJointSpeed();
+	}
+	
+	public Vector2 getLocalAnchorA()
+	{
+		return joint.getAnchorA();
+	}
+	
+	public Vector2 getLocalAnchorB()
+	{
+		return joint.getAnchorB();
+	}
+	
+	public float getLowerLimit()
+	{
+		return joint.getLowerLimit();
+	}
+	
+	public float getMotorSpeed()
+	{
+		return joint.getMotorSpeed();
+	}
+	
+	public float getMaxMotortorque( float invDt )
+	{
+		return joint.getMotorTorque( invDt );
+	}
+	
+	public float getUpperLimit()
+	{
+		return joint.getUpperLimit();
+	}
+	
+	public boolean isLimitEnabled()
+	{
+		return joint.isLimitEnabled();
+	}
+	
+	public boolean isMotorEnabled()
+	{
+		return joint.isMotorEnabled();
+	}
+	
+	public void setLowerLimit( float lower )
+	{
+		joint.setLimits( lower, joint.getUpperLimit() );
+	}
+	
+	public void setUpperLimit( float upper )
+	{
+		joint.setLimits( joint.getLowerLimit(), upper );
+	}
+	
+	public void setLimits( float lower, float upper )
+	{
+		joint.setLimits( lower, upper );
+	}
+	
+	public void setMaxMotorTorque( float torque )
+	{
+		joint.setMaxMotorTorque( torque );
+	}
+	
+	public void setMotorSpeed( float speed )
+	{
+		joint.setMotorSpeed( speed );
+	}
+	
+	public void initializeMotor( float speed, float torque, boolean enable )
+	{
+		joint.setMotorSpeed( speed );
+		joint.setMaxMotorTorque( torque );
+		joint.enableMotor( enable );
+	}
+}
