@@ -7,6 +7,7 @@ import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
+import hevs.gdx2d.lib.utils.Logger;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -29,7 +30,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * @see <a href="http://natureofcode.com/book/chapter-5-physics-libraries/">The
  *      nature of code example</a>
  * @author Thierry Hischier, hit 2014
- * @version 1.1
+ * @version 1.2
  */
 public class DemoWindmill extends PortableApplication {
 	World world = PhysicsWorld.getInstance();
@@ -60,7 +61,9 @@ public class DemoWindmill extends PortableApplication {
 	@Override
 	public void onInit() {
 		setTitle("Windmill simulation, hit 2014");
-		System.out.println("Press left mouse button to enable/disable the motor");
+		
+		Logger.log("Press left mouse button to enable/disable the motor.");
+		Logger.log("Press right mouse button to generate particles.");
 
 		// A renderer that displays physics objects things simply
 		debugRenderer = new DebugRenderer();
@@ -71,15 +74,13 @@ public class DemoWindmill extends PortableApplication {
 
 		// Create PhysicStaticBox where the windmill will be fixed. It is
 		// located in the center of the frame
-		PhysicsStaticBox staticBox = new PhysicsStaticBox("box1", 
-									new Vector2(getWindowWidth() / 2,
-												getWindowHeight() / 2), 10, 40);
+		PhysicsStaticBox staticBox = new PhysicsStaticBox("box1", new Vector2(width / 2, height / 2), 10, 40);
 		
 		box1 = staticBox.getBody();
 
 		// Create the windmill wing. It is also located in the center of the frame
 		// This is is not static, as it can rotate
-		PhysicsBox movingBox = new PhysicsBox("box2", new Vector2(getWindowWidth() / 2, getWindowHeight() / 2), 120, 10);
+		PhysicsBox movingBox = new PhysicsBox("box2", new Vector2(width / 2, height / 2), 120, 10);
 		
 		box2 = movingBox.getBody();
 
@@ -137,6 +138,7 @@ public class DemoWindmill extends PortableApplication {
 				particles.add(newParticle);
 			}
 		}
+		time++; // Increment the timer variable
 
 		/** 
 		 * Render the physics and draw the logo, fps information and the status
@@ -145,21 +147,12 @@ public class DemoWindmill extends PortableApplication {
 		debugRenderer.render(world, g.getCamera().combined);
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
 
+		g.drawString(width - 5, 60, "Left Mouse button: Motor ON/OFF", HAlignment.RIGHT);
+		g.drawString(width - 5, 40, "Right Mouse button: Generate particles", HAlignment.RIGHT);
+		g.drawString(width - 5, 20, "Motor is " + (motorOn ? "ON" : "OFF"), HAlignment.RIGHT);
+		
 		g.drawSchoolLogoUpperRight();
 		g.drawFPS();
-
-		g.setColor(Color.WHITE);		
-		g.drawString(width - 250, 60, "Left Mouse button: Motor ON/OFF");
-		g.drawString(width - 290, 40, "Right Mouse button: Generate particles");
-		
-		if (motorOn) {
-			g.drawString(width - 100, 20, "Motor is ON");
-		} else {
-			g.drawString(width - 100, 20, "Motor is OFF");
-		}
-
-		// Increment the timer variable
-		time++;
 	}
 
 	@Override
