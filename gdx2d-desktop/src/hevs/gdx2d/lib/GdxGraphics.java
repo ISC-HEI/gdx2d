@@ -475,8 +475,7 @@ public class GdxGraphics implements Disposable {
 	 * @param str the text to display
 	 */
 	public void drawStringCentered(float posY, String str) {
-		float w = font.getBounds(str).width;
-		drawString((getScreenWidth() - w) / 2.0f, posY, str);
+		drawString(getScreenWidth() / 2.0f, posY, str, HAlignment.CENTER);
 	}
 	
 	/**
@@ -487,8 +486,7 @@ public class GdxGraphics implements Disposable {
 	 * @param f the custom font to use
 	 */
 	public void drawStringCentered(float posY, String str, BitmapFont f) {
-		float w = f.getBounds(str).width;
-		drawString((getScreenWidth() - w )/ 2.0f, posY, str, f);
+		drawString(getScreenWidth() / 2.0f, posY, str, f, HAlignment.CENTER);
 	}
 	
 	/**
