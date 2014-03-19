@@ -7,31 +7,40 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 /**
- * A demo that shows how to generate different fonts for 
- * rendering
+ * A demo that shows how to generate different fonts and hot to display texts
+ * with different alignments.
  * 
- * @author Pierre-Andre Mudry (mui)
- * @version 1.0
+ * @author Pierre-André Mudry (mui)
+ * @author Christopher Métrailler (mei)
+ * @version 1.1
  */
-public class DemoFontGeneration extends PortableApplication{
-	BitmapFont optimus60, optimus40, timeless40, starjedi40, icepixel40;
+public class DemoFontGeneration extends PortableApplication {
+	private BitmapFont optimus60, optimus40, timeless40, starjedi40, icepixel40;
+
+	private final static String LOREM =	"Lorem ipsum dolor sit amet,\n" + 
+			 							"consectetur adipiscing elit.\n" + 
+			 							"In laoreet libero sit amet\n" +
+			 							"sollicitudin vestibulum.\n" + 
+			 							"Roboto size 15 (default)";
 	
 	public DemoFontGeneration(boolean onAndroid) {
 		super(onAndroid);
 	}
-	
+
 	@Override
 	public void onInit() {
 		this.setTitle("Font generation demo, mui 2013");
-		
+
+		// Load some font files 
 		FileHandle optimusF = Gdx.files.internal("font/OptimusPrinceps.ttf");
 		FileHandle timelessF = Gdx.files.internal("font/Timeless.ttf");
 		FileHandle starjediF = Gdx.files.internal("font/Starjedi.ttf");
 		FileHandle icePixelF = Gdx.files.internal("font/ice_pixel-7.ttf");
-		
+
 		/**
 		 * Generates the fonts images from the TTF file
 		 */
@@ -40,12 +49,12 @@ public class DemoFontGeneration extends PortableApplication{
 		optimus40.setColor(Color.BLUE);
 		optimus60 = generator.generateFont(60);
 		generator.dispose();
-		
+
 		generator = new FreeTypeFontGenerator(timelessF);
 		timeless40 = generator.generateFont(40);
 		timeless40.setColor(Color.RED);
 		generator.dispose();
-		
+
 		generator = new FreeTypeFontGenerator(starjediF);
 		starjedi40 = generator.generateFont(40);
 		starjedi40.setColor(Color.GREEN);
@@ -56,23 +65,34 @@ public class DemoFontGeneration extends PortableApplication{
 		icepixel40 = generator.generateFont(s);
 		generator.dispose();
 	}
-	
+
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+		final float h = g.getScreenHeight();
+		final float y = h / 7.0f;
+		final float w = g.getScreenWidth();
 		
-		float h = getWindowHeight() / 6.0f;
+		g.clear();
+
+		/**
+		 * Display different fonts centered on the screen.
+		 */
+		g.drawStringCentered(y / 2 + y * 6, "Ice pixel 40", icepixel40);
+		g.drawStringCentered(y / 2 + y * 5, "Star jedi 40", starjedi40);
+		g.drawStringCentered(y / 2 + y * 4, "Timeless size 40", timeless40);
+		g.drawStringCentered(y / 2 + y * 3, "Optimus size 40", optimus40);
+		g.drawStringCentered(y / 2 + y * 2, "Optimus size 60", optimus60);
+		g.setColor(Color.MAGENTA);
+		g.drawStringCentered(y / 2 + y * 1, LOREM);
 		
 		/**
-		 * Space the fonts evenly on screen
+		 * Display fonts left, right and center aligned.
 		 */
-		g.drawStringCentered(h/2 + h * 1, "Optimus size 60", optimus60);
-		g.drawStringCentered(h/2 + h * 2, "Optimus size 40", optimus40);
-		g.drawStringCentered(h/2 + h * 3, "Timeless 40", timeless40);		
-		g.drawStringCentered(h/2 + h * 4, "Star jedi 40", starjedi40);		
-		g.drawStringCentered(h/2 + h * 5, "Ice pixel 40", icepixel40);		
+		g.setColor(Color.WHITE);
+		g.drawString(10, getWindowHeight() - 10, "left\naligned\ntext", HAlignment.LEFT);
+		g.drawString(w - 10, getWindowHeight() - 10, "right\naligned\ntext", HAlignment.RIGHT);
 	}
-	
+
 	@Override
 	public void onDispose() {
 		// Release what we've used
@@ -83,9 +103,8 @@ public class DemoFontGeneration extends PortableApplication{
 		starjedi40.dispose();
 		icepixel40.dispose();
 	}
-	
+
 	public static void main(String[] args) {
 		new DemoFontGeneration(false);
 	}
-
 }
