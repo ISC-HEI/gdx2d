@@ -20,7 +20,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * A demo on how to use PhysicsMotor (anchor points) in gdx2d
+ * A demo on how to use PhysicsMotor (anchor points)
  * 
  * <p>
  * Based on ex 5.9 from the Nature of code book
@@ -31,7 +31,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * @author Thierry Hischier, hit 2014
  * @version 1.1
  */
-public class WindmillExtended extends PortableApplication {
+public class DemoWindmill extends PortableApplication {
 	World world = PhysicsWorld.getInstance();
 	DebugRenderer debugRenderer;
 
@@ -53,7 +53,7 @@ public class WindmillExtended extends PortableApplication {
 	int GENERATION_RATE = 2;
 	boolean generate = false;
 
-	public WindmillExtended(boolean onAndroid) {
+	public DemoWindmill(boolean onAndroid) {
 		super(onAndroid);
 	}
 
@@ -185,6 +185,6 @@ public class WindmillExtended extends PortableApplication {
 	}
 
 	public static void main(String args[]) {
-		new WindmillExtended(false);
+		new DemoWindmill(false);
 	}
 }
