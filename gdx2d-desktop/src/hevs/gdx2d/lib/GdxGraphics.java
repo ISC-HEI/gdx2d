@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -389,45 +390,105 @@ public class GdxGraphics implements Disposable {
 			drawFilledCircle(centerX, centerY, radius+3, outer);
 			drawFilledCircle(centerX, centerY, radius+1, inner);			
 	}
-
+	
+	/**
+	 * Draws a text at a specified position.
+	 * 
+	 * The default font type and font size is used and the text is left aligned.
+	 * The text position reference is the top left corner.
+	 *  
+	 * @param posX left position of the text
+	 * @param posY top position of the text
+	 * @param str the text to display
+	 */
 	public void drawString(float posX, float posY, String str) {
-		checkmode(t_rendering_mode.SPRITE);
-		font.drawMultiLine(spriteBatch, str, posX, posY);
-		spriteBatch.flush(); // Fix issue #25 (mei)
+		font.setColor(currentColor);
+		drawString(posX, posY, str, font);
 	}
 	
 	/**
-	 * Draws a string with a specific font
-	 * @param posX
-	 * @param posY
-	 * @param str
-	 * @param f
+	 * Draws a text with a specific font at a specified position.
+	 * 
+	 * The text position reference is the top left edge.
+	 *  
+	 * @param posX left position of the text
+	 * @param posY Y top position of the text
+	 * @param str the text to display
+	 * @param f the custom font to use
 	 */
 	public void drawString(float posX, float posY, String str, BitmapFont f) {
-		checkmode(t_rendering_mode.SPRITE);
-		f.drawMultiLine(spriteBatch, str, posX, posY);
+		// Default alignment is left
+		drawString(posX, posY, str, f, HAlignment.LEFT);
 	}
 	
 	/**
-	 * Draws a string in the middle of the screen with a specific font
-	 * @param posY
-	 * @param str
-	 * @param f
+	 * Draws a text at a specified position. Can be left, right or center aligned.
+	 * 
+	 * @param posX left, right or center position of the text
+	 * @param posY Y top position of the text
+	 * @param str the text to display
+	 * @param align left, center or right align
+	 */
+	public void drawString(float posX, float posY, String str, HAlignment align) {
+		font.setColor(currentColor);
+		drawString(posX, posY, str, font, align);
+	}
+	
+	/**
+	 * Draws a text with a specific font at a specified position. Can be left, right or center aligned.
+	 * 
+	 * @param posX left, right or center position of the text
+	 * @param posY Y top position of the text
+	 * @param str the text to display
+	 * @param f the custom font to use
+	 * @param align left, center or right align
+	 */
+	public void drawString(float posX, float posY, String str, BitmapFont f, HAlignment align) {
+		checkmode(t_rendering_mode.SPRITE);
+		final float w = f.getBounds(str).width;
+		final float alignmentWidth;
+		switch(align) {
+		case CENTER:
+			alignmentWidth = w;
+			posX -= w / 2.0f;
+			break;
+		case RIGHT:
+			alignmentWidth = 0;
+			break;
+		default:
+		case LEFT:
+			alignmentWidth = w;
+			break;
+		}
+		
+		// Draw the string (reference is the top left edge)
+		f.drawMultiLine(spriteBatch, str, posX, posY, alignmentWidth, align);
+		// spriteBatch.flush(); // Fix issue #25 (mei)
+	}
+	
+	/**
+	 * Draws a text in the middle of the screen.
+	 * 
+	 * The default font type and font size is used.
+	 * 
+	 * @param posY Y top position of the text
+	 * @param str the text to display
+	 */
+	public void drawStringCentered(float posY, String str) {
+		float w = font.getBounds(str).width;
+		drawString((getScreenWidth() - w) / 2.0f, posY, str);
+	}
+	
+	/**
+	 * Draws a text in the middle of the screen with a specific font.
+	 * 
+	 * @param posY centered Y position of the text
+	 * @param str the text to display
+	 * @param f the custom font to use
 	 */
 	public void drawStringCentered(float posY, String str, BitmapFont f) {
 		float w = f.getBounds(str).width;
 		drawString((getScreenWidth() - w )/ 2.0f, posY, str, f);
-	}
-
-	/**
-	 * Draws a string in the middle of the screen with a specific font
-	 * @param posY
-	 * @param str
-	 * @param f
-	 */
-	public void drawStringCentered(float posY, String str) {
-		float w = font.getBounds(str).width;
-		drawString((getScreenWidth() - w )/ 2.0f, posY, str);
 	}
 	
 	/**
