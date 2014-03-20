@@ -9,13 +9,27 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
 public class PhysicsMotor
 {
+	// Contains the first body for physics simulation
 	Body body1;
+	// Contains the second body for physics simulation
 	Body body2;
+	// Contains the position of the anchor point between the two bodies
 	Vector2 anchorPoint;
 	
+	// Contains the definition for the RevoluteJoint
 	RevoluteJointDef rjd;
+	// Contains the RevoluteJoint for the physics simulation
 	RevoluteJoint joint;
 	
+	/**
+	 * Constructor which defines and creates the RevoluteJoint. It also sets the desired information for the PhysicsMotor.
+	 * @param body1
+	 * @param body2
+	 * @param anchorPoint
+	 * @param motorSpeed
+	 * @param maxMotorTorque
+	 * @param motorEnable
+	 */
 	public PhysicsMotor( Body body1, Body body2, Vector2 anchorPoint, float motorSpeed, float maxMotorTorque, boolean motorEnable )
 	{
 		this.body1 = body1;
@@ -32,6 +46,12 @@ public class PhysicsMotor
 		joint = ( RevoluteJoint )PhysicsWorld.getInstance().createJoint( rjd );
 	}
 	
+	/**
+	 * Another constructor which defines and creates the RevoluteJoint. It also sets all information for the PhysicsMotor to 0 and false.
+	 * @param body1
+	 * @param body2
+	 * @param anchorPoint
+	 */
 	public PhysicsMotor( Body body1, Body body2, Vector2 anchorPoint )
 	{
 		this.body1 = body1;
@@ -133,6 +153,12 @@ public class PhysicsMotor
 		joint.setMotorSpeed( speed );
 	}
 	
+	/**
+	 * Initialize the PhysicsMotor with the desired parameters. This is applicable for every instance of PhysicsMotor.
+	 * @param speed The new speed for the joint motor
+	 * @param torque The new torque value for the joint motor 
+	 * @param enable The new state for the joint motor
+	 */
 	public void initializeMotor( float speed, float torque, boolean enable )
 	{
 		joint.setMotorSpeed( speed );
