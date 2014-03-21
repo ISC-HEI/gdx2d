@@ -9,13 +9,13 @@
 	runnables jar files are exported to the "dist" folder.
 	
 	@author Christopher Métrailler (mei@hevs.ch)
-	@version 1.0.1
+	@version 1.0.2
 -->
 <project default="demos-jar" name="gdx2d-desktop" basedir=".">
 
 	<description>
 		ANT build script for "${ant.project.name}".
-    </description>
+	</description>
 
     <!-- Folders input locations -->
 	<property name="src.dir" location="src"/>
@@ -41,8 +41,8 @@
 		<format property="today" pattern="yyyy-MM-dd HH:mm:ss" />
 	</tstamp>
 	
+	<!-- Demo jar classpath -->
 	<path id="project-classpath">
-	    <!-- Include all external jar -->
 		<fileset dir="${libs.dir}" includes="**/*.jar" />
 	</path>
 	
@@ -91,9 +91,8 @@
     <target name="demos-jar" depends="demos-compile" description="Export all demos to a runnable jar.">
         <jar destfile="${dist.dir}/${demos.file}.jar" update="true" basedir="${build.dir}">
             
-            <!-- Includes libraries and data. -->
-            <fileset dir="${libs.dir}"/>
-           	<!-- <fileset dir="${data.dir}"/> -->
+            <!-- Remove libraies sources to spare a bit space -->
+            <fileset dir="${libs.dir}" excludes="**/*-sources*"/>
             
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-backend-lwjgl-natives.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-backend-lwjgl.jar"/>
