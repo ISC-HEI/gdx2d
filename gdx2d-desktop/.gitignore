@@ -28,3 +28,7 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+# Specific folders for the project
+dist/
+doc/
