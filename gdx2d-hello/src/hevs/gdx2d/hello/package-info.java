@@ -1,5 +1,5 @@
 /**
- * Bootsrap project for gdx2d.
+ * Bootsrap project for gdx2d. Contains a `HelloWorld` demo.
  *  
  * @author Christopher Métrailler (mei)
  */
