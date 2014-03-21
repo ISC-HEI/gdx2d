@@ -9,7 +9,7 @@
 	runnables jar files are exported to the "dist" folder.
 	
 	@author Christopher Métrailler (mei@hevs.ch)
-	@version 1.0.2
+	@version 1.1
 -->
 <project default="demos-jar" name="gdx2d-desktop" basedir=".">
 
@@ -27,16 +27,18 @@
 	<property name="dist.dir"  location="dist"/>
     <property name="doc.dir" location="doc"/>
     
-    <!-- Build properties -->
     <property file="build.properties" />
     
+    <!-- Demo runnable Jar -->
     <property name="demos.main" value="hevs.gdx2d.demos.DemoSelector"/>
     <property name="demos.version" value="${version.major}.${version.minor}.${version.patch}"/>
-	<property name="demos.file" value="${ant.project.name}-demos_${demos.version}"/>
-    
     <property name="lib.version" value="${demos.version}"/>
-	<property name="lib.file" value="${ant.project.name}-lib_${lib.version}" />
-
+    <property name="demos.file" value="${ant.project.name}-demos_${demos.version}"/>
+	
+	<!-- Manifest attributes -->
+	<property name="impl.vendor" value="http://isi.hevs.ch/"/>
+	<property name="impl.title" value="${ant.project.name}"/>
+	<property name="impl.version" value="${lib.version}"/>
 	<tstamp>
 		<format property="today" pattern="yyyy-MM-dd HH:mm:ss" />
 	</tstamp>
@@ -106,11 +108,9 @@
             <manifest>
                 <!-- Demo selector launcher -->
                 <attribute name="Main-Class" value="${demos.main}"/>
-                
-                <attribute name="Implementation-Vendor" value="http://isi.hevs.ch/"/>
-				<attribute name="Implementation-Title" value="${ant.project.name}"/>
-				<attribute name="Implementation-Version" value="${lib.version}"/>
-				
+                <attribute name="Implementation-Vendor" value="${impl.vendor}"/>
+				<attribute name="Implementation-Title" value="${impl.title}"/>
+				<attribute name="Implementation-Version" value="${impl.version}"/>
 				<attribute name="Built-By" value="mei@hevs.ch"/>
 				<attribute name="Built-Date" value="${today}"/>
             </manifest>
@@ -127,17 +127,6 @@
         <java jar="${dist.dir}/${demos.file}.jar" fork="true"/>
     </target>
     
-    <!-- Target for the gdx2d library -->
-
-	<target name="lib-compile" description="Compile the gdx2d library">
-		<!-- FIXME: for now, all files are compiled and not only the library. -->
-		<antcall target="demos-compile"/>
-	</target>
-        
-	<target name="lib-jar" depends="lib-compile" description="Export the gdx2d library only.">
-	    <!-- TODO: export only the library file to a jar. -->
-	    <fail message="Not implemented yet..."></fail>
-	</target>
 	
 	<target name="lib-doc" depends="init" description="Generate the library documentation (javadoc).">
 		<!-- Generate the javadoc for the current library -->
