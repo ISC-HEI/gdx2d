@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" output="data" path="data"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<!-- Contains the gdx2d library with source for the students -->
 	<classpathentry kind="lib" path="libs/gdx2d-desktop-demos_1.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
