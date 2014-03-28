@@ -5,7 +5,6 @@ import hevs.gdx2d.lib.Version;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,7 +50,7 @@ public class DemoSelector extends JFrame {
 
 	final LinkedHashMap<String, String> tests = new LinkedHashMap<String, String>();
 
-	public DemoSelector() throws HeadlessException {
+	public DemoSelector() throws Exception {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2013-2014");
 
 		tests.put("Simple shapes", "simple.DemoSimpleShapes");
