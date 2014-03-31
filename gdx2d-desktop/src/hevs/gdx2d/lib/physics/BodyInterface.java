@@ -4,8 +4,10 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * An interface for the Box2D bodies so that we can
- * work in pixels units and not in meters. Used in 
- * {@link AbstractPhysicsObject}.
+ * work in pixels units and not in meters. Most of the physics 
+ * operations have been converted to return pixels.
+ * 
+ * <p>Used in {@link AbstractPhysicsObject}.</p>
  * 
  * @author Pierre-André Mudry
  * @version 1.0
