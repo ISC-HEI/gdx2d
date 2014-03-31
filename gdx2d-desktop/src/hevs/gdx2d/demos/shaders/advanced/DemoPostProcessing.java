@@ -44,7 +44,7 @@ public class DemoPostProcessing extends PortableApplication{
 	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		if(g.shaderRenderer == null){
+		if(g.getShaderRenderer() == null){
 			g.setShader("data/shader/advanced/postprocessing.fp");
 		}
 
@@ -59,8 +59,8 @@ public class DemoPostProcessing extends PortableApplication{
 		fbo.end();
 		
 		// Copy the offscreen buffer to the displayed bufer
-		g.shaderRenderer.setTexture(fbo.getColorBufferTexture(), 0);
-		g.shaderRenderer.setUniform("enabled", shaderEnabled);
+		g.getShaderRenderer().setTexture(fbo.getColorBufferTexture(), 0);
+		g.getShaderRenderer().setUniform("enabled", shaderEnabled);
 		
 		time += Gdx.graphics.getDeltaTime();			
 		g.drawShader(time);

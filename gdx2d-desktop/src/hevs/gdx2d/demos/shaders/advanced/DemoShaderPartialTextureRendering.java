@@ -23,7 +23,7 @@ public class DemoShaderPartialTextureRendering extends PortableApplication {
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		if (g.shaderRenderer == null)
+		if (g.getShaderRenderer() == null)
 			g.setShader("data/shader/bicolor.fp", 200, 200);
 
 		g.clear();

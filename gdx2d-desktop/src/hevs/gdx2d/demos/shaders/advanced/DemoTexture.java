@@ -29,9 +29,9 @@ public class DemoTexture extends PortableApplication{
 	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		if(g.shaderRenderer == null){
+		if(g.getShaderRenderer() == null){
 			g.setShader("data/shader/advanced/vignette.fp");
-			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");				
+			g.getShaderRenderer().addTexture("data/images/lena.png", "texture0");				
 		}			
 		
 		t+= Gdx.graphics.getDeltaTime();			

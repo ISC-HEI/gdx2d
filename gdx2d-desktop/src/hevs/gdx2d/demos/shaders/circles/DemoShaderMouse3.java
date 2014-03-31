@@ -33,15 +33,15 @@ public class DemoShaderMouse3 extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
-		if (g.shaderRenderer == null) {
+		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/circles/circle3.fp");
-			g.shaderRenderer.setUniform("radius", 30f);
+			g.getShaderRenderer().setUniform("radius", 30f);
 		}
 
 		g.clear();
 
 		// Pass the mouse position to the shader, always
-		g.shaderRenderer.setUniform("mouse", c.pos);
+		g.getShaderRenderer().setUniform("mouse", c.pos);
 		time += Gdx.graphics.getDeltaTime();
 		
 		g.drawShader(time);
