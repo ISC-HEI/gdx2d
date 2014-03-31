@@ -1,4 +1,4 @@
-package hevs.gdx2d.lib;
+package hevs.gdx2d.lib.renderers;
 
 import hevs.gdx2d.lib.utils.Logger;
 
@@ -41,7 +41,7 @@ public class ShaderRenderer implements Disposable{
 		this(shaderFileName, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
-	ShaderRenderer(String shaderFileName, int width, int height){
+	public ShaderRenderer(String shaderFileName, int width, int height){
 		this(Gdx.files.internal(shaderFileName), width, height);		
 	}
 		

@@ -2,6 +2,8 @@ package hevs.gdx2d.lib;
 
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.graphics.Polygon;
+import hevs.gdx2d.lib.renderers.CircleShaderRenderer;
+import hevs.gdx2d.lib.renderers.ShaderRenderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

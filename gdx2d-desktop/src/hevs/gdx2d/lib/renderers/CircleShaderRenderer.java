@@ -1,4 +1,4 @@
-package hevs.gdx2d.lib;
+package hevs.gdx2d.lib.renderers;
 
 import hevs.gdx2d.lib.utils.Logger;
 
@@ -26,7 +26,7 @@ public class CircleShaderRenderer implements Disposable{
 
 	private FileHandle vertexShader;
 
-	CircleShaderRenderer() {
+	public CircleShaderRenderer() {
 		this(Gdx.files.internal("data/shader/circles/circle_aa.fp"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
