@@ -73,6 +73,7 @@ public class DemoSelector extends JFrame {
 		tests.put("Physics particles", "physics.particle.DemoParticlePhysics");
 		tests.put("Physics mouse interactions", "physics.mouse_interaction.DemoPhysicsMouse");
 		tests.put("Physics collision detection", "physics.collisions.DemoCollisionListener");
+		tests.put("Physics anchor points", "physics.joints.DemoWindmill");
 		tests.put("Lights", "lights.DemoLight");
 		tests.put("Rotating lights", "lights.DemoRotateLight");
 		tests.put("Shaders postprocessing", "shaders.advanced.DemoPostProcessing");
