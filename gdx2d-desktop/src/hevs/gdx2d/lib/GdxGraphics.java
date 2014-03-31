@@ -470,7 +470,6 @@ public class GdxGraphics implements Disposable {
 	 * @see {@link #drawString(float, float, String, BitmapFont, HAlignment)} for more options
 	 */
 	public void drawString(float posX, float posY, String str) {
-		font.setColor(currentColor);
 		drawString(posX, posY, str, font);
 	}
 	
