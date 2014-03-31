@@ -129,7 +129,7 @@ public class DemoLight extends PortableApplication {
 		// Render the blue spheres
 		for (PhysicsCircle b : list) {	
 			final Vector2 pos = b.getBodyPosition();
-			g.drawFilledCircle(pos.x, pos.y, 12, Color.BLUE);			
+			g.drawFilledCircle(pos.x, pos.y, 12, Color.MAGENTA);			
 		}
 	
 		g.resetRenderingMode();
