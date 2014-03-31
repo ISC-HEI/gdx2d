@@ -14,6 +14,9 @@ import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 
+/**
+ * TODO This demo should be cleaned-up and beautified before being released
+ */
 public class DemoRotateMotor extends PortableApplication
 {
 	World world = PhysicsWorld.getInstance();
@@ -89,12 +92,9 @@ public class DemoRotateMotor extends PortableApplication
 	@Override
 	public void onGraphicRender(GdxGraphics g) 
 	{
-		// TODO Auto-generated method stub
 		g.clear();
-
         debugRenderer.render(world, g.getCamera().combined);
         PhysicsWorld.updatePhysics();
-
         g.drawSchoolLogoUpperRight();
         g.drawFPS();
 	}
