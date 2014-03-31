@@ -48,7 +48,7 @@ public class HelloWorld extends PortableApplication {
 		
 		// Draw everything
 		g.drawTransformedPicture(getWindowWidth() / 2.0f, getWindowHeight() / 2.0f, angle, 1.0f,imgBitmap);
-		g.drawStringCentered(400, "Hello world!");
+		g.drawStringCentered(400, "Welcome to GDX2D!");
 		g.drawFPS();
 		g.drawSchoolLogo();
 	}
