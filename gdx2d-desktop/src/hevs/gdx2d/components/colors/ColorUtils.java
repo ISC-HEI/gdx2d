@@ -3,14 +3,20 @@ package hevs.gdx2d.components.colors;
 import com.badlogic.gdx.graphics.Color;
 
 /**
- * Color conversion utilities. This was
- * originally taken on 
+ * Color conversion utilities. This was originally taken on 
  * <a href=http://stackoverflow.com/questions/7896280/converting-from-hsv-hsb-in-java-to-rgb-without-using-java-awt-color-disallowe"> stack overflow</a>
  * 
  * @author Pierre-André Mudry (mui)
  * @version 1.0 
  */
 public class ColorUtils {	
+	/**
+	 * Conversion from the HSV color space to {@link Color}
+	 * @param hue
+	 * @param saturation
+	 * @param value
+	 * @return
+	 */
 	public static Color hsvToColor(float hue, float saturation, float value) {
 		return intToColor(hsvToRgb(hue, saturation, value));
 	}
@@ -53,9 +59,9 @@ public class ColorUtils {
 	}	
 	
 	/**
-	 * Creates a Color from an int
+	 * Creates a {@link Color} from an integer value
 	 * @param col
-	 * @return
+	 * @return 
 	 */
 	public static Color intToColor(int col){
 		float r = ((col & 0x00ff0000) >>> 16) / 255f;
