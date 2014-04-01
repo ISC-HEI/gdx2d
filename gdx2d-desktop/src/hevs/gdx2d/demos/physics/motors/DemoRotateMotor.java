@@ -121,6 +121,7 @@ public class DemoRotateMotor extends PortableApplication
         // Draw the clock surface as background and the clock hand in front with the same angle as the motor has.
         g.drawPicture(getWindowHeight() / 2.0f, getWindowWidth() / 2.0f, clockBitmap );
         g.drawTransformedPicture(getWindowHeight() / 2.0f, getWindowWidth() / 2.0f, body2.getAngle(), 1.0f, clockSecondsBitmap );
+        g.drawFilledCircle( getWindowHeight() / 2.0f, getWindowWidth() / 2.0f, 5.0f, Color.BLACK );
         g.drawSchoolLogoUpperRight();
         g.drawFPS();
 	}
