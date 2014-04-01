@@ -2,6 +2,7 @@ package hevs.gdx2d.components.bitmaps;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -25,6 +26,7 @@ public class BitmapImage implements Disposable{
 	public BitmapImage(String file) {
 		image = new Texture(Gdx.files.internal(file));
 		tRegion = new TextureRegion(image);
+		image.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		//image.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);		
 		//Utils.callCheck("hevs.gdx2d.lib.Game2D", "create");		
 	}
