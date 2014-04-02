@@ -6,12 +6,20 @@ import hevs.gdx2d.lib.PortableApplication;
 
 import java.util.Random;
 
+/**
+ * Demonstrates the use of anti-aliased circles function
+ * 
+ * @author Pierre-André Mudry (mui)
+ * @version 1.0
+ */
 public class DemoAACircles extends PortableApplication {
 
 	Random r = new Random();
 
-	static final int Q = 1000;
+	// The number of circles to generate
+	static final int Q = 5;
 
+	// To store the various circles informations
 	int[] x = new int[Q];
 	int[] y = new int[Q];
 	int[] rad = new int[Q];
@@ -23,6 +31,10 @@ public class DemoAACircles extends PortableApplication {
 
 	@Override
 	public void onInit() {
+		/**
+		 * Create all those circles, at various locations and using different
+		 * colors from a palette
+		 */
 		for (int i = 0; i < Q; i++) {
 			x[i] = r.nextInt(500);
 			y[i] = r.nextInt(500);
@@ -31,21 +43,31 @@ public class DemoAACircles extends PortableApplication {
 		}
 	}
 
+	boolean done = false;
+
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
 
-		for (int i = 0; i < Q; i++) {
-			g.drawAntiAliasedCircle(x[i], y[i], rad[i], Palette.pastel2[p[i]]);
+		/**
+		 * Draws all those circles. TODO : this is slow and performance should
+		 * be improved, using texture?
+		 */
+		if (!done) {
+			g.clear();
+			for (int i = 0; i < Q; i++) {
+				g.drawAntiAliasedCircle(x[i], y[i], rad[i],
+						Palette.pastel2[p[i]]);
+			}
+			done = false;
+			
+			g.drawFPS();
+			g.drawSchoolLogo();
 		}
 
-		g.drawFPS();
-		g.drawSchoolLogo();
 	}
 
 	public static void main(String[] args) {
 		new DemoAACircles();
 
 	}
-
 }

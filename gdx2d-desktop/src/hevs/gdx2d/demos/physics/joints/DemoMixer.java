@@ -57,7 +57,6 @@ public class DemoMixer extends PortableApplication {
 	LinkedList<CircleParticle> particles = new LinkedList<CircleParticle>();
 	Random random;
 	float width, height;
-	boolean motorOn = false;
 
 	// The rate at which the balls are generated
 	int N_PARTICLES = 150;
@@ -144,7 +143,7 @@ public class DemoMixer extends PortableApplication {
 
 		g.drawString(5, height - 20, "Left Mouse button: Motor ON/OFF",
 				HAlignment.LEFT);
-		g.drawString(5, height - 40, "Motor is " + (motorOn ? "ON" : "OFF"),
+		g.drawString(5, height - 40, "Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"),
 				HAlignment.LEFT);
 
 		g.drawSchoolLogoUpperRight();
