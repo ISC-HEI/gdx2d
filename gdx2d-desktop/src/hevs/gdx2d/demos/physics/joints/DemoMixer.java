@@ -6,11 +6,11 @@ import hevs.gdx2d.components.physics.PhysicsStaticBox;
 import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
+import hevs.gdx2d.lib.interfaces.DrawableObject;
 import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 import hevs.gdx2d.lib.utils.Logger;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -21,6 +21,24 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+
+class St extends PhysicsBox implements DrawableObject {
+	private final float w, h;
+	public St(String name, Vector2 position, float width, float height) {
+		super(name, position, width, height);
+		w = width;
+		h = height;
+	}
+
+	@Override
+	public void draw(GdxGraphics g) {
+		float x = getBodyPosition().x;
+		float y = getBodyPosition().y;
+		
+		g.drawFilledRectangle(20,20, 
+							  w, h, getBodyAngleDeg());
+	}
+}
 
 /**
  * A demo on how to use PhysicsMotor (anchor points)
@@ -48,6 +66,8 @@ public class DemoMixer extends PortableApplication {
 		super(onAndroid);
 	}
 
+	St rotor;
+	
 	@Override
 	public void onInit() {
 		setTitle("Particle mixer, mui 2014");
@@ -68,10 +88,11 @@ public class DemoMixer extends PortableApplication {
 
 		box1 = stator.getBody();
 
-		// Create the windmill wing. It is also located in the center of the
-		// frame
-		// This is is not static, as it can rotate
-		final PhysicsBox rotor = new PhysicsBox("rotor", new Vector2(width / 2,
+		/*
+		 * Create the stator (moving) part. It is also located in the center of
+		 * the frame. It is not static, as it can rotate
+		 */
+		rotor = new St("rotor", new Vector2(width / 2,
 				height / 2), 240, 6);
 
 		box2 = rotor.getBody();
@@ -114,16 +135,17 @@ public class DemoMixer extends PortableApplication {
 		for (CircleParticle particle : particles) {
 			particle.draw(g);
 		}
+		
+		rotor.draw(g);
 
 		// Render the scene using the debug renderer
-		debugRenderer.render(world, g.getCamera().combined);
-
+		// debugRenderer.render(world, g.getCamera().combined);
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
 
-		g.drawString(width - 5, 60, "Left Mouse button: Motor ON/OFF",
-				HAlignment.RIGHT);
-		g.drawString(width - 5, 20, "Motor is " + (motorOn ? "ON" : "OFF"),
-				HAlignment.RIGHT);
+		g.drawString(5, height - 20, "Left Mouse button: Motor ON/OFF",
+				HAlignment.LEFT);
+		g.drawString(5, height - 40, "Motor is " + (motorOn ? "ON" : "OFF"),
+				HAlignment.LEFT);
 
 		g.drawSchoolLogoUpperRight();
 		g.drawFPS();
