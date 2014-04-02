@@ -733,7 +733,7 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void moveCamera(float x, float y) {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		camera.translate(x, y);		
+		camera.translate(x, y);
 	}
 	
 	/**
