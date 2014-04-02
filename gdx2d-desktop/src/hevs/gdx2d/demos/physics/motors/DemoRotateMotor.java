@@ -6,7 +6,6 @@ import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 import java.text.DateFormat;
@@ -129,7 +128,7 @@ public class DemoRotateMotor extends PortableApplication {
 		fd3.shape.setRadius( PhysicsConstants.PIXEL_TO_METERS * 60 );
 
 		body3.createFixture( fd3 );
-		fd2.shape.dispose();
+		fd3.shape.dispose();
 		
 		BodyDef bd4 = new BodyDef();
 		bd4.type = BodyType.DynamicBody;
@@ -159,7 +158,7 @@ public class DemoRotateMotor extends PortableApplication {
 		
 		// Initialize the motor with a speed and torque
 		physicMotorSeconds.initializeMotor( ( float ) ( -( 3 * Math.PI / 180.0f ) ), 360.0f, true );
-		physicMotorMinutes.initializeMotor( ( float ) ( -( 0.045 * Math.PI / 180.0f ) ), 360.0f, true );
+		physicMotorMinutes.initializeMotor( ( float ) ( -( 0.0475 * Math.PI / 180.0f ) ), 360.0f, true );
 		physicMotorHours.initializeMotor( ( float ) ( -( 0.003 * Math.PI / 180.0f ) ), 360.0f, true );
 	}
 
@@ -183,18 +182,18 @@ public class DemoRotateMotor extends PortableApplication {
 		// Draw the clock surface as background and the clock hand in front with
 		// the same angle as the motor has.
 		g.drawPicture( CLOCK_CENTER.x, CLOCK_CENTER.y, clockBitmap );
-
-		// Draw the second needle
+		
+		// Draw the hour needle
 		g.drawTransformedPicture( CLOCK_CENTER.x, CLOCK_CENTER.y, 
-				( float )( body2.getAngle() * 180 / Math.PI ), 1.0f, secondBitmap );
+				( float )( body4.getAngle() * 180 / Math.PI ), 1.0f, hourBitmap );
 		
 		// Draw the minute needle
 		g.drawTransformedPicture( CLOCK_CENTER.x, CLOCK_CENTER.y, 
 				( float )( body3.getAngle() * 180 / Math.PI ), 1.0f, minuteBitmap );
-				
-		// Draw the hour needle
+		
+		// Draw the second needle
 		g.drawTransformedPicture( CLOCK_CENTER.x, CLOCK_CENTER.y, 
-				( float )( body4.getAngle() * 180 / Math.PI ), 1.0f, hourBitmap );
+				( float )( body2.getAngle() * 180 / Math.PI ), 1.0f, secondBitmap );
 		
 		g.setColor( Color.BLACK );
 		g.drawString( w - 10, h - 10, "Famous clock from\r\n"
