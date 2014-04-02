@@ -10,7 +10,6 @@ import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 import hevs.gdx2d.lib.utils.Logger;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -39,7 +38,6 @@ public class DemoMixer extends PortableApplication {
 	LinkedList<CircleParticle> particles = new LinkedList<CircleParticle>();
 	Random random;
 	float width, height;
-	boolean motorOn = false;
 
 	// The rate at which the balls are generated
 	int N_PARTICLES = 150;
@@ -122,7 +120,7 @@ public class DemoMixer extends PortableApplication {
 
 		g.drawString(width - 5, 60, "Left Mouse button: Motor ON/OFF",
 				HAlignment.RIGHT);
-		g.drawString(width - 5, 20, "Motor is " + (motorOn ? "ON" : "OFF"),
+		g.drawString(width - 5, 20, "Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"),
 				HAlignment.RIGHT);
 
 		g.drawSchoolLogoUpperRight();

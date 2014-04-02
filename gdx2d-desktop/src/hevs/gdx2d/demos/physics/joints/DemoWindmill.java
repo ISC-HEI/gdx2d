@@ -43,8 +43,7 @@ public class DemoWindmill extends PortableApplication {
 	float width, height;
 
 	int time = 0;
-	boolean motorOn = false;
-
+	
 	// The rate at which the balls are generated
 	int GENERATION_RATE = 2;
 	boolean generate = false;
@@ -144,7 +143,7 @@ public class DemoWindmill extends PortableApplication {
 
 		g.drawString(width - 5, 60, "Left Mouse button: Motor ON/OFF", HAlignment.RIGHT);
 		g.drawString(width - 5, 40, "Right Mouse button: Generate particles", HAlignment.RIGHT);
-		g.drawString(width - 5, 20, "Motor is " + (motorOn ? "ON" : "OFF"), HAlignment.RIGHT);
+		g.drawString(width - 5, 20, "Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"), HAlignment.RIGHT);
 		
 		g.drawSchoolLogoUpperRight();
 		g.drawFPS();
