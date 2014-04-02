@@ -286,6 +286,7 @@ public class GdxGraphics implements Disposable {
 		shapeRenderer.identity();
 		shapeRenderer.setColor(c);
 		shapeRenderer.point(x, y, 0);
+		shapeRenderer.setColor(currentColor);
 	}
 	
 	public void clearPixel(float x, float y) {
@@ -293,6 +294,7 @@ public class GdxGraphics implements Disposable {
 		shapeRenderer.identity();
 		shapeRenderer.setColor(backgroundColor);
 		shapeRenderer.point(x, y, 0);
+		shapeRenderer.setColor(currentColor);
 	}
 
 	/**
@@ -304,12 +306,11 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y) {
 		checkmode(t_rendering_mode.SHAPE_LINE);
-		shapeRenderer.setColor(currentColor);
 		shapeRenderer.line(p1x, p1y, p2x, p2y);		
 	}
 
 	/**
-	 * Draws a line that start at P(p1x, p1y) and ends at P(p2x, p2y) with color c
+	 * Draws a line that start at P(p1x, p1y) and ends at P(p2x, p2y) with {@link Color} c
 	 * @param p1x Start coordinate X
 	 * @param p1y Start coordinate Y
 	 * @param p2x End coordinate X
@@ -319,6 +320,7 @@ public class GdxGraphics implements Disposable {
 	public void drawLine(float p1x, float p1y, float p2x, float p2y, Color c) {
 		shapeRenderer.setColor(c);
 		drawLine(p1x, p1y, p2x, p2y);		
+		shapeRenderer.setColor(currentColor);
 	}
 
 	/**
@@ -332,7 +334,6 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void drawRectangle(float x, float y, float w, float h, float angle) {
 		checkmode(t_rendering_mode.SHAPE_LINE);
-		shapeRenderer.setColor(currentColor);
 		shapeRenderer.translate(x + w / 2, y + w / 2, 0);		
 		if(angle != 0)
 			shapeRenderer.rotate(0, 0, 1, angle);		
@@ -368,6 +369,7 @@ public class GdxGraphics implements Disposable {
 	public void drawFilledRectangle(float x, float y, float w, float h, float angle, Color c) {
 		shapeRenderer.setColor(c);		
 		drawFilledRectangle(x, y, w, h, angle);
+		shapeRenderer.setColor(currentColor);
 	}
 
 	
@@ -381,6 +383,7 @@ public class GdxGraphics implements Disposable {
 	public void drawCircle(float centerX, float centerY, float radius, Color c) {
 		shapeRenderer.setColor(c);
 		drawCircle(centerX, centerY, radius);
+		shapeRenderer.setColor(currentColor);
 	}
 	
 	/**
@@ -430,6 +433,7 @@ public class GdxGraphics implements Disposable {
 			shapeRenderer.setColor(c);
 			shapeRenderer.identity();
 			shapeRenderer.circle(centerX, centerY, radius);
+			shapeRenderer.setColor(currentColor);
 		}
 		else
 		{		
@@ -499,7 +503,6 @@ public class GdxGraphics implements Disposable {
 	 * @param align left, center or right align
 	 */
 	public void drawString(float posX, float posY, String str, HAlignment align) {
-		font.setColor(currentColor);
 		drawString(posX, posY, str, font, align);
 	}
 	
@@ -532,7 +535,6 @@ public class GdxGraphics implements Disposable {
 		
 		// Draw the string (reference is the top left edge)
 		f.drawMultiLine(spriteBatch, str, posX, posY, alignmentWidth, align);
-		// spriteBatch.flush(); // Fix issue #25 (mei)
 	}
 	
 	/**
@@ -691,7 +693,6 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void drawPolygon(Polygon p) {
 		checkmode(t_rendering_mode.SHAPE_LINE);
-		shapeRenderer.setColor(currentColor);
 		shapeRenderer.identity();		
 		shapeRenderer.polygon(p.getVertices());
 	}
@@ -710,6 +711,8 @@ public class GdxGraphics implements Disposable {
 		for (int i = 0; i < vertices.length; i+=6) {
 			shapeRenderer.triangle(vertices[i], vertices[i+1], vertices[i+2], vertices[i+3], vertices[i+4], vertices[i+5]);
 		}		
+		
+		shapeRenderer.setColor(currentColor);
 	}
 	
 	/****************************************************
