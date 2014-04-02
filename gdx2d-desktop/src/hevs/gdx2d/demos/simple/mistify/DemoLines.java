@@ -13,7 +13,6 @@ import hevs.gdx2d.lib.PortableApplication;
  */
 public class DemoLines extends PortableApplication {
 	BounceShape[] s;
-	
 	final int N_SHAPES = 3;
 	int frame = 0;
 	
