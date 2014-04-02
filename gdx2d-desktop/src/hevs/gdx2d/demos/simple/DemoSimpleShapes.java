@@ -28,7 +28,7 @@ public class DemoSimpleShapes extends PortableApplication{
 	@Override
 	public void onGraphicRender(GdxGraphics g) {	
 		g.clear();
-		
+
 		// Draws a yellow circle
 		g.setColor(Color.YELLOW);
 		g.drawCircle(250, 400, 20);
