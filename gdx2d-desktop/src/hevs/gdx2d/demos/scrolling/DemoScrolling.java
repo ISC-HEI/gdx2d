@@ -8,6 +8,7 @@ import hevs.gdx2d.demos.scrolling.objects.Sky;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.interfaces.DrawableObject;
+import hevs.gdx2d.lib.utils.Logger;
 
 import java.util.Vector;
 
@@ -19,8 +20,8 @@ import com.badlogic.gdx.Input;
  * Also demonstrates how to delegate render to other
  * objects through the {@link DrawableObject} interface.
  * 
- * TODO still stutters... Idea : use tweening or interpolator
- * for translation
+ * TODO still stutters... Idea : use tweening or interpolator, preheat the virtual machine?
+
  * @author Pierre-André Mudry (mui)
  * @version 1.01 
  */
@@ -37,7 +38,8 @@ public class DemoScrolling extends PortableApplication {
 	
 	public void onInit() {		
 		setTitle("Scrolling demo, mui 2013");
-		
+		Logger.log("Press s or w for zooming in or out");
+
 		toDraw.add(new Sky());
 		
 		// Some pipe for a nice 'Mario' like atmosphere
