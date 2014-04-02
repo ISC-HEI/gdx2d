@@ -284,6 +284,7 @@ public class GdxGraphics implements Disposable {
 	public void setColor(Color c) {
 		currentColor = c;
 		shapeRenderer.setColor(c);
+		font.setColor(c);
 	}
 	
 	/**
