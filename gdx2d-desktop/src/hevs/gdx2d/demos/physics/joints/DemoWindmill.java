@@ -159,13 +159,7 @@ public class DemoWindmill extends PortableApplication {
 	public void onClick(int x, int y, int button) {
 		super.onClick(x, y, button);
 		if (button == Input.Buttons.LEFT) {
-			if (motorOn) {
-				motorOn = false;
-				physicMotor.enableMotor(motorOn);
-			} else {
-				motorOn = true;
-				physicMotor.enableMotor(motorOn);
-			}
+			physicMotor.enableMotor(!physicMotor.isMotorEnabled());
 		} else if (button == Input.Buttons.RIGHT) {
 			generate = true;
 		}
