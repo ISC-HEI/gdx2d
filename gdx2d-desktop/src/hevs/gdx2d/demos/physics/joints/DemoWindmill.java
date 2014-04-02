@@ -21,11 +21,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * A demo on how to use PhysicsMotor (anchor points)
+ * A demo on how to use {@link PhysicsMotor} and anchor points)
  * 
- * <p>
- * Based on ex 5.9 from the Nature of code book
- * </p>
+ * <p>Based on ex 5.9 from the Nature of code book</p>
  * 
  * @see <a href="http://natureofcode.com/book/chapter-5-physics-libraries/">The
  *      nature of code example</a>
@@ -35,9 +33,6 @@ import com.badlogic.gdx.physics.box2d.World;
 public class DemoWindmill extends PortableApplication {
 	World world = PhysicsWorld.getInstance();
 	DebugRenderer debugRenderer;
-
-	Body box1;
-	Body box2;
 	PhysicsMotor physicMotor;
 
 	// Linked List to store all particles
@@ -75,14 +70,14 @@ public class DemoWindmill extends PortableApplication {
 		// Create PhysicStaticBox where the windmill will be fixed. It is
 		// located in the center of the frame
 		PhysicsStaticBox staticBox = new PhysicsStaticBox("box1", new Vector2(width / 2, height / 2), 10, 40);
-		
-		box1 = staticBox.getBody();
+
+		Body box1 = staticBox.getBody();
 
 		// Create the windmill wing. It is also located in the center of the frame
 		// This is is not static, as it can rotate
 		PhysicsBox movingBox = new PhysicsBox("box2", new Vector2(width / 2, height / 2), 120, 10);
 		
-		box2 = movingBox.getBody();
+		Body box2 = movingBox.getBody();
 
 		/**
 		 * Create a motor that will make the moving box move and rotate
@@ -115,8 +110,7 @@ public class DemoWindmill extends PortableApplication {
 		}
 
 		/**
-		 * Generate new circleParticles if the right button of the mouse 
-		 * was pressed earlier
+		 * Generate particles when right mouse pressed 
 		 */
 		if (generate) {
 			for (int i = 0; i < GENERATION_RATE; i++) {
@@ -138,7 +132,8 @@ public class DemoWindmill extends PortableApplication {
 				particles.add(newParticle);
 			}
 		}
-		time++; // Increment the timer variable
+		
+		time++; // Used for generating particles sporadically
 
 		/** 
 		 * Render the physics and draw the logo, fps information and the status
