@@ -29,10 +29,10 @@ public class DemoSimpleAnimation extends PortableApplication {
 		
 		// Clears the screen
 		g.clear();
-		g.drawFilledCircle(g.getScreenWidth()/2, g.getScreenHeight()/2, radius, Color.BLUE);		
+		g.drawAntiAliasedCircle(g.getScreenWidth()/2, g.getScreenHeight()/2, radius, Color.BLUE);		
 		
 		// If reaching max or min size, invert the growing direction
-		if (radius >= 50|| radius <= 3) {
+		if (radius >= 100|| radius <= 3) {
 			speed *= -1;
 		}
 
