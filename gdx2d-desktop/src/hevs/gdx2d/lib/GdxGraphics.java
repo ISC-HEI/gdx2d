@@ -326,8 +326,8 @@ public class GdxGraphics implements Disposable {
 	/**
 	 * Draws an empty rectangle
 	 * @see #drawFilledRectangle(float, float, float, float, float, Color)
-	 * @param x X position of the center of the rectangle
-	 * @param y Y position of the center of the rectangle
+	 * @param x X position of the bottom left corner of the rectangle
+	 * @param y Y position of the bottom left corner of the rectangle
 	 * @param w Width of the rectangle, in pixels
 	 * @param h Height of the rectangle, in pixels
 	 * @param angle of rotation of the rectangle, in degrees
@@ -343,8 +343,8 @@ public class GdxGraphics implements Disposable {
 	/**
 	 * Draws a filled rectangle
 	 * @see #drawFilledRectangle(float, float, float, float, float, Color)
-	 * @param x X position of the center of the rectangle
-	 * @param y Y position of the center of the rectangle
+	 * @param x X position of the bottom left corner of the rectangle
+	 * @param y Y position of the bottom left corner of the rectangle
 	 * @param w Width of the rectangle
 	 * @param h Height of the rectangle
 	 * @param angle Rotation angle of the rectangle
@@ -352,15 +352,15 @@ public class GdxGraphics implements Disposable {
 	public void drawFilledRectangle(float x, float y, float w, float h, float angle) {
 		checkmode(t_rendering_mode.SHAPE_FILLED);
 		shapeRenderer.identity();			
+		shapeRenderer.rotate(0,0, 1, angle);
 		shapeRenderer.translate(x + w / 2, y + w / 2, 0);
-		shapeRenderer.rotate(0, 0, 1, angle);
 		shapeRenderer.rect(-w / 2, -w / 2, w, h);		
 	}
 	
 	/**
 	 * Draws a filled rectangle at a given location with a given color
-	 * @param x X position of the center of the rectangle
-	 * @param y Y position of the center of the rectangle
+	 * @param x X position of the bottom left corner of the rectangle
+	 * @param y Y position of the bottom left corner of the rectangle
 	 * @param w Width of the rectangle
 	 * @param h Height of the rectangle
 	 * @param angle Rotation angle of the rectangle
