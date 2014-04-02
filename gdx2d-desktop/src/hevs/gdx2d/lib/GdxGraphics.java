@@ -33,8 +33,8 @@ import com.badlogic.gdx.utils.Disposable;
  * 
  * @author Pierre-André Mudry (mui)
  * @author Nils Chatton (chn)
- * @author Christopher Metrailler (mei)
- * @version 1.60
+ * @author Christopher Métrailler (mei)
+ * @version 1.61
  */
 public class GdxGraphics implements Disposable {
 	/**
@@ -123,21 +123,37 @@ public class GdxGraphics implements Disposable {
 	}
 	
 	/**
-	 * Draws frame per second (FPS) information on the screen
+	 * Draws frame per second (FPS) information in the bottom left corner of the screen. 
+	 * The default {@link Color#WHITE} color is used.
+	 * 
+	 * @see GdxGraphics#drawFPS(Color)
 	 */
 	public void drawFPS(){
+		drawFPS(Color.WHITE);
+	}
+	
+	/**
+	 * Draws frame per second (FPS) information in the bottom left corner of the screen 
+	 * using a custom color.
+	 * 
+	 * @param c the text color
+	 */
+	public void drawFPS(Color c) {
 		spriteBatch.setProjectionMatrix(fixedcamera.combined);
 		Color oldColor = font.getColor();
-		font.setColor(Color.WHITE);		
+		font.setColor(c);		
 		drawString(5, 15, "FPS: " + Gdx.graphics.getFramesPerSecond());
 		font.setColor(oldColor);
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 	
 	/**
-	 * Draws the University of Applied Sciences Western Switzerland logo<br> As this project is mainly aimed the students
-	 * from the <a href='http://inf1.begincoding.net'> inf1 course given at the HES-SO Valais</a>, systems engineering,
-	 * it is nice to have a logo for them !
+	 * Draws the University of Applied Sciences Western Switzerland logo in the bottom right corner of the screen.<br>
+	 * As this project is mainly aimed the students from the 
+	 * <a href='http://inf1.begincoding.net'> inf1 course given at the HES-SO Valais</a>, 
+	 * systems engineering, it is nice to have a logo for them !
+	 * 
+	 * @see GdxGraphics#drawSchoolLogoUpperRight()
 	 */
 	public void drawSchoolLogo(){
 		checkmode(t_rendering_mode.SPRITE);
@@ -148,7 +164,8 @@ public class GdxGraphics implements Disposable {
 	
 	/**
 	 * Draws the school logo in the upper right corner of the screen.
-	 * See {@link #drawSchoolLogo()}
+	 * 
+	 * @see GdxGraphics#drawSchoolLogo()
 	 */
 	public void drawSchoolLogoUpperRight(){
 		checkmode(t_rendering_mode.SPRITE);
@@ -229,16 +246,21 @@ public class GdxGraphics implements Disposable {
 	
 
 	/**
-	 * Clears the screen black
+	 * Clears the screen using the {@link #backgroundColor}.
+	 * 
+	 * @see GdxGraphics#clear(Color)
 	 */
 	public void clear() {
-		clear(Color.BLACK);
+		clear(backgroundColor);
 	}
+	
 
 	boolean first = true;
 	
 	/**
-	 * Clears the screen with a given color
+	 * Clears the screen with a given {@link Color}.
+	 * 
+	 * @see GdxGraphics#clear()
 	 * @param c
 	 */
 	public void clear(Color c) {
@@ -255,8 +277,9 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Sets the current color used for graphics drawing
-	 * @param c
+	 * Sets the current color {@link #currentColor} used for graphics drawing.
+	 * 
+	 * @param c the new color to use
 	 */
 	public void setColor(Color c) {
 		currentColor = c;
@@ -264,19 +287,20 @@ public class GdxGraphics implements Disposable {
 	}
 	
 	/**
-	 * Sets the color of a pixel using the current color ({@link #currentColor}
+	 * Sets the color of a pixel using the current color {@link #currentColor}.
+	 * 
+	 * @see GdxGraphics#setPixel(float, float, Color)
 	 * @param x
 	 * @param y
 	 */
 	public void setPixel(float x, float y) {
-		checkmode(t_rendering_mode.SHAPE_POINT);
-		shapeRenderer.identity();
-		shapeRenderer.setColor(currentColor);
-		shapeRenderer.point(x, y, 0);
+		setPixel(x, y, currentColor);
 	}
 
 	/**
-	 * Sets the color of a pixel using a color
+	 * Sets the color of a pixel using a custom {@link Color}.
+	 * 
+	 * @see GdxGraphics#setPixel(float, float)
 	 * @param x
 	 * @param y
 	 * @param c
@@ -289,10 +313,37 @@ public class GdxGraphics implements Disposable {
 		shapeRenderer.setColor(currentColor);
 	}
 	
+	/**
+	 * Sets the background color {@link GdxGraphics#backgroundColor} to use to clear pixels.
+	 * 
+	 * @param c the new background color to use
+	 */
+	public void setBackgroundColor(Color c) {
+		backgroundColor = c;
+	}
+	
+	/**
+	 * Clear a pixel using the {@link GdxGraphics#backgroundColor}.
+	 * 
+	 * @see GdxGraphics#clearPixel(float, float, Color)
+	 * @param x
+	 * @param y
+	 */
 	public void clearPixel(float x, float y) {
+		clearPixel(x, y, backgroundColor);
+	}
+	
+	/**
+	 * Clear a pixel using the a custom {@link Color}.
+	 * 
+	 * @see GdxGraphics#clearPixel(float, float)
+	 * @param x
+	 * @param y
+	 */
+	public void clearPixel(float x, float y, Color c) {
 		checkmode(t_rendering_mode.SHAPE_POINT);
 		shapeRenderer.identity();
-		shapeRenderer.setColor(backgroundColor);
+		shapeRenderer.setColor(c);
 		shapeRenderer.point(x, y, 0);
 		shapeRenderer.setColor(currentColor);
 	}
