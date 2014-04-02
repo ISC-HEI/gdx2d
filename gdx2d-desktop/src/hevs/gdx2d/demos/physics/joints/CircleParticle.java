@@ -13,9 +13,15 @@ import com.badlogic.gdx.math.Vector2;
  * @author Pierre-André Mudry
  */
 public class CircleParticle extends PhysicsCircle implements DrawableObject {
-	// Constructor
+	Color c = Color.WHITE;
+	
 	public CircleParticle(String name, Vector2 position, int radius) {
-		super(name, position, radius);
+		super(name, position, radius, 5, 0.001f, 60.2f);
+	}
+	
+	public CircleParticle(Vector2 position, int radius, Color c, float restitution, float friction){
+		super("", position, radius, 5, restitution, friction);
+		this.c = c;
 	}
 
 	@Override
@@ -25,6 +31,6 @@ public class CircleParticle extends PhysicsCircle implements DrawableObject {
 		float radius = getBodyRadius();
 
 		// The color is dependent from the last collision time
-		g.drawFilledCircle(position.x, position.y, radius, Color.WHITE);
+		g.drawFilledCircle(position.x, position.y, radius, c);
 	}
 }
