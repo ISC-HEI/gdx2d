@@ -1,5 +1,7 @@
 package hevs.gdx2d.demos.physics.joints;
 
+import hevs.gdx2d.components.bitmaps.BitmapImage;
+import hevs.gdx2d.components.colors.Palette;
 import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsMotor;
 import hevs.gdx2d.components.physics.PhysicsStaticBox;
@@ -22,29 +24,40 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
-class St extends PhysicsBox implements DrawableObject {
+/**
+ * A box that will be used as a rotor for the demo
+ * 
+ * @author Pierre-André Mudry (mui)
+ * @version 1.0
+ */
+class Rotor extends PhysicsBox implements DrawableObject {
 	private final float w, h;
-	public St(String name, Vector2 position, float width, float height) {
+	static final BitmapImage screw = new BitmapImage("data/images/screw.png");
+
+	public Rotor(String name, Vector2 position, float width, float height) {
 		super(name, position, width, height);
 		w = width;
 		h = height;
 	}
 
+	/**
+	 * Used for drawing the rotor
+	 */
 	@Override
 	public void draw(GdxGraphics g) {
 		float x = getBodyPosition().x;
 		float y = getBodyPosition().y;
-		
-		g.drawFilledRectangle(20,20, 
-							  w, h, getBodyAngleDeg());
+		float angle = getBodyAngleDeg();
+		g.drawFilledRectangle(x, y, w * 2, h * 2, angle, Palette.pastel1[1]);
+		g.drawTransformedPicture(x, y, angle, 0.2f, screw);
 	}
 }
 
 /**
- * A demo on how to use PhysicsMotor (anchor points)
+ * A demo on how to use PhysicsMotor with anchor points
  * 
  * @author Pierre-André Mudry, mui
- * @version 1.2
+ * @version 1.3
  */
 public class DemoMixer extends PortableApplication {
 	World world = PhysicsWorld.getInstance();
@@ -58,15 +71,15 @@ public class DemoMixer extends PortableApplication {
 	Random random;
 	float width, height;
 
-	// The rate at which the balls are generated
-	int N_PARTICLES = 150;
+	// The number of balls generated
+	final int N_PARTICLES = 100;
+	Rotor rotor;
+	final static Random rnd = new Random();
 
 	public DemoMixer(boolean onAndroid) {
 		super(onAndroid);
 	}
 
-	St rotor;
-	
 	@Override
 	public void onInit() {
 		setTitle("Particle mixer, mui 2014");
@@ -83,17 +96,14 @@ public class DemoMixer extends PortableApplication {
 		new PhysicsScreenBoundaries(width, height);
 
 		final PhysicsStaticBox stator = new PhysicsStaticBox("stator",
-				new Vector2(width / 2, height / 2), 20, 20);
-
+				new Vector2(width / 2, height / 2), 5, 5);
 		box1 = stator.getBody();
 
-		/*
+		/**
 		 * Create the stator (moving) part. It is also located in the center of
 		 * the frame. It is not static, as it can rotate
 		 */
-		rotor = new St("rotor", new Vector2(width / 2,
-				height / 2), 240, 6);
-
+		rotor = new Rotor("rotor", new Vector2(width / 2, height / 2), 240, 6);
 		box2 = rotor.getBody();
 
 		/**
@@ -103,12 +113,10 @@ public class DemoMixer extends PortableApplication {
 		physicMotor = new PhysicsMotor(box1, box2, box1.getWorldCenter());
 
 		// Initialize the motor with a speed and torque
-		physicMotor.initializeMotor(1.0f, 800000.0f, false);
+		physicMotor.initializeMotor(1.0f, 8000.0f, false);
 
 		createParticles();
 	}
-
-	Random rnd = new Random();
 
 	/**
 	 * Generate random particles to fill the screen
@@ -120,9 +128,9 @@ public class DemoMixer extends PortableApplication {
 			final Vector2 position = new Vector2(x, y);
 			Color c = rnd.nextBoolean() == true ? Color.DARK_GRAY
 					: Color.LIGHT_GRAY;
-			final CircleParticle newParticle = new CircleParticle(position, 10,
-					c, 0.02f, 60f);
-			particles.add(newParticle);
+			final CircleParticle p = new CircleParticle(position,
+					10 + rnd.nextInt(5), c, 0.002f, 1f);
+			particles.add(p);
 		}
 	}
 
@@ -134,7 +142,7 @@ public class DemoMixer extends PortableApplication {
 		for (CircleParticle particle : particles) {
 			particle.draw(g);
 		}
-		
+
 		rotor.draw(g);
 
 		// Render the scene using the debug renderer
@@ -143,11 +151,12 @@ public class DemoMixer extends PortableApplication {
 
 		g.drawString(5, height - 20, "Left Mouse button: Motor ON/OFF",
 				HAlignment.LEFT);
-		g.drawString(5, height - 40, "Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"),
+		g.drawString(5, height - 40,
+				"Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"),
 				HAlignment.LEFT);
 
 		g.drawSchoolLogoUpperRight();
-		g.drawFPS();
+		g.drawFPS(Color.CYAN);
 	}
 
 	@Override

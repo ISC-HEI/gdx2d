@@ -16,11 +16,11 @@ public class CircleParticle extends PhysicsCircle implements DrawableObject {
 	Color c = Color.WHITE;
 	
 	public CircleParticle(String name, Vector2 position, int radius) {
-		super(name, position, radius, 5, 0.001f, 60.2f);
+		super(name, position, radius, 1, 0.001f, 60.2f);
 	}
 	
 	public CircleParticle(Vector2 position, int radius, Color c, float restitution, float friction){
-		super("", position, radius, 5, restitution, friction);
+		super("", position, radius, 1, restitution, friction);
 		this.c = c;
 	}
 
