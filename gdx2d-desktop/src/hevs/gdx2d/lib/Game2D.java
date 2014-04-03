@@ -160,6 +160,9 @@ public class Game2D implements ApplicationListener {
 				if (keycode == Input.Keys.MENU) {
 					// resolver.showAboutBox();
 				}
+				if (keycode == Input.Keys.ESCAPE) {
+					Gdx.app.exit();
+				}
 				app.onKeyDown(keycode);
 				return false;
 			}
