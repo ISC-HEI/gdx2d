@@ -50,6 +50,8 @@ public class DemoRotateMotor extends PortableApplication {
 	private Body body, body2, body3, body4;
 
 	private Vector2 CLOCK_CENTER = new Vector2( 136.0f, 128.0f );
+	
+	private float minuteDrawAngle;
 
 	public DemoRotateMotor( boolean onAndroid ) 
 	{
@@ -68,6 +70,8 @@ public class DemoRotateMotor extends PortableApplication {
 		secondBitmap = new BitmapImage( "data/images/clock_second.png" );
 		minuteBitmap = new BitmapImage( "data/images/clock_minute.png" );
 		hourBitmap = new BitmapImage( "data/images/clock_hour.png" );
+		
+		minuteDrawAngle = 0;
 		
 		// Get the actual time to calibrate the clock
 		DateFormat df = new SimpleDateFormat("HH:mm:ss");
@@ -130,6 +134,9 @@ public class DemoRotateMotor extends PortableApplication {
 		body3.createFixture( fd3 );
 		fd3.shape.dispose();
 		
+		// Initialize the minute needle that it points exactly on the minutes marks
+		minuteDrawAngle = ( float )( calcMinuteAngle( minuteAngle, 0 ) * 180 / Math.PI );		
+		
 		BodyDef bd4 = new BodyDef();
 		bd4.type = BodyType.DynamicBody;
 		bd4.position.set( PhysicsConstants.coordPixelsToMeters( CLOCK_CENTER ) );
@@ -164,10 +171,23 @@ public class DemoRotateMotor extends PortableApplication {
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-
+		// Control the second needle, change the position of the minute needle only when
+		// a whole minute is passed
+		DateFormat df = new SimpleDateFormat("HH:mm:ss");
+		String time = df.format( new Date() );
+		String[] timeList = time.split( ":" );
+		float seconds = Float.parseFloat( timeList[ 2 ] );
+		
+		if( seconds == 0 )
+		{
+			minuteDrawAngle = ( float )( body3.getAngle() * 180 / Math.PI );
+		}
+		
+		// Get the size of the window
 		final int w = getWindowWidth();
 		final int h = getWindowHeight();
 
+		// Clear the graphic to draw the new image
 		g.clear();
 
 		// Create a nice background from light gray to white without any images
@@ -187,10 +207,11 @@ public class DemoRotateMotor extends PortableApplication {
 		g.drawTransformedPicture( CLOCK_CENTER.x, CLOCK_CENTER.y, 
 				( float )( body4.getAngle() * 180 / Math.PI ), 1.0f, hourBitmap );
 		
-		// Draw the minute needle
+		// Draw the minute needle 
+		// (the position of the image change every whole minute, the motor turns continuously)
 		g.drawTransformedPicture( CLOCK_CENTER.x, CLOCK_CENTER.y, 
-				( float )( body3.getAngle() * 180 / Math.PI ), 1.0f, minuteBitmap );
-		
+				minuteDrawAngle, 1.0f, minuteBitmap );
+				
 		// Draw the second needle
 		g.drawTransformedPicture( CLOCK_CENTER.x, CLOCK_CENTER.y, 
 				( float )( body2.getAngle() * 180 / Math.PI ), 1.0f, secondBitmap );
