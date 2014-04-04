@@ -1,0 +1,13 @@
+{
+  "Simple": [
+    {"name": "Simple shapes", "class": "simple.DemoSimpleShapes"}
+  ],
+  
+  "Physics": [
+    {"name": "Simple physics (dominoes)", "class": "physics.DemoSimplePhysics"}
+  ],
+  
+  "Shaders": [
+    {"name": "Shaders collection", "class": "shaders.DemoAllShaders"}
+  ]
+}
