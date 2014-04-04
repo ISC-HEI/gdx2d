@@ -3,7 +3,8 @@
     {
       "name": "Simple shapes",
       "class": "simple.DemoSimpleShapes",
-      "desc": "The simplest demo, ever. Nothing is moving but it shows how to get started with the library."
+      "desc": "The simplest demo, ever. Nothing is moving but it shows how to get started with the library.",
+      "keywords": "shape"
     },
     {
       "name": "Basic animation",
@@ -14,11 +15,40 @@
       "name": "Mistify screen saver",
       "class": "simple.mistify.DemoLines",
       "desc": "Shows a more complex demo using multiple lines"
+    }
+  ],
+  "Image drawing": [
+    {
+      "name": "Basic image drawing",
+      "class": "image_drawing.DemoSimpleImage",
+      "desc": "Demonstrates how to load an image from the disk and to display it on the screen."
     },
     {
-      "name": "Mistify screen saver",
+      "name": "Mirror an image",
+      "class": "image_drawing.DemoMirrorImage",
+      "desc": "Shows how draw a mirrored image and the various possibilities of it."
+    },
+    {
+      "name": "Rotate image, with animation",
+      "class": "image_drawing.DemoRotatingImage",
+      "desc": "Shows how to animation the rotation of a picture."
+    },
+    {
+      "name": "Draw an image with transparency (alpha)",
       "class": "simple.mistify.DemoLines",
-      "desc": "Shows a more complex demo using multiple lines"
+      "desc": "Shows how the alpha transparency of an image can be changed to make it more or less transparent."
+    }
+  ],
+  "Advanced drawing functions": [
+    {
+      "name": "Simple physics (dominoes)",
+      "class": "physics.DemoSimplePhysics"
+    }
+  ],
+  "Drawing text with fonts": [
+    {
+      "name": "Simple physics (dominoes)",
+      "class": "physics.DemoSimplePhysics"
     }
   ],
   "Physics simulations": [

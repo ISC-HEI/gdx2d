@@ -133,15 +133,34 @@ public class DemoSelector extends JFrame {
 
 				// FIXME: Do not close the current window ? Only one demo can be
 				// started at one time...
-				//dispose();
+				// dispose();
 
 				// Loads the class based on its name
 				try {
 					Class<?> clazz = Class.forName("hevs.gdx2d.demos."
 							+ demosMap.get(selectedDemoName));
-					Constructor<?> constructor = clazz
+					final Constructor<?> constructor = clazz
 							.getConstructor(boolean.class);
-					constructor.newInstance(false);
+
+					Runnable r = new Runnable() {
+						private Constructor<?> c;
+
+						@Override
+						public void run() {
+							try {
+								c.newInstance(false);
+							} catch (Exception e) {
+							}
+						}
+
+						private Runnable init(Constructor<?> t) {
+							c = t;
+							return this;
+						}
+					}.init(constructor);
+					
+					new Thread(r).start();
+
 				} catch (Exception e1) {
 					System.err.println("Unable to find " + selectedDemoName);
 				}
@@ -272,12 +291,13 @@ public class DemoSelector extends JFrame {
 		 */
 		private void loadFromJson() throws FileNotFoundException {
 			JsonReader r = new JsonReader();
-			JsonValue demos = r.parse(getClass().getResourceAsStream("/lib/demosList.json"));
+			JsonValue demos = r.parse(getClass().getResourceAsStream(
+					"/lib/demosList.json"));
 
 			demosMap = new LinkedHashMap<String, String>();
 
 			int demoCounter = 1;
-			
+
 			// Read all categories
 			for (int i = 0; i < demos.size(); i++) {
 				JsonValue catDemos = demos.get(i);
@@ -287,7 +307,8 @@ public class DemoSelector extends JFrame {
 				// Read all demos in the category
 				for (int j = 0; j < catDemos.size(); j++) {
 					JsonValue currentDemo = catDemos.get(j);
-					final String name =  demoCounter + ". " + currentDemo.getString("name");
+					final String name = demoCounter + ". "
+							+ currentDemo.getString("name");
 					final String clazz = currentDemo.getString("class");
 					demosMap.put(name, clazz);
 					l.add(name);
