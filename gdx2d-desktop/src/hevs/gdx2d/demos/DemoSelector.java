@@ -133,7 +133,7 @@ public class DemoSelector extends JFrame {
 
 				// FIXME: Do not close the current window ? Only one demo can be
 				// started at one time...
-				dispose();
+				//dispose();
 
 				// Loads the class based on its name
 				try {
@@ -276,6 +276,8 @@ public class DemoSelector extends JFrame {
 
 			demosMap = new LinkedHashMap<String, String>();
 
+			int demoCounter = 1;
+			
 			// Read all categories
 			for (int i = 0; i < demos.size(); i++) {
 				JsonValue catDemos = demos.get(i);
@@ -285,10 +287,11 @@ public class DemoSelector extends JFrame {
 				// Read all demos in the category
 				for (int j = 0; j < catDemos.size(); j++) {
 					JsonValue currentDemo = catDemos.get(j);
-					final String name = currentDemo.getString("name");
+					final String name =  demoCounter + ". " + currentDemo.getString("name");
 					final String clazz = currentDemo.getString("class");
 					demosMap.put(name, clazz);
 					l.add(name);
+					demoCounter++;
 				}
 
 				// Add the current tab with demo list

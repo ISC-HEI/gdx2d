@@ -1,13 +1,36 @@
 {
-  "Simple": [
-    {"name": "Simple shapes", "class": "simple.DemoSimpleShapes"}
+  "Getting started with simple demos": [
+    {
+      "name": "Simple shapes",
+      "class": "simple.DemoSimpleShapes",
+      "desc": "The simplest demo, ever. Nothing is moving but it shows how to get started with the library."
+    },
+    {
+      "name": "Basic animation",
+      "class": "simple.DemoSimpleAnimation",
+      "desc": "Shows how to animate the radius of a circle."
+    },
+    {
+      "name": "Mistify screen saver",
+      "class": "simple.mistify.DemoLines",
+      "desc": "Shows a more complex demo using multiple lines"
+    },
+    {
+      "name": "Mistify screen saver",
+      "class": "simple.mistify.DemoLines",
+      "desc": "Shows a more complex demo using multiple lines"
+    }
   ],
-  
-  "Physics": [
-    {"name": "Simple physics (dominoes)", "class": "physics.DemoSimplePhysics"}
+  "Physics simulations": [
+    {
+      "name": "Simple physics (dominoes)",
+      "class": "physics.DemoSimplePhysics"
+    }
   ],
-  
-  "Shaders": [
-    {"name": "Shaders collection", "class": "shaders.DemoAllShaders"}
+  "Shaders (advanced)": [
+    {
+      "name": "Shaders collection",
+      "class": "shaders.DemoAllShaders"
+    }
   ]
 }
