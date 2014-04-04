@@ -28,6 +28,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
@@ -52,33 +53,9 @@ import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
 public class DemoSelectorGUI extends JFrame {
 	public DemoSelectorGUI() throws Exception {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2012-2014");
-		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (Exception e) {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-
 		// TODO: add these demos and all other to the JSON file
 		/*
-		 * tests.put("Simple shapes", "simple.DemoSimpleShapes");
-		 * tests.put("Drawing circles", "simple.DemoCircles");
-		 * tests.put("Mistify screen saver", "simple.mistify.DemoLines");
-		 * tests.put("Basic animation", "simple.DemoSimpleAnimation");
-		 * tests.put("Image drawing", "image_drawing.DemoSimpleImage");
-		 * tests.put("Mirroring image", "image_drawing.DemoMirrorImage");
-		 * tests.put("Alpha transparency", "image_drawing.DemoAlphaImage");
-		 * tests.put("Rotating image", "image_drawing.DemoRotatingImage");
 		 * tests.put("Julia fractal", "simple.DemoJuliaFractal");
-		 * tests.put("Music player", "music.DemoMusicPlay");
-		 * tests.put("Font generation", "fonts.DemoFontGeneration");
-		 * tests.put("Scrolling", "scrolling.DemoScrolling");
-		 * tests.put("Position interpolator",
-		 * "tween.interpolatorengine.DemoPositionInterpolator");
 		 * tests.put("Complex shapes", "complex_shapes.DemoComplexShapes");
 		 * tests.put("Simple physics (dominoes)", "physics.DemoSimplePhysics");
 		 * tests.put("Physics soccer ball", "physics.DemoPhysicsBalls");
@@ -90,8 +67,6 @@ public class DemoSelectorGUI extends JFrame {
 		 * tests.put("Physics collision detection",
 		 * "physics.collisions.DemoCollisionListener");
 		 * tests.put("Physics anchor points", "physics.joints.DemoWindmill");
-		 * tests.put("Lights", "lights.DemoLight"); tests.put("Rotating lights",
-		 * "lights.DemoRotateLight"); tests.put("Shaders postprocessing",
 		 * "shaders.advanced.DemoPostProcessing");
 		 * tests.put("Shaders convolution", "shaders.advanced.DemoConvolution");
 		 * tests.put("Shaders collection", "shaders.DemoAllShaders");
@@ -112,13 +87,14 @@ public class DemoSelectorGUI extends JFrame {
 	 */
 	class TestList extends JPanel {
 
-		private Map<String, String> demosMap;
+		private Map<String, DemoDescriptor> demosMap;
 		private String selectedDemoName = null;
 
 		/* GUI components */
 		private JSCAccordion accordion = new JSCAccordion();
 		private RunButton btRun = new RunButton();
-
+		private JTextPane paneComments = new JTextPane();
+		
 		// TODO: use preferences to select the last selected demo
 		// private final Preferences prefs;
 
@@ -144,7 +120,7 @@ public class DemoSelectorGUI extends JFrame {
 				// Loads the class based on its name
 				try {
 					Class<?> clazz = Class.forName("hevs.gdx2d.demos."
-							+ demosMap.get(selectedDemoName));
+							+ demosMap.get(selectedDemoName).clazz);
 					final Constructor<?> constructor = clazz
 							.getConstructor(boolean.class);
 
@@ -189,6 +165,7 @@ public class DemoSelectorGUI extends JFrame {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
 						selectedDemoName = (String) getSelectedValue();
+						paneComments.setText(demosMap.get(selectedDemoName).desc);
 					}
 				});
 
@@ -233,8 +210,9 @@ public class DemoSelectorGUI extends JFrame {
 					ImageIcon icon = new ImageIcon(getClass().getResource(
 							"/lib/icon64.png"));
 					final String msg = "<HTML><BODY>"
-							+ "<b>Demos selector for the \"gdx2d\" library.</b><br><br>"
-							+ "Pierre-André Mudry, 2013-2014<br>"
+							+ "<b>Demos selector for the \"gdx2d\" library, 2014.</b><br><br>"
+							+ "Pierre-André Mudry<br>"
+							+ "Christopher Métrailler<br><br>"
 							+ "Made for the <a href=\"http://inf1.begincoding.net\"/>inf1 course</a> "
 							+ "(http://inf1.begincoding.net)." + "<pre>"
 							+ Version.print() + "</pre>" + "</BODY></HTML>";
@@ -249,8 +227,7 @@ public class DemoSelectorGUI extends JFrame {
 			file.setMnemonic(KeyEvent.VK_F);
 			JMenuItem q = new JMenuItem("Quit");
 			q.setMnemonic(KeyEvent.VK_C);
-			q.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
-					ActionEvent.CTRL_MASK));
+			q.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
 			q.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -297,12 +274,21 @@ public class DemoSelectorGUI extends JFrame {
 		 * 
 		 * @throws FileNotFoundException
 		 */
+		class DemoDescriptor{
+			final String clazz;
+			final String desc;
+			DemoDescriptor(String c, String d){
+				desc = d;
+				clazz = c;
+			}
+		}
+		
 		private void loadFromJson() throws FileNotFoundException {
 			JsonReader r = new JsonReader();
 			JsonValue demos = r.parse(getClass().getResourceAsStream(
 					"/lib/demosList.json"));
 
-			demosMap = new LinkedHashMap<String, String>();
+			demosMap = new LinkedHashMap<String, DemoDescriptor>();
 
 			int demoCounter = 1;
 
@@ -318,9 +304,11 @@ public class DemoSelectorGUI extends JFrame {
 					final String name = demoCounter + ". "
 							+ currentDemo.getString("name");
 					final String clazz = currentDemo.getString("class");
-					demosMap.put(name, clazz);
+					final String descText = currentDemo.getString("desc");
+					DemoDescriptor d = new DemoDescriptor(clazz, descText);
+					demosMap.put(name, d);
 					l.add(name);
-					demoCounter++;
+					demoCounter++;					
 				}
 
 				// Add the current tab with demo list
@@ -336,7 +324,11 @@ public class DemoSelectorGUI extends JFrame {
 			setupAccordeon();
 
 			add(accordion, BorderLayout.CENTER);
-			add(btRun, BorderLayout.SOUTH);
+			
+			JPanel p = new JPanel(new BorderLayout());
+			p.add(btRun, BorderLayout.CENTER);
+			p.add(paneComments, BorderLayout.SOUTH);
+			add(p, BorderLayout.SOUTH);
 		}
 	}
 
