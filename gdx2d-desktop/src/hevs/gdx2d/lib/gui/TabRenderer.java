@@ -1,4 +1,4 @@
-package hevs.gdx2d.demos.gui;
+package hevs.gdx2d.lib.gui;
 
 import java.awt.Color;
 import java.awt.Font;
