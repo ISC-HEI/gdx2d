@@ -21,7 +21,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * A demo on how to use {@link PhysicsMotor} and anchor points)
+ * A demo on how to use {@link PhysicsMotor} and anchor points
  * 
  * <p>Based on ex 5.9 from the Nature of code book</p>
  * 
