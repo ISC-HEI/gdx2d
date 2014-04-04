@@ -148,7 +148,7 @@ public class DemoSelector extends JFrame {
 			}
 		}
 
-		class DemoList extends JList<String> {
+		class DemoList extends JList {
 
 			public DemoList(String[] demos) {
 				super(demos);
@@ -161,7 +161,7 @@ public class DemoSelector extends JFrame {
 				addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
-						selectedDemoName = getSelectedValue();
+						selectedDemoName = (String) getSelectedValue();
 					}
 				});
 
