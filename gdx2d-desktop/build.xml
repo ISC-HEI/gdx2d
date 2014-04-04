@@ -73,9 +73,8 @@
         <delete dir="${doc.dir}"/>
     </target>
     
-    
     <target name="demos-compile" depends="clean, init" description="Compile the library with all demos." >
-    	
+        
         <!-- Resources are copied to the data folder -->
     	<copy todir="${build.dir}/data">
 			<fileset dir="${data.dir}"/>
@@ -117,7 +116,8 @@
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/box2dlights.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype-natives.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype.jar"/>
-
+			<zipfileset excludes="META-INF/*.SF" src="${libs.dir}/accordion-1.2.0-jar-with-dependencies.jar"/>
+            
             <manifest>
                 <!-- Demo selector launcher -->
                 <attribute name="Main-Class" value="${demos.main}"/>

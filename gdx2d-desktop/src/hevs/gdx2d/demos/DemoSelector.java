@@ -11,7 +11,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -264,7 +263,6 @@ public class DemoSelector extends JFrame {
 				System.err.println("Unable to read the Json demos file.");
 				return;
 			}
-
 		}
 
 		/**
@@ -274,7 +272,7 @@ public class DemoSelector extends JFrame {
 		 */
 		private void loadFromJson() throws FileNotFoundException {
 			JsonReader r = new JsonReader();
-			JsonValue demos = r.parse(new FileInputStream("demosList.json"));
+			JsonValue demos = r.parse(getClass().getResourceAsStream("/lib/demosList.json"));
 
 			demosMap = new LinkedHashMap<String, String>();
 
