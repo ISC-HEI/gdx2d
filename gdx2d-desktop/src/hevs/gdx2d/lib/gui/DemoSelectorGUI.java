@@ -3,6 +3,7 @@ package hevs.gdx2d.lib.gui;
 import hevs.gdx2d.lib.Version;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -30,9 +32,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.ToolTipManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -47,12 +49,13 @@ import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
  * 
  * @author Pierre-André Mudry (mui)
  * @author Christopher Métrailler (mei)
- * @version 2.0
+ * @version 2.0.1
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "rawtypes" })
 public class DemoSelectorGUI extends JFrame {
 	public DemoSelectorGUI() throws Exception {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2012-2014");
+
 		// TODO: add these demos and all other to the JSON file
 		/*
 		 * tests.put("Julia fractal", "simple.DemoJuliaFractal");
@@ -78,6 +81,7 @@ public class DemoSelectorGUI extends JFrame {
 
 		pack();
 		setSize(500, 500);
+
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -94,7 +98,7 @@ public class DemoSelectorGUI extends JFrame {
 		private JSCAccordion accordion = new JSCAccordion();
 		private RunButton btRun = new RunButton();
 		private JTextPane paneComments = new JTextPane();
-		
+
 		// TODO: use preferences to select the last selected demo
 		// private final Preferences prefs;
 
@@ -124,27 +128,27 @@ public class DemoSelectorGUI extends JFrame {
 					final Constructor<?> constructor = clazz
 							.getConstructor(boolean.class);
 
-					 constructor.newInstance(false);
+					constructor.newInstance(false);
 
-//					Runnable r = new Runnable() {
-//						private Constructor<?> c;
-//
-//						@Override
-//						public void run() {
-//							try {
-//								c.newInstance(false);
-//							} catch (Exception e) {
-//							}
-//						}
-//
-//						private Runnable init(Constructor<?> t) {
-//							c = t;
-//							return this;
-//						}
-//					}.init(constructor);
-//
-//					new Thread(r).start();
-//
+					// Runnable r = new Runnable() {
+					// private Constructor<?> c;
+					//
+					// @Override
+					// public void run() {
+					// try {
+					// c.newInstance(false);
+					// } catch (Exception e) {
+					// }
+					// }
+					//
+					// private Runnable init(Constructor<?> t) {
+					// c = t;
+					// return this;
+					// }
+					// }.init(constructor);
+					//
+					// new Thread(r).start();
+					//
 				} catch (Exception e1) {
 					System.err.println("Unable to find " + selectedDemoName);
 				}
@@ -153,8 +157,12 @@ public class DemoSelectorGUI extends JFrame {
 
 		class DemoList extends JList {
 
+			@SuppressWarnings("unchecked")
 			public DemoList(String[] demos) {
 				super(demos);
+
+				// TODO: set a fixed height to paneComments (mei)
+				paneComments.setBackground(new Color(0xF5F5F5));
 
 				DefaultListSelectionModel m = new DefaultListSelectionModel();
 				m.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -165,7 +173,8 @@ public class DemoSelectorGUI extends JFrame {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
 						selectedDemoName = (String) getSelectedValue();
-						paneComments.setText(demosMap.get(selectedDemoName).desc);
+						paneComments
+								.setText(demosMap.get(selectedDemoName).desc);
 					}
 				});
 
@@ -174,6 +183,24 @@ public class DemoSelectorGUI extends JFrame {
 					public void mouseClicked(MouseEvent event) {
 						if (event.getClickCount() == 2)
 							btRun.doClick();
+					}
+				});
+
+				// Add a Mouse Motion adapter to display a tooltip on list
+				// elements
+				addMouseMotionListener(new MouseMotionAdapter() {
+					@Override
+					public void mouseMoved(MouseEvent e) {
+						ListModel model = getModel();
+						int index = locationToIndex(e.getPoint());
+						if (index >= 0) {
+							// Display the demo description as tooltip
+							final String desc = demosMap.get(model
+									.getElementAt(index)).desc;
+							setToolTipText(null);
+							setToolTipText(desc);
+							paneComments.setText(desc);
+						}
 					}
 				});
 
@@ -209,10 +236,12 @@ public class DemoSelectorGUI extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					ImageIcon icon = new ImageIcon(getClass().getResource(
 							"/lib/icon64.png"));
+					// TODO: make this link clickable... Possible but ugly !
+					// (mei)
 					final String msg = "<HTML><BODY>"
 							+ "<b>Demos selector for the \"gdx2d\" library, 2014.</b><br><br>"
-							+ "Pierre-André Mudry<br>"
-							+ "Christopher Métrailler<br><br>"
+							+ "Pierre-Andr&eacute; Mudry<br>"
+							+ "Christopher M&eacute;trailler<br><br>"
 							+ "Made for the <a href=\"http://inf1.begincoding.net\"/>inf1 course</a> "
 							+ "(http://inf1.begincoding.net)." + "<pre>"
 							+ Version.print() + "</pre>" + "</BODY></HTML>";
@@ -227,7 +256,8 @@ public class DemoSelectorGUI extends JFrame {
 			file.setMnemonic(KeyEvent.VK_F);
 			JMenuItem q = new JMenuItem("Quit");
 			q.setMnemonic(KeyEvent.VK_C);
-			q.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+			q.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
+					ActionEvent.CTRL_MASK));
 			q.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -274,15 +304,16 @@ public class DemoSelectorGUI extends JFrame {
 		 * 
 		 * @throws FileNotFoundException
 		 */
-		class DemoDescriptor{
+		class DemoDescriptor {
 			final String clazz;
 			final String desc;
-			DemoDescriptor(String c, String d){
+
+			DemoDescriptor(String c, String d) {
 				desc = d;
 				clazz = c;
 			}
 		}
-		
+
 		private void loadFromJson() throws FileNotFoundException {
 			JsonReader r = new JsonReader();
 			JsonValue demos = r.parse(getClass().getResourceAsStream(
@@ -308,12 +339,13 @@ public class DemoSelectorGUI extends JFrame {
 					DemoDescriptor d = new DemoDescriptor(clazz, descText);
 					demosMap.put(name, d);
 					l.add(name);
-					demoCounter++;					
+					demoCounter++;
 				}
 
 				// Add the current tab with demo list
-				String[] tbl = l.toArray(new String[0]);
-				accordion.addTab(catName, new DemoList(tbl));
+				DemoList dl = new DemoList(l.toArray(new String[0]));
+				ToolTipManager.sharedInstance().registerComponent(dl);
+				accordion.addTab(catName, dl);
 			}
 		}
 
@@ -324,7 +356,7 @@ public class DemoSelectorGUI extends JFrame {
 			setupAccordeon();
 
 			add(accordion, BorderLayout.CENTER);
-			
+
 			JPanel p = new JPanel(new BorderLayout());
 			p.add(btRun, BorderLayout.CENTER);
 			p.add(paneComments, BorderLayout.SOUTH);
