@@ -35,4 +35,30 @@ public class Palette {
 		ColorUtils.intToColor(0x8c9ad4),
 		ColorUtils.intToColor(0xfeeabe)	
 	};
+	
+	/**
+	 * The famous Giant Goldfish palette
+	 * from <a href="http://www.colourlovers.com/palette/92095/Giant_Goldfish">
+	 * www.colourlovers.com</a> 
+	 */
+	public static final Color goldfish[] = {
+		ColorUtils.intToColor(0x69d2e7),
+		ColorUtils.intToColor(0xa7dbd8),
+		ColorUtils.intToColor(0xe0e4cc),
+		ColorUtils.intToColor(0xf38630),
+		ColorUtils.intToColor(0xfa6900),
+	};
+	
+	/**
+	 * The amazing Thought Provoking palette
+	 * from <a href="http://www.colourlovers.com/palette/694737/Thought_Provoking">
+	 * www.colourlovers.com</a> 
+	 */
+	public static final Color thought[] = {
+		ColorUtils.intToColor(0xECD078),
+		ColorUtils.intToColor(0xD95B43),
+		ColorUtils.intToColor(0xC02942),
+		ColorUtils.intToColor(0x542437),
+		ColorUtils.intToColor(0x53777A),
+	};
 }
