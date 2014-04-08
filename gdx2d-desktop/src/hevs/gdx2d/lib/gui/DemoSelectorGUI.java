@@ -5,6 +5,7 @@ import hevs.gdx2d.lib.Version;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -106,8 +108,8 @@ public class DemoSelectorGUI extends JFrame {
 		class RunButton extends JButton implements ActionListener {
 
 			public RunButton() {
-				super("Run selected demo");
-				addActionListener(this);
+				super("Run!");
+				addActionListener(this);				
 			}
 
 			@Override
@@ -124,10 +126,8 @@ public class DemoSelectorGUI extends JFrame {
 
 				// Loads the class based on its name
 				try {
-					Class<?> clazz = Class.forName("hevs.gdx2d.demos."
-							+ demosMap.get(selectedDemoName).clazz);
-					final Constructor<?> constructor = clazz
-							.getConstructor(boolean.class);
+					Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
+					final Constructor<?> constructor = clazz.getConstructor(boolean.class);
 
 					constructor.newInstance(false);
 
@@ -164,7 +164,7 @@ public class DemoSelectorGUI extends JFrame {
 
 				// TODO: set a fixed height to paneComments (mei)
 				paneComments.setBackground(new Color(0xF5F5F5));
-				final Dimension commentDimension = new Dimension(500, 50);
+				final Dimension commentDimension = new Dimension(400, 55);
 				paneComments.setMinimumSize(commentDimension);
 				paneComments.setMaximumSize(commentDimension);
 				paneComments.setPreferredSize(commentDimension);
@@ -362,9 +362,13 @@ public class DemoSelectorGUI extends JFrame {
 
 			add(accordion, BorderLayout.CENTER);
 			
-			JPanel p = new JPanel(new BorderLayout());
-			p.add(btRun, BorderLayout.CENTER);
-			p.add(paneComments, BorderLayout.SOUTH);
+			JPanel p = new JPanel();
+			p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
+			
+			p.add(Box.createRigidArea(new Dimension(10,0)));
+			p.add(btRun);
+			p.add(Box.createRigidArea(new Dimension(10,0)));
+			p.add(paneComments);
 			add(p, BorderLayout.SOUTH);
 		}
 	}

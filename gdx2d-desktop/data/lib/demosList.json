@@ -39,9 +39,9 @@
       "desc": "Shows how the alpha transparency of an image can be changed to make it more or less transparent."
     },
     {
-      "name": "Animated images and shaped",
-      "class": "complex_shapes.DemoComplexShaped",
-      "desc": "Show that many images can be drawn simulatenously on the screen. The images are rotated and bounce around the screen. Click to change the rendered image."
+      "name": "Animated images and shapes",
+      "class": "complex_shapes.DemoComplexShapes",
+      "desc": "Show that many images can be drawn simultaneously on the screen. The images are rotated and bounce around the screen. Click to change the rendered image."
     }
   ],
   "Music, sound effects, text and fonts": [
@@ -52,7 +52,7 @@
     },
     {
       "name": "Displaying text using various fonts",
-      "class": "fonts.DemoFontsGeneration",
+      "class": "fonts.DemoFontGeneration",
       "desc": "If you want to display text in your game with various fonts, this is the demo to launch!"
     }
   ],
@@ -82,17 +82,17 @@
     {
       "name": "Dominoes",
       "class": "physics.DemoSimplePhysics",
-      "desc": "No description yet."
+      "desc": "Enjoy looking at falling dominoes? This demo shows how to create basics physics objects and make them move."
     },
     {
       "name": "Falling balloons",
-      "class": "physics.DemoSimplePhysics",
-      "desc": "No description yet."
+      "class": "physics.DemoPhysicsBalls",
+      "desc": "A demo for soccer fans! Just interact with the screen to make balls fall. On Android, this demos uses the accelerometers."
     },
     {
       "name": "Obstacles with chain of objects",
-      "class": "physics.DemoSimplePhysics",
-      "desc": "No description yet."
+      "class": "physics.chains.DemoChainPhysics",
+      "desc": "This demos shows how to create a chain of objects that are seen as obstacles for other physics objects"
     },
     {
       "name": "Collisions notification",
