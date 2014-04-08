@@ -1,5 +1,7 @@
 package hevs.gdx2d.demos;
 
+import hevs.gdx2d.lib.gui.DemoSelectorGUI;
+
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -23,6 +25,6 @@ public class DemoSelector{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
 
-		new hevs.gdx2d.lib.gui.DemoSelectorGUI();
+		new DemoSelectorGUI();
 	}
 }

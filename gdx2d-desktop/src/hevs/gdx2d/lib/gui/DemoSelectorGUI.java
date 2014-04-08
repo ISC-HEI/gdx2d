@@ -4,6 +4,7 @@ import hevs.gdx2d.lib.Version;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -130,25 +131,25 @@ public class DemoSelectorGUI extends JFrame {
 
 					constructor.newInstance(false);
 
-					// Runnable r = new Runnable() {
-					// private Constructor<?> c;
-					//
-					// @Override
-					// public void run() {
-					// try {
-					// c.newInstance(false);
-					// } catch (Exception e) {
-					// }
-					// }
-					//
-					// private Runnable init(Constructor<?> t) {
-					// c = t;
-					// return this;
-					// }
-					// }.init(constructor);
-					//
-					// new Thread(r).start();
-					//
+//					 Runnable r = new Runnable() {
+//					 private Constructor<?> c;
+//					
+//					 @Override
+//					 public void run() {
+//					 try {
+//					 c.newInstance(false);
+//					 } catch (Exception e) {
+//					 }
+//					 }
+//					
+//					 private Runnable init(Constructor<?> t) {
+//					 c = t;
+//					 return this;
+//					 }
+//					 }.init(constructor);
+//					
+//					 new Thread(r).start();
+					
 				} catch (Exception e1) {
 					System.err.println("Unable to find " + selectedDemoName);
 				}
@@ -163,6 +164,11 @@ public class DemoSelectorGUI extends JFrame {
 
 				// TODO: set a fixed height to paneComments (mei)
 				paneComments.setBackground(new Color(0xF5F5F5));
+				final Dimension commentDimension = new Dimension(500, 50);
+				paneComments.setMinimumSize(commentDimension);
+				paneComments.setMaximumSize(commentDimension);
+				paneComments.setPreferredSize(commentDimension);
+				paneComments.setText("Welcome to gdx2d.\nRunning " + Version.print());
 
 				DefaultListSelectionModel m = new DefaultListSelectionModel();
 				m.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -173,8 +179,7 @@ public class DemoSelectorGUI extends JFrame {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
 						selectedDemoName = (String) getSelectedValue();
-						paneComments
-								.setText(demosMap.get(selectedDemoName).desc);
+						paneComments.setText(demosMap.get(selectedDemoName).desc);
 					}
 				});
 
@@ -356,7 +361,7 @@ public class DemoSelectorGUI extends JFrame {
 			setupAccordeon();
 
 			add(accordion, BorderLayout.CENTER);
-
+			
 			JPanel p = new JPanel(new BorderLayout());
 			p.add(btRun, BorderLayout.CENTER);
 			p.add(paneComments, BorderLayout.SOUTH);
