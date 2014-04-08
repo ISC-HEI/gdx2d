@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
-	ANT Build script for the gdx2d-hello project.
+	ANT Build script for the gdx2d-helloDesktop project.
 
-	The Java main class must be set in the build
-	properties file.
+	The Java main class must be set in the build properties file.
 
 	@author Christopher Métrailler (mei@hevs.ch)
 	@version 1.0
 -->
-<project default="jar" name="gdx2d-hello" basedir=".">
+<project default="jar" name="gdx2d-helloDesktop" basedir=".">
 
 	<description>
 		ANT build script for "${ant.project.name}".
