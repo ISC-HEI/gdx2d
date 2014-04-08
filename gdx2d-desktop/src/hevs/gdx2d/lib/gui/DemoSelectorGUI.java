@@ -162,14 +162,14 @@ public class DemoSelectorGUI extends JFrame {
 			public DemoList(String[] demos) {
 				super(demos);
 
-				// TODO: set a fixed height to paneComments (mei)
-				paneComments.setBackground(new Color(0xF5F5F5));
 				final Dimension commentDimension = new Dimension(400, 55);
 				paneComments.setMinimumSize(commentDimension);
 				paneComments.setMaximumSize(commentDimension);
 				paneComments.setPreferredSize(commentDimension);
 				paneComments.setText("Welcome to gdx2d.\nRunning " + Version.print());
-
+				paneComments.setBackground(new Color(0xF5F5F5));
+				paneComments.setEditable(false);
+				
 				DefaultListSelectionModel m = new DefaultListSelectionModel();
 				m.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				m.setLeadAnchorNotificationEnabled(false);
@@ -363,6 +363,7 @@ public class DemoSelectorGUI extends JFrame {
 			add(accordion, BorderLayout.CENTER);
 			
 			JPanel p = new JPanel();
+			p.setBackground(new Color(0xF5F5F5));
 			p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 			
 			p.add(Box.createRigidArea(new Dimension(10,0)));
