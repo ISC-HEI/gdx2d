@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GDX2D demos</string>
+    <string name="selector_header_title">Click on a demo to run it:</string>
+    <string name="btn_quit_title">Quit</string>
+    <string name="about_title">About</string>
+    <string name="about_info">
+	<![CDATA[
+       <h3>Demo selector for the &quot;gdx2d&quot; library on Android.</h3>
+       Pierre-Andr&eacute; Mudry<br>
+       Christopher M&eacute;trailler<br><br>
+       Made for the inf1 course.<br>
+       http://inf1.begincoding.net
+    ]]>
+    </string>
+
+</resources>

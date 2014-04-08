@@ -1,0 +1,130 @@
+{
+  "Getting started with simple demos": [
+    {
+      "name": "Simple shapes",
+      "class": "simple.DemoSimpleShapes",
+      "desc": "The simplest demo, ever. Nothing is moving but it shows how to get started with the library.",
+      "keywords": "shape"
+    },
+    {
+      "name": "Basic animation",
+      "class": "simple.DemoSimpleAnimation",
+      "desc": "Shows how to animate the radius of a circle."
+    },
+    {
+      "name": "Mistify screen saver",
+      "class": "simple.mistify.DemoLines",
+      "desc": "Shows a more complex demo using multiple lines"
+    }
+  ],
+  "Image drawing": [
+    {
+      "name": "Basic image drawing",
+      "class": "image_drawing.DemoSimpleImage",
+      "desc": "Demonstrates how to load an image from the disk and to display it on the screen."
+    },
+    {
+      "name": "Mirror an image",
+      "class": "image_drawing.DemoMirrorImage",
+      "desc": "Shows how draw a mirrored image and the various possibilities of it."
+    },
+    {
+      "name": "Rotate image, with animation",
+      "class": "image_drawing.DemoRotatingImage",
+      "desc": "Shows how to animation the rotation of a picture."
+    },
+    {
+      "name": "Draw an image with transparency (alpha)",
+      "class": "simple.mistify.DemoLines",
+      "desc": "Shows how the alpha transparency of an image can be changed to make it more or less transparent."
+    },
+    {
+      "name": "Animated images and shaped",
+      "class": "complex_shapes.DemoComplexShaped",
+      "desc": "Show that many images can be drawn simulatenously on the screen. The images are rotated and bounce around the screen. Click to change the rendered image."
+    }
+  ],
+  "Music, sound effects, text and fonts": [
+    {
+      "name": "Playing music",
+      "class": "music.DemoMusicPlay",
+      "desc": "You want to play a nice background music in your game? Want to know how to stop it or resume playing? This demo is for you!"
+    },
+    {
+      "name": "Displaying text using various fonts",
+      "class": "fonts.DemoFontsGeneration",
+      "desc": "If you want to display text in your game with various fonts, this is the demo to launch!"
+    }
+  ],
+  "Advanced techniques": [
+    {
+      "name": "Scrolling your game",
+      "class": "scrolling.DemoScrolling",
+      "desc": "Want to do a side-scroller game. Just look at this very complete demo to see how it can be done nicely using gdx2d."
+    },
+    {
+      "name": "Position interpolation",
+      "class": "tween.interpolatorengine.DemoPositionInterpolator",
+      "desc": "Shows how to animate automatically from one value to another one, very simply."
+    },
+    {
+      "name": "Adding lights to a game",
+      "class": "lights.DemoLight",
+      "desc": "If you want to create a special ambiance in your game, maybe using lights and shadows is a good idea. This demo demonstrates how it can be easily done in gdx2d"
+    },
+    {
+      "name": "Rotating lights, animated",
+      "class": "lights.DemoRotateLight",
+      "desc": "Another demo on how to use lights, this time by making them move in circles!"
+    }
+  ],
+  "Physics simulations": [
+    {
+      "name": "Dominoes",
+      "class": "physics.DemoSimplePhysics",
+      "desc": "No description yet."
+    },
+    {
+      "name": "Falling balloons",
+      "class": "physics.DemoSimplePhysics",
+      "desc": "No description yet."
+    },
+    {
+      "name": "Obstacles with chain of objects",
+      "class": "physics.DemoSimplePhysics",
+      "desc": "No description yet."
+    },
+    {
+      "name": "Collisions notification",
+      "class": "physics.DemoSimplePhysics",
+      "desc": "No description yet."
+    },
+    {
+      "name": "Particle systems",
+      "class": "physics.DemoSimplePhysics",
+      "desc": "No description yet."
+    },
+    {
+      "name": "Joints",
+      "class": "physics.DemoSimplePhysics",
+      "desc": "No description yet."
+    },
+    {
+      "name": "Simple motors to mix things",
+      "class": "physics.DemoSimplePhysics",
+      "desc": "No description yet."
+    },
+    {
+      "name": "Mouse interactions with physics",
+      "class": "physics.DemoSimplePhysics",
+      "desc": "Shows how you can use the mouse to interact with physics objects."
+    }
+  ],
+  "Shaders (advanced)": [
+    {
+      "name": "Shaders collection",
+      "class": "shaders.DemoAllShaders",
+      "desc": "No description yet."
+    }
+  ]
+}
