@@ -5,7 +5,6 @@ import hevs.gdx2d.lib.Version;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.prefs.Preferences;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -59,25 +59,6 @@ public class DemoSelectorGUI extends JFrame {
 	public DemoSelectorGUI() throws Exception {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2012-2014");
 
-		// TODO: add these demos and all other to the JSON file
-		/*
-		 * tests.put("Julia fractal", "simple.DemoJuliaFractal");
-		 * tests.put("Complex shapes", "complex_shapes.DemoComplexShapes");
-		 * tests.put("Simple physics (dominoes)", "physics.DemoSimplePhysics");
-		 * tests.put("Physics soccer ball", "physics.DemoPhysicsBalls");
-		 * tests.put("Physics chain collisions",
-		 * "physics.chains.DemoChainPhysics"); tests.put("Physics particles",
-		 * "physics.particle.DemoParticlePhysics");
-		 * tests.put("Physics mouse interactions",
-		 * "physics.mouse_interaction.DemoPhysicsMouse");
-		 * tests.put("Physics collision detection",
-		 * "physics.collisions.DemoCollisionListener");
-		 * tests.put("Physics anchor points", "physics.joints.DemoWindmill");
-		 * "shaders.advanced.DemoPostProcessing");
-		 * tests.put("Shaders convolution", "shaders.advanced.DemoConvolution");
-		 * tests.put("Shaders collection", "shaders.DemoAllShaders");
-		 */
-
 		// Populate the window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(new TestList());
@@ -103,7 +84,7 @@ public class DemoSelectorGUI extends JFrame {
 		private JTextPane paneComments = new JTextPane();
 
 		// TODO: use preferences to select the last selected demo
-		// private final Preferences prefs;
+		private Preferences prefs;
 
 		class RunButton extends JButton implements ActionListener {
 
@@ -117,39 +98,14 @@ public class DemoSelectorGUI extends JFrame {
 				if (selectedDemoName == null)
 					return; // Do nothing if no selection
 
-				// prefs.putString("last", selectedDemoName);
-				// prefs.flush();
-
-				// FIXME: Do not close the current window ? Only one demo can be
-				// started at one time...
-				// dispose();
+				prefs.put("last", selectedDemoName);
 
 				// Loads the class based on its name
 				try {
 					Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
 					final Constructor<?> constructor = clazz.getConstructor(boolean.class);
-
 					constructor.newInstance(false);
-
-//					 Runnable r = new Runnable() {
-//					 private Constructor<?> c;
-//					
-//					 @Override
-//					 public void run() {
-//					 try {
-//					 c.newInstance(false);
-//					 } catch (Exception e) {
-//					 }
-//					 }
-//					
-//					 private Runnable init(Constructor<?> t) {
-//					 c = t;
-//					 return this;
-//					 }
-//					 }.init(constructor);
-//					
-//					 new Thread(r).start();
-					
+			
 				} catch (Exception e1) {
 					System.err.println("Unable to find " + selectedDemoName);
 				}
@@ -174,11 +130,18 @@ public class DemoSelectorGUI extends JFrame {
 				m.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				m.setLeadAnchorNotificationEnabled(false);
 				setSelectionModel(m);
-
+				
+				/**
+				 *  TODO Fixme, this sets the correct value but the accordion is not
+				 *  set right 
+				 */
+				selectedDemoName = prefs.get("last", "");
+				this.setSelectedValue(selectedDemoName, true);
+				
 				addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
-						selectedDemoName = (String) getSelectedValue();
+						selectedDemoName = (String) getSelectedValue();						
 						paneComments.setText(demosMap.get(selectedDemoName).desc);
 					}
 				});
@@ -354,7 +317,8 @@ public class DemoSelectorGUI extends JFrame {
 			}
 		}
 
-		public TestList() {
+		public TestList() {				
+			prefs = Preferences.userRoot().node(this.getClass().getName());
 			setLayout(new BorderLayout());
 			setIcon();
 			createMenus();
