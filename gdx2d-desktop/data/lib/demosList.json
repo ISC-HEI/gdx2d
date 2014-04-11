@@ -35,7 +35,7 @@
     },
     {
       "name": "Draw an image with transparency (alpha)",
-      "class": "simple.mistify.DemoLines",
+      "class": "image_drawing.DemoAlphaImage",
       "desc": "Shows how the alpha transparency of an image can be changed to make it more or less transparent."
     },
     {
@@ -96,19 +96,34 @@
     },
     {
       "name": "Collisions notification",
-      "class": "physics.DemoSimplePhysics",
-      "desc": "No description yet."
+      "class": "physics.collisions.DemoCollisionListener",
+      "desc": "Demonstrates how objects can be informed when they collide against other objects."
     },
     {
       "name": "Particle systems",
-      "class": "physics.DemoSimplePhysics",
-      "desc": "No description yet."
+      "class": "physics.particle.DemoParticlePhysics",
+      "desc": "Particles, particles everywhere."
     },
     {
-      "name": "Joints",
-      "class": "physics.DemoSimplePhysics",
-      "desc": "No description yet."
+      "name": "Physics joints - rotating joint",
+      "class": "physics.joints.DemoWindMill",
+      "desc": "An object that rotates around a circular joint object."
+    },    
+    {
+      "name": "Physics joints - rope",
+      "class": "physics.joints.DemoRopeJoint",
+      "desc": "Building a rope with joints."
     },
+    {
+      "name": "Physics joints - motor (Swiss SBB clock)",
+      "class": "physics.motors.DemoRotateMotor",
+      "desc": "A complex example showing motors on a real clock."
+    },
+    {
+      "name": "Physics joints and motor - mixing objects with a motor",
+      "class": "physics.joints.DemoMixer",
+      "desc": "No description yet."
+    },    
     {
       "name": "Simple motors to mix things",
       "class": "physics.DemoSimplePhysics",
