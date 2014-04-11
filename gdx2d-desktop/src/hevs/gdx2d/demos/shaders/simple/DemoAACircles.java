@@ -1,4 +1,4 @@
-package hevs.gdx2d.demos.simple;
+package hevs.gdx2d.demos.shaders.simple;
 
 import hevs.gdx2d.components.colors.Palette;
 import hevs.gdx2d.lib.GdxGraphics;

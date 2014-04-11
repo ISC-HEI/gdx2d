@@ -10,11 +10,21 @@
       "name": "Basic animation",
       "class": "simple.DemoSimpleAnimation",
       "desc": "Shows how to animate the radius of a circle."
+    },        
+    {
+      "name": "Moving circles",
+      "class": "simple.DemoCircles",
+      "desc": "Draws moving circles"
     },
     {
       "name": "Mistify screen saver",
       "class": "simple.mistify.DemoLines",
       "desc": "Shows a more complex demo using multiple lines"
+    },
+    {
+      "name": "A Julia Fractal",
+      "class": "simple.DemoJuliaFractal",
+      "desc": "A graphical library without a fractal is not really a graphical library, isn't it?"
     }
   ],
   "Image drawing": [
@@ -42,6 +52,11 @@
       "name": "Animated images and shapes",
       "class": "complex_shapes.DemoComplexShapes",
       "desc": "Show that many images can be drawn simultaneously on the screen. The images are rotated and bounce around the screen. Click to change the rendered image."
+    },
+    {
+      "name": "Scrolling",
+      "class": "scrolling.DemoScrolling",
+      "desc": "This demo demonstrates the usage of the scrolling technique which can be used to animate a game for instance."
     }
   ],
   "Music, sound effects, text and fonts": [
