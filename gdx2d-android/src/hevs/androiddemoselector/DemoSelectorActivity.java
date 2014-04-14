@@ -33,7 +33,7 @@ public class DemoSelectorActivity extends ListActivity implements
 	private final static LinkedHashMap<String, String> demoList;
 	static {
 		
-		// TODO: add other Desktop demos (mei)
+		// TODO: add some others desktop demos (mei)
 		
 		demoList = new LinkedHashMap<String, String>();
 		demoList.put("Very simple shapes", "simple.DemoSimpleShapes");
@@ -54,10 +54,12 @@ public class DemoSelectorActivity extends ListActivity implements
 		demoList.put("Physics finger interaction", "physics.DemoPhysicsMouse");
 		demoList.put("Physics collision detection",	"physics.collisions.DemoCollisionListener");
 		demoList.put("Physics chains",	"physics.DemoChainPhysics");
-//		demoList.put("Physics rocket", "physics.rocket.DemoPhysicsRocket");	//FIXME: doesn't work (mei)
 		demoList.put("Particles", "physics.particle.DemoParticlePhysics");
 		demoList.put("Lights", "lights.DemoLight");
 		demoList.put("Lights (moving)", "lights.DemoRotateLight");
+		
+		// FIXME: not all shader are working on Android and resolution is too big (mei)
+		demoList.put("Shaders collection", "shaders.DemoAllShaders");
 	}
 
 	@Override

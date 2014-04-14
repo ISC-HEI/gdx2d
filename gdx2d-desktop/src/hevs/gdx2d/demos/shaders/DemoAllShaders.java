@@ -78,7 +78,7 @@ public class DemoAllShaders extends PortableApplication {
 	public void onClick(int x, int y, int button) {
 		super.onClick(x, y, button);
 
-		if (button == Buttons.RIGHT)
+		if (button == Buttons.RIGHT || onAndroid)
 			currentShaderID = (currentShaderID + 1) % shaders.length;
 
 		mouse.x = x;
