@@ -54,7 +54,7 @@ import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
  * @author Christopher Métrailler (mei)
  * @version 2.0.1
  */
-@SuppressWarnings({ "serial", "rawtypes" })
+@SuppressWarnings({ "serial" })
 public class DemoSelectorGUI extends JFrame {
 	public DemoSelectorGUI() throws Exception {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2012-2014");
@@ -64,7 +64,7 @@ public class DemoSelectorGUI extends JFrame {
 		setContentPane(new TestList());
 
 		pack();
-		setSize(500, 500);
+		// setSize(500, 500);
 
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -114,7 +114,6 @@ public class DemoSelectorGUI extends JFrame {
 
 		class DemoList extends JList {
 
-			@SuppressWarnings("unchecked")
 			public DemoList(String[] demos) {
 				super(demos);
 
@@ -336,11 +335,5 @@ public class DemoSelectorGUI extends JFrame {
 			p.add(paneComments);
 			add(p, BorderLayout.SOUTH);
 		}
-	}
-
-	public static void main(String[] argv) throws Exception {
-		// TODO: launch a specific demo by giving the demo class name as
-		// argument (mei)
-		new DemoSelectorGUI();
 	}
 }

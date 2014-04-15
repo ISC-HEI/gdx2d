@@ -77,7 +77,10 @@ public class DemoAllShaders extends PortableApplication {
 	@Override
 	public void onClick(int x, int y, int button) {
 		super.onClick(x, y, button);
-		currentShaderID = (currentShaderID + 1) % shaders.length;
+
+		if (button == Buttons.RIGHT || onAndroid)
+			currentShaderID = (currentShaderID + 1) % shaders.length;
+
 		mouse.x = x;
 		mouse.y = y;
 	}
