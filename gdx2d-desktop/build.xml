@@ -172,4 +172,6 @@
 		</javadoc>
 	</target>
     
+	<target name="test" depends="demos-compile, clean" />
+	
 </project>
