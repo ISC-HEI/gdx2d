@@ -13,9 +13,19 @@ public class Version {
 	/**
 	 * Print the current version of the library and libgdx.
 	 */
-	public final static String print() {
+	public final static String print_verbose() {
 		return String.format(
 				"gdx2d version \"%s\", libgdx version \"%s\" / mui, chn, mei (c) 2013-2014",
 				version, com.badlogic.gdx.Version.VERSION);
+	}
+	
+	
+	/**
+	 * Print the current version of the library and libgdx.
+	 */
+	public final static String print() {
+		return String.format(
+				"gdx2d version \"%s\" / mui, chn, mei (c) 2013-2014",
+				version);
 	}
 }
