@@ -121,7 +121,7 @@
     },
     {
       "name": "Physics joints - rotating joint",
-      "class": "physics.joints.DemoWindMill",
+      "class": "physics.joints.DemoWindmill",
       "desc": "An object that rotates around a circular joint object."
     },    
     {
