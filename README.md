@@ -1,4 +1,4 @@
-﻿## What is gdx2d ?
+﻿## What is gdx2d ? [![Build Status](https://travis-ci.org/metc/gdx2d.svg?branch=master)](https://travis-ci.org/metc/gdx2d)
  
 *gdx2d* is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. Here is an example of what the library is capable of:
 
