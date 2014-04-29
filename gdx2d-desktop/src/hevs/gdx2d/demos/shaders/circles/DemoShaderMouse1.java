@@ -26,10 +26,10 @@ public class DemoShaderMouse1 extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
-		if (g.shaderRenderer == null) {
+		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/circles/circle1.fp");
 			// Pass the some information to the shader.
-			g.shaderRenderer.setUniform("center", c.pos);
+			g.getShaderRenderer().setUniform("center", c.pos);
 		}
 
 		g.clear();

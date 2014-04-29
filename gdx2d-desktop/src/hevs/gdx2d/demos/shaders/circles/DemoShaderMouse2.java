@@ -29,15 +29,15 @@ public class DemoShaderMouse2 extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
-		if (g.shaderRenderer == null) {
+		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/circles/circle2.fp");
-			g.shaderRenderer.setUniform("radius", 30);
+			g.getShaderRenderer().setUniform("radius", 30);
 		}
 
 		g.clear();
 
 		// Pass the mouse position to the shader, always
-		g.shaderRenderer.setUniform("mouse", c.pos);
+		g.getShaderRenderer().setUniform("mouse", c.pos);
 		g.drawShader();
 
 		g.drawFPS();

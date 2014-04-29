@@ -3,24 +3,33 @@ package hevs.gdx2d.components.colors;
 import com.badlogic.gdx.graphics.Color;
 
 /**
- * Color conversion utilities. This was
- * originally taken on 
+ * Color conversion utilities methods.
+ * 
+ * <br>The source code was adapted from a question on 
  * <a href=http://stackoverflow.com/questions/7896280/converting-from-hsv-hsb-in-java-to-rgb-without-using-java-awt-color-disallowe"> stack overflow</a>
  * 
  * @author Pierre-André Mudry (mui)
  * @version 1.0 
  */
 public class ColorUtils {	
+	/**
+	 * Conversion from the HSV color space to {@link Color}.
+	 * @param hue Hue of the original color (tint)
+	 * @param saturation The amount of color saturation 
+	 * @param value Value of the current color
+	 * @return The converted {@link Color}
+	 */
 	public static Color hsvToColor(float hue, float saturation, float value) {
 		return intToColor(hsvToRgb(hue, saturation, value));
 	}
 	
 	/**
-	 * Converts hsv to rgb int
-	 * @param hue
-	 * @param saturation
-	 * @param value
-	 * @return
+	 * Converts hue-saturation-value color space to red-green-blue integer
+	 * value representation.
+	 * @param hue Hue of the original color (tint)
+	 * @param saturation The amount of color saturation 
+	 * @param value Value of the current color
+	 * @return The integer representation of the {@link Color}
 	 */
 	public static int hsvToRgb(float hue, float saturation, float value) {
 
@@ -42,20 +51,20 @@ public class ColorUtils {
 	}
 
 	/**
-	 * Creates an int representation of rgb color
-	 * @param r
-	 * @param g
-	 * @param b
-	 * @return
+	 * Converts an RGB color to its integer counterpart
+	 * @param r the red component 
+	 * @param g the green component
+	 * @param b the blue component
+	 * @return the integer value representing this color
 	 */
 	public static int rgbToInt(float r, float g, float b){
 		return Color.rgb888(r, g, b);
 	}	
 	
 	/**
-	 * Creates a Color from an int
-	 * @param col
-	 * @return
+	 * Creates a {@link Color} from an integer value
+	 * @param col the integer color value to convert
+	 * @return the {@link Color} representation of the given integer value 
 	 */
 	public static Color intToColor(int col){
 		float r = ((col & 0x00ff0000) >>> 16) / 255f;

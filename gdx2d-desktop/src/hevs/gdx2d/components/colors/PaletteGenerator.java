@@ -1,12 +1,17 @@
 package hevs.gdx2d.components.colors;
 
+import hevs.gdx2d.demos.complex_shapes.DemoComplexShapes;
+
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 
 /**
- * Nice color palette generator, original version adapted
- * from http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/
+ * A color palette generator, original version adapted
+ * from <a href="http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/"> this web-site</a>
+ * 
+ * <p>The purpose of this class is to mix colors nicely to make a nice looking palette. For an example
+ * of use, see {@link DemoComplexShapes}</p>
  * 
  * @author Pierre-André Mudry (mui)
  * @version 1.0

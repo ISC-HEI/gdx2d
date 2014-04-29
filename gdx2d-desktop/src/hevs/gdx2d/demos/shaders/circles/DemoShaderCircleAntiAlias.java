@@ -41,14 +41,14 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
-		if (g.shaderRenderer == null) {
+		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/circles/circle_aa.fp");
-			g.shaderRenderer.setUniform("color", new Vector3(Color.PINK.r, Color.PINK.g, Color.PINK.b));
+			g.getShaderRenderer().setUniform("color", new Vector3(Color.PINK.r, Color.PINK.g, Color.PINK.b));
 		}
 
 		g.clear();
-		g.shaderRenderer.setUniform("radius", radius);
-		g.shaderRenderer.setUniform("position", new Vector2(c.pos.x, c.pos.y));
+		g.getShaderRenderer().setUniform("radius", radius);
+		g.getShaderRenderer().setUniform("position", new Vector2(c.pos.x, c.pos.y));
 
 		// Update time
 		time += 3*Gdx.graphics.getDeltaTime();

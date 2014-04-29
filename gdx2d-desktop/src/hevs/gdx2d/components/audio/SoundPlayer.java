@@ -7,7 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
- * A class to play *short* samples within LibGDX. The music sample
+ * A class to play <em>short</em> samples within gdx2d. The music sample
  * must be short because it is completely loaded into memory.
  * 
  * @author Nils Chatton (chn)
@@ -18,6 +18,10 @@ public class SoundPlayer implements Disposable{
 	protected Sound s;
 	protected float volume = 1.0f;
 		
+	/**
+	 * Constructor
+	 * @param file the file to be loaded, using internal path representation
+	 */
 	public SoundPlayer(String file){
 		s = Gdx.audio.newSound(Gdx.files.internal(file));		
 		Utils.callCheck("hevs.gdx2d.lib.Game2D", "create");
@@ -51,7 +55,7 @@ public class SoundPlayer implements Disposable{
 	}
 	
 	/**
-	 * Plays the song in loop
+	 * Plays the song in loop (repeat forever)
 	 */
 	public void loop(){
 		s.loop();
@@ -63,5 +67,11 @@ public class SoundPlayer implements Disposable{
 	@Override
 	public void dispose() {
 		s.dispose();		
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {	
+		super.finalize();
+		dispose();
 	}
 }

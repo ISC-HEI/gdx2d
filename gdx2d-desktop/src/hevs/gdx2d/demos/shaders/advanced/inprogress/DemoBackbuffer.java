@@ -39,10 +39,10 @@ public class DemoBackbuffer extends PortableApplication {
 	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		if (g.shaderRenderer == null) {
+		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/advanced/tbd/test.fp");
 			t = new Texture(512, 512, Format.RGB888);
-			g.shaderRenderer.addTexture(t, "backbuffer");
+			g.getShaderRenderer().addTexture(t, "backbuffer");
 		}
 		
 		fbo.begin();

@@ -160,6 +160,9 @@ public class Game2D implements ApplicationListener {
 				if (keycode == Input.Keys.MENU) {
 					// resolver.showAboutBox();
 				}
+				if (keycode == Input.Keys.ESCAPE) {
+					Gdx.app.exit();
+				}
 				app.onKeyDown(keycode);
 				return false;
 			}
@@ -203,13 +206,12 @@ public class Game2D implements ApplicationListener {
 	}
 
 	/**
-	 * Handles application life-cycle on Android and others
+	 * Called to remove all the allocated resources. 
 	 */
 	@Override
 	public void dispose() {
 		g.dispose();
 		app.onDispose();
 		PhysicsWorld.dispose();
-		Gdx.app.debug("[GDX2DLib]", "Game2D disposing");
 	}
 }

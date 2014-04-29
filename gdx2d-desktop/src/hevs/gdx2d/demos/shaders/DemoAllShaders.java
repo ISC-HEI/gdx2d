@@ -31,7 +31,7 @@ public class DemoAllShaders extends PortableApplication {
 		mouse.y = this.getWindowHeight() / 2;
 	}
 
-	public final String[] shaders = { "underwater.fp", "galaxy.fp",
+	public final String[] shaders = { "underwater.fp", "galaxy.fp", 
 			"joyDivision.fp", "stars.fp", "colorRect.fp", "plasma.fp", "gradient.fp",
 			"particles.fp", "pulse.fp", "circles/circle3.fp",
 			"advanced/vignette.fp" };
@@ -44,14 +44,14 @@ public class DemoAllShaders extends PortableApplication {
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		if (g.shaderRenderer == null) {
+		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/" + shaders[currentShaderID]);
-			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");
+			g.getShaderRenderer().addTexture("data/images/lena.png", "texture0");
 		}
 
 		if (currentShaderID != previousShaderID) {
 			g.setShader("data/shader/" + shaders[currentShaderID]);
-			g.shaderRenderer.addTexture("data/images/lena.png", "texture0");
+			g.getShaderRenderer().addTexture("data/images/lena.png", "texture0");
 			Logger.log("Current shader set to " + shaders[currentShaderID]);
 			previousShaderID = currentShaderID;
 		}
@@ -60,7 +60,7 @@ public class DemoAllShaders extends PortableApplication {
 		g.clear();
 
 		// Draws the shader
-		g.shaderRenderer.setUniform("mouse", mouse);
+		g.getShaderRenderer().setUniform("mouse", mouse);
 		g.drawShader(time);
 
 		// Update time
@@ -78,7 +78,7 @@ public class DemoAllShaders extends PortableApplication {
 	public void onClick(int x, int y, int button) {
 		super.onClick(x, y, button);
 
-		if (button == Buttons.RIGHT)
+		if (button == Buttons.RIGHT || onAndroid)
 			currentShaderID = (currentShaderID + 1) % shaders.length;
 
 		mouse.x = x;

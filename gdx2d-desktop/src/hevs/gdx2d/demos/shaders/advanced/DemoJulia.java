@@ -34,14 +34,14 @@ public class DemoJulia extends PortableApplication {
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		if (g.shaderRenderer == null) {
+		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/julia.fp");
-			g.shaderRenderer.addTexture("data/shader/pal.png", "texture0");
+			g.getShaderRenderer().addTexture("data/shader/pal.png", "texture0");
 		}
 
-		g.shaderRenderer.setUniform("scale", scale);
-		g.shaderRenderer.setUniform("offset", offset);
-		g.shaderRenderer.setUniform("center", new Vector2(juliaPrm, juliaPrm));
+		g.getShaderRenderer().setUniform("scale", scale);
+		g.getShaderRenderer().setUniform("offset", offset);
+		g.getShaderRenderer().setUniform("center", new Vector2(juliaPrm, juliaPrm));
 		juliaPrm += direction * (10.0f / 30000.0f);
 		
 		if (juliaPrm < 0.33 || juliaPrm > 0.4)

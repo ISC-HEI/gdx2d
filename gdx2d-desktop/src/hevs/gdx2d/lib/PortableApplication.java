@@ -182,6 +182,7 @@ public abstract class PortableApplication implements TouchInterface,
 	 */
 	@Override
 	public void onDispose() {
+		
 	}
 	
 	/**
@@ -217,7 +218,7 @@ public abstract class PortableApplication implements TouchInterface,
 	public AndroidResolver getAndroidResolver() {
 		return resolver;
 	}
-	
+
 	/**
 	 * Creates an application using GDX2D
 	 * @param onAndroid true if running on Android
@@ -238,12 +239,13 @@ public abstract class PortableApplication implements TouchInterface,
 			config.height = height;
 			config.width = width;
 			config.fullscreen = false;
-			config.title = "gdx2d application";
+			config.title = "GDX2D application";
 			config.vSyncEnabled = true; // Ignored under Linux						
 			config.foregroundFPS = 60; // Target value if vSync not working
 			config.backgroundFPS = config.foregroundFPS;
-			config.samples = 2; // Multi-sampling enables anti-alias for lines
-			
+			config.samples = 3; // Multi-sampling enables anti-alias for lines
+			config.forceExit = true; // Setting true calls system.exit(), with no coming back 
+						
 			String os = System.getProperty("os.name").toLowerCase();
 			
 			// Under windows, the icon *must* be the small one

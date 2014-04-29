@@ -73,9 +73,8 @@
         <delete dir="${doc.dir}"/>
     </target>
     
-    
     <target name="demos-compile" depends="clean, init" description="Compile the library with all demos." >
-    	
+        
         <!-- Resources are copied to the data folder -->
     	<copy todir="${build.dir}/data">
 			<fileset dir="${data.dir}"/>
@@ -117,7 +116,8 @@
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/box2dlights.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype-natives.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype.jar"/>
-
+			<zipfileset excludes="META-INF/*.SF" src="${libs.dir}/accordion-1.2.0-jar-with-dependencies.jar"/>
+            
             <manifest>
                 <!-- Demo selector launcher -->
                 <attribute name="Main-Class" value="${demos.main}"/>
@@ -145,10 +145,10 @@
 	<target name="lib-doc" depends="init" description="Generate the library documentation (javadoc).">
 		<echo>Generate javadoc version "${lib.version}".</echo>
 		
-		<javadoc destdir="${doc.dir}/${lib.version}"
-			author="true" version="true" use="true" windowtitle="gdx2d API version ${lib.version}">
+		<javadoc destdir="${doc.dir}/${lib.version}" author="true" version="true" use="true" 
+		    charset="UTF-8" docencoding="UTF-8" windowtitle="gdx2d API version ${lib.version}">
 		
-		    <!-- Demos files are not included in the javadoc -->
+		    <!-- Include all packages except the demo package. -->
 			<fileset dir="${src.dir}" defaultexcludes="yes">
 			    <include name="hevs/gdx2d/lib/**"/>
 			    <include name="hevs/gdx2d/components/**"/>
@@ -157,12 +157,21 @@
 		
 			<doctitle><![CDATA[
 			    <h1>gdx2d library API</h1>
+			    <p>gdx2d is a simple to use 2d game framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.</p>
+			    <p>Website: <a target="_parent" href="http://pmudry.github.io/gdx2d/">http://pmudry.github.io/gdx2d/</a></p>
+			    <hr>
 			    Build date: ${today}<br>
-			    Version: <b>${lib.version}</b>
+			    Version: <b>${lib.version}</b><br>
 			]]></doctitle>
-			<bottom><![CDATA[Copyright &#169; 2014 gdx2d - isi.hevs.ch]]></bottom>
+			
+			<bottom><![CDATA[
+			    Copyright &#169; 2014 gdx2d - <a target="_parent" href="http://isi.hevs.ch">http://isi.hevs.ch</a> & 
+			    <a target="_parent" href="http://inf1.begincoding.net/">http://inf1.begincoding.net/</a>
+			]]></bottom>
 			<link href="https://github.com/pmudry/gdx2d"/>
 		</javadoc>
 	</target>
     
+	<target name="test" depends="demos-compile, clean" />
+	
 </project>

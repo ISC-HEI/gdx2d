@@ -27,7 +27,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * {@link PhysicsCircle} and {@link PhysicsStaticBox}.
  * 
  * @author Pierre-André Mudry (mui)
- * @version 1.01
+ * @version 1.02
  */
 public abstract class AbstractPhysicsObject implements ContactListener, BodyInterface{
 	// A name for the object
@@ -55,7 +55,7 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	 * @param friction
 	 * @param isDynamic
 	 */
-	public AbstractPhysicsObject(Type t, String name, Vector2 position, float width, float height, float density, float restitution, float friction, boolean isDynamic){
+	protected AbstractPhysicsObject(Type t, String name, Vector2 position, float width, float height, float density, float restitution, float friction, boolean isDynamic){
 		this.name = name;
 		createObject(t, name, position, width, height, density, restitution, friction, 0, isDynamic);
 	}
@@ -73,7 +73,7 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	 * @param angle
 	 * @param isDynamic
 	 */
-	public AbstractPhysicsObject(Type t, String name, Vector2 position, float width, float height, float density, float restitution, float friction, float angle, boolean isDynamic){
+	protected AbstractPhysicsObject(Type t, String name, Vector2 position, float width, float height, float density, float restitution, float friction, float angle, boolean isDynamic){
 		this.name = name;
 		createObject(t, name, position, width, height, density, restitution, friction, angle, isDynamic);
 	}
@@ -203,22 +203,32 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	/****
 	 * Body method redefinition for meters / pixels
 	 * Implementation of the {@link BodyInterface} interface
+	 * @return The physics body position, in the pixel space
 	 */
 	@Override
 	public Vector2 getBodyPosition(){
 		return body.getPosition().scl(PhysicsConstants.METERS_TO_PIXELS);
 	}
 	
+	/**
+	 * @return the current angle of the physics object, in radians
+	 */
 	@Override
 	public float getBodyAngle(){
 		return body.getAngle();
 	}
 	
+	/**
+	 * @return the current angle of the physics object, in degrees
+	 */
 	@Override
 	public float getBodyAngleDeg(){
 		return body.getAngle() * PhysicsConstants.RAD_TO_DEG;
 	}
 	
+	/**
+	 * @return the radius of the current circle shape. If not a circle shape, throws an {@link UnsupportedOperationException}
+	 */
 	@Override
 	public float getBodyRadius(){
 		if(f.getShape().getType() == Type.Circle){			
