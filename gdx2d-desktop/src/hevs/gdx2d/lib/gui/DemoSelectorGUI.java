@@ -41,6 +41,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.javaswingcomponents.accordion.JSCAccordion;
@@ -64,7 +65,14 @@ public class DemoSelectorGUI extends JFrame {
 		setContentPane(new TestList());
 
 		pack();
-		// setSize(500, 500);
+		String os = System.getProperty("os.name").toLowerCase();
+		
+		// Under windows we can set the window size
+		// It seems to be a problem under Linux
+		// FIXME
+		if(os.contains("win")){						
+			setSize(500, 700);
+		}
 
 		setLocationRelativeTo(null);
 		setVisible(true);
