@@ -1,5 +1,3 @@
-# Website of gdx2d
+# GDX2D website
 
-    Work in progress...
-
-Website available here: [http://pmudry.github.io/gdx2d/](http://pmudry.github.io/gdx2d/)
+Website available here: [http://hevs-isi.github.io/gdx2d/](http://hevs-isi.github.io/gdx2d/)
