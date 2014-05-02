@@ -10,28 +10,30 @@ import com.badlogic.gdx.graphics.Color;
 /**
  * Shows how to play music in the framework
  * 
- * TODO: add short sample play to demonstrate the difference 
+ * TODO: add short sample play to demonstrate the difference
  * 
  * @author Pierre-André Mudry (mui)
- * @version 1.01
+ * @author Christopher Metrailler (mei)
+ * @version 1.2
  */
 public class DemoMusicPlay extends PortableApplication {
 
-	MusicPlayer f;
+	private MusicPlayer f;
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		// Clear the screen
 		g.clear();
+		g.setColor(Color.WHITE);
 
 		// Audio logic
-		if (f.isPlaying()) {
-			g.setColor(Color.WHITE);
-			g.drawString(20, getWindowHeight() / 2, "Playing song");
-		} else {
-			g.setColor(Color.WHITE);
-			g.drawString(20, getWindowHeight() / 2, "Press to play");
-		}
+		String text;
+		if (f.isPlaying())
+			text = "Playing song";
+		else
+			text = "Click to play";
+
+		g.drawString(20, getWindowHeight() / 2, text);
 
 		// Draws the school logo
 		g.drawSchoolLogo();
@@ -51,7 +53,8 @@ public class DemoMusicPlay extends PortableApplication {
 	@Override
 	public void onInit() {
 		setTitle("Music player, mui 2013");
-		// The song we want to play
+
+		// Load the MP3 sound file
 		f = new MusicPlayer("data/music/Blues-Loop.mp3");
 	}
 
@@ -64,8 +67,10 @@ public class DemoMusicPlay extends PortableApplication {
 
 		if (onAndroid) {
 			// Display Toast on Android
-			final String sToast = (f.isPlaying()) ? "Playing started." : "Playing stopped.";
-			getAndroidResolver().showToast(sToast, AndroidResolver.LENGTH_SHORT);
+			final String sToast = (f.isPlaying()) ? "Playing started."
+					: "Playing stopped.";
+			getAndroidResolver()
+					.showToast(sToast, AndroidResolver.LENGTH_SHORT);
 		}
 	}
 

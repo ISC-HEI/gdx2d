@@ -11,7 +11,7 @@ import hevs.gdx2d.lib.interfaces.DrawableObject;
 public class Brick implements DrawableObject {
 
 	int posx, posy;
-	static final BitmapImage img = new BitmapImage("data/images/brick.png");;
+	final BitmapImage img = new BitmapImage("data/images/brick.png");;
 	
 	public Brick(int x, int y){
 		posx = x;
