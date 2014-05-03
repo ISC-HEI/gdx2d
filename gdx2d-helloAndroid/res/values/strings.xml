@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Hello World</string>
+    <string name="app_name">GDX2D hello</string>
     <string name="selector_header_title">Click on a demo to run it :</string>
     <string name="btn_quit_title">Quit</string>
 

@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 
 /**
  * A wrapper for the {@link ApplicationListener} class provided for the INF1
@@ -30,6 +31,12 @@ import com.badlogic.gdx.math.Vector2;
  * @version 1.1
  */
 public class Game2D implements ApplicationListener {
+	
+	// Force to load native libraries (for Android Proguard)
+	static {
+	    GdxNativesLoader.load();
+	}
+	
 	protected PortableApplication app;
 	static public GdxGraphics g;
 

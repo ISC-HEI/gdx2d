@@ -13,7 +13,7 @@ import hevs.gdx2d.lib.interfaces.DrawableObject;
  */
 public class Ball implements DrawableObject {
 	public float posx, posy;
-	static final BitmapImage img = new BitmapImage("data/images/soccer.png");
+	final BitmapImage img = new BitmapImage("data/images/soccer.png");
 
 	public Ball(float x, float y) {
 		posx = x;
