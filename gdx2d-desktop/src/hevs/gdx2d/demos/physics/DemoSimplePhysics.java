@@ -59,8 +59,6 @@ public class DemoSimplePhysics extends PortableApplication{
 		debugRenderer = new DebugRenderer();
 	}
 
-	Matrix4 debugM;
-	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {				
 		g.clear();
