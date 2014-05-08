@@ -12,10 +12,12 @@ import com.badlogic.gdx.physics.box2d.Filter;
 /**
  * Demonstrates how to render particles
  * @author Pierre-André Mudry (mui)
- * @version 1.1
+ * @version 1.2
  */
 public class Particle extends PhysicsBox {
-	protected static final BitmapImage img = new BitmapImage("data/images/texture.png");	
+	// Resources MUST not be static
+	protected BitmapImage img = new BitmapImage("data/images/texture.png");	
+	
 	protected int age = 0;
 	protected final int maxAge;
 	private boolean init = false;
