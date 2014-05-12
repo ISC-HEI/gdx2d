@@ -33,6 +33,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
 public class Game2D implements ApplicationListener {
 	
 	// Force to load native libraries (for Android Proguard)
+	// FIXME Is this really required?
 	static {
 	    GdxNativesLoader.load();
 	}
