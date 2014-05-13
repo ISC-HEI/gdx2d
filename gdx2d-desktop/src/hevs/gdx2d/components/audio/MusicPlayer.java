@@ -1,6 +1,7 @@
 package hevs.gdx2d.components.audio;
 
 import hevs.gdx2d.lib.utils.Logger;
+import hevs.gdx2d.lib.utils.Utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -27,6 +28,10 @@ public class MusicPlayer implements Disposable {
 	public MusicPlayer(String file) {
 		try {
 			s = Gdx.audio.newMusic(Gdx.files.internal(file));
+			Utils.assertGdxLoaded("MusicPlayers can only be created in the onInit "
+					+ "method of a class extending PortableApplication "
+					+ "(or must be called from within this method)");
+
 		} catch (GdxRuntimeException e) {
 			Logger.error("Unable to load the music" + file);
 			Gdx.app.exit();

@@ -1,5 +1,7 @@
 package hevs.gdx2d.lib.utils;
 
+import com.badlogic.gdx.Gdx;
+
 /**
  * Various utils for checking things
  * @author Nils Chatton (chn)
@@ -8,6 +10,18 @@ package hevs.gdx2d.lib.utils;
  */
 public class Utils {
 
+	/**
+	 * Checks that gdx is correctly loaded
+	 * @param msg The message to log if not loaded
+	 */
+	public static void assertGdxLoaded(String msg){
+		if(Gdx.graphics.getGL20() == null){
+			Logger.error(msg);
+			Gdx.app.exit();			
+			throw new UnsupportedOperationException(msg);
+		}
+	}
+	
 	/**
 	 * Checks that a method is called only in a given method
 	 * @param className

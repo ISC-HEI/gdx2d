@@ -32,7 +32,10 @@ public class SoundSample implements Disposable{
 	 */
 	public SoundSample(String file){
 		s = Gdx.audio.newSound(Gdx.files.internal(file));		
-		Utils.callCheck("hevs.gdx2d.lib.Game2D", "create");
+
+		Utils.assertGdxLoaded("A sound sample can only be created in the onInit "
+				+ "method of a class extending PortableApplication "
+				+ "(or must be called from within this method)");
 	}
 	
 	/**
