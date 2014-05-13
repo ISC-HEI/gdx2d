@@ -468,10 +468,8 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	 * normally because the dimensions are not scaled appropriately in the
 	 * object itself.
 	 * 
-	 * @deprecated You should not use this anymore!
 	 * @return The body for the simulation
 	 */
-	@Deprecated 
 	public Body getBody() {
 		return this.body;
 	}
