@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
@@ -198,6 +199,20 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	public void collision(AbstractPhysicsObject theOtherObject, float energy) {
 	}
 
+	
+	/**
+	 * FIXME This is not working
+	 * @param id
+	 */
+	public void setCollisionGroup(short id){
+		Filter filter = new Filter();
+		filter.groupIndex = id;
+		
+		for(Fixture f : body.getFixtureList()){
+			f.setFilterData(filter);
+		}
+	}
+	
 	/************************************************************************
 	 * Internal functions for collisions, do not use
 	 ************************************************************************/
