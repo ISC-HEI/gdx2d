@@ -23,7 +23,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * The segments can either be generated randomly (with edges) or with a smooth
  * Catmull-Rom interpolated spline. See {@link DemoChainPhysics} demo
  * 
- * @author Pierre-Andre Mudry (mui)
+ * @author Pierre-André Mudry (mui)
  * @version 1.1
  */
 public class PhysicsChain implements DrawableObject{

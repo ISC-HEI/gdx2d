@@ -18,8 +18,11 @@ public class PhysicsConstants {
 	// For conversions
 	/** Multiply this ratio to convert meters to pixels */
 	public static float METERS_TO_PIXELS = 75;
+	public static float M2P = METERS_TO_PIXELS;
+	
 	/** Multiply this ratio to convert pixels to meters */
 	public static float PIXEL_TO_METERS = 1 / METERS_TO_PIXELS;
+	public static float P2M = PIXEL_TO_METERS;
 	public static final int SPEEDUP = 2;
 
 	// Math constants
