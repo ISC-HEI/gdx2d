@@ -30,10 +30,7 @@ public class PhysicsChain implements DrawableObject{
 	protected Body b;
 	protected ArrayList<Vector2> vertices;
 	protected ChainShape s = new ChainShape();
-
 	protected Vector2 start, stop;
-	
-	public boolean transparentRendering = false;
 	
 	final float M2P = PhysicsConstants.METERS_TO_PIXELS; 
 	public enum chain_type {RANDOM, CATMUL};
@@ -69,6 +66,10 @@ public class PhysicsChain implements DrawableObject{
 		s.dispose();
 	}
 	
+	/**
+	 * Create a chain from {@link #start} to {@link #stop} using nPoints
+	 * @param nPoints
+	 */
 	public void catmull_chain(int nPoints){
 		World w = PhysicsWorld.getInstance();
 		
@@ -97,6 +98,12 @@ public class PhysicsChain implements DrawableObject{
 		s.dispose();		
 	}
 	
+	/**
+	 * Creates random vertices (points) between start and stop
+	 * @param nPoints
+	 * @param random_height
+	 * @return
+	 */
 	private ArrayList<Vector2> random_vertices(int nPoints, float random_height){
 		ArrayList<Vector2> vertices = new ArrayList<Vector2>();
 		

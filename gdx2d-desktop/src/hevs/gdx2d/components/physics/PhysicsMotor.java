@@ -7,6 +7,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
+/**
+ * A motor to make two objects turn around each other
+ * @author Pierre-André Mudry
+ * @version 1.0
+ */
 public class PhysicsMotor
 {
 	// Contains the first body for physics simulation
@@ -23,12 +28,12 @@ public class PhysicsMotor
 	
 	/**
 	 * Constructor which defines and creates the RevoluteJoint. It also sets the desired information for the PhysicsMotor.
-	 * @param body1
-	 * @param body2
-	 * @param anchorPoint
-	 * @param motorSpeed
-	 * @param maxMotorTorque
-	 * @param motorEnable
+	 * @param body1 The first body for the joint
+	 * @param body2 The second body for the joint 
+	 * @param anchorPoint The point that links the two objects
+	 * @param motorSpeed The speed of the motor
+	 * @param maxMotorTorque The maximum torque that the motor can exert
+	 * @param motorEnable If the motor is enabled or not
 	 */
 	public PhysicsMotor( Body body1, Body body2, Vector2 anchorPoint, float motorSpeed, float maxMotorTorque, boolean motorEnable )
 	{
@@ -48,6 +53,7 @@ public class PhysicsMotor
 	
 	/**
 	 * Another constructor which defines and creates the RevoluteJoint. It also sets all information for the PhysicsMotor to 0 and false.
+	 * See {@link #PhysicsMotor(Body, Body, Vector2, float, float, boolean)}
 	 * @param body1
 	 * @param body2
 	 * @param anchorPoint
@@ -68,11 +74,19 @@ public class PhysicsMotor
 		joint = ( RevoluteJoint )PhysicsWorld.getInstance().createJoint( rjd );
 	}
 	
+	/**
+	 * Limits the rotation angle of the motor
+	 * @param flag
+	 */
 	public void enableLimit( boolean flag )
 	{
 		joint.enableLimit( flag );
 	}
 	
+	/**
+	 * Turns on and off the motor
+	 * @param flag
+	 */
 	public void enableMotor( boolean flag )
 	{
 		joint.enableMotor( flag );
