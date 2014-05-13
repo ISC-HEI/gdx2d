@@ -24,7 +24,7 @@ public class DemoSimplePhysics extends PortableApplication{
 
 	// Contains all the objects that will be simulated
 	World world = PhysicsWorld.getInstance();
-	PhysicsCircle box;
+	PhysicsCircle ball;
 	DebugRenderer debugRenderer;
 	
 	public DemoSimplePhysics(boolean onAndroid) {	
@@ -44,8 +44,8 @@ public class DemoSimplePhysics extends PortableApplication{
 		new PhysicsStaticBox("slope", new Vector2(w/2, h/2), w/3, 8, (float)Math.PI / 12.0f);		
 		
 		// Build the falling object
-		box = new PhysicsCircle("none", new Vector2(w*0.7f, h-0.1f*h), 12, 0.5f, 0.3f, 0.3f);
-		box.setBodyLinearVelocity(-1f, 1);
+		ball = new PhysicsCircle("none", new Vector2(w*0.7f, h-0.1f*h), 12, 0.5f, 0.3f, 0.3f);
+		ball.setBodyLinearVelocity(-1f, 1);		
 		
 		// Build the dominoes
 		int nDominoes = 20;
