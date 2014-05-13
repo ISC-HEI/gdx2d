@@ -158,13 +158,13 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	 * @param friction
 	 *            Coulomb friction, does not work for circles
 	 */
-	protected void createFixture(Shape s, float density, float restitution,
-			float friction) {
+	protected void createFixture(Shape s, float density, float restitution,	float friction) {
 		FixtureDef def = new FixtureDef();
 		def.density = density;
 		def.restitution = restitution;
 		def.friction = friction;
 		def.shape = s;
+		def.filter.groupIndex = 1;
 
 		f = body.createFixture(def);
 
