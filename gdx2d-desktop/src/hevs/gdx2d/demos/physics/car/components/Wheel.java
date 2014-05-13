@@ -35,8 +35,9 @@ public class Wheel {
 
 		// Create the wheel
 		PhysicsBox wheel = new PhysicsBox("wheel", PhysicsConstants.coordMetersToPixels(pos), width, length/2, car.body.getAngle());
-		
 		this.body = wheel.getBody();
+
+		// TODO Make that the wheels do not collide with the rest
 		
 	    // Create a revoluting joint to connect wheel to body
 	    if(this.revolving){

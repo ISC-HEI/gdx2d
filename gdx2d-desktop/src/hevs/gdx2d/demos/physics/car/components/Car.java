@@ -27,6 +27,8 @@ public class Car implements DrawableObject {
 	 */
 	public boolean steer_left, steer_right;
 	public boolean accelerate, brake;
+	
+	public final int wheelWidth = 20, wheelHeight = 50; 
 
 	protected float maxSteerAngle, maxSpeed, power, wheelAngle;
 	protected Body body;
@@ -64,13 +66,13 @@ public class Car implements DrawableObject {
 		this.wheels = new ArrayList<Wheel>();
 
 		// Topleft wheel
-		this.wheels.add(new Wheel(this, -1f, -1.2f, 25, 80, true, true));
+		this.wheels.add(new Wheel(this, -1f, -1.2f, wheelWidth, wheelHeight, true, true));
 		// Topright wheel
-		this.wheels.add(new Wheel(this, 1f, -1.2f, 25, 80, true, true));
+		this.wheels.add(new Wheel(this, 1f, -1.2f, wheelWidth, wheelHeight, true, true));
 		// Backleft wheel
-		this.wheels.add(new Wheel(this, -1f, 1.2f, 25, 80f, false, false));
+		this.wheels.add(new Wheel(this, -1f, 1.2f, wheelWidth, wheelHeight, false, false));
 		// Backright wheel
-		this.wheels.add(new Wheel(this, 1f, 1.2f, 25, 80f, false, false));
+		this.wheels.add(new Wheel(this, 1f, 1.2f, wheelWidth, wheelHeight, false, false));
 	}
 
 	/**
