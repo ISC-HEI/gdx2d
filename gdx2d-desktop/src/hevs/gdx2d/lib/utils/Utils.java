@@ -8,14 +8,18 @@ package hevs.gdx2d.lib.utils;
  */
 public class Utils {
 
+	/**
+	 * Checks that a method is called only in a given method
+	 * @param className
+	 * @param method
+	 */
 	public static void callCheck(String className, String method) {
 		boolean callFromWrongLocation = true;
 
 		StackTraceElement[] callStack = Thread.currentThread().getStackTrace();
 
 		for (StackTraceElement elem : callStack) {
-			if (elem.getClassName().equals(className)
-					&& elem.getMethodName().equals(method)) {
+			if (elem.getClassName().equals(className) && elem.getMethodName().equals(method)) {
 				callFromWrongLocation = false;
 				break;
 			}
@@ -23,8 +27,8 @@ public class Utils {
 
 		if (callFromWrongLocation) {
 			try {
-				throw new Exception(
-						"This new class shall be created in the onInit() method from the class implementing PortableApplication");
+				throw new Exception("This new instance shall be created in a call subsequent from the onInit() method "
+						+ "from the class implementing PortableApplication");
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(-1);
@@ -33,7 +37,6 @@ public class Utils {
 	}
 
 	public static void callCheckExcludeGraphicRender() {
-
 		String className = "hevs.gdx2d.components.Game";
 		String method = "render";
 
@@ -52,7 +55,8 @@ public class Utils {
 		if (callFromWrongLocation) {
 			try {
 				throw new Exception(
-						"For performance issue, this new class shall not be created in the onGraphicRender() method from the class implementing PortableApplication.");
+						"For performance issues, this new instance shall not be created in "
+						+ "the onGraphicRender() method from the class implementing PortableApplication.");
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(-1);
