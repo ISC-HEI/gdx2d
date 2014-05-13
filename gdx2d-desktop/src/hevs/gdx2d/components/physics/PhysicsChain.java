@@ -24,18 +24,18 @@ import com.badlogic.gdx.physics.box2d.World;
  * Catmull-Rom interpolated spline. See {@link DemoChainPhysics} demo
  * 
  * @author Pierre-Andre Mudry (mui)
- * @version 1.0
+ * @version 1.1
  */
 public class PhysicsChain implements DrawableObject{
-	Body b;
-	ArrayList<Vector2> vertices;
-	ChainShape s = new ChainShape();
+	protected Body b;
+	protected ArrayList<Vector2> vertices;
+	protected ChainShape s = new ChainShape();
 
-	private Vector2 start, stop;
-	boolean transparentRendering = false;
+	protected Vector2 start, stop;
+	
+	public boolean transparentRendering = false;
 	
 	final float M2P = PhysicsConstants.METERS_TO_PIXELS; 
-	
 	public enum chain_type {RANDOM, CATMUL};
 	
 	public PhysicsChain(Vector2 start, Vector2 stop, int nPoints, chain_type t) {
@@ -113,6 +113,10 @@ public class PhysicsChain implements DrawableObject{
 		return vertices;
 	}
 
+	/**
+	 * A sample implementation for the rendering of a physics chain. Change
+	 * it to fit your needs by subclassing {@link #PhysicsChain}.
+	 */
 	@Override
 	public void draw(GdxGraphics g) {
 		
