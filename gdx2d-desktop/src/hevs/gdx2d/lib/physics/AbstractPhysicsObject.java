@@ -108,6 +108,7 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	private void createObject(Type t, String name, Vector2 position,
 			float width, float height, float density, float restitution,
 			float friction, float angle, boolean isDynamic) {
+		
 		// Conversions from pixel world to meters
 		Vector2 pos = position.cpy().scl(p2m);
 		width *= p2m;
@@ -120,6 +121,8 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 		else
 			bodyDef.type = BodyType.StaticBody;
 
+		bodyDef.angle = angle;
+		
 		// The shape used for collisions in physics
 		Shape s;
 
@@ -128,7 +131,7 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 			s.setRadius(width);
 		} else {
 			PolygonShape p = new PolygonShape();
-			p.setAsBox(width, height, new Vector2(0, 0), angle);
+			p.setAsBox(width, height);
 			s = p;
 		}
 
@@ -294,6 +297,25 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	}
 
 	@Override
+	public float getBodyLinearDamping() {
+		return body.getLinearDamping();
+	}
+	@Override
+	public Vector2 getBodyLinearVelocity() {
+		return body.getLinearVelocity().cpy().scl(m2p);
+	}
+	
+	@Override
+	public Vector2 getBodyLinearVelocityFromLocalPoint(Vector2 v) {
+		return body.getLinearVelocityFromLocalPoint(v.scl(p2m)).scl(m2p);
+	}
+	
+	@Override
+	public Vector2 getBodyLinearVelocityFromWorldPoint(Vector2 v) {
+		return body.getLinearVelocityFromWorldPoint(v.scl(p2m)).scl(m2p);
+	}
+	
+	@Override
 	public float getBodyAngularVelocity() {
 		return body.getAngularVelocity();
 	}
@@ -342,16 +364,20 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	public World getBodyWorld() {
 		return body.getWorld();
 	}
-
+	
+	@Override
+	public Vector2 getBodyWorldCenter() {
+		return body.getWorldCenter().scl(m2p);
+	}
+	
 	@Override
 	public Vector2 getBodyWorldPoint(Vector2 v) {
-
-		return body.getWorldPoint(v.scl(p2m)).scl(m2p);
+		return body.getWorldPoint(v.scl(p2m)).cpy().scl(m2p);
 	}
 
 	@Override
 	public Vector2 getBodyWorldVector(Vector2 v) {
-		return body.getWorldVector(v.scl(p2m)).scl(m2p);
+		return body.getWorldVector(v.scl(p2m)).cpy().scl(m2p);
 	}
 
 	@Override
@@ -442,8 +468,10 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	 * normally because the dimensions are not scaled appropriately in the
 	 * object itself.
 	 * 
+	 * @deprecated You should not use this anymore!
 	 * @return The body for the simulation
 	 */
+	@Deprecated 
 	public Body getBody() {
 		return this.body;
 	}

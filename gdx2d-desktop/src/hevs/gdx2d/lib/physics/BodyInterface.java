@@ -32,10 +32,17 @@ public interface BodyInterface {
 	
 	public Vector2 getBodyPosition();
 	public Transform getBodyTransform();
+	
+	public float getBodyLinearDamping();
+	public Vector2 getBodyLinearVelocity();
+	public Vector2 getBodyLinearVelocityFromLocalPoint(Vector2 v);
+	public Vector2 getBodyLinearVelocityFromWorldPoint(Vector2 v);
+	
 	public Vector2 getBodyLocalCenter();
 	public Vector2 getBodyLocalPoint(Vector2 v);
 	public Vector2 getBodyLocalVector(Vector2 v);
-	public World getBodyWorld();
+	public World getBodyWorld();	
+	public Vector2 getBodyWorldCenter();
 	public Vector2 getBodyWorldPoint(Vector2 v);
 	public Vector2 getBodyWorldVector(Vector2 v);
 	
