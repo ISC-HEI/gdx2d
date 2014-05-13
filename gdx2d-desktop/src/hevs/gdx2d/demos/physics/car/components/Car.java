@@ -68,24 +68,15 @@ public class Car implements DrawableObject {
 		this.wheels.add(new Wheel(w, this, 1f, 1.2f, 0.4f, 0.8f, false, false)); 
 	}
 
-	public List<Wheel> getPoweredWheels() {
-		List<Wheel> poweredWheels = new ArrayList<Wheel>();
-		for (Wheel wheel : this.wheels) {
-			if (wheel.powered)
-				poweredWheels.add(wheel);
-		}
-		return poweredWheels;
+
+	/**
+	 * @return car's velocity vector relative to the car
+	 */
+	protected Vector2 getLocalVelocity() {
+		return this.body.getLocalVector(this.body.getLinearVelocityFromLocalPoint(new Vector2(0, 0)));
 	}
 
-	public Vector2 getLocalVelocity() {
-		/*
-		 * returns car's velocity vector relative to the car
-		 */
-		return this.body.getLocalVector(this.body
-				.getLinearVelocityFromLocalPoint(new Vector2(0, 0)));
-	}
-
-	public List<Wheel> getRevolvingWheels() {
+	protected List<Wheel> getRevolvingWheels() {
 		List<Wheel> revolvingWheels = new ArrayList<Wheel>();
 		for (Wheel wheel : this.wheels) {
 			if (wheel.revolving)
@@ -94,12 +85,28 @@ public class Car implements DrawableObject {
 		return revolvingWheels;
 	}
 
+	protected List<Wheel> getPoweredWheels() {
+		List<Wheel> poweredWheels = new ArrayList<Wheel>();
+		for (Wheel wheel : this.wheels) {
+			if (wheel.powered)
+				poweredWheels.add(wheel);
+		}
+		return poweredWheels;
+	}
+
+	/**
+	 * @return The current speed of the car, in km/h
+	 */
 	public float getSpeedKMH() {
 		Vector2 velocity = this.body.getLinearVelocity();
 		float len = velocity.len();
 		return (len / 1000) * 3600;
 	}
 
+	/**
+	 * Sets the speed of the car in kilometers per hour
+	 * @param speed The speed of the car, in km/h
+	 */
 	public void setSpeed(float speed) {
 		/*
 		 * speed - speed in kilometers per hour
@@ -111,6 +118,10 @@ public class Car implements DrawableObject {
 		this.body.setLinearVelocity(velocity);
 	}
 
+	/**
+	 * Updates some physical parameters which are specific to a car
+	 * @param deltaTime
+	 */
 	public void update(float deltaTime) {
 
 		// 1. KILL SIDEWAYS VELOCITY
@@ -177,7 +188,10 @@ public class Car implements DrawableObject {
 		}
 	}
 
-	@Override
+	/**
+	 * Draws the car
+	 */
+	@Override	
 	public void draw(GdxGraphics g) {
 		Vector2 pos = PhysicsConstants.coordMetersToPixels(body.getPosition());
 		g.drawFilledCircle(pos.x, pos.y, 10, Color.BLUE);

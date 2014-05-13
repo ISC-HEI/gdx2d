@@ -9,17 +9,21 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
+/**
+ * A wheel of the car
+ * @author Pierre-André Mudry
+ * @version 1.0
+ */
 public class Wheel {	
 	public Car car;//car this wheel belongs to	
+
 	private float width; // width in meters
 	private float length; // length in meters
 	public boolean revolving; // does this wheel revolve when steering?
 	public boolean powered; // is this wheel powered?
 	public Body body;
 
-	public Wheel(World world, Car car, float posX, float posY, float width, float length,
-			boolean revolving, boolean powered) {
-		super();
+	public Wheel(World world, Car car, float posX, float posY, float width, float length, boolean revolving, boolean powered) {		
 		this.car = car;
 		this.width = width;
 		this.length = length;
