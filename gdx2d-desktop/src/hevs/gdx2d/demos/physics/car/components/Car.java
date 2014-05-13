@@ -4,7 +4,6 @@ import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.interfaces.DrawableObject;
-import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +11,10 @@ import java.util.List;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * Original example adapted from
+ * 
+ * A top-view physics car Original example adapted from
  * http://www.level1gamer.com/2012/10/24/top-down-car-using-libgdx-and-box2d/
  * 
  * @author Pierre-André Mudry
@@ -28,52 +27,58 @@ public class Car implements DrawableObject {
 	 */
 	public boolean steer_left, steer_right;
 	public boolean accelerate, brake;
-	
+
 	protected float maxSteerAngle, maxSpeed, power, wheelAngle;
 	protected Body body;
 	protected List<Wheel> wheels;
 
 	/**
 	 * Builds a physically "accurate" car
-	 *  
-	 * @param width The width of the body of the car
-	 * @param length The length of the body of the car
-	 * @param position The start position of the car
-	 * @param angle The starting angle of the car, in radians
-	 * @param power The maximum horse power of the car
-	 * @param maxSteerAngle The maximum steering angle for the wheels, in degrees
-	 * @param maxSpeed The maximum speed for the car
+	 * 
+	 * @param width
+	 *            The width of the body of the car
+	 * @param length
+	 *            The length of the body of the car
+	 * @param position
+	 *            The start position of the car
+	 * @param angle
+	 *            The starting angle of the car, in radians
+	 * @param power
+	 *            The maximum horse power of the car
+	 * @param maxSteerAngle
+	 *            The maximum steering angle for the wheels, in degrees
+	 * @param maxSpeed
+	 *            The maximum speed for the car
 	 */
 	public Car(float width, float length, Vector2 position, float angle,
 			float power, float maxSteerAngle, float maxSpeed) {
-		
+
 		this.maxSteerAngle = maxSteerAngle;
 		this.maxSpeed = maxSpeed;
 		this.power = power;
-		
-		World w = PhysicsWorld.getInstance();
-		PhysicsBox carbox = new PhysicsBox("carCenter", position, width/2, length/2, angle);
+
+		PhysicsBox carbox = new PhysicsBox("carCenter", position, width / 2, length / 2, angle);
 		this.body = carbox.getBody();
-		
+
 		// Initialize wheels
 		this.wheels = new ArrayList<Wheel>();
-		
-		// Topleft wheel
-		this.wheels.add(new Wheel(w, this, -1f, -1.2f, 0.4f, 0.8f, true, true));
-		// Topright wheel
-		this.wheels.add(new Wheel(w, this, 1f, -1.2f, 0.4f, 0.8f, true, true));
-		// Backleft wheel
-		this.wheels.add(new Wheel(w, this, -1f, 1.2f, 0.4f, 0.8f, false, false));
-		// Backright wheel
-		this.wheels.add(new Wheel(w, this, 1f, 1.2f, 0.4f, 0.8f, false, false)); 
-	}
 
+		// Topleft wheel
+		this.wheels.add(new Wheel(this, -1f, -1.2f, 25, 80, true, true));
+		// Topright wheel
+		this.wheels.add(new Wheel(this, 1f, -1.2f, 25, 80, true, true));
+		// Backleft wheel
+		this.wheels.add(new Wheel(this, -1f, 1.2f, 25, 80f, false, false));
+		// Backright wheel
+		this.wheels.add(new Wheel(this, 1f, 1.2f, 25, 80f, false, false));
+	}
 
 	/**
 	 * @return car's velocity vector relative to the car
 	 */
 	protected Vector2 getLocalVelocity() {
-		return this.body.getLocalVector(this.body.getLinearVelocityFromLocalPoint(new Vector2(0, 0)));
+		return this.body.getLocalVector(this.body
+				.getLinearVelocityFromLocalPoint(new Vector2(0, 0)));
 	}
 
 	protected List<Wheel> getRevolvingWheels() {
@@ -105,7 +110,9 @@ public class Car implements DrawableObject {
 
 	/**
 	 * Sets the speed of the car in kilometers per hour
-	 * @param speed The speed of the car, in km/h
+	 * 
+	 * @param speed
+	 *            The speed of the car, in km/h
 	 */
 	public void setSpeed(float speed) {
 		/*
@@ -120,6 +127,7 @@ public class Car implements DrawableObject {
 
 	/**
 	 * Updates some physical parameters which are specific to a car
+	 * 
 	 * @param deltaTime
 	 */
 	public void update(float deltaTime) {
@@ -191,7 +199,7 @@ public class Car implements DrawableObject {
 	/**
 	 * Draws the car
 	 */
-	@Override	
+	@Override
 	public void draw(GdxGraphics g) {
 		Vector2 pos = PhysicsConstants.coordMetersToPixels(body.getPosition());
 		g.drawFilledCircle(pos.x, pos.y, 10, Color.BLUE);

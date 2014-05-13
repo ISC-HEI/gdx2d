@@ -1,53 +1,44 @@
 package hevs.gdx2d.demos.physics.car.components;
 
+import hevs.gdx2d.components.physics.PhysicsBox;
+import hevs.gdx2d.components.physics.utils.PhysicsConstants;
+import hevs.gdx2d.lib.physics.PhysicsWorld;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
 /**
- * A wheel of the car
+ * A wheel of the car, adapted from
+ * http://www.level1gamer.com/2012/10/24/top-down-car-using-libgdx-and-box2d/
+ *  
  * @author Pierre-André Mudry
  * @version 1.0
  */
 public class Wheel {	
 	public Car car;//car this wheel belongs to	
-
-	private float width; // width in meters
-	private float length; // length in meters
 	public boolean revolving; // does this wheel revolve when steering?
 	public boolean powered; // is this wheel powered?
 	public Body body;
 
-	public Wheel(World world, Car car, float posX, float posY, float width, float length, boolean revolving, boolean powered) {		
+	public Wheel(Car car, float posX, float posY, float width, float length, boolean revolving, boolean powered) {		
 		this.car = car;
-		this.width = width;
-		this.length = length;
 		this.revolving = revolving;
 		this.powered = powered;
 		
-		//init body 
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.set(car.body.getWorldPoint(new Vector2(posX, posY)));
-		bodyDef.angle = car.body.getAngle();
-		this.body = world.createBody(bodyDef);
-
-		//init shape
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.density = 1.0f;
-		fixtureDef.isSensor=true; //wheel does not participate in collision calculations: resulting complications are unnecessary
-		PolygonShape wheelShape = new PolygonShape();
-		wheelShape.setAsBox(this.width/2, this.length/2);
-		fixtureDef.shape = wheelShape;
-		this.body.createFixture(fixtureDef);
-		wheelShape.dispose();
+		World world = PhysicsWorld.getInstance();
 		
-	    //create joint to connect wheel to body
+		// Convert car position to pixels 
+		Vector2 pos = car.body.getWorldPoint(new Vector2(posX, posY));
+
+		// Create the wheel
+		PhysicsBox wheel = new PhysicsBox("wheel", PhysicsConstants.coordMetersToPixels(pos), width, length/2, car.body.getAngle());
+		
+		this.body = wheel.getBody();
+		
+	    // Create a revoluting joint to connect wheel to body
 	    if(this.revolving){
 	    	RevoluteJointDef jointdef=new RevoluteJointDef();
 	        jointdef.initialize(this.car.body, this.body, this.body.getWorldCenter());
@@ -61,25 +52,27 @@ public class Wheel {
 		    world.createJoint(jointdef);
 	    }
 	}
-	
+
+	/**
+	 * @param angle The wheel angle (in degrees), relative to the car
+	 */
 	public void setAngle (float angle){
-	    /*
-	    angle - wheel angle relative to car, in degrees
-	    */
 		this.body.setTransform(body.getPosition(), this.car.body.getAngle() + (float) Math.toRadians(angle));
 	};
 
+	/**
+	 * @return The velocity vector, relative to the car
+	 */
 	public Vector2 getLocalVelocity () {
-	    /*returns get velocity vector relative to car
-	    */
 	    return this.car.body.getLocalVector(this.car.body.getLinearVelocityFromLocalPoint(this.body.getPosition()));
 	};
 
+	/**
+	 * @return A world, unit vector pointing in the direction this wheel is currently moving
+	 */
 	public Vector2 getDirectionVector () {
-	    /*
-	    returns a world unit vector pointing in the direction this wheel is moving
-	    */
 		Vector2 directionVector;
+		
 		if (this.getLocalVelocity().y > 0)
 			directionVector = new Vector2(0,1);
 		else
@@ -89,20 +82,21 @@ public class Wheel {
 	};
 
 
+	/**
+	 * Subtracts sideways velocity from this wheel's velocity vector
+	 * @return The remaining front-facing velocity vector
+	 */
 	public Vector2 getKillVelocityVector (){
-	    /*
-	    substracts sideways velocity from this wheel's velocity vector and returns the remaining front-facing velocity vector
-	    */
 	    Vector2 velocity = this.body.getLinearVelocity();
 	    Vector2 sidewaysAxis=this.getDirectionVector();
 	    float dotprod = velocity.dot(sidewaysAxis);
 	    return new Vector2(sidewaysAxis.x*dotprod, sidewaysAxis.y*dotprod);
 	};
 
+	/**
+	 * Removes sideways velocity from this wheel
+	 */
 	public void killSidewaysVelocity (){
-	    /*
-	    removes all sideways velocity from this wheels velocity
-	    */
 	    this.body.setLinearVelocity(this.getKillVelocityVector());
 	};
 }
