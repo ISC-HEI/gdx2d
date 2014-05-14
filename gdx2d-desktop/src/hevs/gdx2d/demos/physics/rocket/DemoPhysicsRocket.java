@@ -13,23 +13,31 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * FIXME finish this Demonstrates the use of applyForce to physics objects
+ * Control a spaceship with your keyboard.
  * 
- * @author Pierre-André Mudry
- * @version 1.0
+ * Demonstrate how to apply forces to physics objects and how to draw images
+ * (textures) for them.
+ * 
+ * @author Pierre-André Mudry (mui)
+ * @author Christopher Métrailler (mei)
+ * @version 1.1
  */
 public class DemoPhysicsRocket extends PortableApplication {
+
+	// Physics related
 	DebugRenderer dbgRenderer;
 	World world = PhysicsWorld.getInstance();
+
+	// Drawing related
 	Spaceship ship;
 
-	DemoPhysicsRocket(boolean onAndroid) {
+	public DemoPhysicsRocket(boolean onAndroid) {
 		super(onAndroid);
 	}
 
 	@Override
 	public void onInit() {
-		Logger.log("Use the arrows to move the spaceship");
+		Logger.log("Use the arrows keys to move the spaceship.");
 
 		// No gravity in this world
 		world.setGravity(new Vector2(0, 0));
@@ -38,20 +46,22 @@ public class DemoPhysicsRocket extends PortableApplication {
 
 		// Create the obstacles in the scene
 		new PhysicsScreenBoundaries(getWindowWidth(), getWindowHeight());
-		//new PhysicsStaticBox("wall", new Vector2(250, 250), 100, 10);
 
 		// Our spaceship
-		ship = new Spaceship(new Vector2(getWindowWidth() / 2, getWindowHeight() / 2));
+		ship = new Spaceship(new Vector2(getWindowWidth() / 2,
+				getWindowHeight() / 2));
 	}
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		g.clear();
+
+		// Draw the DebugRenderer as helper
+		// dbgRenderer.render(world, g.getCamera().combined);
 		
-		dbgRenderer.render(world, g.getCamera().combined);
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
 
-		ship.draw(g);
+		ship.draw(g); // Draw the spaceship image
 	}
 
 	@Override
@@ -82,9 +92,8 @@ public class DemoPhysicsRocket extends PortableApplication {
 			ship.thrustRight = true;
 			break;
 		case Input.Keys.UP:
-			ship.thrustUp = ship.MAX_THRUST;
+			ship.thrustUp = Spaceship.MAX_THRUST;
 			break;
-
 		default:
 			break;
 		}
