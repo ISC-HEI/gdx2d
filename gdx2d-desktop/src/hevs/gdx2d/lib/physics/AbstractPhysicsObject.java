@@ -199,14 +199,20 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	public void collision(AbstractPhysicsObject theOtherObject, float energy) {
 	}
 
-	
+		
 	/**
-	 * FIXME This is not working
+	 * Sets a collision group to all fixtures of an {@link AbstractPhysicsObject}
+	 * Collision groups let you specify an integral group index. You can have all 
+	 * fixtures with the same group index always collide (positive index) 
+	 * or never collide (negative index).
+	 * 
+	 * See http://www.aurelienribon.com/blog/2011/07/box2d-tutorial-collision-filtering/
+	 * 
 	 * @param id
 	 */
-	public void setCollisionGroup(short id){
+	public void setCollisionGroup(int id){
 		Filter filter = new Filter();
-		filter.groupIndex = id;
+		filter.groupIndex = (short)id;
 		
 		for(Fixture f : body.getFixtureList()){
 			f.setFilterData(filter);
