@@ -178,7 +178,7 @@ public class Car implements DrawableObject {
 				baseVector = new Vector2(0f, 1.3f);
 			// going in reverse - less force
 			else
-				baseVector = new Vector2(0f, 0.7f);
+				baseVector = new Vector2(0f, 0.2f);
 		} else {
 			// slow down if not accelerating
 			baseVector = new Vector2(0, 0);
@@ -191,10 +191,9 @@ public class Car implements DrawableObject {
 		}
 		// multiply by engine power, which gives us a force vector relative to
 		// the wheel
-		Vector2 forceVector = new Vector2(this.power * baseVector.x, this.power
-				* baseVector.y);
+		Vector2 forceVector = new Vector2(this.power * baseVector.x, this.power	* baseVector.y);
 
-		// apply force to each wheel
+		// Apply force to each wheel
 		for (Wheel wheel : this.getPoweredWheels()) {
 			Vector2 position = wheel.body.getWorldCenter();
 			wheel.body.applyForce(wheel.body.getWorldVector(new Vector2(
