@@ -43,7 +43,7 @@ public class DemoCarDriving extends PortableApplication {
 		new PhysicsScreenBoundaries(getWindowWidth(), getWindowHeight());
 
 		// Our car
-		c1 = new Car(90, 180, new Vector2(200, 200), (float) Math.PI, 10, 30, 20);
+		c1 = new Car(40, 90, new Vector2(200, 200), (float) Math.PI, 10, 30, 15);
 	}
 
 	@Override

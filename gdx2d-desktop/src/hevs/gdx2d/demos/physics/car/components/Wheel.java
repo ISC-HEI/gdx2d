@@ -23,22 +23,22 @@ public class Wheel {
 	public boolean powered; // is this wheel powered?
 	public Body body;
 
-	public Wheel(Car car, float posX, float posY, float width, float length, boolean revolving, boolean powered) {		
+	public Wheel(Car car, Vector2 wheelPos, float width, float length, boolean revolving, boolean powered) {		
 		this.car = car;
 		this.revolving = revolving;
 		this.powered = powered;
 		
 		World world = PhysicsWorld.getInstance();
 		
+		Vector2 x = PhysicsConstants.coordPixelsToMeters(wheelPos);
+		
 		// Convert car position to pixels 
-		Vector2 pos = car.body.getWorldPoint(new Vector2(posX, posY));
+		Vector2 pos = car.body.getWorldPoint(x);
 
 		// Create the wheel
 		PhysicsBox wheel = new PhysicsBox("wheel", PhysicsConstants.coordMetersToPixels(pos), width, length/2, car.body.getAngle());
 		this.body = wheel.getBody();
 
-		// TODO Make that the wheels do not collide with the rest
-		
 	    // Create a revoluting joint to connect wheel to body
 	    if(this.revolving){
 	    	RevoluteJointDef jointdef=new RevoluteJointDef();

@@ -28,7 +28,7 @@ public class Car implements DrawableObject {
 	public boolean steer_left, steer_right;
 	public boolean accelerate, brake;
 	
-	public final int wheelWidth = 20, wheelHeight = 50; 
+	public final int wheelWidth = 8, wheelHeight = 30; 
 
 	protected float maxSteerAngle, maxSpeed, power, wheelAngle;
 	protected Body body;
@@ -62,17 +62,21 @@ public class Car implements DrawableObject {
 		PhysicsBox carbox = new PhysicsBox("carCenter", position, width / 2, length / 2, angle);
 		this.body = carbox.getBody();
 
+		carbox.setCollisionGroup(-1);
+		
 		// Initialize wheels
 		this.wheels = new ArrayList<Wheel>();
 
+		Vector2 wheelOffset = new Vector2(25, 35);
+		
 		// Topleft wheel
-		this.wheels.add(new Wheel(this, -1f, -1.2f, wheelWidth, wheelHeight, true, true));
+		this.wheels.add(new Wheel(this, wheelOffset.cpy().scl(-1, -1), wheelWidth, wheelHeight, true, true));
 		// Topright wheel
-		this.wheels.add(new Wheel(this, 1f, -1.2f, wheelWidth, wheelHeight, true, true));
+		this.wheels.add(new Wheel(this, wheelOffset.cpy().scl(1, -1), wheelWidth, wheelHeight, true, true));
 		// Backleft wheel
-		this.wheels.add(new Wheel(this, -1f, 1.2f, wheelWidth, wheelHeight, false, false));
+		this.wheels.add(new Wheel(this, wheelOffset.cpy().scl(-1, 1), wheelWidth, wheelHeight, false, false));
 		// Backright wheel
-		this.wheels.add(new Wheel(this, 1f, 1.2f, wheelWidth, wheelHeight, false, false));
+		this.wheels.add(new Wheel(this, wheelOffset.cpy().scl(1, 1), wheelWidth, wheelHeight, false, false));
 	}
 
 	/**
