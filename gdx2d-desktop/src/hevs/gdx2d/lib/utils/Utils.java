@@ -21,7 +21,7 @@ public class Utils {
 	 *            The message to log if not loaded
 	 */
 	public static void assertGdxLoaded(String msg) {
-		if (Gdx.gl10 == null) {
+		if(Gdx.graphics.getGL20() == null) {
 			Logger.error(msg);
 			Gdx.app.exit();
 			throw new UnsupportedOperationException(msg);
