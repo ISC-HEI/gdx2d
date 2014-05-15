@@ -1,12 +1,10 @@
 package hevs.gdx2d.components.graphics;
 
-import hevs.gdx2d.components.geometry.Vector2D;
 import hevs.gdx2d.lib.utils.Utils;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
 
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Intersector;
@@ -26,7 +24,7 @@ public class Polygon {
 	private List<Vector2> earClippedVertices;
 	private Vector2[] gdxpoints;	
 	
-	public Polygon(Vector2D[] points) {	
+	public Polygon(Vector2[] points) {	
 		int j = 0;
 		Utils.callCheckExcludeGraphicRender();
 		
@@ -69,7 +67,7 @@ public class Polygon {
 	 *            point coordinates
 	 * @return true if the point is in the polygon
 	 */
-	public boolean contains(Vector2D p) {
+	public boolean contains(Vector2 p) {
 		boolean collides = Intersector.isPointInPolygon(vectorList,	new Vector2(p.x, p.y));
 		return collides;
 	}
