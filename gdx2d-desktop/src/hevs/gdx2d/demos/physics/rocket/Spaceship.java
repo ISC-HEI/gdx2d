@@ -32,14 +32,11 @@ public class Spaceship implements DrawableObject {
 	protected static BitmapImage shipImage, flameImage;
 
 	public Spaceship(Vector2 position) {
-		box = new PhysicsBox("ship", position, 30, 30, 0.61f, 0.2f, 0.2f);
+		// The front of the rocket is up by default
+		box = new PhysicsBox("ship", position, 30, 30, (float) Math.toRadians(90));
 		box.setBodyAngularDamping(0.4f);
 		box.setBodyLinearDamping(0.2f);
-		// The front of the rocket is up by default
-		box.getBody().setTransform(
-				PhysicsConstants.coordPixelsToMeters(position),
-				(float) Math.toRadians(90));
-
+		
 		// The spaceship image
 		shipImage = new BitmapImage("data/images/rocket_128.png");
 		flameImage = new BitmapImage("data/images/flame.png");
@@ -54,25 +51,26 @@ public class Spaceship implements DrawableObject {
 		if (thrustRight)
 			box.applyBodyTorque(-MAX_TORQUE, true);
 
-		// Let's move the ship with a force
+		// Let's move the ship with a force. The force
+		// is always directed in the direction of the tip of the rocket 
 		box.applyBodyForceToCenter((float) Math.cos(box.getBodyAngle())
 				* thrustUp, (float) Math.sin(box.getBodyAngle()) * thrustUp,
 				true);
 
 		Vector2 pos = box.getBodyPosition();
+		
 		if (thrustUp > 0) {
 			// Draw the flame
 			Vector2 x = box.getBody().getWorldPoint(new Vector2(-55.0f, 0.0f));
 			Vector2 flameCenter = x.add(pos); // rotation matrix
 
-			// TODO: change the flame height depending on the spaceship thrust
+			// TODO: change the flame size depending on the spaceship thrust
 			g.drawTransformedPicture(flameCenter.x, flameCenter.y,
 					box.getBodyAngleDeg(), .3f, flameImage);
 		}
 
 		// Draws the ship
-		g.drawTransformedPicture(pos.x, pos.y, box.getBodyAngleDeg(), .5f,
-				shipImage);
+		g.drawTransformedPicture(pos.x, pos.y, box.getBodyAngleDeg(), .5f, shipImage);
 	}
 
 }

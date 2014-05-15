@@ -55,11 +55,10 @@ public class DemoPhysicsRocket extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		g.clear();
+		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
 
 		// Draw the DebugRenderer as helper
-		// dbgRenderer.render(world, g.getCamera().combined);
-		
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+		dbgRenderer.render(world, g.getCamera().combined);
 
 		ship.draw(g); // Draw the spaceship image
 	}
