@@ -52,6 +52,11 @@ public class Polygon {
 		}			
 	}
 	
+	public Vector2 getVertex(int i){
+		assert(i / 2 < vertices.length);
+		return new Vector2(vertices[i/2], vertices[i/2 + 1]);
+	}
+	
 	public float[] getVertices() {
 		return vertices;
 	}
