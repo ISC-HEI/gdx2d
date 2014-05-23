@@ -71,4 +71,41 @@ public class Polygon {
 		boolean collides = Intersector.isPointInPolygon(vectorList,	new Vector2(p.x, p.y));
 		return collides;
 	}
+	
+	/**
+	 * Converts a vector2 to a float array containing x and y components
+	 * of the original vector, each one after the other
+	 * @param v
+	 * @return
+	 */
+	public static float[] vec2floatArray(Vector2[] v){
+		float[] r = new float[2*v.length];
+		
+		int i = 0;
+		for (Vector2 f : v) {
+			r[i] = f.x;
+			r[i+1] = f.y;
+			i += 2;
+		}
+		
+		return r;
+	}
+	
+	/**
+	 * Converts a float array to a Vector2[] array containing x and y components
+	 * of the original vector, each one after the other
+	 * @param v
+	 * @return
+	 */
+	public static Vector2[] float2vec2(float[] f){
+		assert (f.length % 2 == 0) : "The number of coordinates in a polygon must be even";
+		Vector2[] v = new Vector2[f.length / 2];
+		
+		for(int i = 0; i < f.length; i+=2){
+			Vector2 n = new Vector2(f[i], f[i+1]);
+			v[i/2] = n;
+		}
+		
+		return v;
+	}
 }
