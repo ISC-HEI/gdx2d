@@ -18,7 +18,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * Unfortunately, it is not as simple as it seems..
  * 
  * @author Pierre-André Mudry
- * @version 1.0
+ * @version 1.1
  */
 public class DemoCarDriving extends PortableApplication {
 
@@ -43,13 +43,16 @@ public class DemoCarDriving extends PortableApplication {
 		new PhysicsScreenBoundaries(getWindowWidth(), getWindowHeight());
 
 		// Our car
-		c1 = new Car(40, 90, new Vector2(200, 200), (float) Math.PI, 10, 30, 15);
+		c1 = new Car(30, 70, new Vector2(200, 200), (float) Math.PI, 10, 30, 15);
 	}
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		g.clear();
 
+		// Physics update
+		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+		
 		/**
 		 * Move the car according to key presses
 		 */
@@ -81,10 +84,8 @@ public class DemoCarDriving extends PortableApplication {
 
 		c1.update(Gdx.graphics.getDeltaTime());
 		c1.draw(g);
-		dbgRenderer.render(world, g.getCamera().combined);
 		
-		// Physics update
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+		dbgRenderer.render(world, g.getCamera().combined);
 		
 		g.drawFPS();
 		g.drawSchoolLogo();

@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
  * http://www.level1gamer.com/2012/10/24/top-down-car-using-libgdx-and-box2d/
  *  
  * @author Pierre-André Mudry
- * @version 1.0
+ * @version 1.2
  */
 public class Wheel {	
 	public Car car;//car this wheel belongs to	
@@ -33,21 +33,21 @@ public class Wheel {
 		Vector2 x = PhysicsConstants.coordPixelsToMeters(wheelPos);
 		
 		// Convert car position to pixels 
-		Vector2 pos = car.body.getWorldPoint(x);
+		Vector2 pos = car.carbox.getBody().getWorldPoint(x);
 
 		// Create the wheel
-		PhysicsBox wheel = new PhysicsBox("wheel", PhysicsConstants.coordMetersToPixels(pos), width, length/2, car.body.getAngle());
+		PhysicsBox wheel = new PhysicsBox("wheel", PhysicsConstants.coordMetersToPixels(pos), width, length/2, car.carbox.getBodyAngle());
 		this.body = wheel.getBody();
 
 	    // Create a revoluting joint to connect wheel to body
 	    if(this.revolving){
 	    	RevoluteJointDef jointdef=new RevoluteJointDef();
-	        jointdef.initialize(this.car.body, this.body, this.body.getWorldCenter());
+	        jointdef.initialize(car.carbox.getBody(), this.body, this.body.getWorldCenter());
 	        jointdef.enableMotor=false; //we'll be controlling the wheel's angle manually
 		    world.createJoint(jointdef);
 	    }else{
 	    	PrismaticJointDef jointdef=new PrismaticJointDef();
-	        jointdef.initialize(this.car.body, this.body, this.body.getWorldCenter(), new Vector2(1, 0));
+	        jointdef.initialize(car.carbox.getBody(), this.body, this.body.getWorldCenter(), new Vector2(1, 0));
 	        jointdef.enableLimit=true;
 	        jointdef.lowerTranslation=jointdef.upperTranslation=0;
 		    world.createJoint(jointdef);
@@ -58,14 +58,14 @@ public class Wheel {
 	 * @param angle The wheel angle (in degrees), relative to the car
 	 */
 	public void setAngle (float angle){
-		this.body.setTransform(body.getPosition(), this.car.body.getAngle() + (float) Math.toRadians(angle));
+		body.setTransform(body.getPosition(), car.carbox.getBodyAngle() + (float) Math.toRadians(angle));
 	};
 
 	/**
 	 * @return The velocity vector, relative to the car
 	 */
 	public Vector2 getLocalVelocity () {
-	    return this.car.body.getLocalVector(this.car.body.getLinearVelocityFromLocalPoint(this.body.getPosition()));
+	    return car.carbox.getBody().getLocalVector(car.carbox.getBody().getLinearVelocityFromLocalPoint(body.getPosition()));
 	};
 
 	/**
@@ -88,8 +88,8 @@ public class Wheel {
 	 * @return The remaining front-facing velocity vector
 	 */
 	public Vector2 getKillVelocityVector (){
-	    Vector2 velocity = this.body.getLinearVelocity();
-	    Vector2 sidewaysAxis=this.getDirectionVector();
+	    Vector2 velocity = body.getLinearVelocity();
+	    Vector2 sidewaysAxis= getDirectionVector();
 	    float dotprod = velocity.dot(sidewaysAxis);
 	    return new Vector2(sidewaysAxis.x*dotprod, sidewaysAxis.y*dotprod);
 	};
@@ -98,6 +98,7 @@ public class Wheel {
 	 * Removes sideways velocity from this wheel
 	 */
 	public void killSidewaysVelocity (){
-	    this.body.setLinearVelocity(this.getKillVelocityVector());
+		Vector2 v = getKillVelocityVector();
+	    body.setLinearVelocity(v);
 	};
 }

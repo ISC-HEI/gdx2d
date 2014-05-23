@@ -18,7 +18,7 @@ import com.badlogic.gdx.physics.box2d.Body;
  * http://www.level1gamer.com/2012/10/24/top-down-car-using-libgdx-and-box2d/
  * 
  * @author Pierre-André Mudry
- * @version 1.0
+ * @version 1.1
  */
 public class Car implements DrawableObject {
 
@@ -28,10 +28,17 @@ public class Car implements DrawableObject {
 	public boolean steer_left, steer_right;
 	public boolean accelerate, brake;
 	
+	/**
+	 * How the car energy is dissipated when no longer
+	 * accelerating. 0 would not brake the car at all
+	 * and 1 will make it stop very quickly.
+	 */
+	float slowingFactor = 0.5f;
+
 	public final int wheelWidth = 8, wheelHeight = 30; 
 
 	protected float maxSteerAngle, maxSpeed, power, wheelAngle;
-	protected Body body;
+	protected PhysicsBox carbox; 
 	protected List<Wheel> wheels;
 
 	/**
@@ -59,9 +66,7 @@ public class Car implements DrawableObject {
 		this.maxSpeed = maxSpeed;
 		this.power = power;
 
-		PhysicsBox carbox = new PhysicsBox("carCenter", position, width / 2, length / 2, angle);
-		this.body = carbox.getBody();
-
+		carbox = new PhysicsBox("carCenter", position, width / 2, length / 2, angle);
 		carbox.setCollisionGroup(-1);
 		
 		// Initialize wheels
@@ -83,8 +88,8 @@ public class Car implements DrawableObject {
 	 * @return car's velocity vector relative to the car
 	 */
 	protected Vector2 getLocalVelocity() {
-		return this.body.getLocalVector(this.body
-				.getLinearVelocityFromLocalPoint(new Vector2(0, 0)));
+		//return carbox.getBodyLocalVector(carbox.getBodyLinearVelocityFromLocalPoint(new Vector2(0,0)));//).getLocalVector(carBox.getLinearVelocityFromLocalPoint(new Vector2(0, 0)));
+		return carbox.getBody().getLocalVector(carbox.getBody().getLinearVelocityFromLocalPoint(new Vector2(0, 0)));
 	}
 
 	protected List<Wheel> getRevolvingWheels() {
@@ -109,7 +114,7 @@ public class Car implements DrawableObject {
 	 * @return The current speed of the car, in km/h
 	 */
 	public float getSpeedKMH() {
-		Vector2 velocity = this.body.getLinearVelocity();
+		Vector2 velocity = carbox.getBodyLinearVelocity();
 		float len = velocity.len();
 		return (len / 1000) * 3600;
 	}
@@ -124,11 +129,11 @@ public class Car implements DrawableObject {
 		/*
 		 * speed - speed in kilometers per hour
 		 */
-		Vector2 velocity = this.body.getLinearVelocity();
+		Vector2 velocity = carbox.getBodyLinearVelocity();
 		velocity = velocity.nor();
 		velocity = new Vector2(velocity.x * ((speed * 1000.0f) / 3600.0f),
 				velocity.y * ((speed * 1000.0f) / 3600.0f));
-		this.body.setLinearVelocity(velocity);
+		carbox.setBodyLinearVelocity(velocity);
 	}
 
 	/**
@@ -148,13 +153,17 @@ public class Car implements DrawableObject {
 		float incr = (this.maxSteerAngle) * deltaTime * 5;
 
 		if (steer_left) {
+			/**
+			 * Augment angle and check max steering
+			 */
 			this.wheelAngle = Math.min(Math.max(this.wheelAngle, 0) + incr,
-					this.maxSteerAngle); // increment angle without going over
-											// max steer
+					this.maxSteerAngle); 
 		} else if (steer_right) {
+			/**
+			 * Diminish angle and check min steering
+			 */
 			this.wheelAngle = Math.max(Math.min(this.wheelAngle, 0) - incr,
-					-this.maxSteerAngle); // decrement angle without going over
-											// max steer
+					-this.maxSteerAngle); 
 		} else {
 			this.wheelAngle = 0;
 		}
@@ -165,8 +174,11 @@ public class Car implements DrawableObject {
 		}
 
 		// 3. APPLY FORCE TO WHEELS
-		Vector2 baseVector; // vector pointing in the direction force will be
-							// applied to a wheel ; relative to the wheel.
+		/**
+		 * Vector pointing in the force direction. Will be applied to 
+		 * the wheel and is relative to the wheel
+		 */
+		Vector2 baseVector = Vector2.Zero; 
 
 		// if accelerator is pressed down and speed limit has not been reached,
 		// go forwards
@@ -178,20 +190,27 @@ public class Car implements DrawableObject {
 				baseVector = new Vector2(0f, 1.3f);
 			// going in reverse - less force
 			else
-				baseVector = new Vector2(0f, 0.2f);
+				// Limit maximal reverse speed
+				if(getSpeedKMH() < maxSpeed)
+					baseVector = new Vector2(0f, 0.2f);
 		} else {
 			// slow down if not accelerating
 			baseVector = new Vector2(0, 0);
-			if (this.getSpeedKMH() < 7)
+			
+			// Stop the car when it is going slow
+			if (this.getSpeedKMH() < 4)
 				this.setSpeed(0);
-			else if (this.getLocalVelocity().y < 0)
-				baseVector = new Vector2(0, 0.7f);
-			else if (this.getLocalVelocity().y > 0)
-				baseVector = new Vector2(0, -0.7f);
+			else {
+				if (this.getLocalVelocity().y < 0)
+					baseVector = new Vector2(0, slowingFactor);
+				else if (this.getLocalVelocity().y > 0)
+					baseVector = new Vector2(0, -slowingFactor);
+			}
 		}
+		
 		// multiply by engine power, which gives us a force vector relative to
 		// the wheel
-		Vector2 forceVector = new Vector2(this.power * baseVector.x, this.power	* baseVector.y);
+		Vector2 forceVector = baseVector.scl(power);
 
 		// Apply force to each wheel
 		for (Wheel wheel : this.getPoweredWheels()) {
@@ -206,8 +225,12 @@ public class Car implements DrawableObject {
 	 */
 	@Override
 	public void draw(GdxGraphics g) {
-		Vector2 pos = PhysicsConstants.coordMetersToPixels(body.getPosition());
+		Vector2 pos = carbox.getBodyPosition();
 		g.drawFilledCircle(pos.x, pos.y, 10, Color.BLUE);
+		
+//		Vector2 v = getLocalVelocity();
+//		v.scl(100);
+//		g.drawLine(100, 100, 100 + v.x, 100+ v.y);
 	}
 
 }
