@@ -65,10 +65,14 @@ public class DemoCarDriving extends PortableApplication {
 		/**
 		 * Turn the car according to key presses
 		 */
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
+		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)){
 			c1.steer_left = true;
-		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
+			c1.steer_right= false;
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)){
 			c1.steer_right = true;
+			c1.steer_left = false;
+		}
 		else
 		{
 			c1.steer_left = false;
@@ -76,12 +80,11 @@ public class DemoCarDriving extends PortableApplication {
 		}
 
 		c1.update(Gdx.graphics.getDeltaTime());
-
 		c1.draw(g);
+		dbgRenderer.render(world, g.getCamera().combined);
 		
 		// Physics update
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
-		dbgRenderer.render(world, g.getCamera().combined);
 		
 		g.drawFPS();
 		g.drawSchoolLogo();
