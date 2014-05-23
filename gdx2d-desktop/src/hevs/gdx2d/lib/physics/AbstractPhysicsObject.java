@@ -75,6 +75,24 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	}
 
 	/**
+	 * An abstract physics polygon
+	 * 
+	 * @param name
+	 * @param position
+	 * @param vertices
+	 * @param density
+	 * @param restitution
+	 * @param friction
+	 * @param isDynamic
+	 */
+	protected AbstractPhysicsObject(String name, Vector2 position,
+			Vector2[] vertices, float density, float restitution,
+			float friction, boolean isDynamic) {
+		this.name = name;
+		createPolygonObject(name, position, vertices, 0, true, density, restitution, friction);
+	}
+	
+	/**
 	 * Another abstract constructor
 	 * 
 	 * @param t
@@ -96,6 +114,45 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 				friction, angle, isDynamic);
 	}
 
+	private void createPolygonObject(String name, Vector2 position, Vector2[] vertices,
+			float angle, boolean isDynamic, float density, float restitution,
+			float friction) {
+		// Conversions from pixel world to meters
+		Vector2 pos = position.cpy().scl(p2m);
+
+		Vector2[] verticesM = new Vector2[vertices.length];
+		
+		// Convert all vertices to meter space
+		int i = 0;
+		for (Vector2 v : vertices) {
+			verticesM[i++] = v.cpy().scl(p2m);
+		}
+		
+		// As of now, we now work in meter space
+
+		bodyDef.position.set(pos);
+
+		if (isDynamic)
+			bodyDef.type = BodyType.DynamicBody;
+		else
+			bodyDef.type = BodyType.StaticBody;
+
+		bodyDef.angle = angle;
+
+		// The shape used for collisions in physics
+		PolygonShape s = new PolygonShape();
+		s.set(verticesM);
+
+		World world = PhysicsWorld.getInstance();
+		body = world.createBody(bodyDef);
+
+		createFixture(s, density, restitution, friction);
+
+		// Destroy the shape because we don't need it anymore (JNI side)
+		s.dispose();
+		body.setUserData(this);
+	}
+
 	/**
 	 * Create an object
 	 * 
@@ -109,11 +166,13 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	private void createObject(Type t, String name, Vector2 position,
 			float width, float height, float density, float restitution,
 			float friction, float angle, boolean isDynamic) {
-		
+
 		// Conversions from pixel world to meters
 		Vector2 pos = position.cpy().scl(p2m);
 		width *= p2m;
 		height *= p2m;
+
+		// As of now, we now work in meter space
 
 		bodyDef.position.set(pos);
 
@@ -123,7 +182,7 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 			bodyDef.type = BodyType.StaticBody;
 
 		bodyDef.angle = angle;
-		
+
 		// The shape used for collisions in physics
 		Shape s;
 
@@ -158,7 +217,8 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	 * @param friction
 	 *            Coulomb friction, does not work for circles
 	 */
-	protected void createFixture(Shape s, float density, float restitution,	float friction) {
+	protected void createFixture(Shape s, float density, float restitution,
+			float friction) {
 		FixtureDef def = new FixtureDef();
 		def.density = density;
 		def.restitution = restitution;
@@ -199,26 +259,26 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	public void collision(AbstractPhysicsObject theOtherObject, float energy) {
 	}
 
-		
 	/**
-	 * Sets a collision group to all fixtures of an {@link AbstractPhysicsObject}
-	 * Collision groups let you specify an integral group index. You can have all 
-	 * fixtures with the same group index always collide (positive index) 
-	 * or never collide (negative index).
+	 * Sets a collision group to all fixtures of an
+	 * {@link AbstractPhysicsObject} Collision groups let you specify an
+	 * integral group index. You can have all fixtures with the same group index
+	 * always collide (positive index) or never collide (negative index).
 	 * 
-	 * See http://www.aurelienribon.com/blog/2011/07/box2d-tutorial-collision-filtering/
+	 * See http://www.aurelienribon.com/blog/2011/07/box2d-tutorial-collision-
+	 * filtering/
 	 * 
 	 * @param id
 	 */
-	public void setCollisionGroup(int id){
+	public void setCollisionGroup(int id) {
 		Filter filter = new Filter();
-		filter.groupIndex = (short)id;
-		
-		for(Fixture f : body.getFixtureList()){
+		filter.groupIndex = (short) id;
+
+		for (Fixture f : body.getFixtureList()) {
 			f.setFilterData(filter);
 		}
 	}
-	
+
 	/************************************************************************
 	 * Internal functions for collisions, do not use
 	 ************************************************************************/
@@ -321,21 +381,26 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	public float getBodyLinearDamping() {
 		return body.getLinearDamping();
 	}
+
 	@Override
 	public Vector2 getBodyLinearVelocity() {
-		return body.getLinearVelocity().cpy().scl(m2p);
+		return body.getLinearVelocity();
 	}
-	
+
+	public Vector2 getBodyLinearVelocityPixels() {
+		return body.getLinearVelocity().scl(m2p);
+	}
+
 	@Override
 	public Vector2 getBodyLinearVelocityFromLocalPoint(Vector2 v) {
 		return body.getLinearVelocityFromLocalPoint(v.scl(p2m)).scl(m2p);
 	}
-	
+
 	@Override
 	public Vector2 getBodyLinearVelocityFromWorldPoint(Vector2 v) {
 		return body.getLinearVelocityFromWorldPoint(v.scl(p2m)).scl(m2p);
 	}
-	
+
 	@Override
 	public float getBodyAngularVelocity() {
 		return body.getAngularVelocity();
@@ -385,12 +450,12 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	public World getBodyWorld() {
 		return body.getWorld();
 	}
-	
+
 	@Override
 	public Vector2 getBodyWorldCenter() {
 		return body.getWorldCenter().scl(m2p);
 	}
-	
+
 	@Override
 	public Vector2 getBodyWorldPoint(Vector2 v) {
 		return body.getWorldPoint(v.scl(p2m)).cpy().scl(m2p);

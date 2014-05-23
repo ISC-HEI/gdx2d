@@ -1,7 +1,5 @@
 package hevs.gdx2d.components.graphics;
 
-import hevs.gdx2d.lib.utils.Utils;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,50 +16,50 @@ import com.badlogic.gdx.math.Vector2;
 public class Polygon {
 
 	private float[] vertices;
-	private float[] triangulatedVertices;
+	private float[] triangulatedVertices = null;
 	public LinkedList<Vector2> vectorList;
-	private EarClippingTriangulator ect;
 	private List<Vector2> earClippedVertices;
 	private Vector2[] gdxpoints;	
 	
 	public Polygon(Vector2[] points) {	
-		int j = 0;
-		Utils.callCheckExcludeGraphicRender();
-		
 		gdxpoints = new Vector2[points.length];
 
 		for (int i = 0; i < points.length; i++) {
 			gdxpoints[i] = new Vector2(points[i].x, points[i].y);
 		}
-
-		vectorList = new LinkedList<Vector2>(Arrays.asList(gdxpoints));
-
+		
 		vertices = new float[points.length * 2];
 		for (int i = 0; i < points.length; i++) {
 			vertices[2 * i] = points[i].x;
 			vertices[(2 * i) + 1] = points[i].y;
 		}
-
-		ect = new EarClippingTriangulator();
-		earClippedVertices = ect.computeTriangles(vectorList);
-		triangulatedVertices = new float[earClippedVertices.size() * 2];
-		
-		for (Vector2 v : earClippedVertices) {
-			triangulatedVertices[j++] = v.x;
-			triangulatedVertices[j++] = v.y;
-		}			
 	}
 	
 	public Vector2 getVertex(int i){
-		assert(i / 2 < vertices.length);
-		return new Vector2(vertices[i/2], vertices[i/2 + 1]);
+		assert(i < vertices.length /2);
+		int t = i * 2;
+		return new Vector2(vertices[t], vertices[t+1]);
 	}
 	
 	public float[] getVertices() {
-		return vertices;
+		return vertices; 
 	}
 
 	public float[] getEarClippedVertices() {
+		if(triangulatedVertices == null){
+			int j = 0;
+			EarClippingTriangulator ect;
+			vectorList = new LinkedList<Vector2>(Arrays.asList(gdxpoints));
+			ect = new EarClippingTriangulator();
+			earClippedVertices = ect.computeTriangles(vectorList);
+			triangulatedVertices = new float[earClippedVertices.size() * 2];
+			
+			for (Vector2 v : earClippedVertices) {
+				triangulatedVertices[j++] = v.x;
+				triangulatedVertices[j++] = v.y;
+			}			
+		}
+		
 		return triangulatedVertices;
 	}
 

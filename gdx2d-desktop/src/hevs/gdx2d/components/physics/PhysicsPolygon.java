@@ -1,6 +1,7 @@
 package hevs.gdx2d.components.physics;
 
 import hevs.gdx2d.components.graphics.Polygon;
+import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 import hevs.gdx2d.lib.physics.AbstractPhysicsObject;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape.Type;
+import com.badlogic.gdx.physics.box2d.Transform;
 
 /**
  * A physical polygon that does not move, see {@link AbstractPhysicsObject}
@@ -22,21 +24,24 @@ public class PhysicsPolygon extends AbstractPhysicsObject {
 	 * @return
 	 */
 	public Polygon getPolygon(){
-		
 		Fixture f = this.getBody().getFixtureList().get(0);
-		assert(f.getType() == Type.Polygon);
-									
+		assert(f.getType() == Type.Polygon);									
+
 		PolygonShape poly = (PolygonShape) f.getShape();
-	
 		assert(poly != null);
 		
 		Vector2[] vertices = new Vector2[poly.getVertexCount()];
+		assert(poly.getVertexCount() != 0);
 		
 		for(int i = 0; i < poly.getVertexCount(); i++){
-			vertices[i] = Vector2.Zero;
+			vertices[i] = new Vector2();			
 			poly.getVertex(i, vertices[i]);
+			
+			// Apply the transform to the object
+			Transform t = f.getBody().getTransform();
+			t.mul(vertices[i]);
+			vertices[i].scl(PhysicsConstants.M2P);
 		}
-
 		return new Polygon(vertices);		
 	}
 	
