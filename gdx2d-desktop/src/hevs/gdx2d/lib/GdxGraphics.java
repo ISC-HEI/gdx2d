@@ -911,6 +911,7 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void drawFilledPolygon(Polygon polygon, Color c) {
 		float[] vertices = polygon.getEarClippedVertices();
+		
 		checkmode(t_rendering_mode.SHAPE_FILLED);
 		shapeRenderer.setColor(c);
 		shapeRenderer.identity();
@@ -944,17 +945,17 @@ public class GdxGraphics implements Disposable {
 	 *            The new y position of the camera
 	 */
 	public void moveCamera(float x, float y) {
-		camera.setToOrtho(false, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+		camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		camera.translate(x, y);
+		cameraUpdated();
 	}
 
 	/**
 	 * Resets the camera at its original location, in the center of the screen
 	 */
 	public void resetCamera() {
-		camera.setToOrtho(false, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		cameraUpdated();
 	}
 
 	/**
@@ -967,7 +968,7 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void scroll(float dx, float dy) {
 		camera.translate(dx, dy);
-		camera.update();
+		cameraUpdated();
 	}
 
 	/**
@@ -978,9 +979,14 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void zoom(float factor) {
 		camera.zoom = factor;
-		camera.update();
+		cameraUpdated();
 	}
 
+	private void cameraUpdated(){
+		camera.update();
+		shapeRenderer.setProjectionMatrix(camera.combined);
+	}
+	
 	/****************************************************
 	 * Shaders stuff
 	 ****************************************************/

@@ -44,6 +44,11 @@
       "desc": "Shows how to animation the rotation of a picture."
     },
     {
+      "name": "Retrieve an image color",
+      "class": "image_drawing.DemoGetImageColor",
+      "desc": "Demonstrates how read the color information out of an image."
+    },
+    {
       "name": "Draw an image with transparency (alpha)",
       "class": "image_drawing.DemoAlphaImage",
       "desc": "Shows how the alpha transparency of an image can be changed to make it more or less transparent."

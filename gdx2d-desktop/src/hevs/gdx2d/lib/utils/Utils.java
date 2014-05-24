@@ -1,13 +1,39 @@
 package hevs.gdx2d.lib.utils;
 
+import com.badlogic.gdx.Gdx;
+
 /**
  * Various utils for checking things
+ * 
  * @author Nils Chatton (chn)
  * @date 2013
  * @version 1.0
  */
 public class Utils {
 
+	/**
+	 * Checks that gdx is correctly loaded.
+	 * 
+	 * BitmapImage, DebugRenderer, MusicPlayer etc. cannot be created until Gdx
+	 * is not loaded.
+	 * 
+	 * @param msg
+	 *            The message to log if not loaded
+	 */
+	public static void assertGdxLoaded(String msg) {
+		if(Gdx.graphics.getGL20() == null) {
+			Logger.error(msg);
+			Gdx.app.exit();
+			throw new UnsupportedOperationException(msg);
+		}
+	}
+
+	/**
+	 * Checks that a method is called only in a given method
+	 * 
+	 * @param className
+	 * @param method
+	 */
 	public static void callCheck(String className, String method) {
 		boolean callFromWrongLocation = true;
 
@@ -24,7 +50,8 @@ public class Utils {
 		if (callFromWrongLocation) {
 			try {
 				throw new Exception(
-						"This new class shall be created in the onInit() method from the class implementing PortableApplication");
+						"This new instance shall be created in a call subsequent from the onInit() method "
+								+ "from the class implementing PortableApplication");
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(-1);
@@ -33,7 +60,6 @@ public class Utils {
 	}
 
 	public static void callCheckExcludeGraphicRender() {
-
 		String className = "hevs.gdx2d.components.Game";
 		String method = "render";
 
@@ -52,7 +78,8 @@ public class Utils {
 		if (callFromWrongLocation) {
 			try {
 				throw new Exception(
-						"For performance issue, this new class shall not be created in the onGraphicRender() method from the class implementing PortableApplication.");
+						"For performance issues, this new instance shall not be created in "
+								+ "the onGraphicRender() method from the class implementing PortableApplication.");
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(-1);

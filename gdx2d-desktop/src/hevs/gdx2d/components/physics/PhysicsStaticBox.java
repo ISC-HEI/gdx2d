@@ -14,23 +14,21 @@ import com.badlogic.gdx.physics.box2d.Shape.Type;
 public class PhysicsStaticBox extends AbstractPhysicsObject {
 	
 	/**
-	 * 
-	 * @param name
-	 * @param position
-	 * @param width 
-	 * @param height
+	 * @param name An optional name for the object (for debug)
+	 * @param position The position of the center point
+	 * @param width The width of the physics box
+	 * @param height The height of the physics box
 	 */
 	public PhysicsStaticBox(String name, Vector2 position, float width, float height) {
 		super(Type.Polygon, name, position, width, height, 20, 0.1f, 0.3f, false);
 	}
 
 	/**
-	 * 
-	 * @param name
-	 * @param position
-	 * @param width
-	 * @param height
-	 * @param angle
+	 * @param name An optional name for the object (for debug)
+	 * @param position The position of the center point
+	 * @param width The width of the physics box
+	 * @param height The height of the physics box
+	 * @param angle The angle of the box (trig angle)
 	 */
 	public PhysicsStaticBox(String name, Vector2 position, float width, float height, float angle) {
 		super(Type.Polygon, name, position, width, height, angle, 0.1f, 0.3f, angle, false);

@@ -1,11 +1,11 @@
 package hevs.gdx2d.demos.simple;
 
-import hevs.gdx2d.components.geometry.Vector2D;
 import hevs.gdx2d.components.graphics.Polygon;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * A very simple demonstration on how to 
@@ -41,10 +41,10 @@ public class DemoSimpleShapes extends PortableApplication{
 		g.drawFilledRectangle(80, 30, 20, 20, 0, new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		
 		// Draws a blue polygon
-		Vector2D points[] = {
-				new Vector2D(200, 200),
-				new Vector2D(250, 250),
-				new Vector2D(300, 200)				
+		Vector2 points[] = {
+				new Vector2(200, 200),
+				new Vector2(250, 250),
+				new Vector2(300, 200)				
 		};
 		
 		Polygon p = new Polygon(points);

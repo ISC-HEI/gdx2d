@@ -51,6 +51,7 @@ public class PhysicsWorld {
 	 * @param obj The object to remove from simulation
 	 */
 	static public void scheduleForDeletion(Body obj) {
+		assert(obj != null);
 		toRemove.add(obj);
 	}
 
@@ -68,6 +69,9 @@ public class PhysicsWorld {
 	 *            The amount of time that should be simulated
 	 **/
 	static public void updatePhysics(float dt) {
+		if(instance == null)
+			getInstance();
+			
 		accumulator += dt;
 
 		while (accumulator >= step) {
@@ -79,6 +83,7 @@ public class PhysicsWorld {
 		 *  Handles object deletions 
 		 */		
 		for (Body obj : toRemove) {
+			assert(obj != null);
 			obj.setUserData(null);
 			instance.destroyBody(obj);
 		}

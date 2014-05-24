@@ -23,19 +23,16 @@ import com.badlogic.gdx.physics.box2d.World;
  * The segments can either be generated randomly (with edges) or with a smooth
  * Catmull-Rom interpolated spline. See {@link DemoChainPhysics} demo
  * 
- * @author Pierre-Andre Mudry (mui)
- * @version 1.0
+ * @author Pierre-André Mudry (mui)
+ * @version 1.1
  */
 public class PhysicsChain implements DrawableObject{
-	Body b;
-	ArrayList<Vector2> vertices;
-	ChainShape s = new ChainShape();
-
-	private Vector2 start, stop;
-	boolean transparentRendering = false;
+	protected Body b;
+	protected ArrayList<Vector2> vertices;
+	protected ChainShape s = new ChainShape();
+	protected Vector2 start, stop;
 	
 	final float M2P = PhysicsConstants.METERS_TO_PIXELS; 
-	
 	public enum chain_type {RANDOM, CATMUL};
 	
 	public PhysicsChain(Vector2 start, Vector2 stop, int nPoints, chain_type t) {
@@ -69,6 +66,10 @@ public class PhysicsChain implements DrawableObject{
 		s.dispose();
 	}
 	
+	/**
+	 * Create a chain from {@link #start} to {@link #stop} using nPoints
+	 * @param nPoints
+	 */
 	public void catmull_chain(int nPoints){
 		World w = PhysicsWorld.getInstance();
 		
@@ -97,6 +98,12 @@ public class PhysicsChain implements DrawableObject{
 		s.dispose();		
 	}
 	
+	/**
+	 * Creates random vertices (points) between start and stop
+	 * @param nPoints
+	 * @param random_height
+	 * @return
+	 */
 	private ArrayList<Vector2> random_vertices(int nPoints, float random_height){
 		ArrayList<Vector2> vertices = new ArrayList<Vector2>();
 		
@@ -113,6 +120,10 @@ public class PhysicsChain implements DrawableObject{
 		return vertices;
 	}
 
+	/**
+	 * A sample implementation for the rendering of a physics chain. Change
+	 * it to fit your needs by subclassing {@link #PhysicsChain}.
+	 */
 	@Override
 	public void draw(GdxGraphics g) {
 		
