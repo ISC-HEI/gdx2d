@@ -28,8 +28,8 @@ public class DemoMultipleTextures extends PortableApplication{
 	public void onGraphicRender(GdxGraphics g) {
 		if(g.getShaderRenderer() == null){
 			g.setShader("data/shader/advanced/multiple_textures.fp");
-			g.getShaderRenderer().addTexture("data/images/lena.png", "texture0");			
-			g.getShaderRenderer().addTexture("data/images/mandrill.png", "texture1");
+			g.getShaderRenderer().addTexture("data/images/lena.jpg", "texture0");			
+			g.getShaderRenderer().addTexture("data/images/mandrill.jpg", "texture1");
 		}
 		
 		g.getShaderRenderer().setUniform("textureChosen", i);
