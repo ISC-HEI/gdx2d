@@ -4,7 +4,6 @@ import hevs.gdx2d.components.graphics.Polygon;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 import hevs.gdx2d.lib.physics.AbstractPhysicsObject;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
