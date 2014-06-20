@@ -1,7 +1,6 @@
 package hevs.gdx2d.demos.physics.car.components;
 
 import hevs.gdx2d.components.physics.PhysicsBox;
-import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.interfaces.DrawableObject;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 
 /**
  * 
