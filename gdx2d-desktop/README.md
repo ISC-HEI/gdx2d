@@ -25,4 +25,4 @@ This project contains the library as well as all the demo programs. All the demo
 
     To run the `DemoSelector` GUI, simply call `ant` in the project folder and then run the jar file in the `dist` folder.
 
-The library API is available online: [http://pmudry.github.io/gdx2d/](http://pmudry.github.io/gdx2d/)
+The library API is available online: [http://hevs-isi.github.io/gdx2d/javadoc/1.0.0/]

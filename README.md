@@ -9,6 +9,9 @@ The advantage of using *gdx2d* is that you can develop your code in Java on your
 
 The library itself is a wrapper around a very very nice library called [libgdx](http://code.google.com/libgdx) which provides almost everything to the library.
 
+## Documentation
+The Javadoc API of the library can be found [here](http://hevs-isi.github.io/gdx2d/javadoc/1.0.0/)
+
 ## What do I get?
 It is multi-platform so that you can run your code on desktop computers (running either Windows, Linux or Mac) but also on mobile devices running Android. It is based on ´libgdx´ but provides a much simpler interface and multiple demo programs to get started.
 
