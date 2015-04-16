@@ -10,7 +10,7 @@
       "name": "Basic animation",
       "class": "simple.DemoSimpleAnimation",
       "desc": "Shows how to animate the radius of a circle."
-    },        
+    },
     {
       "name": "Moving circles",
       "class": "simple.DemoCircles",
@@ -25,6 +25,11 @@
       "name": "A Julia Fractal",
       "class": "simple.DemoJuliaFractal",
       "desc": "A graphical library without a fractal is not really a graphical library, isn't it?"
+    },
+    {
+      "name": "Spritesheet support",
+      "class": "spritesheet.DemoSpriteSheet",
+      "desc": "Demonstrate how to use a spritesheet"
     }
   ],
   "Image drawing": [
@@ -128,7 +133,7 @@
       "name": "Physics joints - rotating joint",
       "class": "physics.joints.DemoWindmill",
       "desc": "An object that rotates around a circular joint object."
-    },    
+    },
     {
       "name": "Physics joints - rope",
       "class": "physics.joints.DemoRopeJoint",
@@ -143,7 +148,7 @@
       "name": "Physics joints and motor - mixing objects with a motor",
       "class": "physics.joints.DemoMixer",
       "desc": "No description yet."
-    },    
+    },
     {
       "name": "Simple motors to mix things",
       "class": "physics.DemoSimplePhysics",
