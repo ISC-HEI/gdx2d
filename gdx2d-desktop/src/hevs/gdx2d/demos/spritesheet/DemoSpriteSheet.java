@@ -3,6 +3,7 @@ package hevs.gdx2d.demos.spritesheet;
 import hevs.gdx2d.components.bitmaps.Spritesheet;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
+import hevs.gdx2d.lib.utils.Logger;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -28,7 +29,7 @@ public class DemoSpriteSheet extends PortableApplication {
 	@Override
 	public void onInit() {
 		ss = new Spritesheet("images/lumberjack_sheet.png", SPRITE_WIDTH, SPRITE_HEIGHT);
-		Gdx.app.log("[DemoSpriteSheet]", "Press up/down to change the current animation");
+		Logger.log("Press up/down to change the current animation");
 	}
 
 	
