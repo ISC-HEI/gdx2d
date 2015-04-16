@@ -6,7 +6,7 @@ if [ "$TRAVIS_REPO_SLUG" == "hevs-isi/gdx2d" ] && [ "$TRAVIS_PULL_REQUEST" == "f
 then
   echo -e "Publishing latest javadoc to 'http://hevs-isi.github.io/gdx2d/javadoc/latest/'\n"
 
-  cp -R doc/latest $HOME/javadoc/latest
+  cp --parents -R doc/latest $HOME/javadoc/latest
 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
