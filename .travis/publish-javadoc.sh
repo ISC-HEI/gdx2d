@@ -6,7 +6,8 @@ if [ "$TRAVIS_REPO_SLUG" == "hevs-isi/gdx2d" ] && [ "$TRAVIS_PULL_REQUEST" == "f
 then
   echo -e "Publishing latest javadoc to 'http://hevs-isi.github.io/gdx2d/javadoc/latest/'\n"
 
-  cp --parents -R doc/latest $HOME/javadoc/latest
+  mkdir -p $HOME/javadoc
+  cp -R doc/latest $HOME/javadoc/
 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
@@ -15,12 +16,11 @@ then
 
   cd gh-pages
   git rm -rf ./javadoc/latest
-  cp -Rf $HOME/javadoc/latest ./javadoc/latest
+  rm -rf ./javadoc/latest
+  cp -Rf $HOME/javadoc/latest ./javadoc/
   git add -f .
   git commit -m "Lastest javadoc auto-published.\n Travis build $TRAVIS_BUILD_NUMBER."
   git push -fq origin gh-pages > /dev/null
-
-  echo -e "Latest javadoc published.\n"
 else
   echo -e "Javadoc not published.\n"
 fi
