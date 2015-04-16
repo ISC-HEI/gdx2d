@@ -144,7 +144,7 @@
 	<target name="lib-doc" depends="init" description="Generate the library documentation (javadoc).">
 		<echo>Generate javadoc version "${lib.version}".</echo>
 
-		<javadoc destdir="${doc.dir}/${lib.version}" author="true" version="true" use="true" 
+		<javadoc destdir="${doc.dir}/latest" author="true" version="true" use="true" 
 		charset="UTF-8" docencoding="UTF-8" windowtitle="gdx2d API version ${lib.version}">
 
 			<!-- Include all packages except the demo package. -->
@@ -157,20 +157,20 @@
 			<doctitle><![CDATA[
 				<h1>gdx2d library API</h1>
 				<p>gdx2d is a simple to use 2d game framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.</p>
-				<p>Website: <a target="_parent" href="http://pmudry.github.io/gdx2d/">http://pmudry.github.io/gdx2d/</a></p>
+				<p>Website: <a target="_parent" href="http://hevs-isi.github.io/gdx2d/">http://hevs-isi.github.io/gdx2d/</a></p>
 				<hr>
 				Build date: ${today}<br>
 				Version: <b>${lib.version}</b><br>
 			]]></doctitle>
 
 			<bottom><![CDATA[
-				Copyright &#169; 2014 gdx2d - <a target="_parent" href="http://isi.hevs.ch">http://isi.hevs.ch</a> & 
+				Copyright &#169; 2014/2015 gdx2d - <a target="_parent" href="http://isi.hevs.ch">http://isi.hevs.ch</a> & 
 				<a target="_parent" href="http://inf1.begincoding.net/">http://inf1.begincoding.net/</a>
 			]]></bottom>
 			<link href="https://github.com/pmudry/gdx2d"/>
 		</javadoc>
 	</target>
 	
-	<!-- Default target used by Travis (https://travis-ci.org/hevs-isi/gdx2d) -->
-	<target name="test" depends="demos-jar" />
+	<!-- Default target used by Travis (https://travis-ci.org/hevs-isi/gdx2d). Compile the lib jar and generate the API javadoc. -->
+	<target name="test" depends="demos-jar, lib-doc" />
 </project>

@@ -1,6 +1,10 @@
 language: java
-
 jdk:
-  - openjdk6
-
-before_script: cd gdx2d-desktop
+- openjdk6
+env:
+  global:
+    secure: Trl21W5O4XR8sTR9JPrYk4Rl/9j3CfbXLvFOWepQ8dcl5r90OeqUtBZvEygxzem1fqBGDHPryC/hSMoimac5YQj9J7PFqi15zQ4JhYNbg8zvpgfGk4tJwmJ+nBzz9TF6lkZQsRGwqpWYaSnv5BlL8fnuIRREe2FbHyCEZEcLeNk=
+before_script:
+- cd gdx2d-desktop
+after_success:
+- ../.travis/publish-javadoc.sh
