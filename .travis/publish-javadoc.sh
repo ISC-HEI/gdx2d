@@ -19,7 +19,7 @@ then
   rm -rf ./javadoc/latest
   cp -Rf $HOME/javadoc/latest ./javadoc/
   git add -f .
-  git commit -m "Lastest javadoc auto-published.\n Travis build $TRAVIS_BUILD_NUMBER."
+  git commit -m $'Lastest javadoc auto-published.\nTravis build $TRAVIS_BUILD_NUMBER.'
   git push -fq origin gh-pages > /dev/null
 else
   echo -e "Javadoc not published.\n"
