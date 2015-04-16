@@ -6,6 +6,7 @@ import hevs.gdx2d.lib.utils.Utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * A class to load a spritesheet which is more or less
@@ -16,7 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * @version 1.0
  *
  */
-public class Spritesheet {	
+public class Spritesheet implements Disposable{	
 	Texture img;
 	public TextureRegion[][] sprites;
 	
@@ -29,5 +30,19 @@ public class Spritesheet {
 			sprites = TextureRegion.split(img, tileWidth, tileHeight);
 				
 			// Gdx.app.log("[SpriteSheet]", "Loaded " + sprites.length + "x" + sprites[0].length + " sprites");		
+	}
+	
+	/**
+	 * Releases the resources allocated 
+	 */
+	@Override
+	public void dispose() {
+		img.dispose();
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {	
+		super.finalize();
+		dispose();
 	}
 }
