@@ -8,7 +8,7 @@ package hevs.gdx2d.lib;
 public class Version {
 	
 	// Current version name of the gdx2d library
-	public static final String version = "1.0.0";
+	public static final String version = "1.0.1-SNAPSHOT";
 
 	/**
 	 * Prints the current version of the library
@@ -16,7 +16,7 @@ public class Version {
 	 */
 	public final static String printVerbose() {
 		return String.format(
-				"gdx2d v%s, libgdx v%s | mui, chn, mei (c) 2012-2014",
+				"gdx2d v%s, libgdx v%s | mui, chn, mei (c) 2012-2015",
 				version, com.badlogic.gdx.Version.VERSION);
 	}
 	
@@ -25,7 +25,7 @@ public class Version {
 	 */
 	public final static String print() {
 		return String.format(
-				"gdx2d v%s, | mui,chn,mei (c) 2012-2014",
+				"gdx2d v%s, | mui,chn,mei (c) 2012-2015",
 				version);
 	}
 }
