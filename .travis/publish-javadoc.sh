@@ -10,6 +10,8 @@ then
   cp -R doc/latest $HOME/javadoc/
 
   cd $HOME
+  rm $HOME/javadoc/latest/stylesheet.css
+
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "travis-ci"
   git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} gh-pages > /dev/null
@@ -19,7 +21,7 @@ then
   rm -rf ./javadoc/latest
   cp -Rf $HOME/javadoc/latest ./javadoc/
   git add -f .
-  git commit -m $'Lastest javadoc auto-published.\nTravis build $TRAVIS_BUILD_NUMBER.'
+  git commit -m $'Lastest javadoc auto-published.\nTravis build '$TRAVIS_BUILD_NUMBER'.'
   git push -fq origin gh-pages > /dev/null
 else
   echo -e "Javadoc not published.\n"
