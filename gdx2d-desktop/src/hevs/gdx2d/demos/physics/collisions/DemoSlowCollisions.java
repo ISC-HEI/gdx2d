@@ -39,8 +39,8 @@ public class DemoSlowCollisions extends PortableApplication {
 		// Indicate that the ball should be informed for collisions
 		b1.enableCollisionListener();
 		b2.enableCollisionListener();
-		b1.setBodyLinearVelocity(1, 0);
-		b2.setBodyLinearVelocity(-1, 0);
+		b1.setBodyLinearVelocity(0.4f, 0);
+		b2.setBodyLinearVelocity(-0.2f, 0);
 		
 		world.setGravity(Vector2.Zero);
 	};
