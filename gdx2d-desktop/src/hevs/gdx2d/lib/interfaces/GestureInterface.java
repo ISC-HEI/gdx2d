@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * An interface that applications implement to interact with screen gestures on Android.
  *
- * @author Christopher Métrailler (mei)
+ * @author Christopher MÃ©trailler (mei)
  * @version 1.0
  * @see com.badlogic.gdx.input.GestureDetector.GestureListener
  */
