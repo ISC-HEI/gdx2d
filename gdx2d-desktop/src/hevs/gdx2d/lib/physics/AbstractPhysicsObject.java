@@ -284,20 +284,20 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 	 ************************************************************************/
 	@Override
 	final public void beginContact(Contact contact) {
-	}
-
-	@Override
-	final public void endContact(Contact contact) {
 		AbstractPhysicsObject ob1 = null, ob2 = null;
 		ob1 = (AbstractPhysicsObject) contact.getFixtureA().getBody()
 				.getUserData();
 		ob2 = (AbstractPhysicsObject) contact.getFixtureB().getBody()
 				.getUserData();
-
+		
 		ob1.collision(ob2, lastCollideEnergy);
 		ob2.collision(ob1, lastCollideEnergy);
-
+		
 		lastCollideEnergy = -1;
+	}
+
+	@Override
+	final public void endContact(Contact contact) {
 	}
 
 	float lastCollideEnergy = -1;
