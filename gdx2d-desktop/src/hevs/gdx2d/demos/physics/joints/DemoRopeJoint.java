@@ -45,20 +45,20 @@ public class DemoRopeJoint extends PortableApplication {
 		/**
 		 * The circle in the middle of the screen for the origin
 		 */
-		PhysicsStaticBox p = new PhysicsStaticBox("", new Vector2(w / 2.0f, h / 1.4f), 10, 10);
+		PhysicsStaticBox p = new PhysicsStaticBox("", new Vector2(w / 2.0f, h / 1.4f), 20, 20);
 
 		// The first object in the chain is the static circle
 		Body prevBody = p.getBody();
 
-		final int segmentLength = 10;
-		final int spaceBetweenSegments = 20;
+		final int segmentLength = 20;
+		final int spaceBetweenSegments = 10;
 
 		// Build the body and the RevoluteJointDef for the chain elements.
 		for (int i = 0; i < nSegments; i++) {
 			// Create a rope segment element
 			PhysicsBox box = new PhysicsBox("", new Vector2(w / 2 + i * (segmentLength + spaceBetweenSegments), h / 1.4f),
 										    segmentLength,
-										    2);
+										    4);
 
 			// Connect each element with the element before
 			Vector2 anchorA = prevBody.getLocalCenter().add(0, 0);

@@ -73,7 +73,7 @@ public class DemoParticlePhysics extends PortableApplication {
 	
 	void createParticles() {				
 		for(int i = 0; i < CREATION_RATE; i++){
-			Particle c = new Particle(position, 5, MAX_AGE + rand.nextInt(MAX_AGE / 2));
+			Particle c = new Particle(position, 10, MAX_AGE + rand.nextInt(MAX_AGE / 2));
 			
 			// Apply a vertical force with some random horizontal component
 			Vector2 force = new Vector2();			

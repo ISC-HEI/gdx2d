@@ -24,8 +24,8 @@ public class Spaceship implements DrawableObject {
 	protected boolean thrustLeft = false, thrustRight = false;
 	protected float thrustUp = 0;
 
-	static final float MAX_THRUST = 2f;
-	static final float MAX_TORQUE = 0.08f;
+	static final float MAX_THRUST = 1f;
+	static final float MAX_TORQUE = 0.04f;
 
 	// Drawing related
 	protected static BitmapImage shipImage, flameImage;

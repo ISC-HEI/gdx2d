@@ -33,7 +33,7 @@ public class Car implements DrawableObject {
 	 */
 	float slowingFactor = 0.5f;
 
-	public final int wheelWidth = 8, wheelHeight = 30; 
+	public final int wheelWidth = 16, wheelHeight = 60; 
 
 	protected float maxSteerAngle, maxSpeed, power, wheelAngle;
 	protected PhysicsBox carbox; 
@@ -64,7 +64,7 @@ public class Car implements DrawableObject {
 		this.maxSpeed = maxSpeed;
 		this.power = power;
 
-		carbox = new PhysicsBox("carCenter", position, width / 2, length / 2, angle);
+		carbox = new PhysicsBox("carCenter", position, width, length, angle);
 		carbox.setCollisionGroup(-1);
 		
 		// Initialize wheels

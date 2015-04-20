@@ -48,7 +48,7 @@ class Rotor extends PhysicsBox implements DrawableObject {
 		float x = getBodyPosition().x;
 		float y = getBodyPosition().y;
 		float angle = getBodyAngleDeg();
-		g.drawFilledRectangle(x, y, w * 2, h * 2, angle, Palette.pastel1[1]);
+		g.drawFilledRectangle(x, y, w, h, angle, Palette.pastel1[1]);
 		g.drawTransformedPicture(x, y, angle, 0.2f, screw);
 	}
 }
@@ -103,7 +103,7 @@ public class DemoMixer extends PortableApplication {
 		 * Create the stator (moving) part. It is also located in the center of
 		 * the frame. It is not static, as it can rotate
 		 */
-		rotor = new Rotor("rotor", new Vector2(width / 2, height / 2), 240, 6);
+		rotor = new Rotor("rotor", new Vector2(width / 2, height / 2), width * 0.85f, height * 0.02f );
 		box2 = rotor.getBody();
 
 		/**

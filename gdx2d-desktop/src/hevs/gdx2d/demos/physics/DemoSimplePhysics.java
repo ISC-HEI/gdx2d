@@ -41,7 +41,7 @@ public class DemoSimplePhysics extends PortableApplication{
 		new PhysicsScreenBoundaries(w, h);
 		
 		// The slope on which the objects roll
-		new PhysicsStaticBox("slope", new Vector2(w/2, h/2), w/3, 8, (float)Math.PI / 12.0f);		
+		new PhysicsStaticBox("slope", new Vector2(w/2, h/2), w/3*2, 16, (float)Math.PI / 12.0f);		
 		
 		// Build the falling object
 		ball = new PhysicsCircle("none", new Vector2(w*0.7f, h-0.1f*h), 12, 0.5f, 0.3f, 0.3f);
@@ -52,7 +52,7 @@ public class DemoSimplePhysics extends PortableApplication{
 		int dominoSpace = (w - 60) / nDominoes;
 			
 		for (int i = 0; i < nDominoes ; i++) {
-			new PhysicsBox("box" + i, new Vector2(60+i*dominoSpace, 120), 3, 30, 0.1f, 0.1f, 0.3f);			
+			new PhysicsBox("box" + i, new Vector2(60+i*dominoSpace, 120), 6, 60, 0.1f, 0.1f, 0.3f);			
 		}
 		
 		debugRenderer = new DebugRenderer();

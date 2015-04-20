@@ -191,7 +191,7 @@ public abstract class AbstractPhysicsObject implements ContactListener,
 			s.setRadius(width);
 		} else {
 			PolygonShape p = new PolygonShape();
-			p.setAsBox(width, height);
+			p.setAsBox(width/2, height/2);
 			s = p;
 		}
 

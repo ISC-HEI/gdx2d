@@ -52,13 +52,13 @@ public class DemoPhysicsMouse extends PortableApplication {
 		groundBody = world.createBody(bodyDef);
 
 		new PhysicsScreenBoundaries(this.getWindowWidth(), this.getWindowHeight());			
-		new PhysicsStaticBox("wall in the middle", new Vector2(getWindowWidth()/2, 50), 10, getWindowHeight() / 10);
+		new PhysicsStaticBox("wall in the middle", new Vector2(getWindowWidth()/2, 50), 20, 100);
 		
 		// Build some boxes
 		for(int i = 0; i < 10; i++){
 			Random r = new Random();
 			new PhysicsBox("box", new Vector2(100 + r.nextInt(100), 200 + r.nextInt(100)),
-							8, r.nextInt(40)+20,1000f, 0.2f, 0.2f);
+							16, r.nextInt(80)+40,1000f, 0.2f, 0.2f);
 		}
 		
 		// Build the ball

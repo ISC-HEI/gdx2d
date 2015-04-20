@@ -68,13 +68,13 @@ public class DemoWindmill extends PortableApplication {
 
 		// Create PhysicStaticBox where the windmill will be fixed. It is
 		// located in the center of the frame
-		PhysicsStaticBox staticBox = new PhysicsStaticBox("box1", new Vector2(width / 2, height / 2), 10, 40);
+		PhysicsStaticBox staticBox = new PhysicsStaticBox("box1", new Vector2(width / 2, height / 2), 20, 80);
 
 		Body box1 = staticBox.getBody();
 
 		// Create the windmill wing. It is also located in the center of the frame
 		// This is is not static, as it can rotate
-		PhysicsBox movingBox = new PhysicsBox("box2", new Vector2(width / 2, height / 2), 120, 10);
+		PhysicsBox movingBox = new PhysicsBox("box2", new Vector2(width / 2, height / 2), 240, 20);
 		
 		Body box2 = movingBox.getBody();
 
