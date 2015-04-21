@@ -1,124 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Gdx2d : A simple to use Java library to make 2d games (based on Libgdx) for desktop and Android">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
     <title>Gdx2d</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Gdx2d</h1>
-        <p>A simple to use Java library to make 2d games (based on Libgdx) for desktop and Android.</p>
 
-		<p class="view"><a href="http://hevs-isi.github.io/gdx2d/javadoc/1.0.0/">Current library <i>javadoc</i><small>version 1.0.0</small></a></p>
-		
-        <p class="view"><a href="https://github.com/hevs-isi/gdx2d">View the Project on GitHub <small>hevs-isi/gdx2d</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/hevs-isi/gdx2d">View on GitHub</a>
 
-        <ul>
-          <li><a href="https://github.com/hevs-isi/gdx2d/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/hevs-isi/gdx2d/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/hevs-isi/gdx2d/">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-	  
-<h2>What is gdx2d ?</h2>
-<p>Gdx2d is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. Here is an example of what the library is capable of:</p>
-<img src="https://raw.github.com/wiki/pmudry/gdx2d/multi_screenshot.png" alt="gdx2d screenshots" style="margin-bottom:15px;" />
+          <h1 id="project_title">Gdx2d</h1>
+          <h2 id="project_tagline">A simple to use Java library to make 2d games (based on Libgdx) for desktop and Android</h2>
 
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/hevs-isi/gdx2d/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/hevs-isi/gdx2d/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
 
-<h3>Why this framework?</h3>
-<p>The advantage of using Gdx2d is that you can develop your code in Java on your standard desktop computer like any other Java application and then deploy the same code, with a single click, on an Android phone or tablet. Of course, you have to take into consideration the fact that some of your code is a bit different for Android (for instance, you do not have accelerometers on your PC).</p>
-<p>The library itself is a wrapper around a very very nice library called <a href="https://github.com/libgdx/libgdx">libgdx</a> which provides almost everything to the library.</p>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
+<a id="what-is-gdx2d--" class="anchor" href="#what-is-gdx2d--" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is gdx2d ? <a href="https://travis-ci.org/hevs-isi/gdx2d"><img src="https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master" alt="Build Status"></a>
+</h2>
 
-<h3>What do I get?</h3>
-<p>It is multi-platform so that you can run your code on desktop computers (running either Windows, Linux or Mac) but also on mobile devices running Android. It is based on libgdx but provides a much simpler interface and multiple demo programs to get started.</p>
+<p><em>gdx2d</em> is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. Here is an example of what the library is capable of (or you can check the <a href="http://www.youtube.com/watch?v=eoVrifa1Xd0">YouTube demo reel</a>):</p>
+
+<p><img src="https://raw.github.com/wiki/pmudry/gdx2d/multi_screenshot.png" alt="Screen shot"></p>
+
+<h2>
+<a id="why-this-framework" class="anchor" href="#why-this-framework" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why this framework?</h2>
+
+<p>The advantage of using <em>gdx2d</em> is that you can develop your code in Java on your standard desktop computer like any other Java application and then deploy the same code, with a single click, on an Android phone or tablet. Of course, you have to take into consideration the fact that some of your code is a bit different for Android (for instance, you do not have accelerometers on your PC). </p>
+
+<p>The library itself is a wrapper around a very very nice library called <a href="http://www.libgdx.com/">libgdx</a> which provides almost everything to the library.</p>
+
+<h2>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>The Javadoc API of the library can be found <a href="http://hevs-isi.github.io/gdx2d/javadoc/1.0.0/">here</a></p>
+
+<h2>
+<a id="what-do-i-get" class="anchor" href="#what-do-i-get" aria-hidden="true"><span class="octicon octicon-link"></span></a>What do I get?</h2>
+
+<p>It is multi-platform so that you can run your code on desktop computers (running either Windows, Linux or Mac) but also on mobile devices running Android. It is based on ´libgdx´ but provides a much simpler interface and multiple demo programs to get started.</p>
+
 <p>Using the framework, the following code displays a shrinking/growing circle running smoothly:</p>
 
-<pre><code>package hevs.gdx2d.demos.simple;
+<div class="highlight highlight-java"><pre><span class="pl-k">package</span> <span class="pl-smi">hevs.gdx2d.demos.simple</span>;
 
-import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+<span class="pl-k">import</span> <span class="pl-smi">com.badlogic.gdx.graphics.Color</span>;
+<span class="pl-k">import</span> <span class="pl-smi">hevs.gdx2d.lib.GdxGraphics</span>;
+<span class="pl-k">import</span> <span class="pl-smi">hevs.gdx2d.lib.PortableApplication</span>;
 
-/**
- * A very simple demonstration on how to display something
- * animated with the library
- * @author Pierre-André Mudry (mui)
- */
-public class DemoSimpleAnimation extends PortableApplication {
-	int radius = 5, speed = 1;
-	
-	public DemoSimpleAnimation(boolean onAndroid) {
-		super(onAndroid);
-	}
+<span class="pl-c">/**</span>
+<span class="pl-c"> * A very simple demonstration on how to display something animated with the library</span>
+<span class="pl-c"> * <span class="pl-k">@author</span> Pierre-André Mudry (mui)</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">DemoSimpleAnimation</span> <span class="pl-k">extends</span> <span class="pl-e">PortableApplication</span> {
+    <span class="pl-k">int</span> radius <span class="pl-k">=</span> <span class="pl-c1">5</span>, speed <span class="pl-k">=</span> <span class="pl-c1">1</span>;
 
-	public void onInit() {
-		// Sets the window title
-		setTitle("Simple demo, mui 2013");
-	}
+    <span class="pl-k">public</span> <span class="pl-en">DemoSimpleAnimation</span>(<span class="pl-k">boolean</span> <span class="pl-v">onAndroid</span>) {
+        <span class="pl-v">super</span>(onAndroid);
+    }
 
-	public void onGraphicRender(GdxGraphics g) {		
-		
-		// Clears the screen
-		g.clear();
-		g.drawFilledCircle(g.getScreenWidth()/2,
-			g.getScreenHeight()/2, radius, Color.BLUE);		
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onInit</span>() {
+        <span class="pl-c">// Sets the window title</span>
+        setTitle(<span class="pl-s"><span class="pl-pds">"</span>Simple demo, mui 2013<span class="pl-pds">"</span></span>);
+    }
 
-		// Update the circle radius
-		if (radius >= 50|| radius <= 3)
-			speed *= -1;
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onGraphicRender</span>(<span class="pl-smi">GdxGraphics</span> <span class="pl-v">g</span>) {        
 
-		radius += speed;
-		
-		g.drawSchoolLogo();
-	}
+        <span class="pl-c">// Clears the screen</span>
+        g<span class="pl-k">.</span>clear();
+        g<span class="pl-k">.</span>drawFilledCircle(g<span class="pl-k">.</span>getScreenWidth()<span class="pl-k">/</span><span class="pl-c1">2</span>, g<span class="pl-k">.</span>getScreenHeight()<span class="pl-k">/</span><span class="pl-c1">2</span>, radius, <span class="pl-smi">Color</span><span class="pl-c1"><span class="pl-k">.</span>BLUE</span>);        
 
-	public static void main(String[] args) {
-		/**
-		 * Note that the constructor parameter is used to
-		 * determine if running on Android or not.
-		 * As we are in main there, it means we are
-		 * on desktop computer.
-		 */
-		new DemoSimpleAnimation(false);
-	}
-}</code></pre>
+        <span class="pl-c">// Update the circle radius</span>
+        <span class="pl-k">if</span> (radius <span class="pl-k">&gt;=</span> <span class="pl-c1">50</span><span class="pl-k">||</span> radius <span class="pl-k">&lt;=</span> <span class="pl-c1">3</span>)
+            speed <span class="pl-k">*=</span> <span class="pl-k">-</span><span class="pl-c1">1</span>;
 
-<h3>Who did this and why?</h3>
-<p>It was developped for the <a href="http://inf1.begincoding.net">inf1 course</a> taught at <a href="http://isi.hevs.ch">HES-SO Valais / Systems engineering</a> by Pierre-André Mudry. The framework was written <a href="https://github.com/pmudry">P.-A. Mudry</a> & N. Chatton with the help of <a href="https://github.com/metc">C. Métrailler</a>.</p>
+        radius <span class="pl-k">+=</span> speed;
 
+        g<span class="pl-k">.</span>drawSchoolLogo();
+    }
 
-<h3>Installing the code</h3>
-<p>The library consists of two Eclipse projects (one for Android, one for desktop) that can be imported easily. Once downloaded, an archive can be imported in Eclipse using "File->Import->Existing project into workspace". You can then either give the path of the archive or extract the data manually and then point to that directory.</p>
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) {
+        <span class="pl-c">/**</span>
+<span class="pl-c">         * Note that the constructor parameter is used to determine if running on Android or not.</span>
+<span class="pl-c">         * As we are in main there, it means we are on desktop computer.</span>
+<span class="pl-c">         */</span>
+        <span class="pl-k">new</span> <span class="pl-smi">DemoSimpleAnimation</span>(<span class="pl-c1">false</span>);
+    }
+}</pre></div>
 
-<ul>
-	<li><strong>gdx2d-desktop</strong></li>
-	<p>This project contains the library as well as all the demo programs. All the demos can be run on PC or on Android. In order to run a demo, either use the "DemoSelector" class which provides a simple way to choose which demo to run or run each demo individually.</p>
-	
-	<li><strong>gdx2d-android</strong></li>
-	<p>This is the Android counterpart of the library. This project depends on the gdx2d-desktop project, which means that this other project must be available in Eclipse. In addition, most of the files that will be executed come from that project as well. As such, it mainly consists of a Java file GameActivity.java which determines which is the main program that will be launched on Android.</p>
-</ul>
+<h2>
+<a id="who-did-this-and-why" class="anchor" href="#who-did-this-and-why" aria-hidden="true"><span class="octicon octicon-link"></span></a>Who did this and why?</h2>
 
+<p>It was developped for the <a href="http://inf1.begincoding.net">inf1 course</a> taught at <a href="http://www.hevs.ch">HES-SO Valais / Systems engineering</a> by Pierre-André Mudry. The framework was written P.-A. Mudry &amp; N. Chatton with the help of C. Métrailler.</p>
 
-<h3>License</h3>
+<h2>
+<a id="installing-the-code" class="anchor" href="#installing-the-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing the code</h2>
+
+<p>The library consists of two Eclipse projects (one for Android, one for desktop) that can be imported easily. Once downloaded, an archive can be imported in Eclipse using <code>File-&gt;Import-&gt;Existing project into workspace</code>. You can then either give the path of the archive or extract the data manually and then point to that directory.</p>
+
+<p><code>gdx2d-desktop</code></p>
+
+<p>This project contains the library as well as all the demo programs. All the demos can be run on PC or on Android. In order to run a demo, either use the <code>DemoSelector</code> class which provides a simple way to choose which demo to run or run each demo individually.</p>
+
+<p><code>gdx2d-android</code></p>
+
+<p>This is the Android counterpart of the library. This project depends on the gdx2d-desktop project, which means that this other project must be available in Eclipse. In addition, most of the files that will be executed come from that project as well. As such, it mainly consists of a Java file GameActivity.java which determines which is the main program that will be launched on Android.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
 <p>The content of this project itself is licensed under the <a href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons CC BY-NC 4.0 license</a>, and the underlying source code used to format and display that content is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
-
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/pmudry">pmudry</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Gdx2d maintained by <a href="https://github.com/hevs-isi">hevs-isi</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
+
   </body>
 </html>
