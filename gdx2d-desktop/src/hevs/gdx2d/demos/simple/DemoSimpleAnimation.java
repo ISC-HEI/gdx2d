@@ -13,53 +13,53 @@ import com.badlogic.gdx.graphics.Color;
  * @version 1.0
  */
 public class DemoSimpleAnimation extends PortableApplication {
-    int radius = 5, speed = 1;
-    int screenHeight, screenWidth;
+	int radius = 5, speed = 1;
+	int screenHeight, screenWidth;
 
-    public DemoSimpleAnimation(boolean onAndroid) {
-        super(onAndroid);
-    }
+	public DemoSimpleAnimation(boolean onAndroid) {
+		super(onAndroid);
+	}
 
-    @Override
-    public void onInit() {
-        // Sets the window title
-        setTitle("Simple demo, mui 2013");
+	@Override
+	public void onInit() {
+		// Sets the window title
+		setTitle("Simple demo, mui 2013");
 
-        screenHeight = Gdx.graphics.getHeight();
-        screenWidth = Gdx.graphics.getWidth();
-    }
+		screenHeight = Gdx.graphics.getHeight();
+		screenWidth = Gdx.graphics.getWidth();
+	}
 
-    @Override
-    public void onGraphicRender(GdxGraphics g) {
+	@Override
+	public void onGraphicRender(GdxGraphics g) {
 
-        // Clears the screen
-        g.clear();
-        g.drawAntiAliasedCircle(screenWidth / 2, screenHeight / 2, radius, Color.BLUE);
+		// Clears the screen
+		g.clear();
+		g.drawAntiAliasedCircle(screenWidth / 2, screenHeight / 2, radius, Color.BLUE);
 
-        // If reaching max or min size, invert the growing direction
-        if (radius >= 100 || radius <= 3) {
-            speed *= -1;
-        }
+		// If reaching max or min size, invert the growing direction
+		if (radius >= 100 || radius <= 3) {
+			speed *= -1;
+		}
 
-        // Modify the radius
-        radius += speed;
+		// Modify the radius
+		radius += speed;
 
-        g.drawSchoolLogo();
-    }
+		g.drawSchoolLogo();
+	}
 
-    @Override
-    public void onClick(int x, int y, int button) {
-        if (onAndroid)
-            getAndroidResolver().showAboutBox();
-    }
+	@Override
+	public void onClick(int x, int y, int button) {
+		if (onAndroid)
+			getAndroidResolver().showAboutBox();
+	}
 
-    public static void main(String[] args) {
-        /**
-         * Note that the constructor parameter is used to determine if running
-         * on Android or not. As we are in main there, it means we are on
-         * desktop computer.
-         */
-        new DemoSimpleAnimation(false);
-    }
+	public static void main(String[] args) {
+		/**
+		 * Note that the constructor parameter is used to determine if running
+		 * on Android or not. As we are in main there, it means we are on
+		 * desktop computer.
+		 */
+		new DemoSimpleAnimation(false);
+	}
 
 }

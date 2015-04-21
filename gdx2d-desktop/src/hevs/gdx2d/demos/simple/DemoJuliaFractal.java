@@ -13,14 +13,14 @@ import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Compute a Julia fractal (Julia set).
- * 
+ * <p/>
  * Some parameters can be used to tune the fractal, like
  * {@link DemoJuliaFractal#C1}, {@link DemoJuliaFractal#C2} coefficients,
  * {@link DemoJuliaFractal#MAX_ITER} and the {@link DemoJuliaFractal#SCALE}.<br>
  * For now, this demonstration is not available for Android because it is too
  * slow on mobile. To have better performances, RenderScript or shader must be
  * used.
- * 
+ *
  * @author Christopher Metrailler (mei)
  * @version 1.0
  */
@@ -46,10 +46,10 @@ public class DemoJuliaFractal extends PortableApplication {
 	public DemoJuliaFractal(boolean isOnAndroid) {
 		// The windows size is the fractal size
 		super(isOnAndroid, IMAGE_SIZE, IMAGE_SIZE);
-		
-		if(onAndroid) {	
-			Logger.error("This demo only works on desktop! Exiting");			
-			Gdx.app.exit(); // For now too slow on Android			
+
+		if (onAndroid) {
+			Logger.error("This demo only works on desktop! Exiting");
+			Gdx.app.exit(); // For now too slow on Android
 		}
 	}
 
@@ -64,7 +64,7 @@ public class DemoJuliaFractal extends PortableApplication {
 		// The fractal is generated only once. Takes about 1/10 seconds
 		// depending on the fractal parameters.
 		if (!isFractalGenerated) {
-			pixmap.fill();	// Use a Pixamp because the setPixel method is very slow (issue #26)
+			pixmap.fill();   // Use a Pixamp because the setPixel method is very slow (issue #26)
 
 			// Computation time estimation
 			startTime = System.currentTimeMillis();
@@ -81,11 +81,11 @@ public class DemoJuliaFractal extends PortableApplication {
 
 		/* Drawing */
 		g.clear(BCK_COLOR); // Add some blue for the fractal background
-		
+
 		// Draw the generated fractal
 		g.drawBackground(currentTexture, 0, 0);
 		g.drawSchoolLogo();
-		
+
 		// Display the fractal generation time
 		final String info = String.format("Fractal genereated in %d ms.", estimatedTime);
 		g.drawString(10, (int) (0.98 * g.getScreenHeight()), info);
