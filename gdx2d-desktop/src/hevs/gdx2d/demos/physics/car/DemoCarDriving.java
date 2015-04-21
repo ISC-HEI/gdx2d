@@ -32,6 +32,7 @@ public class DemoCarDriving extends PortableApplication {
 
 	@Override
 	public void onInit() {
+		setTitle("Car driving");
 		Logger.log("Use the arrows to move the car");
 
 		// No gravity in this world
