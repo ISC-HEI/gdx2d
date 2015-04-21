@@ -1,6 +1,6 @@
 ﻿## What is gdx2d ? [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
  
-*gdx2d* is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. Here is an example of what the library is capable of:
+*gdx2d* is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. Here is an example of what the library is capable of (or you can check the [YouTube demo reel](http://www.youtube.com/watch?v=eoVrifa1Xd0)):
 
 ![Screen shot](https://raw.github.com/wiki/pmudry/gdx2d/multi_screenshot.png)
 
