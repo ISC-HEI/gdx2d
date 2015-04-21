@@ -57,7 +57,7 @@ public class DemoSimpleAnimation extends PortableApplication {
 
 	public static void main(String[] args) {
 		/**
-		 * Note that the constructor parameter is used to determine if running on Android or not.
+		 * The constructor parameter is used to determine if running on Android or not.
 		 * As we are in main there, it means we are on desktop computer.
 		 */
 		new DemoSimpleAnimation(false);
