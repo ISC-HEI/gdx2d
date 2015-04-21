@@ -81,11 +81,6 @@ public class DemoPositionInterpolator extends PortableApplication {
 		g.drawSchoolLogoUpperRight();
 	}
 
-	@Override
-	public void onDispose() {
-		super.onDispose();
-	}
-
 	private float computePercentage() {
 		if (direction == 1)
 			currentTime += Gdx.graphics.getDeltaTime();
