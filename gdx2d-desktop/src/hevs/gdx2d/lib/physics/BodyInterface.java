@@ -19,87 +19,87 @@ import java.util.ArrayList;
  * @version 2.0
  */
 public interface BodyInterface {
-	public float getBodyAngle();
+	float getBodyAngle();
 
-	public float getBodyAngularDamping();
+	float getBodyAngularDamping();
 
-	public void setBodyAngularDamping(float damping);
+	void setBodyAngularDamping(float damping);
 
-	public float getBodyAngularVelocity();
+	float getBodyAngularVelocity();
 
-	public ArrayList<Fixture> getBodyFixtureList();
+	ArrayList<Fixture> getBodyFixtureList();
 
-	public float getBodyGravityScale();
+	float getBodyGravityScale();
 
-	public float getBodyInertia();
+	float getBodyInertia();
 
-	public float getBodyAngleDeg();
+	float getBodyAngleDeg();
 
-	public float getBodyRadius();
+	float getBodyRadius();
 
-	public float getBodyMass();
+	float getBodyMass();
 
-	public MassData getBodyMassData();
+	MassData getBodyMassData();
 
-	public Vector2 getBodyPosition();
+	Vector2 getBodyPosition();
 
-	public Transform getBodyTransform();
+	Transform getBodyTransform();
 
-	public float getBodyLinearDamping();
+	float getBodyLinearDamping();
 
-	public void setBodyLinearDamping(float damping);
+	void setBodyLinearDamping(float damping);
 
-	public Vector2 getBodyLinearVelocity();
+	Vector2 getBodyLinearVelocity();
 
-	public void setBodyLinearVelocity(Vector2 v);
+	void setBodyLinearVelocity(Vector2 v);
 
-	public Vector2 getBodyLinearVelocityFromLocalPoint(Vector2 v);
+	Vector2 getBodyLinearVelocityFromLocalPoint(Vector2 v);
 
-	public Vector2 getBodyLinearVelocityFromWorldPoint(Vector2 v);
+	Vector2 getBodyLinearVelocityFromWorldPoint(Vector2 v);
 
-	public Vector2 getBodyLocalCenter();
+	Vector2 getBodyLocalCenter();
 
-	public Vector2 getBodyLocalPoint(Vector2 v);
+	Vector2 getBodyLocalPoint(Vector2 v);
 
-	public Vector2 getBodyLocalVector(Vector2 v);
+	Vector2 getBodyLocalVector(Vector2 v);
 
-	public World getBodyWorld();
+	World getBodyWorld();
 
-	public Vector2 getBodyWorldCenter();
+	Vector2 getBodyWorldCenter();
 
-	public Vector2 getBodyWorldPoint(Vector2 v);
+	Vector2 getBodyWorldPoint(Vector2 v);
 
-	public Vector2 getBodyWorldVector(Vector2 v);
+	Vector2 getBodyWorldVector(Vector2 v);
 
-	public boolean isBodyActive();
+	boolean isBodyActive();
 
-	public void setBodyActive(boolean active);
+	void setBodyActive(boolean active);
 
-	public boolean isBodyAwake();
+	boolean isBodyAwake();
 
-	public void setBodyAwake(boolean awake);
+	void setBodyAwake(boolean awake);
 
-	public boolean isBodyBullet();
+	boolean isBodyBullet();
 
-	public boolean isBodyFixedRotation();
+	boolean isBodyFixedRotation();
 
-	public boolean isBodySleepingAllowed();
+	boolean isBodySleepingAllowed();
 
-	public void setBodyLinearVelocity(float vx, float vy);
+	void setBodyLinearVelocity(float vx, float vy);
 
-	public void applyBodyAngularImpulse(float impulse, boolean wake);
+	void applyBodyAngularImpulse(float impulse, boolean wake);
 
-	public void applyBodyForce(Vector2 force, Vector2 point, boolean wake);
+	void applyBodyForce(Vector2 force, Vector2 point, boolean wake);
 
-	public void applyBodyForce(float forceX, float forceY, float pointX, float pointY, boolean wake);
+	void applyBodyForce(float forceX, float forceY, float pointX, float pointY, boolean wake);
 
-	public void applyBodyForceToCenter(Vector2 force, boolean wake);
+	void applyBodyForceToCenter(Vector2 force, boolean wake);
 
-	public void applyBodyForceToCenter(float forceX, float forceY, boolean wake);
+	void applyBodyForceToCenter(float forceX, float forceY, boolean wake);
 
-	public void applyBodyLinearImpulse(Vector2 impulse, Vector2 point, boolean wake);
+	void applyBodyLinearImpulse(Vector2 impulse, Vector2 point, boolean wake);
 
-	public void applyBodyLinearImpulse(float impulseX, float impulseY, float pointX, float pointY, boolean wake);
+	void applyBodyLinearImpulse(float impulseX, float impulseY, float pointX, float pointY, boolean wake);
 
-	public void applyBodyTorque(float torque, boolean wake);
+	void applyBodyTorque(float torque, boolean wake);
 }
