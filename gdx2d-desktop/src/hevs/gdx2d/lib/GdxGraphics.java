@@ -696,9 +696,9 @@ public class GdxGraphics implements Disposable {
 	public void drawTransformedPicture(float posX, float posY, float angle,
 									   float width, float height, BitmapImage bitmap) {
 		checkmode(t_rendering_mode.SPRITE);
-		spriteBatch.draw(bitmap.getRegion(), (float) posX - width, (float) posY
+		spriteBatch.draw(bitmap.getRegion(), posX - width, posY
 						- height, width, height, width * 2, height * 2, 1.0f, 1.0f,
-				(float) angle);
+				angle);
 	}
 
 	/**
@@ -722,8 +722,8 @@ public class GdxGraphics implements Disposable {
 						- bitmap.getRegion().getRegionWidth() / 2, posY
 						- bitmap.getRegion().getRegionHeight() / 2, centerX, centerY,
 				(float) bitmap.getImage().getWidth(), (float) bitmap.getImage()
-						.getHeight(), (float) scale, (float) scale,
-				(float) angle);
+						.getHeight(), scale, scale,
+				angle);
 	}
 
 	/**
