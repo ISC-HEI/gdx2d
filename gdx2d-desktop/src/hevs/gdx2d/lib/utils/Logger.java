@@ -5,35 +5,41 @@ import com.badlogic.gdx.Gdx;
 
 /**
  * Simple logging facility using underlying libgdx.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Métrailler (mei)
  * @version 1.1
  */
 public class Logger {
 
-	static {
-		Gdx.app.setLogLevel(Application.LOG_INFO);
-	}
+    static {
+        Gdx.app.setLogLevel(Logger.INFO);
+    }
 
-	private static final String TAG = "[GDX2DLib]";
+    private static final String TAG = "GDX2DLib";
 
-	public static final int NONE = Application.LOG_NONE;
-	public static final int ERROR = Application.LOG_ERROR;
-	public static final int INFO = Application.LOG_INFO;
-	public static final int DEBUG = Application.LOG_DEBUG;
+    public static final int NONE = Application.LOG_NONE;
+    public static final int ERROR = Application.LOG_ERROR;
+    public static final int INFO = Application.LOG_INFO;
+    public static final int DEBUG = Application.LOG_DEBUG;
 
-	public static void log(String msg) {
-		// Print log, info, etc.
-		Gdx.app.log(TAG, msg);
-	}
+    public static void log(String msg) {
+        log(TAG, msg);
+    }
 
-	public static void error(String msg) {
-		// Print error in red
-		Gdx.app.error(TAG, msg);
-	}
+    public static void log(String tag, String msg) {
+        Gdx.app.log(String.format("[%s]", tag), msg); // Print debug message
+    }
 
-	public static void setLogLevel(int logLevel) {
-		Gdx.app.setLogLevel(logLevel);
-	}
+    public static void error(String msg) {
+        error(TAG, msg);
+    }
+
+    public static void error(String tag, String msg) {
+        Gdx.app.error(String.format("[%s]", tag), "error - " + msg); // Print error in red
+    }
+
+    public static void setLogLevel(int logLevel) {
+        Gdx.app.setLogLevel(logLevel);
+    }
 }

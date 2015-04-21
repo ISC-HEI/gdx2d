@@ -67,8 +67,13 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
         return Gdx.graphics.getWidth();
     }
 
-    @Override
-    public void onGameLogicUpdate() {
+    /**
+     * Schedule an exit from the application.
+     * On android, this will cause a call to {@link #onPause()} and {@link #onDispose()} some time in the future,
+     * it will not immediately finish your application.
+     */
+    public void exit() {
+        Gdx.app.exit();
     }
 
 
@@ -125,10 +130,9 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 
     /* GameInterface callbacks */
 
+    // Must be implemented in every subclasses:
     // void onInit();
-    // void onPause();
     // void onGraphicRender(GdxGraphics g);
-    // void onGameLogicUpdate();
 
     /**
      * @see GameInterface#onDispose()
@@ -146,13 +150,19 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
     }
 
     /**
+     * @see GameInterface#onGameLogicUpdate()
+     */
+    @Override
+    public void onGameLogicUpdate() {
+    }
+
+    /**
      * @see GameInterface#onResume()
      */
     @Override
     public void onResume() {
         // Android only
     }
-
 
     /* GestureInterface callbacks */
 
