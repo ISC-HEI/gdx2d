@@ -1,5 +1,8 @@
 package hevs.gdx2d.demos.complex_shapes;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.colors.PaletteGenerator;
 import hevs.gdx2d.lib.GdxGraphics;
@@ -8,40 +11,37 @@ import hevs.gdx2d.lib.PortableApplication;
 import java.util.Random;
 import java.util.Vector;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-
 /**
  * Performance demo animation rendering multiple circles at the same scale. This
  * is a complex demo, you should not start with this one.
- * 
- * @version 1.0, April 2013
+ *
  * @author Pierre-André Mudry, mui
+ * @version 1.0, April 2013
  */
 public class DemoComplexShapes extends PortableApplication {
-
-	private final int N_SHAPES = 500;
-	private int screenWidth, screenHeight;
-	private int maxRadius;
-	private float angle = 0;
-
-	private enum type_shape {
-		CIRCLE, IMAGE, RECT
-	};
-
-	private type_shape shape_type = type_shape.CIRCLE;
-
-	// For the movement of objects
-	private double counter = 10, dir = 1.34;
-
-	// The image which will be displayed
-	private BitmapImage imageBmp;
 
 	final Random rrand = new Random(12345);
 	final Vector<Color> colors = new Vector<Color>();
 	final Vector<DrawableShape> shapes = new Vector<DrawableShape>();
 	final Vector<Integer> directions = new Vector<Integer>();
+	private final int N_SHAPES = 500;
+
+	private int screenWidth, screenHeight;
+	private int maxRadius;
+	private float angle = 0;
+	private type_shape shape_type = type_shape.CIRCLE;
+	// For the movement of objects
+	private double counter = 10, dir = 1.34;
+	// The image which will be displayed
+	private BitmapImage imageBmp;
+
+	public DemoComplexShapes(boolean onAndroid) {
+		super(onAndroid);
+	}
+
+	public static void main(String[] args) {
+		new DemoComplexShapes(false);
+	}
 
 	/**
 	 * Create a nice color palette in the blue tones
@@ -56,37 +56,37 @@ public class DemoComplexShapes extends PortableApplication {
 		}
 	}
 
-	protected void destroyObjects(int nObjects){
-		for(int i = 0; i < nObjects; i++)
+	protected void destroyObjects(int nObjects) {
+		for (int i = 0; i < nObjects; i++)
 			shapes.remove(0);
 	}
-	
-	protected void generateObjects(int nObjects){
+
+	protected void generateObjects(int nObjects) {
 		/**
 		 * Generate some objects to be drawn randomly
 		 */
 		for (int i = 0; i < nObjects; i++) {
 			int width = 10 + rrand.nextInt(40);
-			
+
 			DrawableShape s = new DrawableShape(width, width,
-					rrand.nextInt((int) (screenWidth)),
-					rrand.nextInt((int) (screenHeight)),
+					rrand.nextInt(screenWidth),
+					rrand.nextInt(screenHeight),
 					colors.get(rrand.nextInt(colors.size())));
-			
+
 			shapes.add(s);
 
 			int dir = rrand.nextInt(10) + 1;
 			dir = rrand.nextBoolean() ? dir : -dir;
-			
+
 			directions.add(dir);
 		}
 	}
-	
+
 	@Override
 	public void onInit() {
-		fillPalette();	
-		
-		this.setTitle("Demo shapes, mui 2013");		
+		fillPalette();
+
+		this.setTitle("Demo shapes, mui 2013");
 		screenWidth = getWindowWidth();
 		screenHeight = getWindowHeight();
 		maxRadius = Math.min(getWindowHeight() / 2, getWindowWidth() / 2) - 10;
@@ -110,30 +110,30 @@ public class DemoComplexShapes extends PortableApplication {
 				int val = directions.get(i);
 				directions.setElementAt(-val, i);
 			}
-		
+
 			r.x += directions.get(i);
 		}
 
 		// Do the drawing
 		switch (shape_type) {
-		case CIRCLE:
-			g.clear(Color.BLACK);
-			for (DrawableShape i : shapes){
-				g.drawFilledCircle(i.x, i.y, i.width, i.c);
-			}
-			break;
-		case IMAGE:
-			g.clear(new Color(0.9f, 0.9f, 0.9f, 1));
-			for (DrawableShape i : shapes)
-				g.drawTransformedPicture(i.x, i.y, angle + i.offset, 1,	imageBmp);
-			break;
-		case RECT:
-			g.clear(Color.BLACK);
-			for (DrawableShape i : shapes)
-				// FIXME Did not work well for old Linux driver
-				g.drawFilledRectangle(i.x, i.y, i.width, i.width, 0, i.c);
-		default:
-			break;
+			case CIRCLE:
+				g.clear(Color.BLACK);
+				for (DrawableShape i : shapes) {
+					g.drawFilledCircle(i.x, i.y, i.width, i.c);
+				}
+				break;
+			case IMAGE:
+				g.clear(new Color(0.9f, 0.9f, 0.9f, 1));
+				for (DrawableShape i : shapes)
+					g.drawTransformedPicture(i.x, i.y, angle + i.offset, 1, imageBmp);
+				break;
+			case RECT:
+				g.clear(Color.BLACK);
+				for (DrawableShape i : shapes)
+					// FIXME Did not work well for old Linux driver
+					g.drawFilledRectangle(i.x, i.y, i.width, i.width, 0, i.c);
+			default:
+				break;
 		}
 
 		g.drawSchoolLogo();
@@ -143,20 +143,20 @@ public class DemoComplexShapes extends PortableApplication {
 	@Override
 	public void onKeyDown(int keycode) {
 		switch (keycode) {
-		case Input.Keys.PLUS:
-			generateObjects(100);
-			Gdx.app.log("[DemoComplexShapes]", "N shapes " + shapes.size());
-			break;
-
-		case Input.Keys.MINUS:
-			if(shapes.size() > 100){
+			case Input.Keys.PLUS:
+				generateObjects(100);
 				Gdx.app.log("[DemoComplexShapes]", "N shapes " + shapes.size());
-				destroyObjects(100);
-			}
-			break;
+				break;
+
+			case Input.Keys.MINUS:
+				if (shapes.size() > 100) {
+					Gdx.app.log("[DemoComplexShapes]", "N shapes " + shapes.size());
+					destroyObjects(100);
+				}
+				break;
 		}
 	}
-	
+
 	@Override
 	/**
 	 * Change shape on click
@@ -170,11 +170,7 @@ public class DemoComplexShapes extends PortableApplication {
 			shape_type = type_shape.CIRCLE;
 	}
 
-	public DemoComplexShapes(boolean onAndroid) {
-		super(onAndroid);
-	}
-
-	public static void main(String[] args) {
-		new DemoComplexShapes(false);
+	private enum type_shape {
+		CIRCLE, IMAGE, RECT
 	}
 }

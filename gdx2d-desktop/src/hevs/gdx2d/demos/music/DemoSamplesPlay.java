@@ -1,21 +1,29 @@
 package hevs.gdx2d.demos.music;
 
-import static com.badlogic.gdx.graphics.Color.LIGHT_GRAY;
+import com.badlogic.gdx.Input.Keys;
 import hevs.gdx2d.components.audio.SoundSample;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
-import com.badlogic.gdx.Input.Keys;
+import static com.badlogic.gdx.graphics.Color.LIGHT_GRAY;
 
 /**
  * This demonstrates how to play short samples with GDX2d.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
 public class DemoSamplesPlay extends PortableApplication {
 
 	public SoundSample s1, s2, s3, s4;
+
+	public DemoSamplesPlay(boolean onAndroid) {
+		super(onAndroid);
+	}
+
+	public static void main(String[] args) {
+		new DemoSamplesPlay(false);
+	}
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -59,30 +67,22 @@ public class DemoSamplesPlay extends PortableApplication {
 	@Override
 	public void onKeyDown(int keycode) {
 		super.onKeyDown(keycode);
-		
-		if(keycode == Keys.NUM_1)
+
+		if (keycode == Keys.NUM_1)
 			s1.play();
-		if(keycode == Keys.NUM_2)
+		if (keycode == Keys.NUM_2)
 			s2.play();
-		if(keycode == Keys.NUM_3)
+		if (keycode == Keys.NUM_3)
 			s3.play();
-		if(keycode == Keys.NUM_4)
+		if (keycode == Keys.NUM_4)
 			s4.play();
-		
-		if(keycode == Keys.SPACE){
+
+		if (keycode == Keys.SPACE) {
 			s1.setPitch(2);
 			s2.setPitch(2);
 			s3.setPitch(2);
 			s4.setPitch(2);
 		}
-	}
-	
-	public DemoSamplesPlay(boolean onAndroid) {
-		super(onAndroid);
-	}
-
-	public static void main(String[] args) {
-		new DemoSamplesPlay(false);
 	}
 }
 

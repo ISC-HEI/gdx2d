@@ -1,29 +1,32 @@
 package hevs.gdx2d.demos.shaders.simple;
 
+import com.badlogic.gdx.Gdx;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
-
-import com.badlogic.gdx.Gdx;
 
 /**
  * A nice particle shader. Shader code taken from
  * http://glsl.heroku.com/e#13789.0
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 0.2
  */
 public class DemoShaderParticles extends PortableApplication {
 
+	private float time = 0;
+
 	public DemoShaderParticles(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String args[]) {
+		new DemoShaderParticles(false);
 	}
 
 	@Override
 	public void onInit() {
 		this.setTitle("A nice particle shader demo, mui 2013");
 	}
-
-	private float time = 0;
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -40,9 +43,5 @@ public class DemoShaderParticles extends PortableApplication {
 				"Original shader code from http://glsl.heroku.com/e#13789.0");
 		g.drawFPS();
 		g.drawSchoolLogo();
-	}
-
-	public static void main(String args[]) {
-		new DemoShaderParticles(false);
 	}
 }

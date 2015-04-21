@@ -1,40 +1,29 @@
 package hevs.gdx2d.demos.spritesheet;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import hevs.gdx2d.components.bitmaps.Spritesheet;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-
 /**
- * This demo demonstrates how to load a spritesheet 
+ * This demo demonstrates how to load a spritesheet
  * and display its content as a simple animation.
- * 
+ *
  * @author Pierre-André Mudry (mui)
- * @version 1.0 
+ * @version 1.0
  */
 public class DemoSpriteSheet extends PortableApplication {
 
-	Spritesheet ss;
-	
 	/**
 	 * The size of each sprite in the sheet
 	 */
 	final int SPRITE_WIDTH = 64;
-	final int SPRITE_HEIGHT= 64;
-
-	@Override
-	public void onInit() {
-		setTitle("SpriteSheet demo");
-
-		ss = new Spritesheet("data/images/lumberjack_sheet.png", SPRITE_WIDTH, SPRITE_HEIGHT);
-		Logger.log("Press up/down to change the current animation");
-	}
-
-	
+	final int SPRITE_HEIGHT = 64;
+	final double FRAME_TIME = 0.15; // Duration of each frime
+	Spritesheet ss;
 	/**
 	 * The currently selected sprite for animation
 	 */
@@ -45,57 +34,63 @@ public class DemoSpriteSheet extends PortableApplication {
 	 * Animation related parameters
 	 */
 	float dt = 0;
-	final double FRAME_TIME = 0.15; // Duration of each frime
 	int currentFrame = 0;
 	int nFrames = 4;
-	
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear(Color.LIGHT_GRAY);
-		g.drawFPS();
-		
-		dt += Gdx.graphics.getDeltaTime();
-		
-		// Do we have to display the next frame
-		if(dt > FRAME_TIME){
-			dt = 0;
-			currentFrame = (currentFrame + 1) % nFrames;
-		}
-
-		// Display the current image of the animation
-		g.spriteBatch.draw(ss.sprites[textureY][currentFrame],
-						this.getWindowWidth() / 2 - SPRITE_WIDTH / 2,
-						this.getWindowHeight() / 2 - SPRITE_HEIGHT / 2);
-
-		g.drawSchoolLogo();
-
-	}	
-
-	@Override
-	public void onKeyDown(int keycode) {
-		super.onKeyDown(keycode);
-
-		switch (keycode) {
-		
-		case Input.Keys.DOWN:
-			textureY = (textureY + 1) % ss.sprites.length;
-			break;
-
-		case Input.Keys.UP:
-			textureY = (textureY - 1) < 0 ? ss.sprites.length - 1 : textureY - 1;
-			break;
-		
-		default:
-			break;
-		}
-	}
-
 	public DemoSpriteSheet(boolean onAndroid) {
 		super(onAndroid);
 	}
 
 	public static void main(String args[]) {
 		new DemoSpriteSheet(false);
+	}
+
+	@Override
+	public void onInit() {
+		setTitle("SpriteSheet demo");
+
+		ss = new Spritesheet("data/images/lumberjack_sheet.png", SPRITE_WIDTH, SPRITE_HEIGHT);
+		Logger.log("Press up/down to change the current animation");
+	}
+
+	@Override
+	public void onGraphicRender(GdxGraphics g) {
+		g.clear(Color.LIGHT_GRAY);
+		g.drawFPS();
+
+		dt += Gdx.graphics.getDeltaTime();
+
+		// Do we have to display the next frame
+		if (dt > FRAME_TIME) {
+			dt = 0;
+			currentFrame = (currentFrame + 1) % nFrames;
+		}
+
+		// Display the current image of the animation
+		g.spriteBatch.draw(ss.sprites[textureY][currentFrame],
+				this.getWindowWidth() / 2 - SPRITE_WIDTH / 2,
+				this.getWindowHeight() / 2 - SPRITE_HEIGHT / 2);
+
+		g.drawSchoolLogo();
+
+	}
+
+	@Override
+	public void onKeyDown(int keycode) {
+		super.onKeyDown(keycode);
+
+		switch (keycode) {
+
+			case Input.Keys.DOWN:
+				textureY = (textureY + 1) % ss.sprites.length;
+				break;
+
+			case Input.Keys.UP:
+				textureY = (textureY - 1) < 0 ? ss.sprites.length - 1 : textureY - 1;
+				break;
+
+			default:
+				break;
+		}
 	}
 
 }

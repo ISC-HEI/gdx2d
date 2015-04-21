@@ -1,5 +1,10 @@
 package hevs.gdx2d.demos.physics.chains;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import hevs.gdx2d.components.colors.Palette;
 import hevs.gdx2d.components.physics.PhysicsChain;
 import hevs.gdx2d.lib.GdxGraphics;
@@ -10,21 +15,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-
 /**
- * <p>Demonstration of chained objects. Here the chain is the thing on which the 
+ * <p>Demonstration of chained objects. Here the chain is the thing on which the
  * balls fall.</p>
- * 
+ * <p/>
  * <p>Based on ex 5.3 from the Nature of code book</p>
- * 
- * @see <a href="http://natureofcode.com/book/chapter-5-physics-libraries/">The nature of code example</a>
+ *
  * @author Pierre-André Mudry (mui)
  * @version 1.0
+ * @see <a href="http://natureofcode.com/book/chapter-5-physics-libraries/">The nature of code example</a>
  */
 public class DemoChainPhysics extends PortableApplication {
 	final LinkedList<PhysicsBall> balls = new LinkedList<PhysicsBall>();
@@ -38,6 +37,21 @@ public class DemoChainPhysics extends PortableApplication {
 
 	float width, height;
 	boolean generate = false;
+
+	public DemoChainPhysics(boolean onAndroid) {
+		super(onAndroid);
+
+		if (onAndroid)
+			GENERATION_RATE = 3;
+	}
+
+	public DemoChainPhysics(int w, int h) {
+		super(false, w, h);
+	}
+
+	public static void main(String args[]) {
+		new DemoChainPhysics(1000, 600);
+	}
 
 	@Override
 	public void onInit() {
@@ -64,17 +78,17 @@ public class DemoChainPhysics extends PortableApplication {
 		chain.draw(g);
 
 		// Draws the balls
-		for (Iterator<PhysicsBall> iter = balls.iterator(); iter.hasNext();) {
+		for (Iterator<PhysicsBall> iter = balls.iterator(); iter.hasNext(); ) {
 			PhysicsBall ball = iter.next();
 			ball.draw(g);
-			
+
 			Vector2 p = ball.getBodyPosition();
 
 			// If a ball is not visible anymore, it should be destroyed
 			if (p.y > height || p.y < 0 || p.x > width || p.x < 0) {
 				// Mark the ball for deletion when possible
 				ball.destroy();
-				
+
 				// Remove the ball from the collection as well
 				iter.remove();
 			}
@@ -97,7 +111,7 @@ public class DemoChainPhysics extends PortableApplication {
 			}
 		}
 
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());		
+		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
 	}
 
 	@Override
@@ -135,21 +149,6 @@ public class DemoChainPhysics extends PortableApplication {
 	public void onRelease(int x, int y, int button) {
 		super.onRelease(x, y, button);
 		generate = false;
-	}
-
-	public DemoChainPhysics(boolean onAndroid) {
-		super(onAndroid);
-
-		if (onAndroid)
-			GENERATION_RATE = 3;
-	}
-
-	public DemoChainPhysics(int w, int h) {
-		super(false, w, h);
-	}
-
-	public static void main(String args[]) {
-		new DemoChainPhysics(1000, 600);
 	}
 
 }

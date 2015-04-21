@@ -1,13 +1,6 @@
 package hevs.gdx2d.lib;
 
-import hevs.gdx2d.lib.physics.PhysicsWorld;
-import hevs.gdx2d.lib.utils.Logger;
-
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,39 +9,39 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxNativesLoader;
+import hevs.gdx2d.lib.physics.PhysicsWorld;
+import hevs.gdx2d.lib.utils.Logger;
 
 /**
  * A wrapper for the {@link ApplicationListener} class provided for the INF1
  * class. Used mainly for creating a {@link LwjglApplication} in {@link PortableApplication}.
- * 
+ * <p/>
  * Links together a {@link PortableApplication}, which is the class instantiated
  * by the user and {@link GdxGraphics}. This link is made by proper calls at {@link GdxGraphics}
- * for important events such as rendering (in {@link #render()} method) or scaling (in {@link #resize(int, int)}). 
- * 
+ * for important events such as rendering (in {@link #render()} method) or scaling (in {@link #resize(int, int)}).
+ *
  * @author Pierre-André Mudry (mui)
  * @author Nils Chatton
- * @date 2013
  * @version 1.1
  */
 public class Game2D implements ApplicationListener {
-	
+
+	static public GdxGraphics g;
+
 	// Force to load native libraries (for Android Proguard)
 	// FIXME Is this really required?
 	static {
-	    GdxNativesLoader.load();
+		GdxNativesLoader.load();
 	}
-	
-	protected PortableApplication app;
-	static public GdxGraphics g;
 
 	public OrthographicCamera camera;
+	protected PortableApplication app;
 	protected ShapeRenderer shapeRenderer;
 	protected int angle;
 	protected SpriteBatch batch;
 
 	/**
 	 * Default constructor
-	 * @param app
 	 */
 	public Game2D(PortableApplication app) {
 		this.app = app;
@@ -95,7 +88,7 @@ public class Game2D implements ApplicationListener {
 
 			@Override
 			public boolean pinch(Vector2 initialPointer1,
-					Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+								 Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
 				app.onPinch(initialPointer1, initialPointer2, pointer1,
 						pointer2);
 				return false;
@@ -214,7 +207,7 @@ public class Game2D implements ApplicationListener {
 	}
 
 	/**
-	 * Called to remove all the allocated resources. 
+	 * Called to remove all the allocated resources.
 	 */
 	@Override
 	public void dispose() {

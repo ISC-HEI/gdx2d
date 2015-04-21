@@ -1,5 +1,11 @@
 package hevs.gdx2d.demos.physics.mouse_interaction;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.joints.MouseJoint;
+import com.badlogic.gdx.physics.box2d.joints.MouseJointDef;
 import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsCircle;
 import hevs.gdx2d.components.physics.PhysicsStaticBox;
@@ -12,27 +18,43 @@ import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.QueryCallback;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.joints.MouseJoint;
-import com.badlogic.gdx.physics.box2d.joints.MouseJointDef;
-
-/** 
- * A demo on how to use the mouse to move objects with box2d 
+/**
+ * A demo on how to use the mouse to move objects with box2d
+ *
  * @author Pierre-André Mudry, mui 2013
  * @version 1.1
  */
 public class DemoPhysicsMouse extends PortableApplication {
+	protected Body hitBody = null;
+	/**
+	 * ground body to connect the mouse joint to *
+	 */
+	protected Body groundBody;
+	/**
+	 * our mouse joint *
+	 */
+	protected MouseJoint mouseJoint = null;
 	World world = PhysicsWorld.getInstance();
-
 	// Contains all the objects that will be simulated
 	DebugRenderer debugRenderer;
+	/**
+	 * we instantiate this vector and the callback here so we don't irritate the
+	 * GC
+	 */
+	Vector2 testPoint = new Vector2();
+	Vector2 target = new Vector2();
+	// Called for AABB lookup
+	QueryCallback callback = new QueryCallback() {
+		@Override
+		public boolean reportFixture(Fixture fixture) {
+			// if the hit point is inside the fixture of the body we report it
+			if (fixture.testPoint(testPoint.x, testPoint.y)) {
+				hitBody = fixture.getBody();
+				return false;
+			} else
+				return true;
+		}
+	};
 
 	public DemoPhysicsMouse(boolean onAndroid) {
 		super(onAndroid);
@@ -40,6 +62,10 @@ public class DemoPhysicsMouse extends PortableApplication {
 
 	public DemoPhysicsMouse(boolean onAndroid, int w, int h) {
 		super(onAndroid, w, h);
+	}
+
+	public static void main(String[] args) {
+		new DemoPhysicsMouse(false, 800, 500);
 	}
 
 	@Override
@@ -51,16 +77,16 @@ public class DemoPhysicsMouse extends PortableApplication {
 		BodyDef bodyDef = new BodyDef();
 		groundBody = world.createBody(bodyDef);
 
-		new PhysicsScreenBoundaries(this.getWindowWidth(), this.getWindowHeight());			
-		new PhysicsStaticBox("wall in the middle", new Vector2(getWindowWidth()/2, 50), 20, 100);
-		
+		new PhysicsScreenBoundaries(this.getWindowWidth(), this.getWindowHeight());
+		new PhysicsStaticBox("wall in the middle", new Vector2(getWindowWidth() / 2, 50), 20, 100);
+
 		// Build some boxes
-		for(int i = 0; i < 10; i++){
+		for (int i = 0; i < 10; i++) {
 			Random r = new Random();
 			new PhysicsBox("box", new Vector2(100 + r.nextInt(100), 200 + r.nextInt(100)),
-							16, r.nextInt(80)+40,1000f, 0.2f, 0.2f);
+					16, r.nextInt(80) + 40, 1000f, 0.2f, 0.2f);
 		}
-		
+
 		// Build the ball
 		new PhysicsCircle("ball", new Vector2(100, 500), 20);
 
@@ -68,35 +94,20 @@ public class DemoPhysicsMouse extends PortableApplication {
 		debugRenderer.setDrawJoints(true);
 		debugRenderer.setDrawContacts(true);
 	}
-		
+
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		g.clear();
-		debugRenderer.render(world, g.getCamera().combined);			
+		debugRenderer.render(world, g.getCamera().combined);
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
-		
+
 		g.drawFPS();
 		g.drawSchoolLogoUpperRight();
-		
+
 	}
 
-	protected Body hitBody = null;
-
-	/** ground body to connect the mouse joint to **/
-	protected Body groundBody;
-
-	/** our mouse joint **/
-	protected MouseJoint mouseJoint = null;
-
-	/**
-	 * we instantiate this vector and the callback here so we don't irritate the
-	 * GC
-	 **/
-	Vector2 testPoint = new Vector2();
-	Vector2 target = new Vector2();
-
 	@Override
-	public void onDrag(int x, int y) {		
+	public void onDrag(int x, int y) {
 		// if a mouse joint exists we simply update
 		// the target of the joint based on the new
 		// mouse coordinates
@@ -111,37 +122,24 @@ public class DemoPhysicsMouse extends PortableApplication {
 		// if a mouse joint exists we simply destroy it
 		if (mouseJoint != null) {
 			world.destroyJoint(mouseJoint);
-			mouseJoint = null;	
+			mouseJoint = null;
 		}
 	}
-
-	// Called for AABB lookup
-	QueryCallback callback = new QueryCallback() {
-		@Override
-		public boolean reportFixture(Fixture fixture) {
-			// if the hit point is inside the fixture of the body we report it
-			if (fixture.testPoint(testPoint.x, testPoint.y)) {
-				hitBody = fixture.getBody();
-				return false;
-			} else
-				return true;
-		}
-	};
 
 	public void onClick(int x, int y, int button) {
 		// translate the mouse coordinates to world coordinates
 		// cam.unproject(testPoint.set(x, y, 0));
 		testPoint.x = x;
 		testPoint.y = y;
-		
+
 		testPoint.scl(PhysicsConstants.PIXEL_TO_METERS);
-		
+
 		// ask the world which bodies are within the given
 		// bounding box around the mouse pointer
 		hitBody = null;
 
-		world.QueryAABB(callback, testPoint.x - 5, testPoint.y - 5, testPoint.x + 5, testPoint.y + 5);		
-		
+		world.QueryAABB(callback, testPoint.x - 5, testPoint.y - 5, testPoint.x + 5, testPoint.y + 5);
+
 		// ignore kinematic bodies, they don't work with the mouse joint
 		if (hitBody == null || hitBody.getType() == BodyType.KinematicBody)
 			return;
@@ -167,9 +165,5 @@ public class DemoPhysicsMouse extends PortableApplication {
 	public void onDispose() {
 		super.onDispose();
 		debugRenderer.dispose();
-	}
-
-	public static void main(String[] args) {
-		new DemoPhysicsMouse(false, 800, 500);
 	}
 }

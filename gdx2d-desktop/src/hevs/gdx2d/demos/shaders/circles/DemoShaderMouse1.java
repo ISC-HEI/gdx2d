@@ -5,7 +5,7 @@ import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * Draws a simple, yet ugly, circle. This uses a shader.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 0.2
  */
@@ -15,6 +15,10 @@ public class DemoShaderMouse1 extends PortableApplication {
 
 	public DemoShaderMouse1(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String args[]) {
+		new DemoShaderMouse1(false);
 	}
 
 	@Override
@@ -36,9 +40,5 @@ public class DemoShaderMouse1 extends PortableApplication {
 		g.drawShader();
 		g.drawFPS();
 		g.drawSchoolLogo();
-	}
-
-	public static void main(String args[]) {
-		new DemoShaderMouse1(false);
 	}
 }

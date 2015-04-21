@@ -1,18 +1,17 @@
 package hevs.gdx2d.lib.gui;
 
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+import com.javaswingcomponents.accordion.JSCAccordion;
+import com.javaswingcomponents.accordion.TabOrientation;
+import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
 import hevs.gdx2d.lib.Version;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -21,41 +20,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListSelectionModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.KeyStroke;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.ToolTipManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import com.badlogic.gdx.Files.FileType;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import com.javaswingcomponents.accordion.JSCAccordion;
-import com.javaswingcomponents.accordion.TabOrientation;
-import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
-
 /**
  * A demo selector class, most of the code taken from Libgdx own demo selector.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Métrailler (mei)
  * @version 2.0.1
  */
-@SuppressWarnings({ "serial" })
+@SuppressWarnings({"serial"})
 public class DemoSelectorGUI extends JFrame {
 	public DemoSelectorGUI() throws Exception {
 		super("GDX2D demos " + Version.version + " - mui, chn, mei 2012-2014");
@@ -66,11 +38,11 @@ public class DemoSelectorGUI extends JFrame {
 
 		pack();
 		String os = System.getProperty("os.name").toLowerCase();
-		
+
 		// Under windows we can set the window size
 		// It seems to be a problem under Linux
 		// FIXME
-		if(os.contains("win")){						
+		if (os.contains("win")) {
 			setSize(500, 700);
 		}
 
@@ -94,99 +66,24 @@ public class DemoSelectorGUI extends JFrame {
 		// TODO: use preferences to select the last selected demo
 		private Preferences prefs;
 
-		class RunButton extends JButton implements ActionListener {
+		public TestList() {
+			prefs = Preferences.userRoot().node(this.getClass().getName());
+			setLayout(new BorderLayout());
+			setIcon();
+			createMenus();
+			setupAccordeon();
 
-			public RunButton() {
-				super("Run!");
-				addActionListener(this);				
-			}
+			add(accordion, BorderLayout.CENTER);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (selectedDemoName == null)
-					return; // Do nothing if no selection
+			JPanel p = new JPanel();
+			p.setBackground(new Color(0xF5F5F5));
+			p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 
-				prefs.put("last", selectedDemoName);
-
-				// Loads the class based on its name
-				try {
-					Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
-					final Constructor<?> constructor = clazz.getConstructor(boolean.class);
-					constructor.newInstance(false);
-			
-				} catch (Exception e1) {
-					System.err.println("Unable to find " + selectedDemoName);
-				}
-			}
-		}
-
-		class DemoList extends JList {
-
-			public DemoList(String[] demos) {
-				super(demos);
-
-				final Dimension commentDimension = new Dimension(400, 55);
-				paneComments.setMinimumSize(commentDimension);
-				paneComments.setMaximumSize(commentDimension);
-				paneComments.setPreferredSize(commentDimension);
-				paneComments.setText("Welcome to gdx2d.\nRunning " + Version.print());
-				paneComments.setBackground(new Color(0xF5F5F5));
-				paneComments.setEditable(false);
-				
-				DefaultListSelectionModel m = new DefaultListSelectionModel();
-				m.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				m.setLeadAnchorNotificationEnabled(false);
-				setSelectionModel(m);
-				
-				/**
-				 *  TODO Fixme, this sets the correct value but the accordion is not
-				 *  set right 
-				 */
-				selectedDemoName = prefs.get("last", "");
-				this.setSelectedValue(selectedDemoName, true);
-				
-				addListSelectionListener(new ListSelectionListener() {
-					@Override
-					public void valueChanged(ListSelectionEvent e) {
-						selectedDemoName = (String) getSelectedValue();						
-						paneComments.setText(demosMap.get(selectedDemoName).desc);
-					}
-				});
-
-				addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent event) {
-						if (event.getClickCount() == 2)
-							btRun.doClick();
-					}
-				});
-
-				// Add a Mouse Motion adapter to display a tooltip on list
-				// elements
-				addMouseMotionListener(new MouseMotionAdapter() {
-					@Override
-					public void mouseMoved(MouseEvent e) {
-						ListModel model = getModel();
-						int index = locationToIndex(e.getPoint());
-						if (index >= 0) {
-							// Display the demo description as tooltip
-							final String desc = demosMap.get(model
-									.getElementAt(index)).desc;
-							setToolTipText(null);
-							setToolTipText(desc);
-							paneComments.setText(desc);
-						}
-					}
-				});
-
-				addKeyListener(new KeyAdapter() {
-					@Override
-					public void keyPressed(KeyEvent e) {
-						if (e.getKeyCode() == KeyEvent.VK_ENTER)
-							btRun.doClick();
-					}
-				});
-			}
+			p.add(Box.createRigidArea(new Dimension(10, 0)));
+			p.add(btRun);
+			p.add(Box.createRigidArea(new Dimension(10, 0)));
+			p.add(paneComments);
+			add(p, BorderLayout.SOUTH);
 		}
 
 		private void setIcon() {
@@ -274,21 +171,6 @@ public class DemoSelectorGUI extends JFrame {
 			}
 		}
 
-		/**
-		 * Load demos and categories from an external JSON file.
-		 * 
-		 * @throws FileNotFoundException
-		 */
-		class DemoDescriptor {
-			final String clazz;
-			final String desc;
-
-			DemoDescriptor(String c, String d) {
-				desc = d;
-				clazz = c;
-			}
-		}
-
 		private void loadFromJson() throws FileNotFoundException {
 			JsonReader r = new JsonReader();
 			JsonValue demos = r.parse(getClass().getResourceAsStream(
@@ -324,24 +206,114 @@ public class DemoSelectorGUI extends JFrame {
 			}
 		}
 
-		public TestList() {				
-			prefs = Preferences.userRoot().node(this.getClass().getName());
-			setLayout(new BorderLayout());
-			setIcon();
-			createMenus();
-			setupAccordeon();
+		class RunButton extends JButton implements ActionListener {
 
-			add(accordion, BorderLayout.CENTER);
-			
-			JPanel p = new JPanel();
-			p.setBackground(new Color(0xF5F5F5));
-			p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
-			
-			p.add(Box.createRigidArea(new Dimension(10,0)));
-			p.add(btRun);
-			p.add(Box.createRigidArea(new Dimension(10,0)));
-			p.add(paneComments);
-			add(p, BorderLayout.SOUTH);
+			public RunButton() {
+				super("Run!");
+				addActionListener(this);
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (selectedDemoName == null)
+					return; // Do nothing if no selection
+
+				prefs.put("last", selectedDemoName);
+
+				// Loads the class based on its name
+				try {
+					Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
+					final Constructor<?> constructor = clazz.getConstructor(boolean.class);
+					constructor.newInstance(false);
+
+				} catch (Exception e1) {
+					System.err.println("Unable to find " + selectedDemoName);
+				}
+			}
+		}
+
+		class DemoList extends JList {
+
+			public DemoList(String[] demos) {
+				super(demos);
+
+				final Dimension commentDimension = new Dimension(400, 55);
+				paneComments.setMinimumSize(commentDimension);
+				paneComments.setMaximumSize(commentDimension);
+				paneComments.setPreferredSize(commentDimension);
+				paneComments.setText("Welcome to gdx2d.\nRunning " + Version.print());
+				paneComments.setBackground(new Color(0xF5F5F5));
+				paneComments.setEditable(false);
+
+				DefaultListSelectionModel m = new DefaultListSelectionModel();
+				m.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				m.setLeadAnchorNotificationEnabled(false);
+				setSelectionModel(m);
+
+				/**
+				 *  TODO Fixme, this sets the correct value but the accordion is not
+				 *  set right
+				 */
+				selectedDemoName = prefs.get("last", "");
+				this.setSelectedValue(selectedDemoName, true);
+
+				addListSelectionListener(new ListSelectionListener() {
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						selectedDemoName = (String) getSelectedValue();
+						paneComments.setText(demosMap.get(selectedDemoName).desc);
+					}
+				});
+
+				addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent event) {
+						if (event.getClickCount() == 2)
+							btRun.doClick();
+					}
+				});
+
+				// Add a Mouse Motion adapter to display a tooltip on list
+				// elements
+				addMouseMotionListener(new MouseMotionAdapter() {
+					@Override
+					public void mouseMoved(MouseEvent e) {
+						ListModel model = getModel();
+						int index = locationToIndex(e.getPoint());
+						if (index >= 0) {
+							// Display the demo description as tooltip
+							final String desc = demosMap.get(model
+									.getElementAt(index)).desc;
+							setToolTipText(null);
+							setToolTipText(desc);
+							paneComments.setText(desc);
+						}
+					}
+				});
+
+				addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER)
+							btRun.doClick();
+					}
+				});
+			}
+		}
+
+		/**
+		 * Load demos and categories from an external JSON file.
+		 *
+		 * @throws FileNotFoundException
+		 */
+		class DemoDescriptor {
+			final String clazz;
+			final String desc;
+
+			DemoDescriptor(String c, String d) {
+				desc = d;
+				clazz = c;
+			}
 		}
 	}
 }

@@ -6,19 +6,20 @@ import hevs.gdx2d.lib.interfaces.DrawableObject;
 
 /**
  * A simple pipe that does nothing special
+ *
  * @author Pierre-Andre Mudry (mui)
  */
 
 public class Pipe implements DrawableObject {
 
-	int posx, posy;
 	final BitmapImage img = new BitmapImage("data/images/pipe.png");
-	
-	public Pipe(int x, int y){
+	int posx, posy;
+
+	public Pipe(int x, int y) {
 		posx = x;
-		posy = y;		
+		posy = y;
 	}
-	
+
 	@Override
 	public void draw(GdxGraphics g) {
 		g.drawPicture(posx, posy, img);

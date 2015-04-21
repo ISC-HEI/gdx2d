@@ -1,5 +1,12 @@
 package hevs.gdx2d.demos.physics.joints;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.colors.Palette;
 import hevs.gdx2d.components.physics.PhysicsBox;
@@ -16,23 +23,15 @@ import hevs.gdx2d.lib.utils.Logger;
 import java.util.LinkedList;
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-
 /**
  * A box that will be used as a rotor for the demo
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
 class Rotor extends PhysicsBox implements DrawableObject {
-	private final float w, h;
 	static final BitmapImage screw = new BitmapImage("data/images/screw.png");
+	private final float w, h;
 
 	public Rotor(String name, Vector2 position, float width, float height) {
 		super(name, position, width, height);
@@ -55,29 +54,31 @@ class Rotor extends PhysicsBox implements DrawableObject {
 
 /**
  * A demo on how to use PhysicsMotor with anchor points
- * 
+ *
  * @author Pierre-André Mudry, mui
  * @version 1.3
  */
 public class DemoMixer extends PortableApplication {
+	final static Random rnd = new Random();
+	// The number of balls generated
+	final int N_PARTICLES = 100;
 	World world = PhysicsWorld.getInstance();
 	DebugRenderer debugRenderer;
 	Body box1;
 	Body box2;
 	PhysicsMotor physicMotor;
-
 	// Linked List to store all particles
 	LinkedList<CircleParticle> particles = new LinkedList<CircleParticle>();
 	Random random;
 	float width, height;
-
-	// The number of balls generated
-	final int N_PARTICLES = 100;
 	Rotor rotor;
-	final static Random rnd = new Random();
 
 	public DemoMixer(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String args[]) {
+		new DemoMixer(false);
 	}
 
 	@Override
@@ -103,7 +104,7 @@ public class DemoMixer extends PortableApplication {
 		 * Create the stator (moving) part. It is also located in the center of
 		 * the frame. It is not static, as it can rotate
 		 */
-		rotor = new Rotor("rotor", new Vector2(width / 2, height / 2), width * 0.85f, height * 0.02f );
+		rotor = new Rotor("rotor", new Vector2(width / 2, height / 2), width * 0.85f, height * 0.02f);
 		box2 = rotor.getBody();
 
 		/**
@@ -165,9 +166,5 @@ public class DemoMixer extends PortableApplication {
 		if (button == Input.Buttons.LEFT) {
 			physicMotor.enableMotor(!physicMotor.isMotorEnabled());
 		}
-	}
-
-	public static void main(String args[]) {
-		new DemoMixer(false);
 	}
 }

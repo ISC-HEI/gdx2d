@@ -8,25 +8,29 @@ import java.util.Random;
 
 /**
  * Demonstrates the use of anti-aliased circles function
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
 public class DemoAACircles extends PortableApplication {
 
-	Random r = new Random();
-
 	// The number of circles to generate
 	static final int Q = 5;
-
+	Random r = new Random();
 	// To store the various circles informations
 	int[] x = new int[Q];
 	int[] y = new int[Q];
 	int[] rad = new int[Q];
 	int[] p = new int[Q];
+	boolean done = false;
 
 	public DemoAACircles() {
 		super(false);
+	}
+
+	public static void main(String[] args) {
+		new DemoAACircles();
+
 	}
 
 	@Override
@@ -43,8 +47,6 @@ public class DemoAACircles extends PortableApplication {
 		}
 	}
 
-	boolean done = false;
-
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 
@@ -59,15 +61,10 @@ public class DemoAACircles extends PortableApplication {
 						Palette.pastel2[p[i]]);
 			}
 			done = false;
-			
+
 			g.drawFPS();
 			g.drawSchoolLogo();
 		}
-
-	}
-
-	public static void main(String[] args) {
-		new DemoAACircles();
 
 	}
 }

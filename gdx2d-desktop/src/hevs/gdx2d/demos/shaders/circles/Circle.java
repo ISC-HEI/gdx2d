@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * A simple circle class for playing with shaders
+ *
  * @author Pierre-André Mudry
  */
 class Circle {

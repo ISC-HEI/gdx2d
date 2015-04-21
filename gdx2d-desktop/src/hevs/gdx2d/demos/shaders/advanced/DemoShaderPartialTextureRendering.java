@@ -5,21 +5,26 @@ import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * Shows how to interwind shaders and normal GDX operations
+ *
  * @author Pierre-André Mudry (mui)
  * @version 0.1
  */
 public class DemoShaderPartialTextureRendering extends PortableApplication {
 
+	double t = 0;
+
 	public DemoShaderPartialTextureRendering(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String args[]) {
+		new DemoShaderPartialTextureRendering(false);
 	}
 
 	@Override
 	public void onInit() {
 		this.setTitle("Partial screen shader demo, mui 2013");
 	}
-
-	double t = 0;
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -32,9 +37,5 @@ public class DemoShaderPartialTextureRendering extends PortableApplication {
 		g.drawSchoolLogo();
 
 		t += 0.05;
-	}
-
-	public static void main(String args[]) {
-		new DemoShaderPartialTextureRendering(false);
 	}
 }

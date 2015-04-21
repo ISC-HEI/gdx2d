@@ -13,147 +13,147 @@ import hevs.gdx2d.lib.physics.PhysicsWorld;
  * @version 1.0
  */
 public class PhysicsMotor {
-    
-    // Contains the first body for physics simulation
-    Body body1;
-    // Contains the second body for physics simulation
-    Body body2;
-    // Contains the position of the anchor point between the two bodies
-    Vector2 anchorPoint;
 
-    // Contains the definition for the RevoluteJoint
-    RevoluteJointDef rjd;
-    // Contains the RevoluteJoint for the physics simulation
-    RevoluteJoint joint;
+	// Contains the first body for physics simulation
+	Body body1;
+	// Contains the second body for physics simulation
+	Body body2;
+	// Contains the position of the anchor point between the two bodies
+	Vector2 anchorPoint;
 
-    /**
-     * Constructor which defines and creates the {@link RevoluteJoint}.
-     * It also sets the desired information for the PhysicsMotor.
-     *
-     * @param body1          The first body for the joint
-     * @param body2          The second body for the joint
-     * @param anchorPoint    The point that links the two objects
-     * @param motorSpeed     The speed of the motor
-     * @param maxMotorTorque The maximum torque that the motor can exert
-     * @param motorEnable    If the motor is enabled or not
-     */
-    public PhysicsMotor(Body body1, Body body2, Vector2 anchorPoint, float motorSpeed, float maxMotorTorque, boolean motorEnable) {
-        this.body1 = body1;
-        this.body2 = body2;
-        this.anchorPoint = anchorPoint;
+	// Contains the definition for the RevoluteJoint
+	RevoluteJointDef rjd;
+	// Contains the RevoluteJoint for the physics simulation
+	RevoluteJoint joint;
 
-        rjd = new RevoluteJointDef();
-        rjd.initialize(this.body1, this.body2, anchorPoint);
+	/**
+	 * Constructor which defines and creates the {@link RevoluteJoint}.
+	 * It also sets the desired information for the PhysicsMotor.
+	 *
+	 * @param body1          The first body for the joint
+	 * @param body2          The second body for the joint
+	 * @param anchorPoint    The point that links the two objects
+	 * @param motorSpeed     The speed of the motor
+	 * @param maxMotorTorque The maximum torque that the motor can exert
+	 * @param motorEnable    If the motor is enabled or not
+	 */
+	public PhysicsMotor(Body body1, Body body2, Vector2 anchorPoint, float motorSpeed, float maxMotorTorque, boolean motorEnable) {
+		this.body1 = body1;
+		this.body2 = body2;
+		this.anchorPoint = anchorPoint;
 
-        rjd.motorSpeed = motorSpeed;
-        rjd.maxMotorTorque = maxMotorTorque;
-        rjd.enableMotor = motorEnable;
+		rjd = new RevoluteJointDef();
+		rjd.initialize(this.body1, this.body2, anchorPoint);
 
-        joint = (RevoluteJoint) PhysicsWorld.getInstance().createJoint(rjd);
-    }
+		rjd.motorSpeed = motorSpeed;
+		rjd.maxMotorTorque = maxMotorTorque;
+		rjd.enableMotor = motorEnable;
 
-    /**
-     * Another constructor which defines and creates the RevoluteJoint. It also sets all information for the PhysicsMotor to 0 and false.
-     * See {@link #PhysicsMotor(Body, Body, Vector2, float, float, boolean)}
-     *
-     * @param body1       The first body for the joint
-     * @param body2       The second body for the joint
-     * @param anchorPoint The point that links the two objects
-     */
-    public PhysicsMotor(Body body1, Body body2, Vector2 anchorPoint) {
-        this.body1 = body1;
-        this.body2 = body2;
-        this.anchorPoint = anchorPoint;
+		joint = (RevoluteJoint) PhysicsWorld.getInstance().createJoint(rjd);
+	}
 
-        rjd = new RevoluteJointDef();
-        rjd.initialize(this.body1, this.body2, anchorPoint);
+	/**
+	 * Another constructor which defines and creates the RevoluteJoint. It also sets all information for the PhysicsMotor to 0 and false.
+	 * See {@link #PhysicsMotor(Body, Body, Vector2, float, float, boolean)}
+	 *
+	 * @param body1       The first body for the joint
+	 * @param body2       The second body for the joint
+	 * @param anchorPoint The point that links the two objects
+	 */
+	public PhysicsMotor(Body body1, Body body2, Vector2 anchorPoint) {
+		this.body1 = body1;
+		this.body2 = body2;
+		this.anchorPoint = anchorPoint;
 
-        rjd.motorSpeed = 0;
-        rjd.maxMotorTorque = 0;
-        rjd.enableMotor = false;
+		rjd = new RevoluteJointDef();
+		rjd.initialize(this.body1, this.body2, anchorPoint);
 
-        joint = (RevoluteJoint) PhysicsWorld.getInstance().createJoint(rjd);
-    }
+		rjd.motorSpeed = 0;
+		rjd.maxMotorTorque = 0;
+		rjd.enableMotor = false;
 
-    public void enableLimit(boolean flag) {
-        joint.enableLimit(flag);
-    }
+		joint = (RevoluteJoint) PhysicsWorld.getInstance().createJoint(rjd);
+	}
 
-    public void enableMotor(boolean flag) {
-        joint.enableMotor(flag);
-    }
+	public void enableLimit(boolean flag) {
+		joint.enableLimit(flag);
+	}
 
-    public float getAngle() {
-        return joint.getJointAngle();
-    }
+	public void enableMotor(boolean flag) {
+		joint.enableMotor(flag);
+	}
 
-    public float getSpeed() {
-        return joint.getJointSpeed();
-    }
+	public float getAngle() {
+		return joint.getJointAngle();
+	}
 
-    public Vector2 getLocalAnchorA() {
-        return joint.getAnchorA();
-    }
+	public float getSpeed() {
+		return joint.getJointSpeed();
+	}
 
-    public Vector2 getLocalAnchorB() {
-        return joint.getAnchorB();
-    }
+	public Vector2 getLocalAnchorA() {
+		return joint.getAnchorA();
+	}
 
-    public float getLowerLimit() {
-        return joint.getLowerLimit();
-    }
+	public Vector2 getLocalAnchorB() {
+		return joint.getAnchorB();
+	}
 
-    public float getMotorSpeed() {
-        return joint.getMotorSpeed();
-    }
+	public float getLowerLimit() {
+		return joint.getLowerLimit();
+	}
 
-    public float getMaxMotortorque(float invDt) {
-        return joint.getMotorTorque(invDt);
-    }
+	public float getMotorSpeed() {
+		return joint.getMotorSpeed();
+	}
 
-    public float getUpperLimit() {
-        return joint.getUpperLimit();
-    }
+	public float getMaxMotortorque(float invDt) {
+		return joint.getMotorTorque(invDt);
+	}
 
-    public boolean isLimitEnabled() {
-        return joint.isLimitEnabled();
-    }
+	public float getUpperLimit() {
+		return joint.getUpperLimit();
+	}
 
-    public boolean isMotorEnabled() {
-        return joint.isMotorEnabled();
-    }
+	public boolean isLimitEnabled() {
+		return joint.isLimitEnabled();
+	}
 
-    public void setLowerLimit(float lower) {
-        joint.setLimits(lower, joint.getUpperLimit());
-    }
+	public boolean isMotorEnabled() {
+		return joint.isMotorEnabled();
+	}
 
-    public void setUpperLimit(float upper) {
-        joint.setLimits(joint.getLowerLimit(), upper);
-    }
+	public void setLowerLimit(float lower) {
+		joint.setLimits(lower, joint.getUpperLimit());
+	}
 
-    public void setLimits(float lower, float upper) {
-        joint.setLimits(lower, upper);
-    }
+	public void setUpperLimit(float upper) {
+		joint.setLimits(joint.getLowerLimit(), upper);
+	}
 
-    public void setMaxMotorTorque(float torque) {
-        joint.setMaxMotorTorque(torque);
-    }
+	public void setLimits(float lower, float upper) {
+		joint.setLimits(lower, upper);
+	}
 
-    public void setMotorSpeed(float speed) {
-        joint.setMotorSpeed(speed);
-    }
+	public void setMaxMotorTorque(float torque) {
+		joint.setMaxMotorTorque(torque);
+	}
 
-    /**
-     * Initialize the motor with the desired parameters.
-     * This is applicable for every instance of {@link PhysicsMotor}.
-     *
-     * @param speed  The new speed for the joint motor
-     * @param torque The new torque value for the joint motor
-     * @param enable The new state for the joint motor
-     */
-    public void initializeMotor(float speed, float torque, boolean enable) {
-        joint.setMotorSpeed(speed);
-        joint.setMaxMotorTorque(torque);
-        joint.enableMotor(enable);
-    }
+	public void setMotorSpeed(float speed) {
+		joint.setMotorSpeed(speed);
+	}
+
+	/**
+	 * Initialize the motor with the desired parameters.
+	 * This is applicable for every instance of {@link PhysicsMotor}.
+	 *
+	 * @param speed  The new speed for the joint motor
+	 * @param torque The new torque value for the joint motor
+	 * @param enable The new state for the joint motor
+	 */
+	public void initializeMotor(float speed, float torque, boolean enable) {
+		joint.setMotorSpeed(speed);
+		joint.setMaxMotorTorque(torque);
+		joint.enableMotor(enable);
+	}
 }

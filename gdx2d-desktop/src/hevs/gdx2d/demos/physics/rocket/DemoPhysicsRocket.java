@@ -1,5 +1,9 @@
 package hevs.gdx2d.demos.physics.rocket;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
@@ -7,17 +11,12 @@ import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 import hevs.gdx2d.lib.utils.Logger;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-
 /**
  * Control a spaceship with your keyboard.
- * 
+ * <p/>
  * Demonstrate how to apply forces to physics objects and how to draw images
  * (textures) for them.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Métrailler (mei)
  * @version 1.1
@@ -33,6 +32,10 @@ public class DemoPhysicsRocket extends PortableApplication {
 
 	public DemoPhysicsRocket(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String[] args) {
+		new DemoPhysicsRocket(false);
 	}
 
 	@Override
@@ -67,17 +70,17 @@ public class DemoPhysicsRocket extends PortableApplication {
 	@Override
 	public void onKeyUp(int keycode) {
 		switch (keycode) {
-		case Input.Keys.LEFT:
-			ship.thrustLeft = false;
-			break;
-		case Input.Keys.RIGHT:
-			ship.thrustRight = false;
-			break;
-		case Input.Keys.UP:
-			ship.thrustUp = 0;
-			break;
-		default:
-			break;
+			case Input.Keys.LEFT:
+				ship.thrustLeft = false;
+				break;
+			case Input.Keys.RIGHT:
+				ship.thrustRight = false;
+				break;
+			case Input.Keys.UP:
+				ship.thrustUp = 0;
+				break;
+			default:
+				break;
 		}
 
 	}
@@ -85,21 +88,17 @@ public class DemoPhysicsRocket extends PortableApplication {
 	@Override
 	public void onKeyDown(int keycode) {
 		switch (keycode) {
-		case Input.Keys.LEFT:
-			ship.thrustLeft = true;
-			break;
-		case Input.Keys.RIGHT:
-			ship.thrustRight = true;
-			break;
-		case Input.Keys.UP:
-			ship.thrustUp = Spaceship.MAX_THRUST;
-			break;
-		default:
-			break;
+			case Input.Keys.LEFT:
+				ship.thrustLeft = true;
+				break;
+			case Input.Keys.RIGHT:
+				ship.thrustRight = true;
+				break;
+			case Input.Keys.UP:
+				ship.thrustUp = Spaceship.MAX_THRUST;
+				break;
+			default:
+				break;
 		}
-	}
-
-	public static void main(String[] args) {
-		new DemoPhysicsRocket(false);
 	}
 }

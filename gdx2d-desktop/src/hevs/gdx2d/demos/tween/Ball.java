@@ -6,14 +6,14 @@ import hevs.gdx2d.lib.interfaces.DrawableObject;
 
 /**
  * A simple ball object
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Metrailler (mei)
  * @version 1.2
  */
 public class Ball implements DrawableObject {
-	public float posx, posy;
 	final BitmapImage img = new BitmapImage("data/images/soccer.png");
+	public float posx, posy;
 
 	public Ball(float x, float y) {
 		posx = x;
@@ -24,8 +24,8 @@ public class Ball implements DrawableObject {
 	public void draw(GdxGraphics g) {
 		draw(g, 1.0f);
 	}
-		
-	public void draw(GdxGraphics g, float scale){
+
+	public void draw(GdxGraphics g, float scale) {
 		g.drawTransformedPicture(posx, posy, 0, scale, img);
 	}
 }

@@ -1,34 +1,36 @@
 package hevs.gdx2d.demos.fonts;
 
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import hevs.gdx2d.lib.GdxGraphics;
+import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * A demo that shows how to generate different fonts and hot to display texts
  * with different alignments.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Métrailler (mei)
  * @version 1.1
  */
 public class DemoFontGeneration extends PortableApplication {
+	private final static String LOREM = "Lorem ipsum dolor sit amet,\n" +
+			"consectetur adipiscing elit.\n" +
+			"In laoreet libero sit amet\n" +
+			"sollicitudin vestibulum.\n" +
+			"Roboto size 15 (default)";
 	private BitmapFont optimus60, optimus40, timeless40, starjedi40, icepixel40;
 
-	private final static String LOREM =	"Lorem ipsum dolor sit amet,\n" + 
-			 							"consectetur adipiscing elit.\n" + 
-			 							"In laoreet libero sit amet\n" +
-			 							"sollicitudin vestibulum.\n" + 
-			 							"Roboto size 15 (default)";
-	
 	public DemoFontGeneration(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String[] args) {
+		new DemoFontGeneration(false);
 	}
 
 	@Override
@@ -71,7 +73,7 @@ public class DemoFontGeneration extends PortableApplication {
 		final float h = g.getScreenHeight();
 		final float y = h / 7.0f;
 		final float w = g.getScreenWidth();
-		
+
 		g.clear();
 
 		/**
@@ -84,7 +86,7 @@ public class DemoFontGeneration extends PortableApplication {
 		g.drawStringCentered(y / 2 + y * 2, "Optimus size 60", optimus60);
 		g.setColor(Color.MAGENTA);
 		g.drawStringCentered(y / 2 + y * 1, LOREM);
-		
+
 		/**
 		 * Display fonts left, right and center aligned.
 		 */
@@ -102,9 +104,5 @@ public class DemoFontGeneration extends PortableApplication {
 		timeless40.dispose();
 		starjedi40.dispose();
 		icepixel40.dispose();
-	}
-
-	public static void main(String[] args) {
-		new DemoFontGeneration(false);
 	}
 }

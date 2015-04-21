@@ -1,5 +1,7 @@
 package hevs.gdx2d.demos.physics.collisions;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import hevs.gdx2d.components.colors.ColorUtils;
 import hevs.gdx2d.components.physics.PhysicsCircle;
 import hevs.gdx2d.lib.GdxGraphics;
@@ -7,12 +9,9 @@ import hevs.gdx2d.lib.interfaces.DrawableObject;
 import hevs.gdx2d.lib.physics.AbstractPhysicsObject;
 import hevs.gdx2d.lib.utils.Logger;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
-
 /**
  * Demonstrates how to implements collisions detection with box2d
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 1.1
  */

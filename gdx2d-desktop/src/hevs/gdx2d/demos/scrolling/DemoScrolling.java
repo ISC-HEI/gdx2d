@@ -1,10 +1,8 @@
 package hevs.gdx2d.demos.scrolling;
 
-import hevs.gdx2d.demos.scrolling.objects.Brick;
-import hevs.gdx2d.demos.scrolling.objects.Cloud;
-import hevs.gdx2d.demos.scrolling.objects.Coin;
-import hevs.gdx2d.demos.scrolling.objects.Pipe;
-import hevs.gdx2d.demos.scrolling.objects.Sky;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import hevs.gdx2d.demos.scrolling.objects.*;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.interfaces.DrawableObject;
@@ -12,17 +10,14 @@ import hevs.gdx2d.lib.utils.Logger;
 
 import java.util.Vector;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-
 /**
  * Demonstrates how to scroll and zoom on a scene. Also demonstrates how to
  * delegate render to other objects through the {@link DrawableObject}
  * interface.
- * 
+ * <p/>
  * For some reason, running in windowed mode displays stuttering problems. Image
  * stuttering can be removed by playing the demo full screen.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 1.04
  */
@@ -32,6 +27,8 @@ public class DemoScrolling extends PortableApplication {
 
 	// Default zoom factor
 	double zoom = 1.0;
+	float travelSpeed = 2f;
+	boolean scrolling = true;
 
 	// Displays the demo in full-screen using the display's native resolution
 	public DemoScrolling() {
@@ -41,6 +38,10 @@ public class DemoScrolling extends PortableApplication {
 	// Create a default-sized application
 	public DemoScrolling(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String[] args) {
+		new DemoScrolling(false);
 	}
 
 	public void onInit() {
@@ -69,11 +70,8 @@ public class DemoScrolling extends PortableApplication {
 		toDraw.add(new Cloud(250, 600));
 		toDraw.add(new Cloud(450, 250));
 		toDraw.add(new Cloud(700, 350));
-		toDraw.add(new Cloud(1000, 370));		
-	};
-
-	float travelSpeed = 2f;
-	boolean scrolling = true;
+		toDraw.add(new Cloud(1000, 370));
+	}
 
 	@Override
 	public void onClick(int x, int y, int button) {
@@ -98,8 +96,8 @@ public class DemoScrolling extends PortableApplication {
 		// We scroll only if the camera is not too big
 		if (scrolling && g.getCamera().viewportWidth < 600) {
 			// If we've reached one of the borders, change the speed's direction
-			if (g.getCamera().position.x > 600 || g.getCamera().position.x < 200){				
-					travelSpeed *= -1;
+			if (g.getCamera().position.x > 600 || g.getCamera().position.x < 200) {
+				travelSpeed *= -1;
 			}
 
 			// Travel the camera left-right
@@ -114,9 +112,5 @@ public class DemoScrolling extends PortableApplication {
 
 		g.drawSchoolLogoUpperRight();
 		g.drawFPS();
-	}
-
-	public static void main(String[] args) {
-		new DemoScrolling(false);
 	}
 }

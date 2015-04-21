@@ -1,5 +1,9 @@
 package hevs.gdx2d.demos.physics.collisions;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
@@ -8,26 +12,27 @@ import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 import java.util.LinkedList;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-
 /**
  * Simple collision handling in box2d
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 1.1
  */
 public class DemoCollisionListener extends PortableApplication {
+	final LinkedList<BumpyBall> otherBalls = new LinkedList<BumpyBall>();
 	World world = PhysicsWorld.getInstance();
 	DebugRenderer dbgRenderer;
-
 	int time = 0;
 	boolean generate = false;
-
 	BumpyBall b1, b2, b3, b4;
-	final LinkedList<BumpyBall> otherBalls = new LinkedList<BumpyBall>();
+
+	public DemoCollisionListener(boolean onAndroid) {
+		super(onAndroid);
+	}
+
+	public static void main(String args[]) {
+		new DemoCollisionListener(false);
+	}
 
 	@Override
 	public void onInit() {
@@ -41,7 +46,7 @@ public class DemoCollisionListener extends PortableApplication {
 
 		// Indicate that the ball should be informed for collisions
 		b1.enableCollisionListener();
-	};
+	}
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -62,7 +67,7 @@ public class DemoCollisionListener extends PortableApplication {
 		for (BumpyBall b : otherBalls) {
 			b.draw(g);
 		}
-		
+
 		// Add balls from time to time
 		if (time == 100) {
 			b2 = new BumpyBall("ball 2", new Vector2(105, 300), 40);
@@ -86,21 +91,13 @@ public class DemoCollisionListener extends PortableApplication {
 		time++;
 	}
 
-	public DemoCollisionListener(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	@Override
 	public void onClick(int x, int y, int button) {
 		super.onClick(x, y, button);
-		if (button == Input.Buttons.LEFT){
+		if (button == Input.Buttons.LEFT) {
 			BumpyBall newBall = new BumpyBall("a ball", new Vector2(x, y), 50);
 			newBall.enableCollisionListener();
 			otherBalls.add(newBall);
 		}
-	}
-
-	public static void main(String args[]) {
-		new DemoCollisionListener(false);
 	}
 }

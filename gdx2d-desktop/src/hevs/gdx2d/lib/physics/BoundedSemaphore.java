@@ -2,7 +2,7 @@ package hevs.gdx2d.lib.physics;
 
 /**
  * A semaphore for synchronizing physics stuff, if required
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */

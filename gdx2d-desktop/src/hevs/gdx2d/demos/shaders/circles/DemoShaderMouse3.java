@@ -1,24 +1,28 @@
 package hevs.gdx2d.demos.shaders.circles;
 
+import com.badlogic.gdx.Gdx;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
 
-import com.badlogic.gdx.Gdx;
-
 /**
- * A circle that moves with the mouse, giggles and 
+ * A circle that moves with the mouse, giggles and
  * has a nice color.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @version 0.3
  */
 public class DemoShaderMouse3 extends PortableApplication {
 
 	Circle c;
+	float time = 0;
 
 	public DemoShaderMouse3(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String args[]) {
+		new DemoShaderMouse3(false);
 	}
 
 	@Override
@@ -27,8 +31,6 @@ public class DemoShaderMouse3 extends PortableApplication {
 		c = new Circle(this.getWindowWidth() / 2, this.getWindowHeight() / 2);
 		Logger.log("Press mouse anywhere to move the circle to that location");
 	}
-	
-	float time = 0;
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -43,7 +45,7 @@ public class DemoShaderMouse3 extends PortableApplication {
 		// Pass the mouse position to the shader, always
 		g.getShaderRenderer().setUniform("mouse", c.pos);
 		time += Gdx.graphics.getDeltaTime();
-		
+
 		g.drawShader(time);
 		g.drawFPS();
 		g.drawSchoolLogo();
@@ -51,17 +53,13 @@ public class DemoShaderMouse3 extends PortableApplication {
 
 	@Override
 	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);			
-		c = new Circle(x,y);
+		super.onClick(x, y, button);
+		c = new Circle(x, y);
 	}
 
 	@Override
 	public void onDrag(int x, int y) {
 		super.onDrag(x, y);
 		c = new Circle(x, y);
-	}
-
-	public static void main(String args[]) {
-		new DemoShaderMouse3(false);
 	}
 }

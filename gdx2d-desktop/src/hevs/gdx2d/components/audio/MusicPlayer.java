@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /**
  * A class to stream music without loading it within gdx2d.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Metrailler (mei)
  * @version 1.2
@@ -21,9 +21,8 @@ public class MusicPlayer implements Disposable {
 
 	/**
 	 * Constructor
-	 * 
-	 * @param file
-	 *            The file to be played, using internal path representation
+	 *
+	 * @param file The file to be played, using internal path representation
 	 */
 	public MusicPlayer(String file) {
 		try {
@@ -40,9 +39,8 @@ public class MusicPlayer implements Disposable {
 
 	/**
 	 * Changes volume of the song played
-	 * 
-	 * @param v
-	 *            Should be between 0 and 1
+	 *
+	 * @param v Should be between 0 and 1
 	 */
 	public void setVolume(float v) {
 		if (v > 1.0f || v < 0.0f) {
@@ -68,18 +66,14 @@ public class MusicPlayer implements Disposable {
 	}
 
 	/**
-	 * True if the music is playing, also see
-	 * 
-	 * @return
+	 * @return True if the music is playing
 	 */
 	public boolean isPlaying() {
 		return s.isPlaying();
 	}
 
 	/**
-	 * True if the music is playing, also see
-	 * 
-	 * @return
+	 * @return True if the music is currently looping (aka playing repeatedly)
 	 */
 	public boolean isLooping() {
 		return s.isLooping();

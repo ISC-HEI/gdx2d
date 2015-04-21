@@ -1,15 +1,14 @@
 package hevs.gdx2d.demos.simple;
 
-import hevs.gdx2d.components.colors.ColorUtils;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.utils.Logger;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
+import hevs.gdx2d.components.colors.ColorUtils;
+import hevs.gdx2d.lib.GdxGraphics;
+import hevs.gdx2d.lib.PortableApplication;
+import hevs.gdx2d.lib.utils.Logger;
 
 /**
  * Compute a Julia fractal (Julia set).
@@ -28,16 +27,14 @@ public class DemoJuliaFractal extends PortableApplication {
 
 	/* Fractal parameters to be tuned */
 	private final static int IMAGE_SIZE = 512; // create a N-by-N image (power of two)
+	/* Used for pixels operations */
+	private final static Color BCK_COLOR = new Color(0.0f, 0, 0.2f, 1.0f);
 	private static int MAX_ITER = 115; // Stop after max iteration for a pixel
 	private static float SCALE = 1 / 2f; // Scale factor for the fractal
-
 	// Base fractal coefficients
 	private static float C1_START = -0.55f;
 	private static float C2_START = 0.65f;
 	private static float C1 = C1_START, C2 = C2_START;
-
-	/* Used for pixels operations */
-	private final static Color BCK_COLOR = new Color(0.0f, 0, 0.2f, 1.0f);
 	private Pixmap pixmap = new Pixmap(IMAGE_SIZE, IMAGE_SIZE, Format.RGBA8888);
 	private Texture currentTexture;
 	private boolean isFractalGenerated = false;
@@ -51,6 +48,39 @@ public class DemoJuliaFractal extends PortableApplication {
 			Logger.error("This demo only works on desktop! Exiting");
 			Gdx.app.exit(); // For now too slow on Android
 		}
+	}
+
+	// Julia fractal on each pixels
+	private static void workPixel(int i, int j, Pixmap pixmap) {
+		// Convert to mathematical coordinates with a custom scale
+		final float x = i * SCALE * 2 / (float) IMAGE_SIZE - 1 * SCALE;
+		final float y = j * SCALE * 2 / (float) IMAGE_SIZE - 1 * SCALE;
+
+		int k = 0;
+		float a = x, b = y;
+
+		// Julia algorithm with a max upper bound
+		while (k < MAX_ITER && (a * a + b * b) < 4) {
+			float aCopy = a;
+			a = (a * a - b * b) + C1;
+			b = 2 * aCopy * b + C2;
+			k++;
+		}
+
+		// Draw the current pixel
+		if (k == MAX_ITER)
+			// Draw red pixels when max iteration is reached
+			pixmap.drawPixel(i, j, Color.rgba8888(1.0f, 0, 0, 1.0f));
+		else {
+			// Use HSV to have a better color contrast
+			final Color color = ColorUtils.hsvToColor(k / ((float) MAX_ITER), 1.0f, 1.0f);
+			pixmap.drawPixel(i, j, color.toIntBits()); // Convert to ABGR to draw
+		}
+	}
+
+	// Java main for the desktop demonstration
+	public static void main(String args[]) {
+		new DemoJuliaFractal(false);
 	}
 
 	@Override
@@ -103,38 +133,5 @@ public class DemoJuliaFractal extends PortableApplication {
 	@Override
 	public void onDispose() {
 		pixmap.dispose();
-	}
-
-	// Julia fractal on each pixels
-	private static void workPixel(int i, int j, Pixmap pixmap) {
-		// Convert to mathematical coordinates with a custom scale
-		final float x = i * SCALE * 2 / (float) IMAGE_SIZE - 1 * SCALE;
-		final float y = j * SCALE * 2 / (float) IMAGE_SIZE - 1 * SCALE;
-
-		int k = 0;
-		float a = x, b = y;
-
-		// Julia algorithm with a max upper bound
-		while (k < MAX_ITER && (a * a + b * b) < 4) {
-			float aCopy = a;
-			a = (a * a - b * b) + C1;
-			b = 2 * aCopy * b + C2;
-			k++;
-		}
-
-		// Draw the current pixel
-		if (k == MAX_ITER)
-			// Draw red pixels when max iteration is reached
-			pixmap.drawPixel(i, j, Color.rgba8888(1.0f, 0, 0, 1.0f));
-		else {
-			// Use HSV to have a better color contrast
-			final Color color = ColorUtils.hsvToColor(k / ((float) MAX_ITER), 1.0f, 1.0f);
-			pixmap.drawPixel(i, j, color.toIntBits()); // Convert to ABGR to draw
-		}
-	}
-
-	// Java main for the desktop demonstration
-	public static void main(String args[]) {
-		new DemoJuliaFractal(false);
 	}
 }

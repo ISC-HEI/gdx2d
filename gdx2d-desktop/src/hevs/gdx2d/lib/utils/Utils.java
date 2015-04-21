@@ -4,24 +4,22 @@ import com.badlogic.gdx.Gdx;
 
 /**
  * Various utils for checking things
- * 
+ *
  * @author Nils Chatton (chn)
- * @date 2013
  * @version 1.0
  */
 public class Utils {
 
 	/**
 	 * Checks that gdx is correctly loaded.
-	 * 
+	 * <p/>
 	 * BitmapImage, DebugRenderer, MusicPlayer etc. cannot be created until Gdx
 	 * is not loaded.
-	 * 
-	 * @param msg
-	 *            The message to log if not loaded
+	 *
+	 * @param msg The message to log if not loaded
 	 */
 	public static void assertGdxLoaded(String msg) {
-		if(Gdx.graphics.getGL20() == null) {
+		if (Gdx.graphics.getGL20() == null) {
 			Logger.error(msg);
 			Gdx.app.exit();
 			throw new UnsupportedOperationException(msg);
@@ -29,10 +27,10 @@ public class Utils {
 	}
 
 	/**
-	 * Checks that a method is called only in a given method
-	 * 
-	 * @param className
-	 * @param method
+	 * Checks that a method is called only in a given class
+	 *
+	 * @param className The name of the class the method belongs to
+	 * @param method The method name that should be contained
 	 */
 	public static void callCheck(String className, String method) {
 		boolean callFromWrongLocation = true;

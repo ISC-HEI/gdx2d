@@ -1,17 +1,16 @@
 package hevs.gdx2d.demos.music;
 
+import com.badlogic.gdx.graphics.Color;
 import hevs.gdx2d.components.audio.MusicPlayer;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.interfaces.AndroidResolver;
 
-import com.badlogic.gdx.graphics.Color;
-
 /**
  * Shows how to play music in the framework
- * 
+ * <p/>
  * TODO: add short sample play to demonstrate the difference
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Metrailler (mei)
  * @version 1.2
@@ -19,6 +18,14 @@ import com.badlogic.gdx.graphics.Color;
 public class DemoMusicPlay extends PortableApplication {
 
 	private MusicPlayer f;
+
+	public DemoMusicPlay(boolean onAndroid) {
+		super(onAndroid);
+	}
+
+	public static void main(String[] args) {
+		new DemoMusicPlay(false);
+	}
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -72,13 +79,5 @@ public class DemoMusicPlay extends PortableApplication {
 			getAndroidResolver()
 					.showToast(sToast, AndroidResolver.LENGTH_SHORT);
 		}
-	}
-
-	public DemoMusicPlay(boolean onAndroid) {
-		super(onAndroid);
-	}
-
-	public static void main(String[] args) {
-		new DemoMusicPlay(false);
 	}
 }

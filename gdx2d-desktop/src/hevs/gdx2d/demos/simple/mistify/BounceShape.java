@@ -1,34 +1,44 @@
 package hevs.gdx2d.demos.simple.mistify;
 
+import com.badlogic.gdx.graphics.Color;
 import hevs.gdx2d.lib.GdxGraphics;
 
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.Color;
-
 /**
  * A classical Mistify screen saver clone.
- * 
+ * <p/>
  * Code adapted from http://r3dux.org/2010/11/mystify-2-0/
- * 
+ *
  * @author Pierre-André Mudry
  * @version 1.0
  */
 public class BounceShape {
 	private static final Random r = new Random();
-
-	private double[] x = new double[4];
-	private double[] y = new double[4];
-
-	private double[] xSpeed = new double[4];
-	private double[] ySpeed = new double[4];
-
-	private Color c;
-	private Color targetC;
-
 	private final double colourChangeSpeed = 0.001;
 	private final double xSpeedMultiplier = 6, ySpeedMultiplier = 6;
 	private final double xSpeedAdder = 1, ySpeedAdder = 1;
+	private double[] x = new double[4];
+	private double[] y = new double[4];
+	private double[] xSpeed = new double[4];
+	private double[] ySpeed = new double[4];
+	private Color c;
+	private Color targetC;
+
+	public BounceShape(int width, int height) {
+		// Initialise the x/y and xSpeeds/ySpeeds
+		for (int loop = 0; loop < 4; loop++) {
+			x[loop] = r.nextInt(width);
+			y[loop] = r.nextInt(height);
+
+			xSpeed[loop] = r.nextDouble() * xSpeedMultiplier;
+			ySpeed[loop] = r.nextDouble() * ySpeedMultiplier;
+		}
+
+		// Pick a random colour for the current colour and target colour
+		c = pickColour();
+		targetC = pickColour();
+	}
 
 	void drawShape(GdxGraphics g) {
 		g.setColor(c);
@@ -96,20 +106,5 @@ public class BounceShape {
 			c.b += colourChangeSpeed;
 		if (c.b > targetC.b)
 			c.b -= colourChangeSpeed;
-	}
-
-	public BounceShape(int width, int height) {
-		// Initialise the x/y and xSpeeds/ySpeeds
-		for (int loop = 0; loop < 4; loop++) {
-			x[loop] = r.nextInt(width);
-			y[loop] = r.nextInt(height);
-
-			xSpeed[loop] = r.nextDouble() * xSpeedMultiplier;
-			ySpeed[loop] = r.nextDouble() * ySpeedMultiplier;
-		}
-
-		// Pick a random colour for the current colour and target colour
-		c = pickColour();
-		targetC = pickColour();
 	}
 }

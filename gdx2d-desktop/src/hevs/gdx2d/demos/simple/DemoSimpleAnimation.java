@@ -1,9 +1,9 @@
 package hevs.gdx2d.demos.simple;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
-import com.badlogic.gdx.graphics.Color;
 
 /**
  * A very simple demonstration on how to display something animated with the
@@ -18,6 +18,15 @@ public class DemoSimpleAnimation extends PortableApplication {
 
 	public DemoSimpleAnimation(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String[] args) {
+		/**
+		 * Note that the constructor parameter is used to determine if running
+		 * on Android or not. As we are in main there, it means we are on
+		 * desktop computer.
+		 */
+		new DemoSimpleAnimation(false);
 	}
 
 	@Override
@@ -51,15 +60,6 @@ public class DemoSimpleAnimation extends PortableApplication {
 	public void onClick(int x, int y, int button) {
 		if (onAndroid)
 			getAndroidResolver().showAboutBox();
-	}
-
-	public static void main(String[] args) {
-		/**
-		 * Note that the constructor parameter is used to determine if running
-		 * on Android or not. As we are in main there, it means we are on
-		 * desktop computer.
-		 */
-		new DemoSimpleAnimation(false);
 	}
 
 }

@@ -25,297 +25,295 @@ import java.awt.*;
  */
 public abstract class PortableApplication implements TouchInterface, KeyboardInterface, GameInterface, GestureInterface {
 
-    // Default window dimensions
-    private static final int DEFAULT_HEIGHT = 500;
-    private static final int DEFAULT_WIDTH = 500;
+	// Default window dimensions
+	private static final int DEFAULT_HEIGHT = 500;
+	private static final int DEFAULT_WIDTH = 500;
 
-    /**
-     * {@code true} if the application is running on Android or {@code false} if running on desktop.
-     */
-    protected boolean onAndroid;
+	/**
+	 * {@code true} if the application is running on Android or {@code false} if running on desktop.
+	 */
+	protected boolean onAndroid;
 
-    private AndroidResolver resolver = null;
+	private AndroidResolver resolver = null;
 
-    /**
-     * Change the title of the application window (works only on desktop).
-     * This method has no effect (ignored) when running on Android.
-     *
-     * @param title the application title
-     */
-    public void setTitle(String title) {
-        if (Gdx.app.getType() == ApplicationType.Android)
-            Logger.error("Title cannot be set on Android.");
+	/**
+	 * Create a full-screen {@code gdx2d} desktop application.
+	 *
+	 * @param useNativeResolution Indicates if the application should be launched full screen or
+	 *                            using the default resolution
+	 * @param width               The width of the screen
+	 * @param height              The height of the screen
+	 */
+	public PortableApplication(int width, int height, boolean useNativeResolution) {
+		onAndroid = false;
 
-        Gdx.graphics.setTitle(title);
-    }
+		if (useNativeResolution) {
+			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			width = gd.getDisplayMode().getWidth();
+			height = gd.getDisplayMode().getHeight();
+		}
 
-    /**
-     * Rendering surface information
-     *
-     * @return The height of the display surface (window)
-     */
-    public int getWindowHeight() {
-        return Gdx.graphics.getHeight();
-    }
+		createLwjglApplication(width, height, true);
+	}
 
-    /**
-     * Rendering surface information
-     *
-     * @return The width of the display surface (window)
-     */
-    public int getWindowWidth() {
-        return Gdx.graphics.getWidth();
-    }
+	/**
+	 * Creates an application using {@code gdx2d}, running full screen or not on desktop.
+	 * Screen dimension are ignored when running on Android.
+	 *
+	 * @param onAndroid  {@code true} if running on Android, {@code false} otherwise
+	 * @param width      The width of the screen (only for desktop)
+	 * @param height     The height of the screen (only for desktop)
+	 * @param fullScreen {@code true} to create a fullscreen application (only for desktop)
+	 */
+	public PortableApplication(boolean onAndroid, int width, int height, boolean fullScreen) {
+		this.onAndroid = onAndroid;
 
-    /**
-     * Schedule an exit from the application.
-     * On android, this will cause a call to {@link #onPause()} and {@link #onDispose()} some time in the future,
-     * it will not immediately finish your application.
-     */
-    public void exit() {
-        Gdx.app.exit();
-    }
+		if (!onAndroid)
+			createLwjglApplication(width, height, fullScreen);
+	}
+
+	/**
+	 * Creates an application using {@code gdx2d}.
+	 * Screen dimension are ignored when running on Android.
+	 *
+	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
+	 * @param width     The width of the screen (only for desktop)
+	 * @param height    The height of the screen (only for desktop)
+	 */
+	public PortableApplication(boolean onAndroid, int width, int height) {
+		this(onAndroid, width, height, false);
+	}
+
+	/**
+	 * Creates an application using {@code gdx2d}.
+	 * Use a default windows size.
+	 *
+	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
+	 */
+	public PortableApplication(boolean onAndroid) {
+		this(onAndroid, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	}
 
 
     /* TouchInterface callbacks */
 
-    /**
-     * @see TouchInterface#onClick(int, int, int)
-     */
-    @Override
-    public void onClick(int x, int y, int button) {
-    }
+	/**
+	 * Change the title of the application window (works only on desktop).
+	 * This method has no effect (ignored) when running on Android.
+	 *
+	 * @param title the application title
+	 */
+	public void setTitle(String title) {
+		if (Gdx.app.getType() == ApplicationType.Android)
+			Logger.error("Title cannot be set on Android.");
 
-    /**
-     * @see TouchInterface#onDrag(int, int)
-     */
-    @Override
-    public void onDrag(int x, int y) {
-    }
+		Gdx.graphics.setTitle(title);
+	}
 
-    /**
-     * @see TouchInterface#onRelease(int, int, int)
-     */
-    @Override
-    public void onRelease(int x, int y, int button) {
-    }
+	/**
+	 * Rendering surface information
+	 *
+	 * @return The height of the display surface (window)
+	 */
+	public int getWindowHeight() {
+		return Gdx.graphics.getHeight();
+	}
 
-    /**
-     * @see TouchInterface#onScroll(int)
-     */
-    @Override
-    public void onScroll(int amount) {
-    }
+	/**
+	 * Rendering surface information
+	 *
+	 * @return The width of the display surface (window)
+	 */
+	public int getWindowWidth() {
+		return Gdx.graphics.getWidth();
+	}
+
+	/**
+	 * Schedule an exit from the application.
+	 * On android, this will cause a call to {@link #onPause()} and {@link #onDispose()} some time in the future,
+	 * it will not immediately finish your application.
+	 */
+	public void exit() {
+		Gdx.app.exit();
+	}
 
 
     /* KeyboardInterface callbacks */
 
-    /**
-     * @see KeyboardInterface#onKeyDown(int)
-     */
-    @Override
-    public void onKeyDown(int keycode) {
-        if (keycode == Input.Keys.MENU) {
-            Gdx.input.vibrate(300);
-        }
-    }
+	/**
+	 * @see TouchInterface#onClick(int, int, int)
+	 */
+	@Override
+	public void onClick(int x, int y, int button) {
+	}
 
-    /**
-     * @see KeyboardInterface#onKeyUp(int)
-     */
-    @Override
-    public void onKeyUp(int keycode) {
-    }
+	/**
+	 * @see TouchInterface#onDrag(int, int)
+	 */
+	@Override
+	public void onDrag(int x, int y) {
+	}
 
 
     /* GameInterface callbacks */
 
-    // Must be implemented in every subclasses:
-    // void onInit();
-    // void onGraphicRender(GdxGraphics g);
+	// Must be implemented in every subclasses:
+	// void onInit();
+	// void onGraphicRender(GdxGraphics g);
 
-    /**
-     * @see GameInterface#onDispose()
-     */
-    @Override
-    public void onDispose() {
-    }
+	/**
+	 * @see TouchInterface#onRelease(int, int, int)
+	 */
+	@Override
+	public void onRelease(int x, int y, int button) {
+	}
 
-    /**
-     * @see GameInterface#onPause()
-     */
-    @Override
-    public void onPause() {
-        // Android only
-    }
+	/**
+	 * @see TouchInterface#onScroll(int)
+	 */
+	@Override
+	public void onScroll(int amount) {
+	}
 
-    /**
-     * @see GameInterface#onGameLogicUpdate()
-     */
-    @Override
-    public void onGameLogicUpdate() {
-    }
+	/**
+	 * @see KeyboardInterface#onKeyDown(int)
+	 */
+	@Override
+	public void onKeyDown(int keycode) {
+		if (keycode == Input.Keys.MENU) {
+			Gdx.input.vibrate(300);
+		}
+	}
 
-    /**
-     * @see GameInterface#onResume()
-     */
-    @Override
-    public void onResume() {
-        // Android only
-    }
+	/**
+	 * @see KeyboardInterface#onKeyUp(int)
+	 */
+	@Override
+	public void onKeyUp(int keycode) {
+	}
 
     /* GestureInterface callbacks */
 
-    /**
-     * @see GestureInterface#onZoom(float, float)
-     */
-    @Override
-    public void onZoom(float initialDistance, float distance) {
-    }
+	/**
+	 * @see GameInterface#onDispose()
+	 */
+	@Override
+	public void onDispose() {
+	}
 
-    /**
-     * @see GestureInterface#onTap(float, float, int, int)
-     */
-    @Override
-    public void onTap(float x, float y, int count, int button) {
-    }
+	/**
+	 * @see GameInterface#onPause()
+	 */
+	@Override
+	public void onPause() {
+		// Android only
+	}
 
-    /**
-     * @see GestureInterface#onPinch(Vector2, Vector2, Vector2, Vector2)
-     */
-    @Override
-    public void onPinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-    }
+	/**
+	 * @see GameInterface#onGameLogicUpdate()
+	 */
+	@Override
+	public void onGameLogicUpdate() {
+	}
 
-    /**
-     * @see GestureInterface#onPan(float, float, float, float)
-     */
-    @Override
-    public void onPan(float x, float y, float deltaX, float deltaY) {
-    }
+	/**
+	 * @see GameInterface#onResume()
+	 */
+	@Override
+	public void onResume() {
+		// Android only
+	}
 
-    /**
-     * @see GestureInterface#onLongPress(float, float)
-     */
-    @Override
-    public void onLongPress(float x, float y) {
-    }
+	/**
+	 * @see GestureInterface#onZoom(float, float)
+	 */
+	@Override
+	public void onZoom(float initialDistance, float distance) {
+	}
 
-    /**
-     * @see GestureInterface#onFling(float, float, int)
-     */
-    @Override
-    public void onFling(float velocityX, float velocityY, int button) {
-    }
+	/**
+	 * @see GestureInterface#onTap(float, float, int, int)
+	 */
+	@Override
+	public void onTap(float x, float y, int count, int button) {
+	}
 
+	/**
+	 * @see GestureInterface#onPinch(Vector2, Vector2, Vector2, Vector2)
+	 */
+	@Override
+	public void onPinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+	}
 
-    /**
-     * Set the {@link AndroidResolver} when the application is created on
-     * Android. The resolver must be create in an Android Activity with its
-     * Context
-     *
-     * @param resolver the Android resolver
-     * @since 1.1
-     */
-    public void setAndroidResolver(AndroidResolver resolver) {
-        this.resolver = resolver;
-    }
+	/**
+	 * @see GestureInterface#onPan(float, float, float, float)
+	 */
+	@Override
+	public void onPan(float x, float y, float deltaX, float deltaY) {
+	}
 
-    /**
-     * Return the {@link AndroidResolver} to use Android actions.
-     *
-     * @return The resolver, or null if no running on Android
-     * @since 1.1
-     */
-    public AndroidResolver getAndroidResolver() {
-        return resolver;
-    }
+	/**
+	 * @see GestureInterface#onLongPress(float, float)
+	 */
+	@Override
+	public void onLongPress(float x, float y) {
+	}
 
+	/**
+	 * @see GestureInterface#onFling(float, float, int)
+	 */
+	@Override
+	public void onFling(float velocityX, float velocityY, int button) {
+	}
 
-    /**
-     * Create a full-screen {@code gdx2d} desktop application.
-     *
-     * @param useNativeResolution Indicates if the application should be launched full screen or
-     *                            using the default resolution
-     * @param width               The width of the screen
-     * @param height              The height of the screen
-     */
-    public PortableApplication(int width, int height, boolean useNativeResolution) {
-        onAndroid = false;
+	/**
+	 * Return the {@link AndroidResolver} to use Android actions.
+	 *
+	 * @return The resolver, or null if no running on Android
+	 * @since 1.1
+	 */
+	public AndroidResolver getAndroidResolver() {
+		return resolver;
+	}
 
-        if (useNativeResolution) {
-            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-            width = gd.getDisplayMode().getWidth();
-            height = gd.getDisplayMode().getHeight();
-        }
+	/**
+	 * Set the {@link AndroidResolver} when the application is created on
+	 * Android. The resolver must be create in an Android Activity with its
+	 * Context
+	 *
+	 * @param resolver the Android resolver
+	 * @since 1.1
+	 */
+	public void setAndroidResolver(AndroidResolver resolver) {
+		this.resolver = resolver;
+	}
 
-        createLwjglApplication(width, height, true);
-    }
+	private void createLwjglApplication(int width, int height, boolean fullScreen) {
+		assert (!onAndroid);
+		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 
-    /**
-     * Creates an application using {@code gdx2d}, running full screen or not on desktop.
-     * Screen dimension are ignored when running on Android.
-     *
-     * @param onAndroid  {@code true} if running on Android, {@code false} otherwise
-     * @param width      The width of the screen (only for desktop)
-     * @param height     The height of the screen (only for desktop)
-     * @param fullScreen {@code true} to create a fullscreen application (only for desktop)
-     */
-    public PortableApplication(boolean onAndroid, int width, int height, boolean fullScreen) {
-        this.onAndroid = onAndroid;
+		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.resizable = false;
+		config.useGL20 = true;
+		config.height = height;
+		config.width = width;
+		config.fullscreen = fullScreen;
+		config.title = "GDX2D application";
+		config.vSyncEnabled = true; // Ignored under Linux
+		config.foregroundFPS = 60; // Target value if vSync not working
+		config.backgroundFPS = config.foregroundFPS;
+		config.samples = 3; // Multi-sampling enables anti-alias for lines
+		config.forceExit = true; // Setting true calls system.exit(), with no coming back
 
-        if (!onAndroid)
-            createLwjglApplication(width, height, fullScreen);
-    }
+		String os = System.getProperty("os.name").toLowerCase();
 
-    /**
-     * Creates an application using {@code gdx2d}.
-     * Screen dimension are ignored when running on Android.
-     *
-     * @param onAndroid {@code true} if running on Android, {@code false} otherwise
-     * @param width     The width of the screen (only for desktop)
-     * @param height    The height of the screen (only for desktop)
-     */
-    public PortableApplication(boolean onAndroid, int width, int height) {
-        this(onAndroid, width, height, false);
-    }
+		// Under windows, the icon *must* be the small one
+		if (os.contains("win")) {
+			config.addIcon("lib/icon16.png", FileType.Internal);
+		}
 
-    /**
-     * Creates an application using {@code gdx2d}.
-     * Use a default windows size.
-     *
-     * @param onAndroid {@code true} if running on Android, {@code false} otherwise
-     */
-    public PortableApplication(boolean onAndroid) {
-        this(onAndroid, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    }
-
-    private void createLwjglApplication(int width, int height, boolean fullScreen) {
-        assert (!onAndroid);
-        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
-
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.resizable = false;
-        config.useGL20 = true;
-        config.height = height;
-        config.width = width;
-        config.fullscreen = fullScreen;
-        config.title = "GDX2D application";
-        config.vSyncEnabled = true; // Ignored under Linux
-        config.foregroundFPS = 60; // Target value if vSync not working
-        config.backgroundFPS = config.foregroundFPS;
-        config.samples = 3; // Multi-sampling enables anti-alias for lines
-        config.forceExit = true; // Setting true calls system.exit(), with no coming back
-
-        String os = System.getProperty("os.name").toLowerCase();
-
-        // Under windows, the icon *must* be the small one
-        if (os.contains("win")) {
-            config.addIcon("lib/icon16.png", FileType.Internal);
-        }
-
-        config.addIcon("lib/icon32.png", FileType.Internal);
-        config.addIcon("lib/icon64.png", FileType.Internal);
-        new LwjglApplication(new Game2D(this), config);
-    }
+		config.addIcon("lib/icon32.png", FileType.Internal);
+		config.addIcon("lib/icon64.png", FileType.Internal);
+		new LwjglApplication(new Game2D(this), config);
+	}
 }

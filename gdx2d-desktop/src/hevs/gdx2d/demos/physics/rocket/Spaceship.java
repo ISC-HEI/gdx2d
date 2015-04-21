@@ -1,41 +1,37 @@
 package hevs.gdx2d.demos.physics.rocket;
 
+import com.badlogic.gdx.math.Vector2;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.interfaces.DrawableObject;
 import hevs.gdx2d.lib.physics.AbstractPhysicsObject;
 
-import com.badlogic.gdx.math.Vector2;
-
 /**
  * A simple spaceship simulated using a {@link PhysicsBox}.
- * 
+ * <p/>
  * The spaceship can move and turn. A nice image is used to draw the spaceship.
- * 
+ *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Métrailler (mei)
  * @version 1.1
  */
 public class Spaceship implements DrawableObject {
+	static final float MAX_THRUST = 1f;
+	static final float MAX_TORQUE = 0.04f;
+	// Drawing related
+	protected static BitmapImage shipImage, flameImage;
 	protected AbstractPhysicsObject box;
-
 	// Motor related
 	protected boolean thrustLeft = false, thrustRight = false;
 	protected float thrustUp = 0;
-
-	static final float MAX_THRUST = 1f;
-	static final float MAX_TORQUE = 0.04f;
-
-	// Drawing related
-	protected static BitmapImage shipImage, flameImage;
 
 	public Spaceship(Vector2 position) {
 		// The front of the rocket is up by default
 		box = new PhysicsBox("ship", position, 30, 30, (float) Math.toRadians(90));
 		box.setBodyAngularDamping(0.4f);
 		box.setBodyLinearDamping(0.2f);
-		
+
 		// The spaceship image
 		shipImage = new BitmapImage("data/images/rocket_128.png");
 		flameImage = new BitmapImage("data/images/flame.png");
@@ -53,11 +49,11 @@ public class Spaceship implements DrawableObject {
 		// Let's move the ship with a force. The force
 		// is always directed in the direction of the tip of the rocket 
 		box.applyBodyForceToCenter((float) Math.cos(box.getBodyAngle())
-				* thrustUp, (float) Math.sin(box.getBodyAngle()) * thrustUp,
+						* thrustUp, (float) Math.sin(box.getBodyAngle()) * thrustUp,
 				true);
 
 		Vector2 pos = box.getBodyPosition();
-		
+
 		if (thrustUp > 0) {
 			// Draw the flame
 			Vector2 x = box.getBody().getWorldPoint(new Vector2(-55.0f, 0.0f));

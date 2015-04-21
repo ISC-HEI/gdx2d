@@ -2,7 +2,7 @@ package hevs.gdx2d.lib.interfaces;
 
 /**
  * An interface for Android actions that should be triggered from libgdx side
- * 
+ *
  * @author Pierre-Andre Mudry (mui)
  * @author Christopher Metrailler (mei)
  * @version 1.1
@@ -26,12 +26,10 @@ public interface AndroidResolver {
 	/**
 	 * Show an Android Toast on the screen with default position on the screen
 	 * (bottom center).
-	 * 
-	 * @param text
-	 *            The text of the Toast
-	 * @param duration
-	 *            How long to display the message. Either {@link LENGTH_SHORT}
-	 *            or {@link LENGTH_LONG}
+	 *
+	 * @param text     The text of the Toast
+	 * @param duration How long to display the message. Either {@link LENGTH_SHORT}
+	 *                 or {@link LENGTH_LONG}
 	 */
 	public void showToast(CharSequence text, int duration);
 }

@@ -1,5 +1,10 @@
 package hevs.gdx2d.demos.physics.joints;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsStaticBox;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
@@ -8,15 +13,9 @@ import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-
 /**
  * A demo on how to build chains with rope joints with box2d
- * 
+ *
  * @author Pierre-André Mudry, mui
  * @author Thierry Hischier, hit
  * @version 1.2
@@ -30,6 +29,10 @@ public class DemoRopeJoint extends PortableApplication {
 
 	public DemoRopeJoint(boolean onAndroid) {
 		super(onAndroid);
+	}
+
+	public static void main(String args[]) {
+		new DemoRopeJoint(false);
 	}
 
 	@Override
@@ -57,12 +60,12 @@ public class DemoRopeJoint extends PortableApplication {
 		for (int i = 0; i < nSegments; i++) {
 			// Create a rope segment element
 			PhysicsBox box = new PhysicsBox("", new Vector2(w / 2 + i * (segmentLength + spaceBetweenSegments), h / 1.4f),
-										    segmentLength,
-										    4);
+					segmentLength,
+					4);
 
 			// Connect each element with the element before
 			Vector2 anchorA = prevBody.getLocalCenter().add(0, 0);
-			
+
 			// The anchor point should be outside the object here to make it nice
 			Vector2 anchorB = box.getBodyLocalCenter().add(-(segmentLength + spaceBetweenSegments), 0);
 
@@ -89,9 +92,5 @@ public class DemoRopeJoint extends PortableApplication {
 
 		g.drawSchoolLogoUpperRight();
 		g.drawFPS();
-	}
-
-	public static void main(String args[]) {
-		new DemoRopeJoint(false);
 	}
 }

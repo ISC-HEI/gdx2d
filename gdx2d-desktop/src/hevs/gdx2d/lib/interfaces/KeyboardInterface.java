@@ -11,19 +11,19 @@ import com.badlogic.gdx.Input;
  */
 public interface KeyboardInterface {
 
-    /**
-     * Invoked when a key is typed.
-     * Use {@link Input.Keys} to read the key code.
-     *
-     * @param keycode the code key, see {@link Input.Keys}
-     */
-    void onKeyDown(int keycode);
+	/**
+	 * Invoked when a key is typed.
+	 * Use {@link Input.Keys} to read the key code.
+	 *
+	 * @param keycode the code key, see {@link Input.Keys}
+	 */
+	void onKeyDown(int keycode);
 
-    /**
-     * Invoked when a key is released.
-     * Use {@link Input.Keys} to read the key code.
-     *
-     * @param keycode the code key, see {@link Input.Keys}
-     */
-    void onKeyUp(int keycode);
+	/**
+	 * Invoked when a key is released.
+	 * Use {@link Input.Keys} to read the key code.
+	 *
+	 * @param keycode the code key, see {@link Input.Keys}
+	 */
+	void onKeyUp(int keycode);
 }
