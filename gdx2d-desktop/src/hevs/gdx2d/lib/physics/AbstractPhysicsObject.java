@@ -228,7 +228,7 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 
 	@Override
 	final public void beginContact(Contact contact) {
-		AbstractPhysicsObject ob1 = null, ob2 = null;
+		AbstractPhysicsObject ob1, ob2;
 		ob1 = (AbstractPhysicsObject) contact.getFixtureA().getBody()
 				.getUserData();
 		ob2 = (AbstractPhysicsObject) contact.getFixtureB().getBody()
