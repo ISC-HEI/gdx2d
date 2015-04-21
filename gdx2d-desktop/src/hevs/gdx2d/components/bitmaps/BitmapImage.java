@@ -97,13 +97,7 @@ final public class BitmapImage implements Disposable {
 		if (x < 0 || y < 0)
 			return false;
 
-		if (x >= image.getWidth())
-			return false;
-
-		if (y >= image.getHeight())
-			return false;
-
-		return true;
+		return x < image.getWidth() && y < image.getHeight();
 	}
 
 	/**
