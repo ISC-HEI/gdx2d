@@ -79,6 +79,11 @@
       "name": "Displaying text using various fonts",
       "class": "fonts.DemoFontGeneration",
       "desc": "If you want to display text in your game with various fonts, this is the demo to launch!"
+    },
+    {
+      "name": "Graphical user interface demonstration",
+      "class": "menus.buttons.DemoGUI",
+      "desc": "Basic GUI interface with buttons and edit text."
     }
   ],
   "Advanced techniques": [
@@ -151,12 +156,12 @@
     },
     {
       "name": "Simple motors to mix things",
-      "class": "physics.DemoSimplePhysics",
+      "class": "physics.motors.DemoRotateMotor",
       "desc": "No description yet."
     },
     {
       "name": "Mouse interactions with physics",
-      "class": "physics.DemoSimplePhysics",
+      "class": "physics.mouse_interaction.DemoPhysicsMouse",
       "desc": "Shows how you can use the mouse to interact with physics objects."
     }
   ],

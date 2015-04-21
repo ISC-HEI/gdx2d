@@ -37,6 +37,7 @@ public class DemoPhysicsRocket extends PortableApplication {
 
 	@Override
 	public void onInit() {
+		setTitle("Rocket with physics");
 		Logger.log("Use the arrows keys to move the spaceship.");
 
 		// No gravity in this world

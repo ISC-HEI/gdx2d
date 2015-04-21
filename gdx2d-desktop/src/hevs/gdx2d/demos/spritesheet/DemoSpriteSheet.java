@@ -28,6 +28,8 @@ public class DemoSpriteSheet extends PortableApplication {
 
 	@Override
 	public void onInit() {
+		setTitle("SpriteSheet demo");
+
 		ss = new Spritesheet("data/images/lumberjack_sheet.png", SPRITE_WIDTH, SPRITE_HEIGHT);
 		Logger.log("Press up/down to change the current animation");
 	}
