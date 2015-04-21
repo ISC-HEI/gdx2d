@@ -9,19 +9,19 @@ package hevs.gdx2d.lib.interfaces;
  */
 public interface AndroidResolver {
 
-	public static int LENGTH_LONG = 0x01; // Toast.LENGTH_LONG
-	public static int LENGTH_SHORT = 0x00; // Toast.LENGTH_SHORT
+	int LENGTH_LONG = 0x01; // Toast.LENGTH_LONG
+	int LENGTH_SHORT = 0x00; // Toast.LENGTH_SHORT
 
 	/**
 	 * Display an about dialog Activity.
 	 */
-	public void showAboutBox();
+	void showAboutBox();
 
 	/**
 	 * Force to dismiss the about dialog. Must be called when the screen
 	 * orientation change.
 	 */
-	public void dismissAboutBox();
+	void dismissAboutBox();
 
 	/**
 	 * Show an Android Toast on the screen with default position on the screen
@@ -31,5 +31,5 @@ public interface AndroidResolver {
 	 * @param duration How long to display the message. Either {@link LENGTH_SHORT}
 	 *                 or {@link LENGTH_LONG}
 	 */
-	public void showToast(CharSequence text, int duration);
+	void showToast(CharSequence text, int duration);
 }

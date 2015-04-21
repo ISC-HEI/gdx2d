@@ -112,7 +112,7 @@ public class DemoRotateLight extends PortableApplication {
 
 		// If the user plays with its mouse, move the light accordingly. When done, make it turn
 		if (clicked)
-			p.setPosition((float) (rotationCenter.x), (float) (rotationCenter.y));
+			p.setPosition(rotationCenter.x, rotationCenter.y);
 		else
 			p.setPosition((float) (rotationCenter.x - radius + radius * Math.cos(angle)), (float) (rotationCenter.y + radius * Math.sin(angle)));
 
