@@ -31,9 +31,9 @@ public class SwingIntegration extends JFrame {
 		config.samples = 3; // Multi-sampling enables anti-alias for lines
 		config.forceExit = false; // Setting true calls system.exit(), with no coming back
 
-		canvas = new LwjglCanvas(new DemoCircles().theGame, config);
-
-		container.add(canvas.getCanvas(), BorderLayout.CENTER);
+//		canvas = new LwjglCanvas(new DemoCircles().theGame, config);
+//
+//		container.add(canvas.getCanvas(), BorderLayout.CENTER);
 
 		pack();
 		setVisible(true);

@@ -14,6 +14,7 @@ import hevs.gdx2d.lib.PortableApplication;
 public class DemoCircles extends PortableApplication {
 	int radius[] = new int[8];
 	int speed[] = new int[8];
+
 	public DemoCircles(boolean onAndroid) {
 		super(onAndroid);
 	}
