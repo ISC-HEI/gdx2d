@@ -221,7 +221,7 @@ public class DemoSelectorGUI extends JFrame {
 			}
 		}
 
-		class DemoList extends JList<String> {
+		class DemoList extends JList {
 
 			public DemoList(String[] demos) {
 				super(demos);
@@ -241,14 +241,14 @@ public class DemoSelectorGUI extends JFrame {
 
 				// Select the last chosen demo (if any)
 				selectedDemoName = prefs.get("lastDemoName", "");
-				setSelectedValue(selectedDemoName, true);
+				setSelectedValue(selectedDemoName, true); 
 				setFocusable(true);
 				requestFocus();
 
 				addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
-						selectedDemoName = getSelectedValue();
+						selectedDemoName = (String)getSelectedValue();
 						paneComments.setText(demosMap.get(selectedDemoName).desc);
 					}
 				});
@@ -265,7 +265,7 @@ public class DemoSelectorGUI extends JFrame {
 				addMouseMotionListener(new MouseMotionAdapter() {
 					@Override
 					public void mouseMoved(MouseEvent e) {
-						ListModel<String> model = getModel();
+						ListModel model = getModel();
 						int index = locationToIndex(e.getPoint());
 						if (index >= 0) {
 							// Display the demo description as tooltip

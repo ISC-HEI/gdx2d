@@ -13,7 +13,7 @@ For each feature, a Java demo is provided for simple integration. Here are some 
 
 ![Screen shot](https://raw.github.com/wiki/pmudry/gdx2d/multi_screenshot.png)
 
-## Why has framework been develeoped?
+## Why has framework been developed?
 The advantage of using *gdx2d* is that you can develop your code in Java on your standard desktop computer like any other Java application and then deploy the same code, with a single click, on an Android phone or tablet. Of course, you have to take into consideration the fact that some of your code is a bit different for Android (for instance, you do not have accelerometers on your PC). 
 
 The library itself is a wrapper around a very very nice library called [libgdx](http://www.libgdx.com/) which provides almost everything to the library.
