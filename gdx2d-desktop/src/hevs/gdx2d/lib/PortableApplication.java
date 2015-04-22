@@ -94,6 +94,10 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		this(onAndroid, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 
+	public PortableApplication(){
+		theGame = new Game2D(this);
+	}
+
 
     /* TouchInterface callbacks */
 
@@ -288,13 +292,15 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		this.resolver = resolver;
 	}
 
+	public Game2D theGame;
+
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
 		assert (!onAndroid);
 		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.resizable = false;
-		config.useGL20 = true;
+		config.useGL30 = false;
 		config.height = height;
 		config.width = width;
 		config.fullscreen = fullScreen;
@@ -314,6 +320,8 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 
 		config.addIcon("lib/icon32.png", FileType.Internal);
 		config.addIcon("lib/icon64.png", FileType.Internal);
-		new LwjglApplication(new Game2D(this), config);
+
+		theGame = new Game2D(this);
+		new LwjglApplication(theGame, config);
 	}
 }

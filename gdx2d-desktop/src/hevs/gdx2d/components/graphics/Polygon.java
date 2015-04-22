@@ -7,6 +7,7 @@ import java.util.List;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * A polygon class for rendering stuff
@@ -18,8 +19,8 @@ public class Polygon {
 
 	private float[] vertices;
 	private float[] triangulatedVertices = null;
-	public LinkedList<Vector2> vectorList;
-	private List<Vector2> earClippedVertices;
+	public Array<Vector2> vectorList;
+	private Array<Vector2> earClippedVertices;
 	private Vector2[] gdxpoints;
 
 	public Polygon(Vector2[] points) {
@@ -50,10 +51,10 @@ public class Polygon {
 		if (triangulatedVertices == null) {
 			int j = 0;
 			EarClippingTriangulator ect;
-			vectorList = new LinkedList<Vector2>(Arrays.asList(gdxpoints));
-			ect = new EarClippingTriangulator();
-			earClippedVertices = ect.computeTriangles(vectorList);
-			triangulatedVertices = new float[earClippedVertices.size() * 2];
+//			vectorList = new Array<Vector2>(Arrays.asList(gdxpoints));
+//			ect = new EarClippingTriangulator();
+//			earClippedVertices = ect.computeTriangles(vectorList);
+//			triangulatedVertices = new float[earClippedVertices.size() * 2];
 
 			for (Vector2 v : earClippedVertices) {
 				triangulatedVertices[j++] = v.x;

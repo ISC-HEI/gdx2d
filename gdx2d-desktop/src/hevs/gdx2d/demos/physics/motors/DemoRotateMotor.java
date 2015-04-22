@@ -1,7 +1,6 @@
 package hevs.gdx2d.demos.physics.motors;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -35,6 +34,8 @@ import java.util.Date;
  */
 public class DemoRotateMotor extends PortableApplication {
 	private World world = PhysicsWorld.getInstance();
+
+
 
 	private PhysicsMotor physicMotorSeconds;
 	private PhysicsMotor physicMotorMinutes;
@@ -212,9 +213,9 @@ public class DemoRotateMotor extends PortableApplication {
 
 		g.setColor(Color.BLACK);
 		g.drawString(w - 10, h - 10, "Famous clock from\r\n"
-				+ "the Swiss Railways.", HAlignment.RIGHT);
+				+ "the Swiss Railways.");
 
-		g.drawString(w - 10, h - 80, displayTime(), HAlignment.RIGHT);
+		g.drawString(w - 10, h - 80, displayTime());
 
 		g.drawSchoolLogo();
 	}

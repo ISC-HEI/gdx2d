@@ -1,6 +1,6 @@
 package hevs.gdx2d.demos.image_drawing;
 
-import com.badlogic.gdx.graphics.GL11;
+import com.badlogic.gdx.graphics.GL20;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
@@ -17,21 +17,21 @@ public class DemoBlendingFunctions extends PortableApplication {
 
 	float w, h;
 	int[] src_functions = {
-			GL11.GL_ZERO,
-			GL11.GL_ONE,
-			GL11.GL_SRC_COLOR,
-			GL11.GL_ONE_MINUS_SRC_COLOR,
-			GL11.GL_SRC_ALPHA,
-			GL11.GL_ONE_MINUS_SRC_ALPHA
+			GL20.GL_ZERO,
+			GL20.GL_ONE,
+			GL20.GL_SRC_COLOR,
+			GL20.GL_ONE_MINUS_SRC_COLOR,
+			GL20.GL_SRC_ALPHA,
+			GL20.GL_ONE_MINUS_SRC_ALPHA
 	};
 
 	int[] dst_functions = {
-			GL11.GL_ZERO,
-			GL11.GL_ONE,
-			GL11.GL_DST_COLOR,
-			GL11.GL_ONE_MINUS_DST_COLOR,
-			GL11.GL_SRC_ALPHA,
-			GL11.GL_ONE_MINUS_SRC_ALPHA
+			GL20.GL_ZERO,
+			GL20.GL_ONE,
+			GL20.GL_DST_COLOR,
+			GL20.GL_ONE_MINUS_DST_COLOR,
+			GL20.GL_SRC_ALPHA,
+			GL20.GL_ONE_MINUS_SRC_ALPHA
 	};
 
 	/**
@@ -82,7 +82,7 @@ public class DemoBlendingFunctions extends PortableApplication {
 			}
 		}
 
-		g.spriteBatch.setBlendFunction(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		g.spriteBatch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		g.drawFPS();        // Draws the number of frame per second
 		g.drawSchoolLogo(); // Draws the school logo
 	}

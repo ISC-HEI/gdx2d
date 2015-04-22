@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.physics.DebugRenderer;
@@ -55,7 +56,11 @@ public class DemoParticlePhysics extends PortableApplication {
 	public void onGraphicRender(GdxGraphics g) {
 		g.clear();
 
-		Iterator<Body> it = world.getBodies();
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+
+		Iterator<Body> it = bodies.iterator();
+
 
 		while (it.hasNext()) {
 			Body p = it.next();

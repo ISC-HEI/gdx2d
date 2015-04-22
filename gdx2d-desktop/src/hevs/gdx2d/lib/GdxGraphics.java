@@ -3,17 +3,17 @@ package hevs.gdx2d.lib;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.graphics.Polygon;
@@ -90,9 +90,9 @@ public class GdxGraphics implements Disposable {
 				Gdx.graphics.getHeight());
 
 		// Enable alpha blending for shape renderer
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		Gdx.gl.glEnable(GL10.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	/**
@@ -260,7 +260,7 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void clear(Color c) {
 		Gdx.gl.glClearColor(c.r, c.g, c.b, c.a);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (!first && rendering_mode == t_rendering_mode.SPRITE)
 			spriteBatch.end();
@@ -535,7 +535,7 @@ public class GdxGraphics implements Disposable {
 	 * @param posX Left position of the text, in pixels
 	 * @param posY Top position of the text, in pixels
 	 * @param str  The text to display on the screen
-	 * @see {@link #drawString(float, float, String, BitmapFont, HAlignment)}
+	 * @see {@link #drawString(float, float, String, BitmapFont, int)}
 	 * for more options
 	 */
 	public void drawString(float posX, float posY, String str) {
@@ -554,7 +554,7 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void drawString(float posX, float posY, String str, BitmapFont f) {
 		// Default alignment is left
-		drawString(posX, posY, str, f, HAlignment.LEFT);
+		drawString(posX, posY, str, f, Align.left);
 	}
 
 	/**
@@ -566,7 +566,7 @@ public class GdxGraphics implements Disposable {
 	 * @param str   the text to display
 	 * @param align left, center or right align
 	 */
-	public void drawString(float posX, float posY, String str, HAlignment align) {
+	public void drawString(float posX, float posY, String str, int align) {
 		drawString(posX, posY, str, font, align);
 	}
 
@@ -580,27 +580,26 @@ public class GdxGraphics implements Disposable {
 	 * @param f     the custom font to use
 	 * @param align left, center or right align
 	 */
-	public void drawString(float posX, float posY, String str, BitmapFont f,
-						   HAlignment align) {
+	public void drawString(float posX, float posY, String str, BitmapFont f, int align) {
 		checkmode(t_rendering_mode.SPRITE);
-		final float w = f.getBounds(str).width;
+		final float w = f.getScaleX();
 		final float alignmentWidth;
 		switch (align) {
-			case CENTER:
+			case Align.center:
 				alignmentWidth = w;
 				posX -= w / 2.0f;
 				break;
-			case RIGHT:
+			case Align.right:
 				alignmentWidth = 0;
 				break;
 			default:
-			case LEFT:
+			case Align.left:
 				alignmentWidth = w;
 				break;
 		}
-
 		// Draw the string (reference is the top left edge)
-		f.drawMultiLine(spriteBatch, str, posX, posY, alignmentWidth, align);
+		f.draw(spriteBatch, str, posX, posY, w, align, false);
+		//f.draw(spriteBatch, str, posX, posY, alignmentWidth, align);
 	}
 
 	/**
@@ -612,7 +611,7 @@ public class GdxGraphics implements Disposable {
 	 * @param str  the text to display
 	 */
 	public void drawStringCentered(float posY, String str) {
-		drawString(getScreenWidth() / 2.0f, posY, str, HAlignment.CENTER);
+		drawString(getScreenWidth() / 2.0f, posY, str, Align.center);
 	}
 
 	/**
@@ -623,7 +622,7 @@ public class GdxGraphics implements Disposable {
 	 * @param f    the custom {@link BitmapFont} to use
 	 */
 	public void drawStringCentered(float posY, String str, BitmapFont f) {
-		drawString(getScreenWidth() / 2.0f, posY, str, f, HAlignment.CENTER);
+		drawString(getScreenWidth() / 2.0f, posY, str, f,  Align.center);
 	}
 
 	/**

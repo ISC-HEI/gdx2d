@@ -3,10 +3,10 @@ package hevs.gdx2d.demos.physics.joints;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Align;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.colors.Palette;
 import hevs.gdx2d.components.physics.PhysicsBox;
@@ -151,10 +151,10 @@ public class DemoMixer extends PortableApplication {
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
 
 		g.drawString(5, height - 20, "Left Mouse button: Motor ON/OFF",
-				HAlignment.LEFT);
+				Align.left);
 		g.drawString(5, height - 40,
 				"Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"),
-				HAlignment.LEFT);
+				Align.left);
 
 		g.drawSchoolLogoUpperRight();
 		g.drawFPS(Color.CYAN);

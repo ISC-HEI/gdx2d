@@ -2,7 +2,6 @@ package hevs.gdx2d.lib.renderers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
@@ -200,7 +199,7 @@ public class ShaderRenderer implements Disposable {
 
 			//now we need to reset glActiveTexture to zero!!!! 
 			// since sprite batch does not do this for us
-			Gdx.graphics.getGL20().glActiveTexture(GL10.GL_TEXTURE0);
+			Gdx.graphics.getGL20().glActiveTexture(GL20.GL_TEXTURE0);
 
 		} catch (Exception e) {
 			e.printStackTrace();

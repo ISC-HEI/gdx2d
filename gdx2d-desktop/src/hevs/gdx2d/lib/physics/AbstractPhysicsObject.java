@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Shape.Type;
+import com.badlogic.gdx.utils.Array;
 import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsCircle;
 import hevs.gdx2d.components.physics.PhysicsStaticBox;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 
-import java.util.ArrayList;
 
 /**
  * An abstract physical object that contains everything required for simulation.<br>
@@ -358,7 +358,7 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	}
 
 	@Override
-	public ArrayList<Fixture> getBodyFixtureList() {
+	public Array<Fixture> getBodyFixtureList() {
 		return body.getFixtureList();
 	}
 

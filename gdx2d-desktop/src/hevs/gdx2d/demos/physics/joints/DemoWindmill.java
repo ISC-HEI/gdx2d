@@ -2,10 +2,10 @@ package hevs.gdx2d.demos.physics.joints;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Align;
 import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsMotor;
 import hevs.gdx2d.components.physics.PhysicsStaticBox;
@@ -144,9 +144,9 @@ public class DemoWindmill extends PortableApplication {
 		debugRenderer.render(world, g.getCamera().combined);
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
 
-		g.drawString(width - 5, 60, "Left Mouse button: Motor ON/OFF", HAlignment.RIGHT);
-		g.drawString(width - 5, 40, "Right Mouse button: Generate particles", HAlignment.RIGHT);
-		g.drawString(width - 5, 20, "Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"), HAlignment.RIGHT);
+		g.drawString(width - 5, 60, "Left Mouse button: Motor ON/OFF", Align.right);
+		g.drawString(width - 5, 40, "Right Mouse button: Generate particles", Align.right);
+		g.drawString(width - 5, 20, "Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"), Align.right);
 
 		g.drawSchoolLogoUpperRight();
 		g.drawFPS();

@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.Transform;
 import com.badlogic.gdx.physics.box2d.World;
 
-import java.util.ArrayList;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * An interface for the Box2D bodies so that we can
@@ -27,7 +27,7 @@ public interface BodyInterface {
 
 	float getBodyAngularVelocity();
 
-	ArrayList<Fixture> getBodyFixtureList();
+	Array<Fixture> getBodyFixtureList();
 
 	float getBodyGravityScale();
 

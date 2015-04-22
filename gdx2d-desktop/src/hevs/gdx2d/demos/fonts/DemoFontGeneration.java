@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Align;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
@@ -91,8 +91,8 @@ public class DemoFontGeneration extends PortableApplication {
 		 * Display fonts left, right and center aligned.
 		 */
 		g.setColor(Color.WHITE);
-		g.drawString(10, getWindowHeight() - 10, "left\naligned\ntext", HAlignment.LEFT);
-		g.drawString(w - 10, getWindowHeight() - 10, "right\naligned\ntext", HAlignment.RIGHT);
+		g.drawString(10, getWindowHeight() - 10, "left\naligned\ntext", Align.left);
+		g.drawString(w - 10, getWindowHeight() - 10, "right\naligned\ntext", Align.left);
 	}
 
 	@Override
