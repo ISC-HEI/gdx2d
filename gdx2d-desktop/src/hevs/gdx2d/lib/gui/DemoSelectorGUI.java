@@ -232,7 +232,7 @@ public class DemoSelectorGUI extends JFrame {
 			}
 		}
 
-		class DemoList extends JList {
+		class DemoList extends JList<String> {
 
 			public DemoList(String[] demos) {
 				super(demos);
@@ -278,7 +278,7 @@ public class DemoSelectorGUI extends JFrame {
 				addMouseMotionListener(new MouseMotionAdapter() {
 					@Override
 					public void mouseMoved(MouseEvent e) {
-						ListModel model = getModel();
+						ListModel<String> model = getModel();
 						int index = locationToIndex(e.getPoint());
 						if (index >= 0) {
 							// Display the demo description as tooltip
