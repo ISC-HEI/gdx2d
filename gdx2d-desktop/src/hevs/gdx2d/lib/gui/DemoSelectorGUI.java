@@ -25,23 +25,24 @@ import java.util.prefs.Preferences;
  *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Métrailler (mei)
- * @version 2.0.1
+ * @version 2.1
  */
 @SuppressWarnings({"serial"})
 public class DemoSelectorGUI extends JFrame {
+	private final static String TAG = "DemoSelector";
+
 	public DemoSelectorGUI() throws Exception {
-		super("GDX2D demos " + Version.version + " - mui, chn, mei 2012-2014");
+		super("GDX2D demos " + Version.VERSION + " - mui, chn, mei 2012-2015");
 
 		// Populate the window
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setContentPane(new TestList());
 
 		pack();
 		String os = System.getProperty("os.name").toLowerCase();
 
-		// Under windows we can set the window size
+		// FIXME: Under windows we can set the window size
 		// It seems to be a problem under Linux
-		// FIXME
 		if (os.contains("win")) {
 			setSize(500, 700);
 		}
@@ -56,15 +57,15 @@ public class DemoSelectorGUI extends JFrame {
 	class TestList extends JPanel {
 
 		private Map<String, DemoDescriptor> demosMap;
-		private String selectedDemoName = null;
 
 		/* GUI components */
 		private JSCAccordion accordion = new JSCAccordion();
 		private RunButton btRun = new RunButton();
 		private JTextPane paneComments = new JTextPane();
 
-		// TODO: use preferences to select the last selected demo
+		/* GUI preferences */
 		private Preferences prefs;
+		private String selectedDemoName = null;
 
 		public TestList() {
 			prefs = Preferences.userRoot().node(this.getClass().getName());
@@ -101,25 +102,11 @@ public class DemoSelectorGUI extends JFrame {
 			JMenuBar bar = new JMenuBar();
 			JMenu about = new JMenu("Help");
 			JMenuItem it = new JMenuItem("About");
-			it.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H,
-					ActionEvent.CTRL_MASK));
+			it.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_MASK));
 			it.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ImageIcon icon = new ImageIcon(getClass().getResource(
-							"/lib/icon64.png"));
-					// TODO: make this link clickable... Possible but ugly !
-					// (mei)
-					final String msg = "<HTML><BODY>"
-							+ "<b>Demos selector for the \"gdx2d\" library, 2014.</b><br><br>"
-							+ "Pierre-Andr&eacute; Mudry<br>"
-							+ "Christopher M&eacute;trailler<br><br>"
-							+ "Made for the <a href=\"http://inf1.begincoding.net\"/>inf1 course</a> "
-							+ "(http://inf1.begincoding.net)." + "<pre>"
-							+ Version.print() + "</pre>" + "</BODY></HTML>";
-					JOptionPane.showMessageDialog(null, msg,
-							"About this application",
-							JOptionPane.INFORMATION_MESSAGE, icon);
+					new AboutDialog(DemoSelectorGUI.this).setVisible();
 				}
 			});
 			about.add(it);
@@ -128,8 +115,7 @@ public class DemoSelectorGUI extends JFrame {
 			file.setMnemonic(KeyEvent.VK_F);
 			JMenuItem q = new JMenuItem("Quit");
 			q.setMnemonic(KeyEvent.VK_C);
-			q.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
-					ActionEvent.CTRL_MASK));
+			q.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK));
 			q.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -149,11 +135,10 @@ public class DemoSelectorGUI extends JFrame {
 			accordion.setTabOrientation(TabOrientation.VERTICAL);
 			accordion.setTabHeight(25);
 			accordion.setDrawShadow(false);
+			accordion.setFocusable(false);
 
-			SteelAccordionUI steelAccordionUI;
-			steelAccordionUI = (SteelAccordionUI) accordion.getUI();
-
-			// Remove all paddings
+			// Remove padding
+			SteelAccordionUI steelAccordionUI = (SteelAccordionUI) accordion.getUI();
 			steelAccordionUI.setHorizontalBackgroundPadding(0);
 			steelAccordionUI.setVerticalBackgroundPadding(0);
 			steelAccordionUI.setHorizontalTabPadding(0);
@@ -162,19 +147,21 @@ public class DemoSelectorGUI extends JFrame {
 
 			accordion.setVerticalAccordionTabRenderer(new TabRenderer());
 
-			// Load tabs
 			try {
-				loadFromJson();
+				loadFromJson(); // Load tabs
 			} catch (FileNotFoundException e) {
 				System.err.println("Unable to read the Json demos file.");
-				return;
+				e.printStackTrace();
 			}
+
+			// Open the last selected tab (if any) or the first one
+			int tabIdx = Integer.valueOf(prefs.get("selectedTabIdx", "0"));
+			accordion.setSelectedIndex(tabIdx);
 		}
 
 		private void loadFromJson() throws FileNotFoundException {
 			JsonReader r = new JsonReader();
-			JsonValue demos = r.parse(getClass().getResourceAsStream(
-					"/lib/demosList.json"));
+			JsonValue demos = r.parse(getClass().getResourceAsStream("/lib/demosList.json"));
 
 			demosMap = new LinkedHashMap<String, DemoDescriptor>();
 
@@ -200,7 +187,7 @@ public class DemoSelectorGUI extends JFrame {
 				}
 
 				// Add the current tab with demo list
-				DemoList dl = new DemoList(l.toArray(new String[0]));
+				DemoList dl = new DemoList(l.toArray(new String[l.size()]));
 				ToolTipManager.sharedInstance().registerComponent(dl);
 				accordion.addTab(catName, dl);
 			}
@@ -218,16 +205,18 @@ public class DemoSelectorGUI extends JFrame {
 				if (selectedDemoName == null)
 					return; // Do nothing if no selection
 
-				prefs.put("last", selectedDemoName);
+				// Save the name and the tab demo index
+				prefs.put("lastDemoName", selectedDemoName);
+				prefs.put("selectedTabIdx", String.valueOf(accordion.getSelectedTab().getIndex()));
 
-				// Loads the class based on its name
 				try {
+					// Loads the class based on its name
 					Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
 					final Constructor<?> constructor = clazz.getConstructor(boolean.class);
 					constructor.newInstance(false);
-
-				} catch (Exception e1) {
+				} catch (Exception ex) {
 					System.err.println("Unable to find " + selectedDemoName);
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -250,17 +239,16 @@ public class DemoSelectorGUI extends JFrame {
 				m.setLeadAnchorNotificationEnabled(false);
 				setSelectionModel(m);
 
-				/**
-				 *  TODO Fixme, this sets the correct value but the accordion is not
-				 *  set right
-				 */
-				selectedDemoName = prefs.get("last", "");
-				this.setSelectedValue(selectedDemoName, true);
+				// Select the last chosen demo (if any)
+				selectedDemoName = prefs.get("lastDemoName", "");
+				setSelectedValue(selectedDemoName, true);
+				setFocusable(true);
+				requestFocus();
 
 				addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
-						selectedDemoName = (String) getSelectedValue();
+						selectedDemoName = getSelectedValue();
 						paneComments.setText(demosMap.get(selectedDemoName).desc);
 					}
 				});
@@ -273,8 +261,7 @@ public class DemoSelectorGUI extends JFrame {
 					}
 				});
 
-				// Add a Mouse Motion adapter to display a tooltip on list
-				// elements
+				// Add a Mouse Motion adapter to display a tooltip on list elements
 				addMouseMotionListener(new MouseMotionAdapter() {
 					@Override
 					public void mouseMoved(MouseEvent e) {
@@ -282,8 +269,7 @@ public class DemoSelectorGUI extends JFrame {
 						int index = locationToIndex(e.getPoint());
 						if (index >= 0) {
 							// Display the demo description as tooltip
-							final String desc = demosMap.get(model
-									.getElementAt(index)).desc;
+							final String desc = demosMap.get(model.getElementAt(index)).desc;
 							setToolTipText(null);
 							setToolTipText(desc);
 							paneComments.setText(desc);
@@ -303,8 +289,6 @@ public class DemoSelectorGUI extends JFrame {
 
 		/**
 		 * Load demos and categories from an external JSON file.
-		 *
-		 * @throws FileNotFoundException
 		 */
 		class DemoDescriptor {
 			final String clazz;
