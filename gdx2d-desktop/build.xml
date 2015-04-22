@@ -110,11 +110,14 @@
 
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-backend-lwjgl-natives.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-backend-lwjgl.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-natives.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-box2d.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-box2d-platform-1.5.6-natives-desktop.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/box2dlights.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype-natives.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/box2dlights-1.3.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype-platform-1.5.6-natives-desktop.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-freetype.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-platform-1.5.6-natives-desktop.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx-platform-1.5.6.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/accordion-1.2.0-jar-with-dependencies.jar"/>
 
             <manifest>
