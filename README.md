@@ -1,4 +1,4 @@
-﻿## Welcome to gdx2d! [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
+## Welcome to gdx2d! [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
  
 <p align="center">
   <img src="https://rawgit.com/hevs-isi/gdx2d-videofile/master/logo/logo_640.png?raw=true" alt="Logo"/>
@@ -6,7 +6,7 @@
 
 *gdx2d* is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. 
 
-## What it can do?
+## What can it do?
 The library contains simple to use graphical primitives such as lines, circles, rectangles. In addition, there are methods to draw pictures, rotate them, scale them etc. Physics simulation is also supported (using Box2D) as well as music and sound playing.
 
 For each feature, a Java demo is provided for simple integration. Here are some examples of what the library is capable of (you can check the [YouTube demo reel](http://www.youtube.com/watch?v=eoVrifa1Xd0)):
@@ -19,7 +19,7 @@ The advantage of using *gdx2d* is that you can develop your code in Java on your
 The library itself is a wrapper around a very very nice library called [libgdx](http://www.libgdx.com/) which provides almost everything to the library.
 
 ## Documentation
-The Javadoc API of the library can be found [here](http://hevs-isi.github.io/gdx2d/javadoc/1.0.0/). It is slightly outdated and a more recent version will be released soon.
+The Javadoc API of the library can be found [here](http://hevs-isi.github.io/gdx2d/javadoc/latest).
 
 ## What do I get?
 It is multi-platform so that you can run your code on desktop computers (running either Windows, Linux or Mac) but also on mobile devices running Android. It is based on ´libgdx´ but provides a much simpler interface and multiple demo programs to get started.
