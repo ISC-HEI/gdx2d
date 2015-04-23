@@ -16,6 +16,6 @@
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="library" name="gdx2d-library_1.0.1-beta" level="project" />
+    <orderEntry type="library" name="gdx2d-library_1.0.1-GAMMA" level="project" />
   </component>
 </module>
