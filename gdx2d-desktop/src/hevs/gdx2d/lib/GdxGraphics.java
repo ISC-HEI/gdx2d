@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -81,7 +82,11 @@ public class GdxGraphics implements Disposable {
 		 */
 		FileHandle robotoF = Gdx.files.internal("font/RobotoSlab-Regular.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(robotoF);
-		font = generator.generateFont(15);
+		// Font parameters for the standard font
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.color = Color.WHITE;
+		parameter.size = 15;
+		font = generator.generateFont(parameter);
 		generator.dispose();
 
 		// A camera that never moves
@@ -543,7 +548,7 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a text with a specific font at a specified position.
+	 * Draws a text with a specific font at a specified position. Default alignement is left.
 	 * <p/>
 	 * The text position reference is the top left edge.
 	 *
@@ -553,13 +558,14 @@ public class GdxGraphics implements Disposable {
 	 * @param f    the custom font to use
 	 */
 	public void drawString(float posX, float posY, String str, BitmapFont f) {
-		// Default alignment is left
-		drawString(posX, posY, str, f, Align.left);
+		drawString(posX, posY, str, f, Align.left); // Default alignment is left
 	}
 
 	/**
 	 * Draws a text at a specified position. Can be left, right or center
 	 * aligned.
+	 * <p/>
+	 * The text position reference is the top left edge.
 	 *
 	 * @param posX  left, right or center position of the text
 	 * @param posY  Y top position of the text
@@ -573,6 +579,8 @@ public class GdxGraphics implements Disposable {
 	/**
 	 * Draws a text with a specific font at a specified position. Can be left,
 	 * right or center aligned.
+	 * <p/>
+	 * The text position reference is the top left edge.
 	 *
 	 * @param posX  left, right or center position of the text
 	 * @param posY  Y top position of the text
@@ -583,23 +591,9 @@ public class GdxGraphics implements Disposable {
 	public void drawString(float posX, float posY, String str, BitmapFont f, int align) {
 		checkmode(t_rendering_mode.SPRITE);
 		final float w = f.getScaleX();
-		final float alignmentWidth;
-		switch (align) {
-			case Align.center:
-				alignmentWidth = w;
-				posX -= w / 2.0f;
-				break;
-			case Align.right:
-				alignmentWidth = 0;
-				break;
-			default:
-			case Align.left:
-				alignmentWidth = w;
-				break;
-		}
+
 		// Draw the string (reference is the top left edge)
 		f.draw(spriteBatch, str, posX, posY, w, align, false);
-		//f.draw(spriteBatch, str, posX, posY, alignmentWidth, align);
 	}
 
 	/**
