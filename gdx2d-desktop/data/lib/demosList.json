@@ -76,13 +76,18 @@
       "desc": "You want to play a nice background music in your game? Want to know how to stop it or resume playing? This demo is for you!"
     },
     {
+      "name": "Playing piano samples",
+      "class": "music.DemoBabyPiano",
+      "desc": "Play little pieces of music!"
+    },
+    {
       "name": "Displaying text using various fonts",
       "class": "fonts.DemoFontGeneration",
       "desc": "If you want to display text in your game with various fonts, this is the demo to launch!"
     },
     {
       "name": "Graphical user interface demonstration",
-      "class": "menus.buttons.DemoGUI",
+      "class": "menus.DemoGUI",
       "desc": "Basic GUI interface with buttons and edit text."
     }
   ],

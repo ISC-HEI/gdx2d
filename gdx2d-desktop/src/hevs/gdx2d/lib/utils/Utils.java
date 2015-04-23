@@ -30,7 +30,7 @@ public class Utils {
 	 * Checks that a method is called only in a given class
 	 *
 	 * @param className The name of the class the method belongs to
-	 * @param method The method name that should be contained
+	 * @param method    The method name that should be contained
 	 */
 	public static void callCheck(String className, String method) {
 		boolean callFromWrongLocation = true;

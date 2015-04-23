@@ -1,10 +1,17 @@
 package hevs.gdx2d.lib.gui;
 
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl.LwjglFrame;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
+import hevs.gdx2d.demos.menus.swing.DemoSwingIntegration;
+import hevs.gdx2d.demos.physics.DemoSimplePhysics;
+import hevs.gdx2d.lib.Game2D;
+import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.Version;
 
 import javax.swing.*;
@@ -14,6 +21,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -213,11 +221,29 @@ public class DemoSelectorGUI extends JFrame {
 					// Loads the class based on its name
 					Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
 					final Constructor<?> constructor = clazz.getConstructor(boolean.class);
-					constructor.newInstance(false);
-				} catch (Exception ex) {
-					System.err.println("Unable to find " + selectedDemoName);
-					ex.printStackTrace();
+
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								new GDXJFrame((PortableApplication)constructor.newInstance(false));
+//								LwjglFrame f =new LwjglFrame(new Game2D((PortableApplication)constructor.newInstance(false)), "Pouet", 600, 600);
+//								f.setHaltOnShutdown(false);
+//								f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+							} catch (InstantiationException e1) {
+								e1.printStackTrace();
+							} catch (IllegalAccessException e1) {
+								e1.printStackTrace();
+							} catch (InvocationTargetException e1) {
+								e1.printStackTrace();
+							}
+						}
+					});
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
+
 			}
 		}
 

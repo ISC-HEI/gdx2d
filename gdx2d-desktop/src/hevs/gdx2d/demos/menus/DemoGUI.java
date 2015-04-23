@@ -1,4 +1,4 @@
-package hevs.gdx2d.demos.menus.buttons;
+package hevs.gdx2d.demos.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
