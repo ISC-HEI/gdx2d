@@ -1,6 +1,5 @@
 package hevs.androiddemoselector;
 
-import hevs.gdx2d.lib.Version;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -10,10 +9,11 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.widget.TextView;
+import hevs.gdx2d.lib.Version;
 
 /**
  * About dialog Activity. Display some HTML texts and links.
- * 
+ *
  * @author Christopher Metrailler (mei)
  * @version 1.1
  */

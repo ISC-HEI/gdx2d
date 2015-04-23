@@ -1,9 +1,5 @@
 package hevs.androiddemoselector;
 
-import hevs.gdx2d.lib.interfaces.AndroidResolver;
-
-import java.util.LinkedHashMap;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +13,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import hevs.gdx2d.lib.interfaces.AndroidResolver;
+
+import java.util.LinkedHashMap;
 
 /**
  * Simple screen selector to select a demo to play.
- * 
+ *
  * @author Christopher Metrailler (mei)
  * @version 1.1
  */
@@ -31,10 +30,11 @@ public class DemoSelectorActivity extends ListActivity implements
 
 	// List of available demonstrations
 	private final static LinkedHashMap<String, String> demoList;
+
 	static {
-		
+
 		// TODO: add some others desktop demos (mei)
-		
+
 		demoList = new LinkedHashMap<String, String>();
 		demoList.put("Very simple shapes", "simple.DemoSimpleShapes");
 		demoList.put("Simple animation", "simple.DemoSimpleAnimation");
@@ -52,12 +52,12 @@ public class DemoSelectorActivity extends ListActivity implements
 		demoList.put("Simple physics (dominoes)", "physics.DemoSimplePhysics");
 		demoList.put("Physics soccer ball", "physics.DemoPhysicsBalls");
 		demoList.put("Physics finger interaction", "physics.mouse_interaction.DemoPhysicsMouse");
-		demoList.put("Physics collision detection",	"physics.collisions.DemoCollisionListener");
-		demoList.put("Physics chains",	"physics.chains.DemoChainPhysics");
+		demoList.put("Physics collision detection", "physics.collisions.DemoCollisionListener");
+		demoList.put("Physics chains", "physics.chains.DemoChainPhysics");
 		demoList.put("Particles", "physics.particle.DemoParticlePhysics");
 		demoList.put("Lights", "lights.DemoLight");
 		demoList.put("Lights (moving)", "lights.DemoRotateLight");
-		
+
 		// FIXME: not all shader are working on Android and resolution is too big (mei)
 		demoList.put("Shaders collection", "shaders.DemoAllShaders");
 	}
@@ -87,7 +87,7 @@ public class DemoSelectorActivity extends ListActivity implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-			long arg3) {
+							long arg3) {
 		// Get the class name and create the Intent
 		final String key = String.valueOf(getListAdapter().getItem(position));
 		final Intent demoActivity = new Intent(this, GameActivity.class);
@@ -114,10 +114,10 @@ public class DemoSelectorActivity extends ListActivity implements
 		super.onOptionsItemSelected(item);
 
 		switch (item.getItemId()) {
-		case R.id.about:
-			// Display the about dialog
-			mResolver.showAboutBox();
-			break;
+			case R.id.about:
+				// Display the about dialog
+				mResolver.showAboutBox();
+				break;
 		}
 		return true;
 	}

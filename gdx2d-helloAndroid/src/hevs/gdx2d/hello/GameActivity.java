@@ -1,15 +1,14 @@
 package hevs.gdx2d.hello;
 
-import hevs.gdx2d.lib.Game2D;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.WindowManager;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import hevs.gdx2d.lib.Game2D;
 
 /**
  * Sample application for Android using LibGDX HEVS wrapper.
- * 
+ *
  * @author Pierre-Andre Mudry (mui)
  */
 public class GameActivity extends AndroidApplication {

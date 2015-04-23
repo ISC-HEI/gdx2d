@@ -1,16 +1,16 @@
 package hevs.androiddemoselector;
 
-import hevs.gdx2d.lib.interfaces.AndroidResolver;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
+import hevs.gdx2d.lib.interfaces.AndroidResolver;
 
 /**
  * Android resolver implementation for libgdx applications.
- * 
+ * <p/>
  * The resolver is attached to the UI thread to display Toast and Dialog.
- * 
+ *
  * @author Christopher Metrailler (mei)
  * @version 1.0
  */
