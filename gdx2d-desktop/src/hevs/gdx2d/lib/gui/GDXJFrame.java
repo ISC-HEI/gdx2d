@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * A simple frame to host a PortableApplication, used mainly by Demoselector
  *
- * @author Pierre-André Mudry
+ * @author Pierre-AndrÃ© Mudry
  */
 public class GDXJFrame extends JFrame {
 	LwjglAWTCanvas canvas1;
