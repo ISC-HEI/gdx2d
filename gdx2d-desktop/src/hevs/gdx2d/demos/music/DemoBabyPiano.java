@@ -1,6 +1,7 @@
 package hevs.gdx2d.demos.music;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import hevs.gdx2d.components.audio.SoundSample;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
@@ -13,22 +14,22 @@ import static com.badlogic.gdx.graphics.Color.LIGHT_GRAY;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoSamplesPlay extends PortableApplication {
+public class DemoBabyPiano extends PortableApplication {
 
 	public SoundSample s1, s2, s3, s4;
 
-	public DemoSamplesPlay(boolean onAndroid) {
+	public DemoBabyPiano(boolean onAndroid) {
 		super(onAndroid);
 	}
 
 	public static void main(String[] args) {
-		new DemoSamplesPlay(false);
+		new DemoBabyPiano(false);
 	}
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		// Clear the screen
-		g.clear();
+		g.clear(Color.BLACK);
 		g.setColor(LIGHT_GRAY);
 
 		// Audio logic
