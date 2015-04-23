@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" source="desert.tsx"/>
+ <layer name="Ground" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztmGkPgjAMhqd88Eo8E8+oKN4X/v9fZ40QTDNHN12thg9PhGRkj28LNMyUUjOPNIEW0Pa8jwsXjd9cgNev5HfPqg8MgKEAHx0loAwEyNvHXiNgbMEEqAF1oMGQxQJYWhB59NsZ/FbAAVh/0c+UX0TMk+L3bi9uPPu5uF6RF/Y7qUf/n5nri3sOn+flhfvS5EfNSncf7FB+6XGeH871U/lt0XnqY5uf7/piT8w+qR+Vo6WfruaVhKrK3kUmAuK6lKnBj9KDLZXNF+l/NdEgrtNd53J/DFQ2X3SAbg494jrddT57j5vwRcaSPENGH5fZjMPrkvxSnp3P75/oQ/tTofjdna7JWk6/WKAf7mtpfi71fZ4vuPxiCz+cpbT8dLWW7MeZn8tsxun3L4QCHH4FnJW0b4NFjQsK3uMGSKO31Q==
+  </data>
+ </layer>
+</map>
