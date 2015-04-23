@@ -33,8 +33,29 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	 * {@code true} if the application is running on Android or {@code false} if running on desktop.
 	 */
 	protected boolean onAndroid;
-
 	private AndroidResolver resolver = null;
+
+	/**
+	 * Creates an application using {@code gdx2d}.
+	 * Use a default windows size.
+	 *
+	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
+	 */
+	public PortableApplication(boolean onAndroid) {
+		this(onAndroid, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	}
+
+	/**
+	 * Creates an application using {@code gdx2d}.
+	 * Screen dimension are ignored when running on Android.
+	 *
+	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
+	 * @param width     The width of the screen (only for desktop)
+	 * @param height    The height of the screen (only for desktop)
+	 */
+	public PortableApplication(boolean onAndroid, int width, int height) {
+		this(onAndroid, width, height, false);
+	}
 
 	/**
 	 * Create a full-screen {@code gdx2d} desktop application.
@@ -53,7 +74,9 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 			height = gd.getDisplayMode().getHeight();
 		}
 
-		createLwjglApplication(width, height, true);
+		// We only create a context when we were not built from the DemoSelector
+		if (fromDemoSelector() == false && CreateLwjglApplication)
+			createLwjglApplication(width, height, true);
 	}
 
 	/**
@@ -68,36 +91,23 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	public PortableApplication(boolean onAndroid, int width, int height, boolean fullScreen) {
 		this.onAndroid = onAndroid;
 
-		if (!onAndroid)
+		if (!onAndroid && !fromDemoSelector() && CreateLwjglApplication)
 			createLwjglApplication(width, height, fullScreen);
 	}
 
-	/**
-	 * Creates an application using {@code gdx2d}.
-	 * Screen dimension are ignored when running on Android.
-	 *
-	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
-	 * @param width     The width of the screen (only for desktop)
-	 * @param height    The height of the screen (only for desktop)
-	 */
-	public PortableApplication(boolean onAndroid, int width, int height) {
-		this(onAndroid, width, height, false);
-	}
+	private boolean fromDemoSelector() {
+		String className = "DemoSelectorGUI";
 
-	/**
-	 * Creates an application using {@code gdx2d}.
-	 * Use a default windows size.
-	 *
-	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
-	 */
-	public PortableApplication(boolean onAndroid) {
-		this(onAndroid, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	}
+		StackTraceElement[] callStack = Thread.currentThread().getStackTrace();
 
-	public PortableApplication(){
-		theGame = new Game2D(this);
-	}
+		for (StackTraceElement elem : callStack) {
+			if (elem.getClassName().contains(className)) {
+				return true;
+			}
+		}
 
+		return false;
+	}
 
     /* TouchInterface callbacks */
 
@@ -292,7 +302,8 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		this.resolver = resolver;
 	}
 
-	public Game2D theGame;
+	// TODO This is ugly and only required for the DemoSwingIntegration to prevent creating of a the context
+	public static boolean CreateLwjglApplication = false;
 
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
 		assert (!onAndroid);
@@ -309,7 +320,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		config.foregroundFPS = 60; // Target value if vSync not working
 		config.backgroundFPS = config.foregroundFPS;
 		config.samples = 3; // Multi-sampling enables anti-alias for lines
-		config.forceExit = true; // Setting true calls system.exit(), with no coming back
+		config.forceExit = false; // Setting true calls system.exit(), with no coming back
 
 		String os = System.getProperty("os.name").toLowerCase();
 
@@ -321,7 +332,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		config.addIcon("lib/icon32.png", FileType.Internal);
 		config.addIcon("lib/icon64.png", FileType.Internal);
 
-		theGame = new Game2D(this);
+		Game2D theGame = new Game2D(this);
 		new LwjglApplication(theGame, config);
 	}
 }
