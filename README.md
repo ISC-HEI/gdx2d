@@ -1,4 +1,4 @@
-## Welcome to gdx2d (go to the [website](http://hevs-isi.github.io/jekyll-test/))! [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
+## Welcome to gdx2d (go to the [website](http://hevs-isi.gihub.io/gdx2d))! [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
  
 <p align="center">
   <img src="https://rawgit.com/hevs-isi/gdx2d-videofile/master/logo/logo_640.png?raw=true" alt="Logo"/>
@@ -19,7 +19,7 @@ The advantage of using *gdx2d* is that you can develop your code in Java on your
 The library itself is a wrapper around a very very nice library called [libgdx](http://www.libgdx.com/) which provides almost everything to the library.
 
 ## Documentation
-The Javadoc API of the library can be found [here](http://hevs-isi.github.io/gdx2d/javadoc/latest).
+The Javadoc API of the library can be found [here](http://hevs-isi.github.io/gdx2d/javadoc/latest). More information can be found on the [following website](http://hevs-isi.gihub.io/gdx2d)
 
 ## What do I get?
 It is multi-platform so that you can run your code on desktop computers (running either Windows, Linux or Mac) but also on mobile devices running Android. It is based on ´libgdx´ but provides a much simpler interface and multiple demo programs to get started.
