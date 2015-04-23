@@ -8,7 +8,7 @@ import hevs.gdx2d.lib.utils.Logger;
 /**
  * Julia set as a shader, based on mei code
  *
- * @author Pierre-André Mudry (mui)
+ * @author Pierre-Andre Mudry (mui)
  * @version 0.2
  */
 public class DemoJulia extends PortableApplication {
@@ -22,7 +22,7 @@ public class DemoJulia extends PortableApplication {
 	Vector2 offset = new Vector2(0, 0);
 
 	public DemoJulia(boolean onAndroid) {
-		super(false, 700, 700);
+		super(false);
 	}
 
 	public static void main(String args[]) {
