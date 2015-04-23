@@ -24,6 +24,6 @@ public class GameActivity extends AndroidApplication {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		// Load the HelloWorld demo from the "hdx2d-helloDesktop" project
-		initialize(new Game2D(new HelloWorld(true)), true);
+		initialize(new Game2D(new HelloWorld(true)));
 	}
 }

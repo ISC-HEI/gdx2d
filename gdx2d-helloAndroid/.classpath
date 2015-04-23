@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/gdx2d-desktop"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/gdx2d-helloDesktop"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/gdx2d-helloDesktop"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry exported="true" kind="lib" path="/gdx2d-desktop/libs/gdx.jar" sourcepath="/gdx2d-desktop/libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/gdx2d-desktop/libs/gdx-freetype.jar"/>
+	<classpathentry kind="lib" path="/gdx2d-desktop/libs/gdx-1.5.6.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-android-1.5.6.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

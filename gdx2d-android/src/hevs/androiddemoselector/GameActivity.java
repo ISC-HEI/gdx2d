@@ -48,7 +48,7 @@ public class GameActivity extends AndroidApplication {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 			
 			// Start the LibGDX application
-			initialize(new Game2D(instance), true);
+			initialize(new Game2D(instance));
 
 		} catch (Exception e) {
 			e.printStackTrace();
