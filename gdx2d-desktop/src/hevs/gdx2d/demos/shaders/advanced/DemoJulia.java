@@ -21,12 +21,12 @@ public class DemoJulia extends PortableApplication {
 	float scale = 1.10f;
 	Vector2 offset = new Vector2(0, 0);
 
-	public DemoJulia() {
+	public DemoJulia(boolean onAndroid) {
 		super(false, 700, 700);
 	}
 
 	public static void main(String args[]) {
-		new DemoJulia();
+		new DemoJulia(false);
 	}
 
 	@Override

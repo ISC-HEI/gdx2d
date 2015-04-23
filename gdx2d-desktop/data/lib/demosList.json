@@ -27,6 +27,11 @@
       "desc": "A graphical library without a fractal is not really a graphical library, isn't it?"
     },
     {
+      "name": "Tiled editor support",
+      "class": "tilemap.DemoTile",
+      "desc": "From the map editor directly to GDX2D"
+    },
+    {
       "name": "Spritesheet support",
       "class": "spritesheet.DemoSpriteSheet",
       "desc": "Demonstrate how to use a spritesheet"
@@ -125,7 +130,7 @@
       "desc": "A demo for soccer fans! Just interact with the screen to make balls fall. On Android, this demos uses the accelerometers."
     },
     {
-      "name": "Obstacles with chain of objects",
+      "name": "Obstacles made of a chain of objects",
       "class": "physics.chains.DemoChainPhysics",
       "desc": "This demos shows how to create a chain of objects that are seen as obstacles for other physics objects"
     },
@@ -150,18 +155,8 @@
       "desc": "Building a rope with joints."
     },
     {
-      "name": "Physics joints - motor (Swiss SBB clock)",
-      "class": "physics.motors.DemoRotateMotor",
-      "desc": "A complex example showing motors on a real clock."
-    },
-    {
       "name": "Physics joints and motor - mixing objects with a motor",
       "class": "physics.joints.DemoMixer",
-      "desc": "No description yet."
-    },
-    {
-      "name": "Simple motors to mix things",
-      "class": "physics.motors.DemoRotateMotor",
       "desc": "No description yet."
     },
     {
@@ -172,9 +167,14 @@
   ],
   "Shaders (advanced)": [
     {
+      "name": "Julia fractal on the GPU",
+      "class": "shaders.advanced.DemoJulia",
+      "desc": "What would be the world without fractals?"
+    },
+    {
       "name": "Shaders collection",
       "class": "shaders.DemoAllShaders",
-      "desc": "No description yet."
+      "desc": "It shines, it is beautiful!"
     }
   ]
 }
