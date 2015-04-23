@@ -1,28 +1,58 @@
-# To enable ProGuard in your project, edit project.properties
-# to define the proguard.config property as described in that file.
-#
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in ${sdk.dir}/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the ProGuard
-# include property in project.properties.
+# ProGuard settings for `gdx2d-android`
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# Add any project specific keep options here:
 
--libraryjars /libs/gdx-backend-android.jar
--dontwarn com.badlogic.gdx.jnigen.**
--dontwarn com.badlogic.gdx.backends.android.AndroidDaydream
--dontwarn com.badlogic.gdx.backends.android.AndroidInputThreePlus
--dontwarn com.badlogic.gdx.backends.android.AndroidGraphicsDaydream
+# Libraries used for demos
+-libraryjars libs/gdx-backend-android.jar
+-libraryjars ../gdx2d-desktop/libs/box2dlights.jar
+-libraryjars ../gdx2d-desktop/libs/tween-engine-api.jar
+
+-libraryjars ../gdx2d-desktop/libs/gdx.jar
+-libraryjars ../gdx2d-desktop/libs/gdx-natives.jar
+
+# Remove Swing GUI classes of the desktop application
+-dontwarn hevs.gdx2d.lib.gui.**
+-dontwarn hevs.gdx2d.demos.DemoSelector
+
+# Force to keep all PortableApplication constructors (reflection is used)
 -dontwarn hevs.gdx2d.lib.PortableApplication
+-keep public class * extends hevs.gdx2d.lib.PortableApplication
+-keepclassmembers class * extends hevs.gdx2d.lib.PortableApplication {
+  public <init>(...);
+}
+
+-dontwarn com.badlogic.gdx.jnigen.**
 -dontwarn box2dLight.*
+
 -dontskipnonpubliclibraryclassmembers
 -keep class hevs.gdx2d.**
 -keep class hevs.gdx2d.*
 
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+ 
+# This makes the things look like a rainbow :)
+-keepnames class com.badlogic.gdx.backends.android.AndroidInput*
+-keepclassmembers class com.badlogic.gdx.backends.android.AndroidInput* {<init>(...);}
 
--dontshrink
--dontoptimize
+
+-dontwarn com.badlogic.gdx.jnigen.**
+-dontwarn com.badlogic.gdx.backends.**
+
+# primary strings
+-keep class com.badlogic.gdx.**
+-keepclasseswithmembers class * implements com.badlogic.gdx.physics.box2d {
+  *;
+}
+-keepclasseswithmembers class com.badlogic.gdx.physics.box2d {
+   *;
+}
+-keepclasseswithmembers class com.badlogic.gdx.physics.box2d.World {
+   *;
+}
