@@ -45,7 +45,7 @@ public class AboutDialog {
 		addUrl(gitLabel, "http://hevs-isi.github.io/gdx2d/", "http://hevs-isi.github.io/gdx2d/");
 		aboutPanel.add(gitLabel);
 
-		aboutPanel.add(new JLabel("<html><br><pre>" + Version.print() + "</pre></html>"));
+		aboutPanel.add(new JLabel("<html><br><pre>" + Version.printVerbose() + "</pre></html>"));
 	}
 
 	/**

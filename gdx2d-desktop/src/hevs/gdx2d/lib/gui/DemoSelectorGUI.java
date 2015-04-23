@@ -241,14 +241,14 @@ public class DemoSelectorGUI extends JFrame {
 
 				// Select the last chosen demo (if any)
 				selectedDemoName = prefs.get("lastDemoName", "");
-				setSelectedValue(selectedDemoName, true); 
+				setSelectedValue(selectedDemoName, true);
 				setFocusable(true);
 				requestFocus();
 
 				addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
-						selectedDemoName = (String)getSelectedValue();
+						selectedDemoName = (String) getSelectedValue();
 						paneComments.setText(demosMap.get(selectedDemoName).desc);
 					}
 				});
