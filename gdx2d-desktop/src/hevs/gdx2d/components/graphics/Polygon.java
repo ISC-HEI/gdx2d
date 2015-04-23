@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ShortArray;
 
 /**
  * A polygon class for rendering stuff
@@ -20,7 +21,7 @@ public class Polygon {
 	private float[] vertices;
 	private float[] triangulatedVertices = null;
 	public Array<Vector2> vectorList;
-	private Array<Vector2> earClippedVertices;
+	private short[] earClippedVertices;
 	private Vector2[] gdxpoints;
 
 	public Polygon(Vector2[] points) {
@@ -51,14 +52,20 @@ public class Polygon {
 		if (triangulatedVertices == null) {
 			int j = 0;
 			EarClippingTriangulator ect;
-//			vectorList = new Array<Vector2>(Arrays.asList(gdxpoints));
-//			ect = new EarClippingTriangulator();
-//			earClippedVertices = ect.computeTriangles(vectorList);
-//			triangulatedVertices = new float[earClippedVertices.size() * 2];
+			float[] vectorArray = new float[gdxpoints.length * 2];
+			for (int i = 0 ; i < gdxpoints.length; i++)
+			{
+				vectorArray[2*i+0] = gdxpoints[i].x;
+				vectorArray[2*i+1] = gdxpoints[i].y;
+			}
 
-			for (Vector2 v : earClippedVertices) {
-				triangulatedVertices[j++] = v.x;
-				triangulatedVertices[j++] = v.y;
+			ect = new EarClippingTriangulator();
+			earClippedVertices = ect.computeTriangles(vectorArray).toArray();
+			triangulatedVertices = new float[earClippedVertices.length*2];
+			for (int i = 0 ; i < earClippedVertices.length; i++)
+			{
+				triangulatedVertices[2*i+0] = gdxpoints[i].x;
+				triangulatedVertices[2*i+1] = gdxpoints[i].y;
 			}
 		}
 
