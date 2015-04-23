@@ -1,4 +1,4 @@
-## Welcome to gdx2d! [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
+## Welcome to `gdx2d`(Go to the [website](http://hevs-isi.github.io/jekyll-test/)! [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
  
 <p align="center">
   <img src="https://rawgit.com/hevs-isi/gdx2d-videofile/master/logo/logo_640.png?raw=true" alt="Logo"/>
