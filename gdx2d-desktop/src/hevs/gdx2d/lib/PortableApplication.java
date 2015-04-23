@@ -303,7 +303,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	}
 
 	// TODO This is ugly and only required for the DemoSwingIntegration to prevent creating of a the context
-	public static boolean CreateLwjglApplication = false;
+	public static boolean CreateLwjglApplication = true;
 
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
 		assert (!onAndroid);
