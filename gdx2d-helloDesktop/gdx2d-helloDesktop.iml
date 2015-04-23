@@ -16,19 +16,6 @@
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.0.1-SNAPSHOT.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.0.1-SNAPSHOT.jar!/" />
-        </NATIVE>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.0.1-SNAPSHOT.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="gdx2d-library_1.0.1-beta" level="project" />
   </component>
 </module>

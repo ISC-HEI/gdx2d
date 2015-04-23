@@ -9,9 +9,9 @@ import hevs.gdx2d.lib.PortableApplication;
 /**
  * Hello World demo.
  *
- * @author Christopher MÃ©trailler (mei)
- * @author Pierre-AndrÃ© Mudry (mui)
- * @version 1.0
+ * @author Christopher Métrailler (mei)
+ * @author Pierre-André Mudry (mui)
+ * @version 1.01
  */
 public class HelloWorld extends PortableApplication {
 
@@ -43,7 +43,7 @@ public class HelloWorld extends PortableApplication {
 
 		// Compute the angle of the image using an elastic interpolation
 		float t = computePercentage();
-		float angle = Interpolation.elastic.apply(MIN_ANGLE, MAX_ANGLE, t);
+		float angle = Interpolation.bounce.apply(MIN_ANGLE, MAX_ANGLE, t);
 
 		// Draw everything
 		g.drawTransformedPicture(getWindowWidth() / 2.0f, getWindowHeight() / 2.0f, angle, 1.0f, imgBitmap);
