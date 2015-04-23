@@ -51,9 +51,9 @@ public class DemoSelectorActivity extends ListActivity implements
 		demoList.put("Accelerometer", "accelerometer.DemoAccelerometer");
 		demoList.put("Simple physics (dominoes)", "physics.DemoSimplePhysics");
 		demoList.put("Physics soccer ball", "physics.DemoPhysicsBalls");
-		demoList.put("Physics finger interaction", "physics.mouse_interaction.DemoPhysicsMouse");
+		demoList.put("Physics finger interaction", "physics.DemoPhysicsMouse");
 		demoList.put("Physics collision detection",	"physics.collisions.DemoCollisionListener");
-		demoList.put("Physics chains",	"physics.chains.DemoChainPhysics");
+		demoList.put("Physics chains",	"physics.DemoChainPhysics");
 		demoList.put("Particles", "physics.particle.DemoParticlePhysics");
 		demoList.put("Lights", "lights.DemoLight");
 		demoList.put("Lights (moving)", "lights.DemoRotateLight");

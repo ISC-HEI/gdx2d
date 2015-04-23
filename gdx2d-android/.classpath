@@ -5,11 +5,11 @@
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/gdx2d-desktop"/>
 	<classpathentry exported="true" kind="lib" path="/gdx2d-desktop/libs/gdx-freetype.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="libs/gdx-backend-android-1.5.6-sources.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-backend-android-1.5.6.jar"/>
-	<classpathentry kind="lib" path="/gdx2d-desktop/libs/gdx-1.5.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/gdx2d-desktop/libs/gdx-1.5.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/gdx2d-desktop/libs/gdx-box2d.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/gdx2d-desktop"/>
+	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android-1.5.6.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
