@@ -1,5 +1,5 @@
 # Dependencies
-markdown:         markdown
+markdown:         kramdown
 highlighter:      pygments
 
 # Permalinks
