@@ -1,6 +1,9 @@
 # Dependencies
-markdown:         kramdown
-highlighter:      rouge
+markdown:         redcarpet
+highlighter:      pygments
+
+redcarpet:
+  extensions: ["smart", "tables"]
 
 kramdown:
   input: GFM
