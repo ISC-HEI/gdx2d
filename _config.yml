@@ -5,7 +5,7 @@ highlighter:      pygments
 redcarpet:
   extensions: ["smart", "tables"]
 
-kramdown:
+kramdown: 
   input: GFM
 
 # Permalinks
