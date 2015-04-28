@@ -1,16 +1,10 @@
 package hevs.gdx2d.lib.gui;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.backends.lwjgl.LwjglFrame;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
-import hevs.gdx2d.demos.menus.swing.DemoSwingIntegration;
-import hevs.gdx2d.demos.physics.DemoSimplePhysics;
-import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.Version;
 
@@ -37,7 +31,6 @@ import java.util.prefs.Preferences;
  */
 @SuppressWarnings({"serial"})
 public class DemoSelectorGUI extends JFrame {
-	private final static String TAG = "DemoSelector";
 
 	public DemoSelectorGUI() throws Exception {
 		super("GDX2D demos " + Version.VERSION + " - mui, chn, mei 2012-2015");
@@ -176,13 +169,13 @@ public class DemoSelectorGUI extends JFrame {
 			int demoCounter = 1;
 
 			// Read all categories
-			for (int i = 0; i < demos.size(); i++) {
+			for (int i = 0; i < demos.size; i++) {
 				JsonValue catDemos = demos.get(i);
 				String catName = catDemos.name();
 
 				List<String> l = new ArrayList<String>();
 				// Read all demos in the category
-				for (int j = 0; j < catDemos.size(); j++) {
+				for (int j = 0; j < catDemos.size; j++) {
 					JsonValue currentDemo = catDemos.get(j);
 					final String name = demoCounter + ". "
 							+ currentDemo.getString("name");
@@ -226,10 +219,7 @@ public class DemoSelectorGUI extends JFrame {
 						@Override
 						public void run() {
 							try {
-								new GDXJFrame((PortableApplication)constructor.newInstance(false));
-//								LwjglFrame f =new LwjglFrame(new Game2D((PortableApplication)constructor.newInstance(false)), "Pouet", 600, 600);
-//								f.setHaltOnShutdown(false);
-//								f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+								new GdxDialog((PortableApplication)constructor.newInstance(false), DemoSelectorGUI.this);
 
 							} catch (InstantiationException e1) {
 								e1.printStackTrace();
