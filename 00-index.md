@@ -6,10 +6,6 @@ title: Welcome to GDX2D!
 
 [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
 
-<center>
-    <img alt="Screenshots" src="{{site.url}}images/doc/screenshot.png">
-</center>
-
 <p align="center">
 <a href="https://www.youtube.com/watch?v=eoVrifa1Xd0">
   <img src="{{site.url}}images/logo_640.png" target="_blank" alt="Logo"/>

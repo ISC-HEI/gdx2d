@@ -19,7 +19,7 @@
       {% assign pages = site.collections.doc.docs | sort:"weight"  %}
       <ul>
         {% for p in pages %}
-        <li><a {% if p.url == page.url %}class="active"{% endif %} href="{{ p.url }}">{{ p.title }}</a></li>
+        <li><a {% if p.url == page.url %}class="active"{% endif %} href="{{ site.url }}{{ p.url }}">{{ p.title }}</a></li>
         {% endfor %}
         <li><a class="sidebar-nav-item" href="http://hevs-isi.github.io/gdx2d/javadoc/latest/" target="_bank">Javadoc</a></li>
       </ul>
