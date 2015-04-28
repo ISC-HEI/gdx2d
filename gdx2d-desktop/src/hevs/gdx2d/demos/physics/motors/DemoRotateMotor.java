@@ -35,8 +35,6 @@ import java.util.Date;
 public class DemoRotateMotor extends PortableApplication {
 	private World world = PhysicsWorld.getInstance();
 
-
-
 	private PhysicsMotor physicMotorSeconds;
 	private PhysicsMotor physicMotorMinutes;
 	private PhysicsMotor physicMotorHours;
@@ -212,10 +210,10 @@ public class DemoRotateMotor extends PortableApplication {
 				(float) (body2.getAngle() * 180 / Math.PI), 1.0f, secondBitmap);
 
 		g.setColor(Color.BLACK);
-		g.drawString(w - 10, h - 10, "Famous clock from\r\n"
+		g.drawString(w - 200, h - 10, "Famous clock from\r\n"
 				+ "the Swiss Railways.");
 
-		g.drawString(w - 10, h - 80, displayTime());
+		g.drawString(w - 200, h - 80, displayTime());
 
 		g.drawSchoolLogo();
 	}
