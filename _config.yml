@@ -25,7 +25,7 @@ collections:
 title:            GDX2D
 tagline:          'A gaming library'
 description:      'A gaming library for the <a href="http://inf1.begincoding.net" target="_blank">INF1 course</a>.'
-url:              http://127.0.0.1:4000/ # http://hevs-isi.github.io/gdx2d/ # Set to http://127.0.0.1:4000/ when serving locally
+url:              http://hevs-isi.github.io/gdx2d/ # Set to http://127.0.0.1:4000/ when serving locally
 
 author:
   name:           'Pierre-André Mudry'
