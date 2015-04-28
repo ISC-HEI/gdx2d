@@ -11,7 +11,7 @@ $ gem install jekyll
 $ jekyll serve
 ```
 
-Open [http://localhost:4000](http://localhost:4000) in your browser, and voilà.
+Open [http://127.0.0.1:4000/gdx2d/](http://127.0.0.1:4000/gdx2d/) in your browser, and voilà.
 
 ## License
 
