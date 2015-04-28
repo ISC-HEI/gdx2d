@@ -25,6 +25,18 @@ public class PhysicsCircle extends AbstractPhysicsObject {
 	public PhysicsCircle(String name, Vector2 position, float radius) {
 		super(Type.Circle, name, position, radius, radius, 10f, 0.6f, 0.6f, true);
 	}
+	
+	/**
+	 * Create a physics circle.
+	 *
+	 * @param name     An optional name for the object (for debug)
+	 * @param position The position of the center point
+	 * @param radius   The radius of the object
+	 * @param angle    The angle of the object (trig angle)
+	 */
+	public PhysicsCircle(String name, Vector2 position, float radius, float angle) {
+		super(Type.Circle, name, position, radius, radius, 10f, 0.6f, 0.6f, angle, true);
+	}
 
 	/**
 	 * Create a physics circle.

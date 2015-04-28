@@ -24,7 +24,7 @@ public class PhysicsMotor {
 	// Contains the definition for the RevoluteJoint
 	RevoluteJointDef rjd;
 	// Contains the RevoluteJoint for the physics simulation
-	RevoluteJoint joint;
+	private RevoluteJoint joint;
 
 	/**
 	 * Constructor which defines and creates the {@link RevoluteJoint}.
@@ -155,5 +155,9 @@ public class PhysicsMotor {
 		joint.setMotorSpeed(speed);
 		joint.setMaxMotorTorque(torque);
 		joint.enableMotor(enable);
+	}
+
+	public RevoluteJoint getJoint() {
+		return joint;
 	}
 }
