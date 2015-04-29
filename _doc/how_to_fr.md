@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: doc/how-to/fr/
-weight: 1
+weight: 2
 title: Comment utiliser la librairie ?
 ---
 
