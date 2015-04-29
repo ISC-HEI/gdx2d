@@ -1,10 +1,14 @@
 package hevs.gdx2d.lib.gui;
 
+import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
+import hevs.gdx2d.demos.physics.DemoSimplePhysics;
+import hevs.gdx2d.demos.simple.DemoCircles;
+import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.Version;
 
@@ -19,7 +23,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.prefs.Preferences;
 
 /**
  * A demo selector class, most of the code taken from Libgdx own demo selector.
@@ -31,22 +34,28 @@ import java.util.prefs.Preferences;
 @SuppressWarnings({"serial"})
 public class DemoSelectorGUI extends JFrame {
 
+	LwjglAWTCanvas canvas;
+	JPanel container = new JPanel();
+
 	public DemoSelectorGUI() throws Exception {
 		super("GDX2D " + Version.VERSION);
 
+		PortableApplication.CreateLwjglApplication = false; // TODO: configuration this way is ugly...
+
 		// Populate the window
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setContentPane(new TestList());
+		this.setLayout(new FlowLayout());
+
+		add(new TestList());
+		container = new JPanel();
+
+		// Add the starting demo
+		canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles(false)));
+		canvas.getCanvas().setSize(500, 500);
+		container.add(canvas.getCanvas());
+		add(container);
 
 		pack();
-		String os = System.getProperty("os.name").toLowerCase();
-
-		// FIXME: Under windows we can set the window size
-		// It seems to be a problem under Linux
-		if (os.contains("win")) {
-			setSize(500, 700);
-		}
-
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -64,15 +73,14 @@ public class DemoSelectorGUI extends JFrame {
 		private JTextPane paneComments = new JTextPane();
 
 		/* GUI preferences */
-		private Preferences prefs;
 		private String selectedDemoName = null;
 
 		public TestList() {
-			prefs = Preferences.userRoot().node(this.getClass().getName());
 			setLayout(new BorderLayout());
 			setIcon();
 			createMenus();
 			setupAccordeon();
+			setPreferredSize(new Dimension(500, 500));
 
 			add(accordion, BorderLayout.CENTER);
 
@@ -131,7 +139,6 @@ public class DemoSelectorGUI extends JFrame {
 		}
 
 		private void setupAccordeon() {
-
 			accordion.setTabOrientation(TabOrientation.VERTICAL);
 			accordion.setTabHeight(25);
 			accordion.setDrawShadow(false);
@@ -155,8 +162,7 @@ public class DemoSelectorGUI extends JFrame {
 			}
 
 			// Open the last selected tab (if any) or the first one
-			int tabIdx = Integer.valueOf(prefs.get("selectedTabIdx", "0"));
-			accordion.setSelectedIndex(tabIdx);
+			accordion.setSelectedIndex(0);
 		}
 
 		private void loadFromJson() throws FileNotFoundException {
@@ -201,33 +207,24 @@ public class DemoSelectorGUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (selectedDemoName == null)
-					return; // Do nothing if no selection
 
-				// Save the name and the tab demo index
-				prefs.put("lastDemoName", selectedDemoName);
-				prefs.put("selectedTabIdx", String.valueOf(accordion.getSelectedTab().getIndex()));
+				synchronized (canvas) {
+					canvas.stop();
+					container.remove(canvas.getCanvas());
+					canvas = null;
 
-				try {
-					// Loads the class based on its name
-					Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
-					final Constructor<?> constructor = clazz.getConstructor(boolean.class);
+					try {
+						Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
+						final Constructor<?> constructor = clazz.getConstructor(boolean.class);
 
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							try {
-								PortableApplication app = (PortableApplication) constructor.newInstance(false);
-								GdxDialog f = new GdxDialog(app);
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
-						}
-					});
-				} catch (Exception e1) {
-					e1.printStackTrace();
+						canvas = new LwjglAWTCanvas(new Game2D((PortableApplication) constructor.newInstance(false)));
+						canvas.getCanvas().setSize(500, 500);
+						container.add(canvas.getCanvas());
+						pack();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
-
 			}
 		}
 
@@ -249,8 +246,6 @@ public class DemoSelectorGUI extends JFrame {
 				m.setLeadAnchorNotificationEnabled(false);
 				setSelectionModel(m);
 
-				// Select the last chosen demo (if any)
-				selectedDemoName = prefs.get("lastDemoName", "");
 				setSelectedValue(selectedDemoName, true);
 				setFocusable(true);
 				requestFocus();
