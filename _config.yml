@@ -33,7 +33,7 @@ author:
   url:            https://www.hevs.ch
 
 # Custom vars
-version:          1.0.1-gamma
+version:          1.0.1-RC1
 
 github:
   repo:           https://github.com/hevs-isi/gdx2d/
