@@ -3,22 +3,34 @@ layout: page
 permalink: doc/physics/
 weight: 3
 title: Physics with Box2D
+published: true
 ---
+
+# Moteur physique Box2D
 
 Le moteur physique *Box2D* peut être utilisé afin de développer des applications qui utilisent des phénomènes physiques, comme la gravité ou des collisions entre objets (avec énergie, vitesse, etc.).
 
-## Objets physique disponibles
+## Les objets physiques
 
-Différents objets physiques (statiques ou dynamiques) sont à disposition et peuvent être utilisés directement. La taille et les positions de de ces objets peuvent être spécifiées en pixels directement. De plus, ils sont ajoutés automatiquement dans le monde physique `PhysicsWorld` une fois créés.
+Différents objets physiques (statiques ou dynamiques) sont à disposition et peuvent être utilisés directement. De manière générale, on va simuler principalement des cercles et des rectangles, parfois des polygones. Les classes correspondantes que vous allez utiliser sont :
 
+* `PhysicsBox` et `PhysicsStaticBox` qui représentent des rectangles. 
+* `PhysicsCircle` et `PhysicsStaticCircle` qui représentent des cercles.
+
+Ces objets de base possèdent différentes caractéristiques physiques comme taille, moment, densité, coefficient de frottement etc... La taille et les positions de ces objets sont spécifiées en pixels. Une fois crées, ils sont ajoutés automatiquement dans le monde physique `PhysicsWorld`.
+
+## Principe de fonctionnement
+Le moteur physique va simuler les mouvements des objets en fonction des forces existant dans le monde. Une force existant par défaut est la gravité (qui peut être modifiée bien entendu). Celle-ci va influencer tous les objets (par exemple, un rectangle dans l'air tombera). On peut également créer des forces pour agir à différent endroits sur les objets. Observez les différentes démos à disposition pour vous faire une idée de ce que l'on peut faire (notamment dans la démo `DemoPhysicsRocket`). 
+
+## Un premier exemple
 <center>
     <img alt="Physics class" src="{{site.url}}images/doc/class-physics.png" width="500">
 </center>
 
-L’application `DemoSimplePhysics`, présentée dans la figure ci-dessous, utilise le moteur physique *Box2D*. Les applications physiques peuvent être composées des attributs suivants :
+L’application `DemoSimplePhysics`, présentée dans la figure ci-dessus, utilise le moteur physique *Box2D* et montre comment réaliser une simulation. Les applications physiques sont composées des objets suivants :
 
-* `PhysicsWorld` : le monde unique dans lequel les objets physiques sont ajoutés pour être simulés. La méthode `setGravity` permet par exemple de spécifier une gravité terrestre.
-* `DebugRenderer` : permet de dessiner les contours des objets physiques, lorsque ces derniers ne possèdent pas de texture (mode debug). Les objets dont la position est statique sont dessinés en vert.
+* `PhysicsWorld` : le monde unique dans lequel les objets physiques sont ajoutés pour être simulés. La méthode `setGravity` permet par exemple de spécifier une gravité terrestre. C'est cette classe qui fera la simulation physique à proprement parler.
+* `DebugRenderer` : permet de dessiner les contours des objets physiques, lorsque ces derniers ne possèdent pas de texture (mode `debug`). Les objets dont la position est fixe (qui ne bougent jamais) sont dits *statiques* et sont dessinés en vert par le `DebugRenderer`.
 * La classe `PhysicsScreenBoundaries` peut être utilisée afin de limiter automatiquement le monde physique à la taille de la fenêtre. Par défaut, les collisions sont activées entre tous les objets.
 
 <center>
@@ -43,7 +55,6 @@ public void onGraphicRender(GdxGraphics g) {
 Elle consiste à faire le rendu du monde physique à l’aide de la classe `DebugRenderer`, puis de recalculer la position des objets du monde en utilisant la méthode `updatePhysics`.
 
 ## Dessin des objets physiques avec textures
-
 La classe `DebugRenderer` permet de dessiner le contour des objets physiques automatiquement. Il est possible d’ajouter une texture à ces objets en dessinant périodiquement une image à la position actuelle des objets. Pour ce faire, les objets du monde doivent être sauvegardés dans une liste, comme le montre l’exemple suivant :
 
 ```java
@@ -64,7 +75,7 @@ public void onInit() {
 public void onGraphicRender(GdxGraphics g) {
    g.clear();
 
-   // Not necessary any more
+   // No longer required
    // debugRenderer.render(world, g.getCamera().combined);
 
    // Draw every body in the world
@@ -83,8 +94,10 @@ public void onGraphicRender(GdxGraphics g) {
 Ainsi, il n’est plus nécessaire de dessiner le `DebugRenderer`.
 
 ## Destruction des objets physiques
+Il est important de détruire les objets physiques qui ne sont plus utilisés (par exemple 
+lorsque ces derniers sont en dehors de la fenêtre) à l’aide de la méthode `destroy`. De même si vous voulez enlever un objet de la simulation (par exemple s'il est détruit) il est important de prendre quelques précautions.
 
-Il est important de détruire les objets physiques qui ne sont plus utilisés (par exemple lorsque ces derniers sont en dehors de la fenêtre) à l’aide de la méthode `destroy`. Pour ce faire, le code suivant peut être utilisé :
+Pour ce faire, le code suivant peut être utilisé :
 
 ```java
 List<PhysicsBall> balls = new LinkedList<PhysicsBall>();
@@ -114,7 +127,6 @@ public void onGraphicRender(GdxGraphics g) {
 ```
 
 ## Groupes de collisions
-
 Des groupes de collisions peuvent être mis en place afin d’activer ou désactiver les collisions entre des objets physiques de même type. Pour ce faire, la méthode `setCollisionGroup` est disponible pour tous les `AbstractPhysicsObject` :
 
 ```java
