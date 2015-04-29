@@ -16,9 +16,8 @@ import java.awt.*;
 public class GdxDialog extends JDialog {
 	private LwjglAWTCanvas canvas;
 
-	public GdxDialog(PortableApplication app, Frame owner) {
-		// FIXME: the application title is not available at this moment
-		super(owner, "GDX2D demos " + Version.VERSION + " - mui, chn, mei 2012-2015");
+	public GdxDialog(PortableApplication app, Frame owner, String title) {
+		super(owner, title);
 
 		setIconImage(new ImageIcon(getClass().getResource("/lib/icon16.png")).getImage());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

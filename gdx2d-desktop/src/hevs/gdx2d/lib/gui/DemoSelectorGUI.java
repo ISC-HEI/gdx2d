@@ -177,8 +177,7 @@ public class DemoSelectorGUI extends JFrame {
 				// Read all demos in the category
 				for (int j = 0; j < catDemos.size; j++) {
 					JsonValue currentDemo = catDemos.get(j);
-					final String name = demoCounter + ". "
-							+ currentDemo.getString("name");
+					final String name = String.format("%02d. %s", demoCounter, currentDemo.getString("name"));
 					final String clazz = currentDemo.getString("class");
 					final String descText = currentDemo.getString("desc");
 					DemoDescriptor d = new DemoDescriptor(clazz, descText);
@@ -219,14 +218,10 @@ public class DemoSelectorGUI extends JFrame {
 						@Override
 						public void run() {
 							try {
-								new GdxDialog((PortableApplication)constructor.newInstance(false), DemoSelectorGUI.this);
-
-							} catch (InstantiationException e1) {
-								e1.printStackTrace();
-							} catch (IllegalAccessException e1) {
-								e1.printStackTrace();
-							} catch (InvocationTargetException e1) {
-								e1.printStackTrace();
+								PortableApplication app = (PortableApplication) constructor.newInstance(false);
+								new GdxDialog(app, DemoSelectorGUI.this, selectedDemoName);
+							} catch (Exception ex) {
+								ex.printStackTrace();
 							}
 						}
 					});
