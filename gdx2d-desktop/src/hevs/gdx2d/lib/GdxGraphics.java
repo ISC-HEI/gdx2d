@@ -269,7 +269,7 @@ public class GdxGraphics implements Disposable {
 	}
 
 	public void begin() {
-		
+		checkmode(t_rendering_mode.SPRITE);
 	}
 	
 	public void end() {
