@@ -91,8 +91,6 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	 */
 	public PortableApplication(boolean onAndroid, int width, int height, boolean fullScreen) {
 		this.onAndroid = onAndroid;
-		this.height = height;
-		this.width = width;
 
 		if (!onAndroid && !fromDemoSelector() && CreateLwjglApplication)
 			createLwjglApplication(width, height, fullScreen);
@@ -125,13 +123,14 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 			Logger.error("Title cannot be set on Android.");
 		Gdx.graphics.setTitle(title);
 	}
+
 	/**
 	 * Rendering surface information
 	 *
 	 * @return The height of the display surface (window)
 	 */
 	public int getWindowHeight() {
-		return height;
+		return Gdx.graphics.getHeight();
 	}
 
 	/**
@@ -140,7 +139,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	 * @return The width of the display surface (window)
 	 */
 	public int getWindowWidth() {
-		return width;
+		return Gdx.graphics.getWidth();
 	}
 
 	/**

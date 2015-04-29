@@ -36,7 +36,6 @@ public interface GameInterface {
 	 */
 	void onGameLogicUpdate();
 
-
     /* Android only */
 
 	/**
