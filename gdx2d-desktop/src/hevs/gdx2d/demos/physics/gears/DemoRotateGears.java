@@ -6,11 +6,14 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.joints.GearJointDef;
 
 import hevs.gdx2d.components.bitmaps.BitmapImage;
+import hevs.gdx2d.components.physics.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsCircle;
 import hevs.gdx2d.components.physics.PhysicsMotor;
 import hevs.gdx2d.components.physics.PhysicsStaticBox;
+import hevs.gdx2d.components.physics.PhysicsStaticCircle;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
+import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 import java.text.DateFormat;
@@ -79,7 +82,7 @@ public class DemoRotateGears extends PortableApplication {
 	private BitmapImage bitmapHour;
 
 	/* Hands */
-	private PhysicsCircle hand_second;
+	private PhysicsBox hand_second;
 	private PhysicsCircle hand_minute;
 	private PhysicsCircle hand_hour;
 
@@ -92,6 +95,10 @@ public class DemoRotateGears extends PortableApplication {
 	/* Hand speed */
 	private float MOTOR_SPEED_SECOND = (float) (-Math.PI / 58.5);
 	private float MOTOR_SPEED_MINUTE = (float) (-Math.PI / 60);
+
+	private DebugRenderer debugRenderer;
+
+	private boolean debug_rendering = false;
 
 	public DemoRotateGears(boolean onAndroid) {
 		super(onAndroid, 512, 256);
@@ -109,6 +116,9 @@ public class DemoRotateGears extends PortableApplication {
 		/* Set title */
 		setTitle("Simple rotate gears demo, pim 2015");
 
+		/* Create a debug renderer */
+		debugRenderer = new DebugRenderer();
+		
 		/* Load images */
 		bitmapClock = new BitmapImage("data/images/clock.png");
 		bitmapSecond = new BitmapImage("data/images/clock_second.png");
@@ -120,13 +130,13 @@ public class DemoRotateGears extends PortableApplication {
 				10, 10);
 
 		/* Create the hands, at the current system time */
-		hand_second = new PhysicsCircle("seconds", CLOCK_CENTER, 1,
+		hand_second = new PhysicsBox("seconds", CLOCK_CENTER, 10, 10,
 				time.getSecondAngle());
-		hand_minute = new PhysicsCircle("minutes", CLOCK_CENTER, 1,
+		hand_minute = new PhysicsCircle("minutes", CLOCK_CENTER, 70,
 				time.getMinuteAngle());
-		hand_hour = new PhysicsCircle("hours", CLOCK_CENTER, 1,
+		hand_hour = new PhysicsCircle("hours", CLOCK_CENTER, 50,
 				time.getHourAngle());
-
+		
 		/* Create the motors */
 		motor_seconds = new PhysicsMotor(frame.getBody(),
 				hand_second.getBody(), frame.getBody().getWorldCenter());
@@ -189,7 +199,7 @@ public class DemoRotateGears extends PortableApplication {
 				motor_seconds.setMotorSpeed(0.0f);
 			}
 		}
-
+	
 		/*
 		 * Minute hand logic
 		 * 
@@ -207,38 +217,54 @@ public class DemoRotateGears extends PortableApplication {
 
 		/* Clear the graphic to draw the new image */
 		g.clear();
-
-		/* Create a nice grey gradient for the background */
-		for (int i = 0; i <= h; i++) {
-			float c = 255 - i * 0.3f;
-			g.setColor(new Color(c / 255, c / 255, c / 255, 1.0f));
-			g.drawLine(0, h - i, w, h - i);
+		
+		if (debug_rendering)
+		{
+			debugRenderer.render(world, g.getCamera().combined);
+			g.setColor(Color.WHITE);
 		}
-
-		/* Draw the clock frame */
-		g.drawPicture(CLOCK_CENTER.x, CLOCK_CENTER.y, bitmapClock);
-
-		/* Draw the hands */
-		g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-				(float) (Math.toDegrees(hand_hour.getBody().getAngle())), 1.0f,
-				bitmapHour);
-
-		g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-				(float) (Math.toDegrees(hand_minute.getBody().getAngle())),
-				1.0f, bitmapMinute);
-
-		g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-				(float) (Math.toDegrees(hand_second.getBody().getAngle())),
-				1.0f, bitmapSecond);
-
+		else
+		{
+			/* Create a nice grey gradient for the background */
+			for (int i = 0; i <= h; i++) {
+				float c = 255 - i * 0.3f;
+				g.setColor(new Color(c / 255, c / 255, c / 255, 1.0f));
+				g.drawLine(0, h - i, w, h - i);
+			}
+	
+			/* Draw the clock frame */
+			g.drawPicture(CLOCK_CENTER.x, CLOCK_CENTER.y, bitmapClock);
+	
+			/* Draw the hands */
+			g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
+					(float) (Math.toDegrees(hand_hour.getBody().getAngle())), 1.0f,
+					bitmapHour);
+	
+			g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
+					(float) (Math.toDegrees(hand_minute.getBody().getAngle())),
+					1.0f, bitmapMinute);
+	
+			g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
+					(float) (Math.toDegrees(hand_second.getBody().getAngle())),
+					1.0f, bitmapSecond);
+			g.setColor(Color.BLACK);
+		}
+		
 		/* Display time in text */
-		g.setColor(Color.BLACK);
 		g.drawString(w - 200, h - 10, "Famous clock from\r\n"
 				+ "the Swiss Railways.");
 
 		g.drawString(w - 200, h - 80, displayTime());
 
 		g.drawSchoolLogo();
+	}
+	
+	@Override
+	/**
+	 * Change shape on click
+	 */
+	public void onClick(int x, int y, int button) {
+		debug_rendering  = !debug_rendering;
 	}
 
 	private String displayTime() {
