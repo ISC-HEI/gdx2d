@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: "index.html"
-title: Gdx2D home
+title: gdx2d home
 ---
 
 [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
