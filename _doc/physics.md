@@ -1,8 +1,8 @@
 ---
 layout: page
-permalink: doc/physics/
+permalink: doc/physics/fr/
 weight: 3
-title: Physics with Box2D
+title: Physics (fr)
 published: true
 ---
 
