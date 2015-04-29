@@ -9,8 +9,8 @@ import hevs.gdx2d.lib.PortableApplication;
 /**
  * Hello World demo.
  *
- * @author Christopher Métrailler (mei)
- * @author Pierre-André Mudry (mui)
+ * @author Christopher MÃ©trailler (mei)
+ * @author Pierre-AndrÃ© Mudry (mui)
  * @version 1.01
  */
 public class HelloWorld extends PortableApplication {
