@@ -2,7 +2,7 @@
 layout: page
 permalink: doc/how-to/fr/
 weight: 2
-title: Comment utiliser la librairie ?
+title: First steps (fr)
 ---
 
 ## Introduction
