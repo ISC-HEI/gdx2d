@@ -24,10 +24,10 @@ import java.util.Date;
  * http://en.wikipedia.org/wiki/Swiss_railway_clock). The second hand runs too
  * fast then wait for the synchronization at zero. The minute hand goes by step,
  * when the synchronisation signal comes.
- * 
+ *
  * The synchronization signal is emulated by waiting the system time's seconds
  * equals zero.
- * 
+ *
  * This software uses 2 motors, one for the second hand and another for the
  * minute hand. The hour hand is driven by a gear, connected to the minute
  * motor.

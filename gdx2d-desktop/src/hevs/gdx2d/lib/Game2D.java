@@ -216,8 +216,8 @@ public class Game2D implements ApplicationListener {
 	 */
 	@Override
 	public void dispose() {
+		PhysicsWorld.dispose();
 		g.dispose();
 		app.onDispose();
-		PhysicsWorld.dispose();
 	}
 }

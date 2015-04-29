@@ -15,7 +15,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -219,7 +218,7 @@ public class DemoSelectorGUI extends JFrame {
 						public void run() {
 							try {
 								PortableApplication app = (PortableApplication) constructor.newInstance(false);
-								new GdxDialog(app, DemoSelectorGUI.this, selectedDemoName);
+								GdxDialog f = new GdxDialog(app);
 							} catch (Exception ex) {
 								ex.printStackTrace();
 							}
