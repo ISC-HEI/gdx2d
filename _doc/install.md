@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: doc/install/
-weight: 3
+weight: 1
 title: Installing the lib
 ---
 
