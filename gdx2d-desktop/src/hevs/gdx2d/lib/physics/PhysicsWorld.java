@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
+import hevs.gdx2d.lib.utils.Logger;
 
 import java.util.Vector;
 
@@ -92,6 +93,7 @@ public class PhysicsWorld {
 	 * To destroy it (required for JNI calls)
 	 */
 	public static void dispose() {
+		Logger.log("Disposing from physics");
 		if (instance != null) {
 			instance.dispose();
 			instance = null;
