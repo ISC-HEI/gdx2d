@@ -93,7 +93,6 @@ public class PhysicsWorld {
 	 * To destroy it (required for JNI calls)
 	 */
 	public static void dispose() {
-		Logger.log("Disposing from physics");
 		if (instance != null) {
 			instance.dispose();
 			instance = null;
