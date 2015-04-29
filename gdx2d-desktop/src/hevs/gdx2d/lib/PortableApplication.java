@@ -312,6 +312,6 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		LwjglApplicationConfiguration config = GdxConfig.getLwjglConfig(width, height, fullScreen);
 
 		Game2D theGame = new Game2D(this);
-		new LwjglApplication(theGame, config);
+		LwjglApplication app = new LwjglApplication(theGame, config);
 	}
 }

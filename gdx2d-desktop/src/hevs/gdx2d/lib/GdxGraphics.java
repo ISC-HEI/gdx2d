@@ -43,10 +43,8 @@ import hevs.gdx2d.lib.renderers.ShaderRenderer;
  */
 public class GdxGraphics implements Disposable {
 	// For sprite-based logo
-	final protected Texture logoTex = new Texture(
-			Gdx.files.internal("lib/logo_hes.png"));
-	final protected Texture circleTex = new Texture(
-			Gdx.files.internal("lib/circle.png"));
+	final protected Texture logoTex = new Texture(Gdx.files.internal("lib/logo_hes.png"));
+	final protected Texture circleTex = new Texture(Gdx.files.internal("lib/circle.png"));
 	public SpriteBatch spriteBatch;
 	/**
 	 * For camera operations
@@ -69,7 +67,7 @@ public class GdxGraphics implements Disposable {
 	private t_rendering_mode rendering_mode = t_rendering_mode.NONE;
 
 	public GdxGraphics(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch,
-	                   OrthographicCamera camera) {
+					   OrthographicCamera camera) {
 		this.shapeRenderer = shapeRenderer;
 		this.spriteBatch = spriteBatch;
 		this.camera = camera;
@@ -81,6 +79,7 @@ public class GdxGraphics implements Disposable {
 		 */
 		FileHandle robotoF = Gdx.files.internal("font/RobotoSlab-Regular.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(robotoF);
+
 		// Font parameters for the standard font
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.color = Color.WHITE;
@@ -90,8 +89,7 @@ public class GdxGraphics implements Disposable {
 
 		// A camera that never moves
 		this.fixedcamera = new OrthographicCamera();
-		fixedcamera.setToOrtho(false, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
+		fixedcamera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
 		// Enable alpha blending for shape renderer
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -189,15 +187,15 @@ public class GdxGraphics implements Disposable {
 		if (mode == rendering_mode) {
 			return;
 		}
-		
-		switch (rendering_mode)	{
+
+		switch (rendering_mode) {
 			case SPRITE:
 				spriteBatch.end();
 				break;
-				
+
 			case NONE:
 				break;
-			
+
 			default:
 				shapeRenderer.end();
 				break;
@@ -220,11 +218,11 @@ public class GdxGraphics implements Disposable {
 			case SPRITE:
 				spriteBatch.begin();
 				break;
-				
+
 			case NONE:
 				break;
 		}
-		
+
 		rendering_mode = mode;
 
 	}
@@ -271,12 +269,12 @@ public class GdxGraphics implements Disposable {
 	public void begin() {
 		checkmode(t_rendering_mode.SPRITE);
 	}
-	
+
 	public void end() {
 		checkmode(t_rendering_mode.NONE);
 	}
 
-	
+
 	/**
 	 * Clears the screen with a given {@link Color}.
 	 *
@@ -343,7 +341,7 @@ public class GdxGraphics implements Disposable {
 	 * @see GdxGraphics#clearPixel(float, float, Color)
 	 */
 	public void clearPixel(float x, float y) {
-		clearPixel(x, y, backgroundColor);	
+		clearPixel(x, y, backgroundColor);
 	}
 
 	/**
@@ -419,7 +417,7 @@ public class GdxGraphics implements Disposable {
 	 * @see #drawFilledRectangle(float, float, float, float, float, Color)
 	 */
 	public void drawFilledRectangle(float x, float y, float w, float h,
-	                                float angle) {
+									float angle) {
 		checkmode(t_rendering_mode.SHAPE_FILLED);
 		shapeRenderer.identity();
 		shapeRenderer.translate(x, y, 0);
@@ -438,7 +436,7 @@ public class GdxGraphics implements Disposable {
 	 * @param c     The color to fill the rectangle with
 	 */
 	public void drawFilledRectangle(float x, float y, float w, float h,
-	                                float angle, Color c) {
+									float angle, Color c) {
 		shapeRenderer.setColor(c);
 		drawFilledRectangle(x, y, w, h, angle);
 		shapeRenderer.setColor(currentColor);
@@ -482,7 +480,7 @@ public class GdxGraphics implements Disposable {
 	 * @param c       The {@link Color} to use
 	 */
 	public void drawAntiAliasedCircle(float centerX, float centerY,
-	                                  float radius, Color c) {
+									  float radius, Color c) {
 		circleRenderer.setColor(new Vector3(c.r, c.g, c.b));
 		circleRenderer.setPosition(new Vector2(centerX, centerY));
 		circleRenderer.setRadius(radius);
@@ -500,7 +498,7 @@ public class GdxGraphics implements Disposable {
 	 * @param c       The {@link Color} to use
 	 */
 	public void drawFilledCircle(float centerX, float centerY, float radius,
-	                             Color c) {
+								 Color c) {
 		// TODO Do this with a shader instead of formulas or textures !!
 		// Draw big circles with mathematical formulas
 		if (radius > 100) {
@@ -534,7 +532,7 @@ public class GdxGraphics implements Disposable {
 	 * @param outer   The outer {@link Color} (used for the border)
 	 */
 	public void drawFilledBorderedCircle(float centerX, float centerY,
-	                                     float radius, Color inner, Color outer) {
+										 float radius, Color inner, Color outer) {
 		checkmode(t_rendering_mode.SPRITE);
 		// This is not really beautiful but it works more or less
 		// TODO Improve this
@@ -680,7 +678,7 @@ public class GdxGraphics implements Disposable {
 	 * @param bitmap
 	 */
 	public void drawTransformedPicture(float posX, float posY, float angle,
-	                                   float scale, BitmapImage bitmap) {
+									   float scale, BitmapImage bitmap) {
 		drawTransformedPicture(posX, posY, bitmap.getImage().getWidth() / 2,
 				bitmap.getImage().getHeight() / 2, angle, scale, bitmap);
 	}
@@ -698,7 +696,7 @@ public class GdxGraphics implements Disposable {
 	 * @param bitmap The {@link BitmapImage} to use
 	 */
 	public void drawTransformedPicture(float posX, float posY, float angle,
-	                                   float width, float height, BitmapImage bitmap) {
+									   float width, float height, BitmapImage bitmap) {
 		checkmode(t_rendering_mode.SPRITE);
 		spriteBatch.draw(bitmap.getRegion(), posX - width, posY
 						- height, width, height, width * 2, height * 2, 1.0f, 1.0f,
@@ -720,7 +718,7 @@ public class GdxGraphics implements Disposable {
 	 * @param bitmap  The {@link BitmapImage} to use
 	 */
 	public void drawTransformedPicture(float posX, float posY, float centerX,
-	                                   float centerY, float angle, float scale, BitmapImage bitmap) {
+									   float centerY, float angle, float scale, BitmapImage bitmap) {
 		checkmode(t_rendering_mode.SPRITE);
 		spriteBatch.draw(bitmap.getRegion(), posX
 						- bitmap.getRegion().getRegionWidth() / 2, posY
@@ -746,7 +744,7 @@ public class GdxGraphics implements Disposable {
 	}
 
 	public void drawAlphaPicture(float posX, float posY, float scale,
-	                             float alpha, BitmapImage img) {
+								 float alpha, BitmapImage img) {
 		drawAlphaPicture(posX, posY, img.getImage().getWidth() / 2, img
 				.getImage().getHeight() / 2, 0, 1.0f, alpha, img);
 	}
@@ -759,7 +757,7 @@ public class GdxGraphics implements Disposable {
 	 * @see #drawAlphaPicture(Vector2, float, BitmapImage)
 	 */
 	public void drawAlphaPicture(float posX, float posY, float alpha,
-	                             BitmapImage img) {
+								 BitmapImage img) {
 		drawAlphaPicture(posX, posY, img.getImage().getWidth() / 2, img
 				.getImage().getHeight() / 2, 0, 1.0f, alpha, img);
 	}
@@ -776,8 +774,8 @@ public class GdxGraphics implements Disposable {
 	 * @see GdxGraphics#drawAlphaPicture(Vector2, float, BitmapImage)
 	 */
 	public void drawAlphaPicture(float posX, float posY, float centerX,
-	                             float centerY, float angle, float scale, float alpha,
-	                             BitmapImage img) {
+								 float centerY, float angle, float scale, float alpha,
+								 BitmapImage img) {
 		Color old = spriteBatch.getColor();
 		spriteBatch.setColor(1.0f, 1.0f, 1.0f, alpha);
 		drawTransformedPicture(posX, posY, angle, scale, img);

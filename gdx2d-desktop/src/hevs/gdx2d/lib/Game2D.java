@@ -219,7 +219,7 @@ public class Game2D implements ApplicationListener {
 	@Override
 	public void dispose() {
 		PhysicsWorld.dispose();
-		g.dispose();
+		// g.dispose(); // TODO Is this required or not ? Breaks DemoSelector
 		app.onDispose();
 	}
 }
