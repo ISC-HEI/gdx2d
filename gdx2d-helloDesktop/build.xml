@@ -75,7 +75,7 @@
 
 			<!-- Include all sources in the Jar file, to correct the project ;) -->
 			<fileset dir="${src.dir}" includes="**/*.java" />
-			<zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx2d-library_1.0.1-GAMMA.jar"/>
+			<zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx2d-library_1.0.1-RC1.jar"/>
 			
 			<manifest>
 				<!-- Demo selector launcher -->
