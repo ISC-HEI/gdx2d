@@ -22,7 +22,15 @@ To run the `gdx2d-helloDesktop` project, launch the Java main file `HelloWorld.j
 </center>
 
 ### Test environment
+The library has been successfully tested and built on the following environments
+
+#### Linux
 * OS: Ubuntu 12.04.3 LTS x86_64
 * Java: Java 1.6.0_27 - OpenJDK 64-Bit
 * IDE: Eclipse 4.2.1, ADT version 22.0.5, Apache Ant(TM) version 1.8.3
 * Android: Android 4.3 (API 18)
+
+#### Windows
+* OS: Windows 8.1
+* Java: Java 1.8.0_40 from Oracle(TM) (64 bits)
+* IDE: IntelliJ and Eclipse Luna
