@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
-import hevs.gdx2d.demos.physics.DemoSimplePhysics;
 import hevs.gdx2d.demos.simple.DemoCircles;
 import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.PortableApplication;
@@ -39,6 +38,7 @@ public class DemoSelectorGUI extends JFrame {
 
 	public DemoSelectorGUI() throws Exception {
 		super("GDX2D " + Version.VERSION);
+		setResizable(false);
 
 		PortableApplication.CreateLwjglApplication = false; // TODO: configuration this way is ugly...
 
