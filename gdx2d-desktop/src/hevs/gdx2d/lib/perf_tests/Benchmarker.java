@@ -249,7 +249,7 @@ public class Benchmarker extends PortableApplication {
 					System.out.println(msg);
 				} else {
 					testers[state].speed = (float) n
-							/ (float) Gdx.graphics.getFramesPerSecond();
+							* (float) Gdx.graphics.getFramesPerSecond();
 					n = START_N;
 					state++;
 				}
