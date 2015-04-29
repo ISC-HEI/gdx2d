@@ -185,7 +185,9 @@ public class Game2D implements ApplicationListener {
 	 */
 	@Override
 	public void render() {
+		g.begin();
 		app.onGraphicRender(g);
+		g.end();
 	}
 
 	/**

@@ -56,7 +56,6 @@ public class GdxGraphics implements Disposable {
 	protected Color backgroundColor = Color.BLACK;
 	// The standard font
 	protected BitmapFont font;
-	boolean first = true;
 	private ShapeRenderer shapeRenderer;
 
 	/**
@@ -67,7 +66,7 @@ public class GdxGraphics implements Disposable {
 	 * Used for rendering custom shaders
 	 */
 	private ShaderRenderer shaderRenderer;
-	private t_rendering_mode rendering_mode = t_rendering_mode.SPRITE;
+	private t_rendering_mode rendering_mode = t_rendering_mode.NONE;
 
 	public GdxGraphics(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch,
 	                   OrthographicCamera camera) {
@@ -120,8 +119,7 @@ public class GdxGraphics implements Disposable {
 	 * when using box2dlight), call this method to render shapes correctly
 	 */
 	public void resetRenderingMode() {
-		checkmode(t_rendering_mode.SPRITE);
-		checkmode(t_rendering_mode.SHAPE_LINE);
+		checkmode(t_rendering_mode.NONE);
 	}
 
 	/**
@@ -188,33 +186,46 @@ public class GdxGraphics implements Disposable {
 	 * @param mode {@link t_rendering_mode}
 	 */
 	private void checkmode(t_rendering_mode mode) {
-		if (rendering_mode != t_rendering_mode.SPRITE) {
-			shapeRenderer.end();
-		} else {
-			spriteBatch.end();
+		if (mode == rendering_mode) {
+			return;
+		}
+		
+		switch (rendering_mode)	{
+			case SPRITE:
+				spriteBatch.end();
+				break;
+				
+			case NONE:
+				break;
+			
+			default:
+				shapeRenderer.end();
+				break;
 		}
 
 		switch (mode) {
 			case SHAPE_LINE:
 				shapeRenderer.begin(ShapeType.Line);
-				rendering_mode = t_rendering_mode.SHAPE_LINE;
 				break;
 
 			case SHAPE_FILLED:
 				shapeRenderer.begin(ShapeType.Filled);
-				rendering_mode = t_rendering_mode.SHAPE_FILLED;
 				break;
 
 			case SHAPE_POINT:
 				shapeRenderer.begin(ShapeType.Point);
-				rendering_mode = t_rendering_mode.SHAPE_POINT;
+				shapeRenderer.identity();
 				break;
 
 			case SPRITE:
 				spriteBatch.begin();
-				rendering_mode = t_rendering_mode.SPRITE;
+				break;
+				
+			case NONE:
 				break;
 		}
+		
+		rendering_mode = mode;
 
 	}
 
@@ -257,6 +268,15 @@ public class GdxGraphics implements Disposable {
 		clear(backgroundColor);
 	}
 
+	public void begin() {
+		
+	}
+	
+	public void end() {
+		checkmode(t_rendering_mode.NONE);
+	}
+
+	
 	/**
 	 * Clears the screen with a given {@link Color}.
 	 *
@@ -266,14 +286,6 @@ public class GdxGraphics implements Disposable {
 	public void clear(Color c) {
 		Gdx.gl.glClearColor(c.r, c.g, c.b, c.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		if (!first && rendering_mode == t_rendering_mode.SPRITE)
-			spriteBatch.end();
-		else
-			first = !first;
-
-		if (rendering_mode == t_rendering_mode.SPRITE)
-			spriteBatch.begin();
 	}
 
 	/**
@@ -308,7 +320,6 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void setPixel(float x, float y, Color c) {
 		checkmode(t_rendering_mode.SHAPE_POINT);
-		shapeRenderer.identity();
 		shapeRenderer.setColor(c);
 		shapeRenderer.point(x, y, 0);
 		shapeRenderer.setColor(currentColor);
@@ -332,7 +343,7 @@ public class GdxGraphics implements Disposable {
 	 * @see GdxGraphics#clearPixel(float, float, Color)
 	 */
 	public void clearPixel(float x, float y) {
-		clearPixel(x, y, backgroundColor);
+		clearPixel(x, y, backgroundColor);	
 	}
 
 	/**
@@ -942,7 +953,7 @@ public class GdxGraphics implements Disposable {
 	 * calls to begin() and end() in spriteBatch
 	 */
 	private enum t_rendering_mode {
-		SHAPE_FILLED, SHAPE_LINE, SHAPE_POINT, SPRITE
+		NONE, SHAPE_FILLED, SHAPE_LINE, SHAPE_POINT, SPRITE
 	}
 
 }
