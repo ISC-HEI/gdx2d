@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: doc/physics
+permalink: doc/physics/
 weight: 3
 title: Physics with Box2D
 ---
