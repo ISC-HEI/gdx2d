@@ -1,4 +1,9 @@
-# Moteur physique Box2D
+---
+layout: page
+permalink: doc/physics
+weight: 3
+title: Physics with Box2D
+---
 
 Le moteur physique *Box2D* peut être utilisé afin de développer des applications qui utilisent des phénomènes physiques, comme la gravité ou des collisions entre objets (avec énergie, vitesse, etc.).
 
