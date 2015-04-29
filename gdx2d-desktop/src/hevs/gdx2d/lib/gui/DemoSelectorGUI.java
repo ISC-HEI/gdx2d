@@ -32,7 +32,7 @@ import java.util.prefs.Preferences;
 public class DemoSelectorGUI extends JFrame {
 
 	public DemoSelectorGUI() throws Exception {
-		super("GDX2D demos " + Version.VERSION + " - mui, chn, mei 2012-2015");
+		super("GDX2D " + Version.VERSION);
 
 		// Populate the window
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
