@@ -4,7 +4,7 @@ import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 /**
- * Created by Pierre-André Mudry on 29.04.2015.
+ * Created by Pierre-AndrÃ© Mudry on 29.04.2015.
  * HES-SO Valais, 2015
  */
 public class GdxConfig {
