@@ -6,9 +6,9 @@ title: Physics (fr)
 published: true
 ---
 
-# Moteur physique Box2D
+# Le moteur physique Box2D
 
-Le moteur physique *Box2D* peut être utilisé afin de développer des applications qui utilisent des phénomènes physiques, comme la gravité ou des collisions entre objets (avec énergie, vitesse, etc.).
+Le moteur physique *Box2D* peut être utilisé afin de développer des applications qui utilisent des phénomènes physiques, comme la gravité ou des collisions entre objets (avec énergie, vitesse, etc.). Ce moteur est écrit en C++ et est en quelque sorte indépendant de la librairie *gdx2d*. Si vous êtes intéressé(e), vous trouverez plus d'informations sur ce moteur physique sur http://box2d.org/. Ce document présente uniquement les principes de fonctionnement sans aller dans le détail.
 
 ## Les objets physiques
 
