@@ -1,4 +1,4 @@
-# ProGuard settings for `gdx2d-helloAndroid`
+# ProGuard settings for `gdx2d-android`
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
