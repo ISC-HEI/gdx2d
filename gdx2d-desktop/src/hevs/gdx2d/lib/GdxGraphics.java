@@ -890,6 +890,7 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void drawShader(float shaderTime) {
 		drawShader(getScreenWidth() / 2, getScreenHeight() / 2, shaderTime);
+		resetRenderingMode();
 	}
 
 	/**
