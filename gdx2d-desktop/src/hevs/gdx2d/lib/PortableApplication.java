@@ -117,8 +117,6 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	 * @param title the application title
 	 */
 	public void setTitle(String title) {
-		if (Gdx.app.getType() == ApplicationType.Android)
-			Logger.error("Title cannot be set on Android.");
 		Gdx.graphics.setTitle(title);
 	}
 
