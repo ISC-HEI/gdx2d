@@ -8,14 +8,17 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.graphics.Polygon;
 import hevs.gdx2d.lib.renderers.CircleShaderRenderer;
@@ -45,7 +48,7 @@ public class GdxGraphics implements Disposable {
 	// For sprite-based logo
 	final protected Texture logoTex = new Texture(Gdx.files.internal("lib/logo_hes.png"));
 	final protected Texture circleTex = new Texture(Gdx.files.internal("lib/circle.png"));
-	public SpriteBatch spriteBatch;
+	protected SpriteBatch spriteBatch;
 	/**
 	 * For camera operations
 	 */
@@ -116,7 +119,7 @@ public class GdxGraphics implements Disposable {
 	 * When rendering with other methods than the one present here (for instance
 	 * when using box2dlight), call this method to render shapes correctly
 	 */
-	public void resetRenderingMode() {
+	private void resetRenderingMode() {
 		checkmode(t_rendering_mode.NONE);
 	}
 
@@ -266,10 +269,21 @@ public class GdxGraphics implements Disposable {
 		clear(backgroundColor);
 	}
 
+	/**
+	 * Begin drawing
+	 * 
+	 * Usually called by {@link Game2d} before
+	 * {@link PortableApplication.onGraphicRender}
+	 */
 	public void begin() {
-		checkmode(t_rendering_mode.SPRITE);
 	}
 
+	/**
+	 * End drawing
+	 * 
+	 * Usually called by {@link Game2d} after
+	 * {@link PortableApplication.onGraphicRender}
+	 */
 	public void end() {
 		checkmode(t_rendering_mode.NONE);
 	}
@@ -890,7 +904,6 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void drawShader(float shaderTime) {
 		drawShader(getScreenWidth() / 2, getScreenHeight() / 2, shaderTime);
-		resetRenderingMode();
 	}
 
 	/**
@@ -911,6 +924,7 @@ public class GdxGraphics implements Disposable {
 				e.printStackTrace();
 			}
 		}
+		resetRenderingMode();
 	}
 
 	/**
@@ -947,6 +961,241 @@ public class GdxGraphics implements Disposable {
 		this.shaderRenderer = shaderRenderer;
 	}
 
+	/**
+	 * Set blending function on the spriteBatch
+	 * 
+	 * @param srcFunc
+	 * @param dstFunc
+	 * 
+	 * @see resetBlend
+	 */
+	public void setBlendFunction(int srcFunc, int dstFunc) {
+		spriteBatch.setBlendFunction(srcFunc, dstFunc);
+	}
+
+	/**
+	 * Restore default blending function on the spriteBatch
+	 */
+	public void resetBlend() {
+		setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+	}
+	
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param texture
+	 * @param x
+	 * @param y
+	 * @param originX
+	 * @param originY
+	 * @param width
+	 * @param height
+	 * @param scaleX
+	 * @param scaleY
+	 * @param rotation
+	 * @param srcX
+	 * @param srcY
+	 * @param srcWidth
+	 * @param srcHeight
+	 * @param flipX
+	 * @param flipY
+	 */
+	public void draw(Texture texture, float x, float y, float originX,
+			float originY, float width, float height, float scaleX,
+			float scaleY, float rotation, int srcX, int srcY, int srcWidth,
+			int srcHeight, boolean flipX, boolean flipY) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(texture, x, y, originX, originY, width, height,
+				scaleX, scaleY, rotation, srcX, srcY, srcWidth, srcHeight,
+				flipX, flipY);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param texture
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param srcX
+	 * @param srcY
+	 * @param srcWidth
+	 * @param srcHeight
+	 * @param flipX
+	 * @param flipY
+	 */
+	public void draw(Texture texture, float x, float y, float width,
+			float height, int srcX, int srcY, int srcWidth, int srcHeight,
+			boolean flipX, boolean flipY) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(texture, x, y, width, height, srcX, srcY, srcWidth,
+				srcHeight, flipX, flipY);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param texture
+	 * @param x
+	 * @param y
+	 * @param srcX
+	 * @param srcY
+	 * @param srcWidth
+	 * @param srcHeight
+	 */
+	public void draw(Texture texture, float x, float y, int srcX, int srcY,
+			int srcWidth, int srcHeight) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(texture, x, y, srcX, srcY, srcWidth, srcHeight);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param texture
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param u
+	 * @param v
+	 * @param u2
+	 * @param v2
+	 */
+	public void draw(Texture texture, float x, float y, float width,
+			float height, float u, float v, float u2, float v2) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(texture, x, y, width, height, u, v, u2, v2);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param texture
+	 * @param x
+	 * @param y
+	 */
+	public void draw(Texture texture, float x, float y) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(texture, x, y);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param texture
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
+	public void draw(Texture texture, float x, float y, float width,
+			float height) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(texture, x, y, width, height);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param texture
+	 * @param spriteVertices
+	 * @param offset
+	 * @param count
+	 */
+	public void draw(Texture texture, float[] spriteVertices, int offset,
+			int count) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(texture, spriteVertices, offset, count);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param region
+	 * @param x
+	 * @param y
+	 */
+	public void draw(TextureRegion region, float x, float y) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(region, x, y);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param region
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
+	public void draw(TextureRegion region, float x, float y, float width,
+			float height) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(region, x, y, width, height);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param region
+	 * @param x
+	 * @param y
+	 * @param originX
+	 * @param originY
+	 * @param width
+	 * @param height
+	 * @param scaleX
+	 * @param scaleY
+	 * @param rotation
+	 */
+	public void draw(TextureRegion region, float x, float y, float originX,
+			float originY, float width, float height, float scaleX,
+			float scaleY, float rotation) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(region, x, y, originX, originY, width, height, scaleX,
+				scaleY, rotation);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param region
+	 * @param x
+	 * @param y
+	 * @param originX
+	 * @param originY
+	 * @param width
+	 * @param height
+	 * @param scaleX
+	 * @param scaleY
+	 * @param rotation
+	 * @param clockwise
+	 */
+	public void draw(TextureRegion region, float x, float y, float originX,
+			float originY, float width, float height, float scaleX,
+			float scaleY, float rotation, boolean clockwise) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(region, x, y, originX, originY, width, height, scaleX,
+				scaleY, rotation, clockwise);
+	}
+
+	/**
+	 * Draw on the spriteBatch
+	 * 
+	 * @param region
+	 * @param width
+	 * @param height
+	 * @param transform
+	 */
+	public void draw(TextureRegion region, float width, float height,
+			Affine2 transform) {
+		checkmode(t_rendering_mode.SPRITE);
+		spriteBatch.draw(region, width, height, transform);
+	}
+	
 	/*
 	 * For optimizing the current rendering mode and minimizing the number of
 	 * calls to begin() and end() in spriteBatch
@@ -955,4 +1204,41 @@ public class GdxGraphics implements Disposable {
 		NONE, SHAPE_FILLED, SHAPE_LINE, SHAPE_POINT, SPRITE
 	}
 
+	/**
+	 * Get the current color of the spriteBatch
+	 * 
+	 * @return the color
+	 */
+	public Color sbGetColor() {
+		return spriteBatch.getColor();
+	}
+
+	/**
+	 * Set the current color of the spriteBatch
+	 * 
+	 * @param r red
+	 * @param g green
+	 * @param b blue
+	 * @param a alpha
+	 */
+	public void sbSetColor(float r, float g, float b, float a) {
+		spriteBatch.setColor(r, g, b, a);
+	}
+	
+	/**
+	 * Set the current color of the spriteBatch
+	 * 
+	 * @param col the color
+	 */
+	public void sbSetColor(Color col) {
+		spriteBatch.setColor(col);
+	}
+
+	/**
+	 * Flush the current spriteBatch
+	 */
+	public void sbFlush() {
+		spriteBatch.flush();
+	}
+	
 }

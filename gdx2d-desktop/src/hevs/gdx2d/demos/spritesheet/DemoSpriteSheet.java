@@ -66,7 +66,7 @@ public class DemoSpriteSheet extends PortableApplication {
 		}
 
 		// Display the current image of the animation
-		g.spriteBatch.draw(ss.sprites[textureY][currentFrame],
+		g.draw(ss.sprites[textureY][currentFrame],
 				this.getWindowWidth() / 2 - SPRITE_WIDTH / 2,
 				this.getWindowHeight() / 2 - SPRITE_HEIGHT / 2);
 

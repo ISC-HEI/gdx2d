@@ -51,7 +51,7 @@ public class DemoBackbuffer extends PortableApplication {
 //			g.drawFilledCircle(0, 0, 20, Color.GREEN);
 		g.drawFilledCircle(400, 400, 20, Color.YELLOW);
 //			g.drawSchoolLogo();
-		g.spriteBatch.flush();
+		g.sbFlush();
 		fbo.end();
 
 		// Copy the offscreen buffer to the displayed bufer

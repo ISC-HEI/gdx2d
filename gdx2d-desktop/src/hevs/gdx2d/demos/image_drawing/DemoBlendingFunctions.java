@@ -77,12 +77,12 @@ public class DemoBlendingFunctions extends PortableApplication {
 		// Use the different blending mode combinations
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 6; j++) {
-				g.spriteBatch.setBlendFunction(src_functions[i], dst_functions[j]);
+				g.setBlendFunction(src_functions[i], dst_functions[j]);
 				g.drawPicture(60 + w * i + 10 * i, 60 + h * j + 10 * j, imgBitmap);
 			}
 		}
 
-		g.spriteBatch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		g.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		g.drawFPS();        // Draws the number of frame per second
 		g.drawSchoolLogo(); // Draws the school logo
 	}

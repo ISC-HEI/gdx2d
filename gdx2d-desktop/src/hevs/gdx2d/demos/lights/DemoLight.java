@@ -134,8 +134,6 @@ public class DemoLight extends PortableApplication {
 			g.drawFilledCircle(pos.x, pos.y, 12, Color.MAGENTA);
 		}
 
-		g.resetRenderingMode();
-
 		// Render the lights
 		rayHandler.updateAndRender();
 

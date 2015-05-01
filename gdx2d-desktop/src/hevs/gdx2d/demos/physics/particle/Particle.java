@@ -46,19 +46,19 @@ public class Particle extends PhysicsBox {
 	}
 
 	public void render(GdxGraphics g) {
-		final Color col = g.spriteBatch.getColor();
+		final Color col = g.sbGetColor();
 		final Vector2 pos = getBodyPosition();
 
 		if (!init) {
-			g.spriteBatch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
+			g.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
 			init = true;
 		}
-
+		
 		// Make the particle disappear with time
-		g.spriteBatch.setColor(.5f, 0.7f, 0.9f, 1.0f - age / (float) (maxAge + 5));
+		g.sbSetColor(.5f, 0.7f, 0.9f, 1.0f - age / (float) (maxAge + 5));
 
 		// Draw the particle
-		g.spriteBatch.draw(img.getRegion(), pos.x - img.getImage().getWidth() / 2, pos.y - img.getImage().getHeight() / 2);
-		g.spriteBatch.setColor(col);
+		g.draw(img.getRegion(), pos.x - img.getImage().getWidth() / 2, pos.y - img.getImage().getHeight() / 2);
+		g.sbSetColor(col);
 	}
 }
