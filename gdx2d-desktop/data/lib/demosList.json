@@ -27,14 +27,14 @@
       "desc": "A graphical library without a fractal is not really a graphical library, isn't it?"
     },
     {
+      "name": "Spritesheet support",
+      "class": "spritesheet.DemoSpriteSheet",
+      "desc": "Demonstrate how to use a sprite sheet"
+    },
+    {
       "name": "Tiled editor support",
       "class": "tilemap.advanced.DemoTileAdvanced",
       "desc": "From the map editor directly to GDX2D"
-    },
-    {
-      "name": "Spritesheet support",
-      "class": "spritesheet.DemoSpriteSheet",
-      "desc": "Demonstrate how to use a spritesheet"
     }
   ],
   "Image drawing": [
@@ -160,6 +160,11 @@
       "desc": "No description yet."
     },
     {
+      "name": "A rocket",
+      "class": "physics.rocket.DemoPhysicsRocket",
+      "desc": "To the moon!"
+    },
+    {
       "name": "Mouse interactions with physics",
       "class": "physics.mouse_interaction.DemoPhysicsMouse",
       "desc": "Shows how you can use the mouse to interact with physics objects."
@@ -169,6 +174,11 @@
     {
       "name": "Julia fractal on the GPU",
       "class": "shaders.advanced.DemoJulia",
+      "desc": "Need to add some fancy effects to your game? That's the place to go!"
+    },
+    {
+      "name": "Scene post-processing",
+      "class": "shaders.advanced.DemoPostProcessing",
       "desc": "What would be the world without fractals?"
     },
     {
