@@ -13,13 +13,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Character walks on a small desert.
+ * Character walks on a small desert. (Tiled editor (http://www.mapeditor.org/)
  *
  * @author Alain Woeffray (woa)
  * @author Pierre-André Mudry (mui)
- * @version 1.0
  */
-public class SpritesheetOnTilemapDemo extends PortableApplication {
+public class DemoTileAdvanced extends PortableApplication {
 
     // key management
     private Map<Integer, Boolean> keyStatus = new TreeMap<Integer, Boolean>();
@@ -33,7 +32,7 @@ public class SpritesheetOnTilemapDemo extends PortableApplication {
     private TiledMapRenderer tileMapRenderer;
     private TiledMapTileLayer tileLayer;
 
-    public SpritesheetOnTilemapDemo(boolean onAndroid) {
+    public DemoTileAdvanced(boolean onAndroid) {
         super(onAndroid);
     }
 
@@ -195,7 +194,7 @@ public class SpritesheetOnTilemapDemo extends PortableApplication {
     }
 
     public static void main(String[] args) {
-        new SpritesheetOnTilemapDemo(false);
+        new DemoTileAdvanced(false);
     }
 }
 

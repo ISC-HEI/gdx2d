@@ -11,7 +11,6 @@ import hevs.gdx2d.lib.GdxGraphics;
  *
  * @author Alain Woeffray (woa)
  * @author Pierre-André Mudry (mui)
- * @version 1.0
  */
 public class Hero{
 

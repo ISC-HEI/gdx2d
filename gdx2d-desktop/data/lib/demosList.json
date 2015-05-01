@@ -28,7 +28,7 @@
     },
     {
       "name": "Tiled editor support",
-      "class": "tilemap.advanced.SpritesheetOnTilemapDemo",
+      "class": "tilemap.advanced.DemoTileAdvanced",
       "desc": "From the map editor directly to GDX2D"
     },
     {
