@@ -1,13 +1,11 @@
 package hevs.gdx2d.lib;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.math.Vector2;
 import hevs.gdx2d.lib.interfaces.*;
-import hevs.gdx2d.lib.utils.Logger;
 
 import java.awt.*;
 
