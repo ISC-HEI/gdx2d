@@ -69,9 +69,6 @@ public class SpritesheetOnTilemapDemo extends PortableApplication {
         tileMapRenderer.setView(cam);
         tileMapRenderer.render();
 
-        g.end();
-        g.begin();
-
         hero.animate(Gdx.graphics.getDeltaTime());
         hero.draw(g);
 

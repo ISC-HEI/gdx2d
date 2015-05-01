@@ -202,6 +202,11 @@
     <property name="speed" value="1"/>
     <property name="walkable" value="false"/>
    </properties>
+   <objectgroup draworder="index">
+    <object id="0" x="4" y="2" width="25" height="28">
+     <ellipse/>
+    </object>
+   </objectgroup>
   </tile>
   <tile id="32" terrain="0,2,0,2">
    <properties>
