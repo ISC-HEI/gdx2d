@@ -25,6 +25,12 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	static final private BodyDef bodyDef = new BodyDef();
 	private final float p2m = PhysicsConstants.P2M;
 	private final float m2p = PhysicsConstants.M2P;
+
+	// To make sure the native library has been loaded at least once
+	static{
+		World world = PhysicsWorld.getInstance();
+	}
+
 	/**
 	 * A name for the object
 	 */
