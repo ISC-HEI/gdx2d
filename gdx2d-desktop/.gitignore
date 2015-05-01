@@ -32,3 +32,4 @@ local.properties
 # Specific folders for the project
 dist/
 doc/
+/bin/
