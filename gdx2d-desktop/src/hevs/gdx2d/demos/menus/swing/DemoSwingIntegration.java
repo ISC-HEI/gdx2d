@@ -2,16 +2,19 @@ package hevs.gdx2d.demos.menus.swing;
 
 
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
+
 import hevs.gdx2d.demos.physics.DemoSimplePhysics;
 import hevs.gdx2d.demos.simple.DemoCircles;
 import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.PortableApplication;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class DemoSwingIntegration extends JFrame {
 	LwjglAWTCanvas canvas2;
 

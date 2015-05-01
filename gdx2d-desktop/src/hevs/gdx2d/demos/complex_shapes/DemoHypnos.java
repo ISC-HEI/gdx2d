@@ -29,7 +29,6 @@ public class DemoHypnos extends PortableApplication {
 	final ArrayList<Coord> points = new ArrayList<Coord>();
 	private float quality = 100;
 	private float layerSize;
-	private float layerOverlap = Math.round((quality * 0.2));
 	private float radius;
 	private int screenWidth, screenHeight;
 	private float angle = 0;

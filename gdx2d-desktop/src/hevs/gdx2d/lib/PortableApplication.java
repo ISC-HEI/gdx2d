@@ -1,7 +1,6 @@
 package hevs.gdx2d.lib;
 
 import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -28,7 +27,6 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	// Default window dimensions
 	private static final int DEFAULT_HEIGHT = 500;
 	private static final int DEFAULT_WIDTH = 500;
-	private int height, width;
 
 	/**
 	 * {@code true} if the application is running on Android or {@code false} if running on desktop.
@@ -312,6 +310,6 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		LwjglApplicationConfiguration config = GdxConfig.getLwjglConfig(width, height, fullScreen);
 
 		Game2D theGame = new Game2D(this);
-		LwjglApplication app = new LwjglApplication(theGame, config);
+		new LwjglApplication(theGame, config);
 	}
 }

@@ -1,14 +1,9 @@
 package hevs.gdx2d.components.graphics;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ShortArray;
 
 /**
  * A polygon class for rendering stuff
@@ -50,7 +45,6 @@ public class Polygon {
 
 	public float[] getEarClippedVertices() {
 		if (triangulatedVertices == null) {
-			int j = 0;
 			EarClippingTriangulator ect;
 			float[] vectorArray = new float[gdxpoints.length * 2];
 			for (int i = 0 ; i < gdxpoints.length; i++)

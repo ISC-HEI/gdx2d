@@ -1,7 +1,5 @@
 package hevs.gdx2d.lib;
 
-import com.badlogic.gdx.Gdx;
-
 /**
  * Gets the version of the library.
  *
@@ -9,7 +7,7 @@ import com.badlogic.gdx.Gdx;
  */
 public class Version {
 
-	private final static String COPY = "| mui, chn, mei (c) 2012-2015";
+	private final static String COPY = "| mui, chn, mei, pim (c) 2012-2015";
 
 	/**
 	 * Current version name of the gdx2d library (major.minor.revision).
