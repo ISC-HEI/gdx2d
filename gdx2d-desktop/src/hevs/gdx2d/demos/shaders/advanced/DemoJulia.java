@@ -53,7 +53,7 @@ public class DemoJulia extends PortableApplication {
 		g.clear();
 		g.drawShader(t);
 		g.drawFPS();
-		//g.drawSchoolLogo();
+		g.drawSchoolLogo();
 	}
 
 	@Override

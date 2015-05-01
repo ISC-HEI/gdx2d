@@ -57,6 +57,7 @@ public class DemoTile extends PortableApplication {
 		tileMapRenderer.setView(cam);		
 		cam.update();
 		tileMapRenderer.render();
+		g.drawSchoolLogo();
 		g.drawFPS();
 	}
 
@@ -94,7 +95,6 @@ public class DemoTile extends PortableApplication {
 		case Input.Keys.LEFT:
 			cam.translate(32, 0);
 			break;
-
 			
 		case Input.Keys.RIGHT:
 			cam.translate(-32, 0);
