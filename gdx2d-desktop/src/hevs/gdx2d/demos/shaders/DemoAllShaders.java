@@ -45,12 +45,12 @@ public class DemoAllShaders extends PortableApplication {
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/" + shaders[currentShaderID]);
-			g.getShaderRenderer().addTexture("data/images/lena.jpg", "texture0");
+			g.getShaderRenderer().addTexture("data/images/lena.png", "texture0");
 		}
 
 		if (currentShaderID != previousShaderID) {
 			g.setShader("data/shader/" + shaders[currentShaderID]);
-			g.getShaderRenderer().addTexture("data/images/lena.jpg", "texture0");
+			g.getShaderRenderer().addTexture("data/images/lena.png", "texture0");
 			Logger.log("Current shader set to " + shaders[currentShaderID]);
 			previousShaderID = currentShaderID;
 		}
