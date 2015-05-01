@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
 import hevs.gdx2d.components.bitmaps.Spritesheet;
 import hevs.gdx2d.lib.GdxGraphics;
+import hevs.gdx2d.lib.interfaces.DrawableObject;
 
 /**
  * Character for the demo.
@@ -12,7 +13,7 @@ import hevs.gdx2d.lib.GdxGraphics;
  * @author Alain Woeffray (woa)
  * @author Pierre-André Mudry (mui)
  */
-public class Hero{
+public class Hero implements DrawableObject{
 
     public enum Direction{
         UP,
@@ -139,10 +140,10 @@ public class Hero{
                 newPosition.add(-SPRITE_WIDTH, 0);
                 break;
             case UP:
-                newPosition.add(0, SPRITE_WIDTH);
+                newPosition.add(0, SPRITE_HEIGHT);
                 break;
             case DOWN:
-                newPosition.add(0, -SPRITE_WIDTH);
+                newPosition.add(0, -SPRITE_HEIGHT);
                 break;
             default:
                 break;
