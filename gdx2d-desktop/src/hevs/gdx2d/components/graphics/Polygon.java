@@ -58,8 +58,8 @@ public class Polygon {
 			triangulatedVertices = new float[earClippedVertices.length*2];
 			for (int i = 0 ; i < earClippedVertices.length; i++)
 			{
-				triangulatedVertices[2*i+0] = gdxpoints[i].x;
-				triangulatedVertices[2*i+1] = gdxpoints[i].y;
+				triangulatedVertices[2*i+0] = gdxpoints[earClippedVertices[i]].x;
+				triangulatedVertices[2*i+1] = gdxpoints[earClippedVertices[i]].y;
 			}
 		}
 
