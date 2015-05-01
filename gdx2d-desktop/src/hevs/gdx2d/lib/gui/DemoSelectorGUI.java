@@ -7,7 +7,6 @@ import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
 import hevs.gdx2d.demos.shaders.advanced.DemoJulia;
-import hevs.gdx2d.demos.simple.DemoCircles;
 import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.Version;

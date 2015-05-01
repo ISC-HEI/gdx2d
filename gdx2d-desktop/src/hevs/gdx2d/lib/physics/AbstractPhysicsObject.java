@@ -28,7 +28,7 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 
 	// To make sure the native library has been loaded at least once
 	static{
-		World world = PhysicsWorld.getInstance();
+		PhysicsWorld.getInstance();
 	}
 
 	/**
