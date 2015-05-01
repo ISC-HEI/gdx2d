@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
-    <libelement value="file://libs/gdx2d-desktop-demos_1.0.0.jar" />
+    <libelement value="file://libs/gdx2d-desktop-demos_1.1.0.jar" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
       <src_folder value="file://$MODULE_DIR$/data" expected_position="1" />
@@ -19,14 +19,14 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.0.1-RC1.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <NATIVE>
-          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.0.1-RC1.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.1.0.jar!/" />
         </NATIVE>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.0.1-RC1.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/gdx2d-library_1.1.0.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>

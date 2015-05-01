@@ -12,7 +12,7 @@ public class Version {
 	/**
 	 * Current version name of the gdx2d library (major.minor.revision).
 	 */
-	public static final String VERSION = "1.0.1-RC1";
+	public static final String VERSION = "1.1.0";
 
 	/**
 	 * Print the current version of {@code libgdx} and {@code gdx2d}.
