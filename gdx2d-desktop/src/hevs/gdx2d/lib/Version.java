@@ -1,7 +1,5 @@
 package hevs.gdx2d.lib;
 
-import com.badlogic.gdx.Gdx;
-
 /**
  * Gets the version of the library.
  *

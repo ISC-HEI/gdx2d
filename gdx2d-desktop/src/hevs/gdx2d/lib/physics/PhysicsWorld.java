@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
-import hevs.gdx2d.lib.utils.Logger;
 
 import java.util.Vector;
 
