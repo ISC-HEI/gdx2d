@@ -1,19 +1,21 @@
 package hevs.gdx2d.lib.gui;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
-import hevs.gdx2d.demos.shaders.advanced.DemoJulia;
+
+import hevs.gdx2d.demos.simple.DemoCircles;
 import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.Version;
+import hevs.gdx2d.lib.gui.SelectedDemos.DemoCategory;
+import hevs.gdx2d.lib.gui.SelectedDemos.DemoDescriptor;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
@@ -50,7 +52,7 @@ public class DemoSelectorGUI extends JFrame {
 		container = new JPanel();
 
 		// Add the starting demo
-		canvas = new LwjglAWTCanvas(new Game2D(new DemoJulia(false)));
+		canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles(false)));
 		canvas.getCanvas().setSize(500, 500);
 		container.add(canvas.getCanvas());
 		add(container);
@@ -166,26 +168,21 @@ public class DemoSelectorGUI extends JFrame {
 		}
 
 		private void loadFromJson() throws FileNotFoundException {
-			JsonReader r = new JsonReader();
-			JsonValue demos = r.parse(getClass().getResourceAsStream("/lib/demosList.json"));
-
 			demosMap = new LinkedHashMap<String, DemoDescriptor>();
 
 			int demoCounter = 1;
 
 			// Read all categories
-			for (int i = 0; i < demos.size; i++) {
-				JsonValue catDemos = demos.get(i);
-				String catName = catDemos.name();
+			for (DemoCategory catDemos : SelectedDemos.list) {
+				String catName = catDemos.name;
 
 				List<String> l = new ArrayList<String>();
 				// Read all demos in the category
-				for (int j = 0; j < catDemos.size; j++) {
-					JsonValue currentDemo = catDemos.get(j);
-					final String name = String.format("%02d. %s", demoCounter, currentDemo.getString("name"));
-					final String clazz = currentDemo.getString("class");
-					final String descText = currentDemo.getString("desc");
-					DemoDescriptor d = new DemoDescriptor(clazz, descText);
+				for (DemoDescriptor currentDemo : catDemos.descs) {
+					final String name = String.format("%02d. %s", demoCounter, currentDemo.name);
+					final Class<?> clazz = currentDemo.clazz;
+					final String descText = currentDemo.desc;
+					SelectedDemos.DemoDescriptor d = new DemoDescriptor(name, clazz, descText);
 					demosMap.put(name, d);
 					l.add(name);
 					demoCounter++;
@@ -214,10 +211,11 @@ public class DemoSelectorGUI extends JFrame {
 					canvas = null;
 
 					try {
-						Class<?> clazz = Class.forName("hevs.gdx2d.demos." + demosMap.get(selectedDemoName).clazz);
-						final Constructor<?> constructor = clazz.getConstructor(boolean.class);
+						//final Constructor<?> constructor = clazz.getConstructor(boolean.class);
+						@SuppressWarnings("unchecked")
+						final Constructor<PortableApplication> constructor = (Constructor<PortableApplication>) demosMap.get(selectedDemoName).clazz.getConstructor(boolean.class);
 
-						canvas = new LwjglAWTCanvas(new Game2D((PortableApplication) constructor.newInstance(false)));
+						canvas = new LwjglAWTCanvas(new Game2D(constructor.newInstance(false)));
 						canvas.getCanvas().setSize(500, 500);
 						container.add(canvas.getCanvas());
 						pack();
@@ -289,19 +287,6 @@ public class DemoSelectorGUI extends JFrame {
 							btRun.doClick();
 					}
 				});
-			}
-		}
-
-		/**
-		 * Load demos and categories from an external JSON file.
-		 */
-		class DemoDescriptor {
-			final String clazz;
-			final String desc;
-
-			DemoDescriptor(String c, String d) {
-				desc = d;
-				clazz = c;
 			}
 		}
 	}
