@@ -28,7 +28,6 @@ public class SpritesheetOnTilemapDemo extends PortableApplication {
     private Hero hero;
 
     // tiles management
-    private final static float MAP_SCROLLING = 2f;
     private OrthographicCamera cam;
     private TiledMap tiledMap;
     private TiledMapRenderer tileMapRenderer;
@@ -64,14 +63,18 @@ public class SpritesheetOnTilemapDemo extends PortableApplication {
     public void onGraphicRender(GdxGraphics g) {
         g.clear();
 
-        readInputs();
+        // Hero activity
+        manageHero();
 
+        // Render the tilemap
         tileMapRenderer.setView(cam);
         tileMapRenderer.render();
 
+        // Draw the hero
         hero.animate(Gdx.graphics.getDeltaTime());
         hero.draw(g);
 
+        // Camera follows the hero
         moveCamera(g);
 
         g.drawFPS();
@@ -89,14 +92,6 @@ public class SpritesheetOnTilemapDemo extends PortableApplication {
         g.scroll(dx, dy);
 
         cam.update();
-    }
-
-    /**
-     * @param position The position on map (not on screen)
-     * @return The tile at the given position
-     */
-    private TiledMapTile getTile(Vector2 position){
-        return getTile(position, 0, 0);
     }
 
     /**
@@ -148,36 +143,43 @@ public class SpritesheetOnTilemapDemo extends PortableApplication {
     /**
      * Manage the movements of the hero using the keyboard.
      */
-    private void readInputs(){
+    private void manageHero(){
 
+    	// Do nothing if hero is already moving
         if(!hero.isMoving()){
 
-            TiledMapTile cell = null;
+        	
+        	// Compute direction and next cell
+            TiledMapTile nextCell = null;
             Hero.Direction goalDirection = Hero.Direction.NULL;
 
             if(keyStatus.get(Input.Keys.RIGHT)){
                 goalDirection = Hero.Direction.RIGHT;
-                cell = getTile(hero.getPosition(), 1, 0);
+                nextCell = getTile(hero.getPosition(), 1, 0);
             }else if(keyStatus.get(Input.Keys.LEFT)){
                 goalDirection = Hero.Direction.LEFT;
-                cell = getTile(hero.getPosition(), -1, 0);
+                nextCell = getTile(hero.getPosition(), -1, 0);
             }else if(keyStatus.get(Input.Keys.UP)){
                 goalDirection = Hero.Direction.UP;
-                cell = getTile(hero.getPosition(), 0, 1);
+                nextCell = getTile(hero.getPosition(), 0, 1);
             }else if(keyStatus.get(Input.Keys.DOWN)){
                 goalDirection = Hero.Direction.DOWN;
-                cell = getTile(hero.getPosition(), 0, -1);
+                nextCell = getTile(hero.getPosition(), 0, -1);
             }
 
-            if( isWalkable(cell) ) {
-                hero.setSpeed(getSpeed(cell));
+            // Is the move valid ?
+            if( isWalkable(nextCell) ) {
+            	// Go
+                hero.setSpeed(getSpeed(nextCell));
                 hero.go(goalDirection);
             }else{
+            	// Face the wall
                 hero.turn(goalDirection);
             }
         }
     }
 
+    // Manage keyboard events
     @Override
     public void onKeyUp(int keycode) {
         super.onKeyUp(keycode);
