@@ -1,25 +1,3 @@
-package hevs.gdx2d.demos.physics.gears;
-
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.physics.box2d.joints.GearJointDef;
-
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.physics.PhysicsBox;
-import hevs.gdx2d.components.physics.PhysicsCircle;
-import hevs.gdx2d.components.physics.PhysicsMotor;
-import hevs.gdx2d.components.physics.PhysicsStaticBox;
-import hevs.gdx2d.components.physics.PhysicsStaticCircle;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.physics.DebugRenderer;
-import hevs.gdx2d.lib.physics.PhysicsWorld;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * A demo on how to use {@link PhysicsMotor} and GearJointDef.
  * <p/>
@@ -40,6 +18,27 @@ import java.util.Date;
  *
  * @author Marc Pignat (pim)
  */
+
+package hevs.gdx2d.demos.physics.gears;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.joints.GearJointDef;
+
+import hevs.gdx2d.components.bitmaps.BitmapImage;
+import hevs.gdx2d.components.physics.PhysicsBox;
+import hevs.gdx2d.components.physics.PhysicsMotor;
+import hevs.gdx2d.components.physics.PhysicsStaticBox;
+import hevs.gdx2d.lib.GdxGraphics;
+import hevs.gdx2d.lib.PortableApplication;
+import hevs.gdx2d.lib.physics.DebugRenderer;
+import hevs.gdx2d.lib.physics.PhysicsWorld;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DemoRotateGears extends PortableApplication {
 
 	/**
@@ -83,8 +82,8 @@ public class DemoRotateGears extends PortableApplication {
 
 	/* Hands */
 	private PhysicsBox hand_second;
-	private PhysicsCircle hand_minute;
-	private PhysicsCircle hand_hour;
+	private PhysicsBox hand_minute;
+	private PhysicsBox hand_hour;
 
 	/* Motors */
 	PhysicsMotor motor_seconds;
@@ -97,7 +96,6 @@ public class DemoRotateGears extends PortableApplication {
 	private float MOTOR_SPEED_MINUTE = (float) (-Math.PI / 60);
 
 	private DebugRenderer debugRenderer;
-
 	private boolean debug_rendering = false;
 
 	public DemoRotateGears(boolean onAndroid) {
@@ -130,12 +128,17 @@ public class DemoRotateGears extends PortableApplication {
 				10, 10);
 
 		/* Create the hands, at the current system time */
-		hand_second = new PhysicsBox("seconds", CLOCK_CENTER, 10, 10,
+		hand_second = new PhysicsBox("seconds", CLOCK_CENTER, 10, 50,
 				time.getSecondAngle());
-		hand_minute = new PhysicsCircle("minutes", CLOCK_CENTER, 70,
+		hand_minute = new PhysicsBox("minutes", CLOCK_CENTER, 10, 40,
 				time.getMinuteAngle());
-		hand_hour = new PhysicsCircle("hours", CLOCK_CENTER, 50,
+		hand_hour = new PhysicsBox("hours", CLOCK_CENTER, 10, 30,
 				time.getHourAngle());
+		
+		/* Prevent collision between hands */
+		hand_second.setCollisionGroup(-2);
+		hand_minute.setCollisionGroup(-2);
+		hand_hour.setCollisionGroup(-2);
 		
 		/* Create the motors */
 		motor_seconds = new PhysicsMotor(frame.getBody(),
@@ -174,8 +177,10 @@ public class DemoRotateGears extends PortableApplication {
 		 */
 		motor_seconds.initializeMotor(MOTOR_SPEED_SECOND, 1.0f, true);
 		motor_minutes.initializeMotor(0.0f, 1.0f, true);
+		
+		System.out.println("click to switch debug/rendering mode");
 	}
-
+	
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		
