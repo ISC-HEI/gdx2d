@@ -54,6 +54,7 @@ public class DemoPhysicsRocket extends PortableApplication {
 		// Our spaceship
 		ship = new Spaceship(new Vector2(getWindowWidth() / 2,
 				getWindowHeight() / 2));
+
 	}
 
 	@Override
@@ -65,6 +66,10 @@ public class DemoPhysicsRocket extends PortableApplication {
 		dbgRenderer.render(world, g.getCamera().combined);
 
 		ship.draw(g); // Draw the spaceship image
+
+		g.drawStringCentered(400, "Use the keys to control the rocket");
+		g.drawFPS();
+		g.drawSchoolLogo();
 	}
 
 	@Override
