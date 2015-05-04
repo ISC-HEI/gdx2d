@@ -204,7 +204,8 @@ public class DemoSelectorGUI extends JFrame {
 					canvas = null;
 
 					try {
-						canvas = new LwjglAWTCanvas(new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance()));
+						Game2D g = new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance());
+						canvas = new LwjglAWTCanvas(g);
 						canvas.getCanvas().setSize(500, 500);
 						container.add(canvas.getCanvas());
 						pack();
