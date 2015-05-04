@@ -103,18 +103,6 @@ public class DemoPhysicsBalls extends PortableApplication {
 			c.setBodyAwake(true);
 		}
 
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
-
-		g.drawSchoolLogoUpperRight();
-		g.drawFPS();
-	}
-
-	/**
-	 * Called periodically
-	 */
-	@Override
-	public void onGameLogicUpdate() {
-
 		if (hasAccelerometers) {
 			// On tablet, orientation is different than on phone
 			Orientation nativeOrientation = Gdx.input.getNativeOrientation();
@@ -130,5 +118,18 @@ public class DemoPhysicsBalls extends PortableApplication {
 			smoothedValue += (accel - smoothedValue) / SMOOTHING;
 			world.setGravity(new Vector2(-(float) (smoothedValue), -10));
 		}
+
+		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+
+		g.drawSchoolLogoUpperRight();
+		g.drawFPS();
+	}
+
+	/**
+	 * Called periodically
+	 */
+	@Override
+	public void onGameLogicUpdate() {
+
 	}
 }
