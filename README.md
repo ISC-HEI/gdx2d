@@ -45,10 +45,6 @@ public class DemoSimpleAnimation extends PortableApplication {
     int radius = 5, speed = 1;
     int screenHeight, screenWidth;
 
-    public DemoSimpleAnimation(boolean onAndroid) {
-        super(onAndroid);
-    }
-
     @Override
     public void onInit() {
         // Sets the window title
@@ -77,12 +73,7 @@ public class DemoSimpleAnimation extends PortableApplication {
     }
 
     public static void main(String[] args) {
-        /**
-         * Note that the constructor parameter is used to determine if running
-         * on Android or not. As we are in main there, it means we are on
-         * desktop computer.
-         */
-        new DemoSimpleAnimation(false);
+        new DemoSimpleAnimation();
     }
 
 }
