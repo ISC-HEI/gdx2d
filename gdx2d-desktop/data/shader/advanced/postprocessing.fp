@@ -1,3 +1,7 @@
+#ifdef GL_ES
+	precision mediump float;
+#endif
+
 // in from the java side
 uniform sampler2D backbuffer;
 uniform vec2 resolution;
