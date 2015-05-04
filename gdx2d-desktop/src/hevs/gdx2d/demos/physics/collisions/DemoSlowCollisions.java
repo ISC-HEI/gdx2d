@@ -21,12 +21,8 @@ public class DemoSlowCollisions extends PortableApplication {
 
 	BumpyBall b1, b2;
 
-	public DemoSlowCollisions(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoSlowCollisions(false);
+		new DemoSlowCollisions();
 	}
 
 	@Override

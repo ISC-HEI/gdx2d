@@ -7,8 +7,6 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.PortableApplication;
 
-import java.lang.reflect.Constructor;
-
 /**
  * Sample application for Android using LibGDX HEVS wrapper.
  *
@@ -32,11 +30,9 @@ public class GameActivity extends AndroidApplication {
 		try {
 			// Get the class we want
 			Class<?> clazz = Class.forName(className);
-			// Extract its constructor using reflection
-			Constructor<?> constructor = clazz.getConstructor(boolean.class);
 
-			// Call the class constructor with a boolean parameter (we know it exists)
-			PortableApplication instance = (PortableApplication) constructor.newInstance(true); // on Android
+			// Call the class constructor without parameters (we know it exists)
+			PortableApplication instance = (PortableApplication) clazz.newInstance(); // on Android
 
 			// Required for triggering Android events from Libgdx
 			instance.setAndroidResolver(new GDXEventHandler(this));

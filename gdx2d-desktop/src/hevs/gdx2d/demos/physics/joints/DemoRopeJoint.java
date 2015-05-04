@@ -27,12 +27,8 @@ public class DemoRopeJoint extends PortableApplication {
 	// Contains all the objects that will be simulated
 	DebugRenderer debugRenderer;
 
-	public DemoRopeJoint(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoRopeJoint(false);
+		new DemoRopeJoint();
 	}
 
 	@Override

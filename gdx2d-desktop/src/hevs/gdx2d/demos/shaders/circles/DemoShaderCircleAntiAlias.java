@@ -22,13 +22,8 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 	private float time = 0;
 	private float radius = 100;
 
-
-	public DemoShaderCircleAntiAlias(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoShaderCircleAntiAlias(false);
+		new DemoShaderCircleAntiAlias();
 	}
 
 	@Override

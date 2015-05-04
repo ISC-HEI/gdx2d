@@ -17,12 +17,8 @@ public class DemoTexture extends PortableApplication {
 	boolean clicked = false;
 	boolean image1 = true;
 
-	public DemoTexture(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoTexture(false);
+		new DemoTexture();
 	}
 
 	@Override

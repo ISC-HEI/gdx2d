@@ -34,17 +34,8 @@ public class DemoBlendingFunctions extends PortableApplication {
 			GL20.GL_ONE_MINUS_SRC_ALPHA
 	};
 
-	/**
-	 * Constructor
-	 *
-	 * @param onAndroid tells if we are currently running on Android or not
-	 */
-	public DemoBlendingFunctions(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoBlendingFunctions(false);
+		new DemoBlendingFunctions();
 	}
 
 	@Override

@@ -25,12 +25,9 @@ public class DemoAllShaders extends PortableApplication {
 	private int currentShaderID = 0;
 	private int previousShaderID = currentShaderID;
 	private Vector2 mouse = new Vector2();
-	public DemoAllShaders(boolean onAndroid) {
-		super(onAndroid);
-	}
 
 	public static void main(String args[]) {
-		new DemoAllShaders(false);
+		new DemoAllShaders();
 	}
 
 	@Override
@@ -77,7 +74,7 @@ public class DemoAllShaders extends PortableApplication {
 	public void onClick(int x, int y, int button) {
 		super.onClick(x, y, button);
 
-		if (button == Buttons.RIGHT || onAndroid)
+		if (button == Buttons.RIGHT || onAndroid())
 			currentShaderID = (currentShaderID + 1) % shaders.length;
 
 		mouse.x = x;

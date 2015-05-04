@@ -196,12 +196,8 @@ public class Benchmarker extends PortableApplication {
 		}
 	};
 
-	public Benchmarker(boolean onAndroid) {
-		super(onAndroid, 512, 512);
-	}
-
 	public static void main(String args[]) {
-		new Benchmarker(false);
+		new Benchmarker();
 	}
 
 	int state;

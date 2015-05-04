@@ -24,13 +24,8 @@ public class DemoAACircles extends PortableApplication {
 	int[] p = new int[Q];
 	boolean done = false;
 
-	public DemoAACircles() {
-		super(false);
-	}
-
 	public static void main(String[] args) {
 		new DemoAACircles();
-
 	}
 
 	@Override

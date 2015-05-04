@@ -15,17 +15,8 @@ public class DemoMirrorImage extends PortableApplication {
 	float counter = 0;
 	BitmapImage imgBitmap;
 
-	/**
-	 * Constructor
-	 *
-	 * @param onAndroid tells if we are currently running on Android or not
-	 */
-	public DemoMirrorImage(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoMirrorImage(false);
+		new DemoMirrorImage();
 	}
 
 	@Override

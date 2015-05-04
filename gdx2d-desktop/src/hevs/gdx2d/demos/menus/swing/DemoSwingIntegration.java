@@ -30,7 +30,7 @@ public class DemoSwingIntegration extends JFrame {
 
 		PortableApplication.CreateLwjglApplication = false; // TODO: configuration this way is ugly...
 
-		canvas2 = new LwjglAWTCanvas(new Game2D(new DemoSimplePhysics(false)));
+		canvas2 = new LwjglAWTCanvas(new Game2D(new DemoSimplePhysics()));
 		canvas2.getCanvas().setSize(400, 400);
 		container.add(canvas2.getCanvas());
 
@@ -43,9 +43,9 @@ public class DemoSwingIntegration extends JFrame {
 			public void actionPerformed(ActionEvent actionEvent) {
 				if (canvas2 == null) {
 					if ((current % 2) == 1)
-						canvas2 = new LwjglAWTCanvas(new Game2D(new DemoSimplePhysics(false)));
+						canvas2 = new LwjglAWTCanvas(new Game2D(new DemoSimplePhysics()));
 					else
-						canvas2 = new LwjglAWTCanvas(new Game2D(new DemoCircles(false)));
+						canvas2 = new LwjglAWTCanvas(new Game2D(new DemoCircles()));
 
 					canvas2.getCanvas().setSize(400, 400);
 					container.add(canvas2.getCanvas());

@@ -19,12 +19,8 @@ public class DemoMusicPlay extends PortableApplication {
 
 	private MusicPlayer f;
 
-	public DemoMusicPlay(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoMusicPlay(false);
+		new DemoMusicPlay();
 	}
 
 	@Override
@@ -72,7 +68,7 @@ public class DemoMusicPlay extends PortableApplication {
 		else
 			f.loop();
 
-		if (onAndroid) {
+		if (onAndroid()) {
 			// Display Toast on Android
 			final String sToast = (f.isPlaying()) ? "Playing started."
 					: "Playing stopped.";

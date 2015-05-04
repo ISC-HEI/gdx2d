@@ -32,10 +32,6 @@ public class DemoTileAdvanced extends PortableApplication {
     private TiledMapRenderer tileMapRenderer;
     private TiledMapTileLayer tileLayer;
 
-    public DemoTileAdvanced(boolean onAndroid) {
-        super(onAndroid);
-    }
-
     @Override
     public void onInit() {
 
@@ -194,7 +190,7 @@ public class DemoTileAdvanced extends PortableApplication {
     }
 
     public static void main(String[] args) {
-        new DemoTileAdvanced(false);
+        new DemoTileAdvanced();
     }
 }
 

@@ -17,17 +17,8 @@ public class DemoLines extends PortableApplication {
 	BounceShape[] s;
 	int frame = 0;
 
-	public DemoLines(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		/**
-		 * Note that the constructor parameter is used to determine if running
-		 * on Android or not. As we are in main there, it means we are on
-		 * desktop computer.
-		 */
-		new DemoLines(false);
+		new DemoLines();
 	}
 
 	@Override

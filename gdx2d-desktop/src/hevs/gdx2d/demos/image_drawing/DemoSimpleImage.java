@@ -16,17 +16,8 @@ public class DemoSimpleImage extends PortableApplication {
 	float counter = 0;
 	BitmapImage imgBitmap;
 
-	/**
-	 * Constructor
-	 *
-	 * @param onAndroid tells if we are currently running on Android or not
-	 */
-	public DemoSimpleImage(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoSimpleImage(false);
+		new DemoSimpleImage();
 	}
 
 	@Override

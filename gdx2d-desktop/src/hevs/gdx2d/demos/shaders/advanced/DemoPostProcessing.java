@@ -27,12 +27,8 @@ public class DemoPostProcessing extends PortableApplication {
 	// Standard images used for drawing
 	BitmapImage imageAndroid, imageBackground;
 
-	public DemoPostProcessing(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoPostProcessing(false);
+		new DemoPostProcessing();
 	}
 
 	@Override

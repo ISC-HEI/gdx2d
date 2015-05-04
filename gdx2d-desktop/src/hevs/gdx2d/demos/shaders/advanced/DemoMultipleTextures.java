@@ -15,12 +15,8 @@ public class DemoMultipleTextures extends PortableApplication {
 	float time = 0;
 	int i = 0;
 
-	public DemoMultipleTextures(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoMultipleTextures(false);
+		new DemoMultipleTextures();
 	}
 
 	@Override

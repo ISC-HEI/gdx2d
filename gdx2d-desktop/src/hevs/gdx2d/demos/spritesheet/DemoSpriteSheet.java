@@ -36,12 +36,9 @@ public class DemoSpriteSheet extends PortableApplication {
 	float dt = 0;
 	int currentFrame = 0;
 	int nFrames = 4;
-	public DemoSpriteSheet(boolean onAndroid) {
-		super(onAndroid);
-	}
 
 	public static void main(String args[]) {
-		new DemoSpriteSheet(false);
+		new DemoSpriteSheet();
 	}
 
 	@Override

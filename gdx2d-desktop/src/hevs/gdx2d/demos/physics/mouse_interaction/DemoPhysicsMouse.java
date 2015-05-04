@@ -56,16 +56,16 @@ public class DemoPhysicsMouse extends PortableApplication {
 		}
 	};
 
-	public DemoPhysicsMouse(boolean onAndroid) {
-		super(onAndroid);
+	public DemoPhysicsMouse() {
+		super();
 	}
 
-	public DemoPhysicsMouse(boolean onAndroid, int w, int h) {
-		super(onAndroid, w, h);
+	public DemoPhysicsMouse(int w, int h) {
+		super(w, h);
 	}
 
 	public static void main(String[] args) {
-		new DemoPhysicsMouse(false, 800, 500);
+		new DemoPhysicsMouse(800, 500);
 	}
 
 	@Override

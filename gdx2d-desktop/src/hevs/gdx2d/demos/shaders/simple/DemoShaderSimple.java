@@ -14,12 +14,8 @@ public class DemoShaderSimple extends PortableApplication {
 
 	private float time = 0;
 
-	public DemoShaderSimple(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoShaderSimple(false);
+		new DemoShaderSimple();
 	}
 
 	@Override

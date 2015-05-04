@@ -36,13 +36,8 @@ public class DemoPhysicsBalls extends PortableApplication {
 	// For low-pass filtering accelerometer
 	private double smoothedValue = 0;
 
-
-	public DemoPhysicsBalls(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoPhysicsBalls(false);
+		new DemoPhysicsBalls();
 	}
 
 	@Override

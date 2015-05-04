@@ -40,11 +40,11 @@ public class DemoJuliaFractal extends PortableApplication {
 	private boolean isFractalGenerated = false;
 	private long startTime, estimatedTime; // Time measurement
 
-	public DemoJuliaFractal(boolean isOnAndroid) {
+	public DemoJuliaFractal() {
 		// The windows size is the fractal size
-		super(isOnAndroid, IMAGE_SIZE, IMAGE_SIZE);
+		super(IMAGE_SIZE, IMAGE_SIZE);
 
-		if (onAndroid) {
+		if (onAndroid()) {
 			Logger.error("This demo only works on desktop! Exiting");
 			Gdx.app.exit(); // For now too slow on Android
 		}
@@ -80,7 +80,7 @@ public class DemoJuliaFractal extends PortableApplication {
 
 	// Java main for the desktop demonstration
 	public static void main(String args[]) {
-		new DemoJuliaFractal(false);
+		new DemoJuliaFractal();
 	}
 
 	@Override

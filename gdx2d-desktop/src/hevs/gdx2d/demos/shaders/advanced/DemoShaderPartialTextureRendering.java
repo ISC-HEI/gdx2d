@@ -13,12 +13,8 @@ public class DemoShaderPartialTextureRendering extends PortableApplication {
 
 	double t = 0;
 
-	public DemoShaderPartialTextureRendering(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoShaderPartialTextureRendering(false);
+		new DemoShaderPartialTextureRendering();
 	}
 
 	@Override

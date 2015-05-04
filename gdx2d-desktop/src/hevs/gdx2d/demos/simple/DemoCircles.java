@@ -15,17 +15,13 @@ public class DemoCircles extends PortableApplication {
 	int radius[] = new int[8];
 	int speed[] = new int[8];
 
-	public DemoCircles(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
 		/**
 		 * Note that the constructor parameter is used to determine if running
 		 * on Android or not. As we are in main there, it means we are on
 		 * desktop computer.
 		 */
-		new DemoCircles(false);
+		new DemoCircles();
 	}
 
 	@Override
@@ -65,7 +61,7 @@ public class DemoCircles extends PortableApplication {
 
 	@Override
 	public void onClick(int x, int y, int button) {
-		if (onAndroid)
+		if (onAndroid())
 			getAndroidResolver().showAboutBox();
 	}
 

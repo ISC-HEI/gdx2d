@@ -16,17 +16,13 @@ public class DemoSimpleAnimation extends PortableApplication {
 	int radius = 5, speed = 1;
 	int screenHeight, screenWidth;
 
-	public DemoSimpleAnimation(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
 		/**
 		 * Note that the constructor parameter is used to determine if running
 		 * on Android or not. As we are in main there, it means we are on
 		 * desktop computer.
 		 */
-		new DemoSimpleAnimation(false);
+		new DemoSimpleAnimation();
 	}
 
 	@Override
@@ -58,7 +54,7 @@ public class DemoSimpleAnimation extends PortableApplication {
 
 	@Override
 	public void onClick(int x, int y, int button) {
-		if (onAndroid)
+		if (onAndroid())
 			getAndroidResolver().showAboutBox();
 	}
 

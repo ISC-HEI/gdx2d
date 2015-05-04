@@ -33,12 +33,8 @@ public class DemoHypnos extends PortableApplication {
 	private int screenWidth, screenHeight;
 	private float angle = 0;
 
-	public DemoHypnos(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoHypnos(false);
+		new DemoHypnos();
 	}
 
 	protected void generateObjects() {

@@ -46,12 +46,12 @@ public class DemoRotateMotor extends PortableApplication {
 
 	private float minuteDrawAngle;
 
-	public DemoRotateMotor(boolean onAndroid) {
-		super(onAndroid, 512, 256);
+	public DemoRotateMotor() {
+		super(512, 256);
 	}
 
 	public static void main(String args[]) {
-		new DemoRotateMotor(false);
+		new DemoRotateMotor();
 	}
 
 	@Override

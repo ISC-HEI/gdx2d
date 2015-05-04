@@ -73,12 +73,8 @@ public class DemoMixer extends PortableApplication {
 	float width, height;
 	Rotor rotor;
 
-	public DemoMixer(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoMixer(false);
+		new DemoMixer();
 	}
 
 	@Override

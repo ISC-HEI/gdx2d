@@ -18,12 +18,8 @@ public class DemoBabyPiano extends PortableApplication {
 
 	public SoundSample s1, s2, s3, s4;
 
-	public DemoBabyPiano(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoBabyPiano(false);
+		new DemoBabyPiano();
 	}
 
 	@Override

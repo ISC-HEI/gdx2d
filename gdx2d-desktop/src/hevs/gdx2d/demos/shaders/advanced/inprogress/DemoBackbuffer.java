@@ -22,12 +22,8 @@ public class DemoBackbuffer extends PortableApplication {
 	FrameBuffer fbo;
 	Texture t;
 
-	public DemoBackbuffer(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoBackbuffer(false);
+		new DemoBackbuffer();
 	}
 
 	@Override

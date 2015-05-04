@@ -21,17 +21,8 @@ public class DemoGetImageColor extends PortableApplication {
 	float alpha1 = 0.06f, alpha2 = 0.3f, alpha3 = 0.6f, alpha4 = 0.94f;
 	int dir1 = 1, dir2 = 1, dir3 = 1, dir4 = 1;
 
-	/**
-	 * Constructor
-	 *
-	 * @param onAndroid tells if we are currently running on Android or not
-	 */
-	public DemoGetImageColor(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoGetImageColor(false);
+		new DemoGetImageColor();
 	}
 
 	@Override

@@ -9,12 +9,9 @@ import hevs.gdx2d.lib.GdxGraphics;
  * @version 1.0
  */
 public class DemoRotatingImage extends DemoSimpleImage {
-	public DemoRotatingImage(boolean onAndroid) {
-		super(onAndroid);
-	}
 
 	public static void main(String[] args) {
-		new DemoRotatingImage(false);
+		new DemoRotatingImage();
 	}
 
 	@Override

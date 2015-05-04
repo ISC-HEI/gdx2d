@@ -28,12 +28,8 @@ public class DemoFontGeneration extends PortableApplication {
 			"The default font is Roboto size 15, white";
 	private BitmapFont optimus60, optimus40, timeless40, starjedi40, icepixel40;
 
-	public DemoFontGeneration(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoFontGeneration(false);
+		new DemoFontGeneration();
 	}
 
 	@Override

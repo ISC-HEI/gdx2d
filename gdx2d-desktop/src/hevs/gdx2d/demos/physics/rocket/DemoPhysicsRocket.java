@@ -30,12 +30,8 @@ public class DemoPhysicsRocket extends PortableApplication {
 	// Drawing related
 	Spaceship ship;
 
-	public DemoPhysicsRocket(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoPhysicsRocket(false);
+		new DemoPhysicsRocket();
 	}
 
 	@Override

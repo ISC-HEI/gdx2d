@@ -14,12 +14,8 @@ public class DemoShaderMouse2 extends PortableApplication {
 
 	Circle c;
 
-	public DemoShaderMouse2(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoShaderMouse2(false);
+		new DemoShaderMouse2();
 	}
 
 	@Override

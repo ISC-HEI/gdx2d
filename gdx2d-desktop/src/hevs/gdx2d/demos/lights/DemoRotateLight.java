@@ -40,12 +40,8 @@ public class DemoRotateLight extends PortableApplication {
 	// The objects located in the middle of the screen that will cast shadows
 	PhysicsCircle circle1, circle2, circle3;
 
-	public DemoRotateLight(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoRotateLight(false);
+		new DemoRotateLight();
 	}
 
 	@Override

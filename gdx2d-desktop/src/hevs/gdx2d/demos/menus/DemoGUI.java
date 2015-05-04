@@ -24,12 +24,9 @@ public class DemoGUI extends PortableApplication {
 	Stage stage;
 	TextButton newGameButton, quitGameButton;
 	TextField textArea;
-	public DemoGUI(boolean onAndroid) {
-		super(onAndroid);
-	}
 
 	public static void main(String[] args) {
-		new DemoGUI(false);
+		new DemoGUI();
 	}
 
 	@Override

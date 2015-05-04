@@ -26,12 +26,8 @@ public class DemoSimplePhysics extends PortableApplication {
 	PhysicsCircle ball;
 	DebugRenderer debugRenderer;
 
-	public DemoSimplePhysics(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoSimplePhysics(false);
+		new DemoSimplePhysics();
 	}
 
 	@Override

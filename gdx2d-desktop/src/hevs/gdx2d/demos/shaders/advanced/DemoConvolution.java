@@ -15,12 +15,8 @@ public class DemoConvolution extends PortableApplication {
 
 	int currentMatrix = 0;
 
-	public DemoConvolution(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoConvolution(false);
+		new DemoConvolution();
 	}
 
 	@Override

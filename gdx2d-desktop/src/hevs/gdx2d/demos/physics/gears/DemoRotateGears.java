@@ -98,12 +98,12 @@ public class DemoRotateGears extends PortableApplication {
 	private DebugRenderer debugRenderer;
 	private boolean debug_rendering = false;
 
-	public DemoRotateGears(boolean onAndroid) {
-		super(onAndroid, 512, 256);
+	public DemoRotateGears() {
+		super(512, 256);
 	}
 
 	public static void main(String args[]) {
-		new DemoRotateGears(false);
+		new DemoRotateGears();
 	}
 
 	@Override

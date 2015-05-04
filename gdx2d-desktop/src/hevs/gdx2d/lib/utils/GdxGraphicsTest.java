@@ -13,12 +13,8 @@ import hevs.gdx2d.lib.PortableApplication;
  */
 public class GdxGraphicsTest extends PortableApplication {
 
-	public GdxGraphicsTest(boolean onAndroid) {
-		super(onAndroid, 512, 512);
-	}
-
 	public static void main(String args[]) {
-		new GdxGraphicsTest(false);
+		new GdxGraphicsTest();
 	}
 
 	float zoom = 1.0f;

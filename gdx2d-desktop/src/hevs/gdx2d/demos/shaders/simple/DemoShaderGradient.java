@@ -11,12 +11,8 @@ import hevs.gdx2d.lib.PortableApplication;
  */
 public class DemoShaderGradient extends PortableApplication {
 
-	public DemoShaderGradient(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoShaderGradient(false);
+		new DemoShaderGradient();
 	}
 
 	@Override

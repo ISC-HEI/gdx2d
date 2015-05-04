@@ -26,12 +26,8 @@ public class DemoCollisionListener extends PortableApplication {
 	boolean generate = false;
 	BumpyBall b1, b2, b3, b4;
 
-	public DemoCollisionListener(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoCollisionListener(false);
+		new DemoCollisionListener();
 	}
 
 	@Override

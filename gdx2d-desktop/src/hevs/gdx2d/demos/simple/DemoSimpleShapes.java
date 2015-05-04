@@ -15,12 +15,8 @@ import hevs.gdx2d.lib.PortableApplication;
  */
 public class DemoSimpleShapes extends PortableApplication {
 
-	public DemoSimpleShapes(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoSimpleShapes(false);
+		new DemoSimpleShapes();
 	}
 
 	@Override

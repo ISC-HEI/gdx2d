@@ -15,12 +15,8 @@ public class DemoShaderParticles extends PortableApplication {
 
 	private float time = 0;
 
-	public DemoShaderParticles(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoShaderParticles(false);
+		new DemoShaderParticles();
 	}
 
 	@Override

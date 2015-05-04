@@ -22,10 +22,6 @@ public class DemoTile extends PortableApplication {
 
 	int width, height;
 
-	public DemoTile(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	OrthographicCamera cam;
 	TiledMap tiledMap;
 	TiledMapRenderer tileMapRenderer;
@@ -110,6 +106,6 @@ public class DemoTile extends PortableApplication {
 	}
 
 	public static void main(String[] args) {
-		new DemoTile(false);
+		new DemoTile();
 	}
 }

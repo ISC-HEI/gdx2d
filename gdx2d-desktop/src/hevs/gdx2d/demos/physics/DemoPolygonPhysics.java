@@ -21,12 +21,9 @@ public class DemoPolygonPhysics extends PortableApplication {
 
 	PhysicsPolygon p1, p2;
 	DebugRenderer debugRenderer;
-	public DemoPolygonPhysics(boolean onAndroid) {
-		super(onAndroid);
-	}
 
 	public static void main(String[] args) {
-		new DemoPolygonPhysics(false);
+		new DemoPolygonPhysics();
 	}
 
 	@Override

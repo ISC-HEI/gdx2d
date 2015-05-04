@@ -41,12 +41,8 @@ public class DemoLight extends PortableApplication {
 	int width, height;
 	private boolean firstRun = true;
 
-	public DemoLight(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoLight(false);
+		new DemoLight();
 	}
 
 	@Override

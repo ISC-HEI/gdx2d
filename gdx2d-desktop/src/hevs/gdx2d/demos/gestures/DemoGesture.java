@@ -19,17 +19,15 @@ public class DemoGesture extends PortableApplication {
 	OrthographicCamera cam = null;
 	float initialScale = 1.0f;
 
-	public DemoGesture(boolean onAndroid) {
-		super(onAndroid);
-
-		if (!onAndroid) {
+	public DemoGesture() {
+		if (!onAndroid()) {
 			Logger.error("This demo only works on Android! Exiting");
 			exit();
 		}
 	}
 
 	public static void main(String args[]) {
-		new DemoGesture(false);
+		new DemoGesture();
 	}
 
 	@Override

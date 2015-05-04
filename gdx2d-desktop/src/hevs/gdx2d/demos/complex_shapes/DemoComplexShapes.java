@@ -35,12 +35,8 @@ public class DemoComplexShapes extends PortableApplication {
 	// The image which will be displayed
 	private BitmapImage imageBmp;
 
-	public DemoComplexShapes(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoComplexShapes(false);
+		new DemoComplexShapes();
 	}
 
 	/**

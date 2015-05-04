@@ -47,12 +47,8 @@ public class DemoWindmill extends PortableApplication {
 	int GENERATION_RATE = 2;
 	boolean generate = false;
 
-	public DemoWindmill(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoWindmill(false);
+		new DemoWindmill();
 	}
 
 	@Override

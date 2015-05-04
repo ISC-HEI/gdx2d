@@ -25,12 +25,8 @@ public class DemoCarDriving extends PortableApplication {
 	World world = PhysicsWorld.getInstance();
 	Car c1;
 
-	DemoCarDriving(boolean onAndroid) {
-		super(onAndroid, 800, 800);
-	}
-
 	public static void main(String[] args) {
-		new DemoCarDriving(false);
+		new DemoCarDriving();
 	}
 
 	@Override

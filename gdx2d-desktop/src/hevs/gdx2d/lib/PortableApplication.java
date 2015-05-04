@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.math.Vector2;
+
 import hevs.gdx2d.lib.interfaces.*;
 
 import java.awt.*;
@@ -26,22 +27,50 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	private static final int DEFAULT_HEIGHT = 500;
 	private static final int DEFAULT_WIDTH = 500;
 
+	@Deprecated
+	protected final boolean onAndroid = onAndroid();
+	
 	/**
 	 * {@code true} if the application is running on Android or {@code false} if running on desktop.
 	 */
-	protected boolean onAndroid;
 	private AndroidResolver resolver = null;
 
+	/**
+	 * Detect android
+	 * 
+	 * @return true when running on Android.
+	 */
+	public boolean onAndroid() {
+	    try {
+	        Class.forName("android.app.Activity");
+	        System.out.println("we're on android");
+	        return true;
+	    } catch(ClassNotFoundException e) {
+	    	System.out.println("we're not on android");
+	        return false;
+	    }
+	}
+	
 	/**
 	 * Creates an application using {@code gdx2d}.
 	 * Use a default windows size.
 	 *
 	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
 	 */
+	@Deprecated
 	public PortableApplication(boolean onAndroid) {
 		this(onAndroid, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 
+	/**
+	 * Creates an application using {@code gdx2d}.
+	 * Use a default windows size.
+	 */
+	public PortableApplication() {
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	}
+
+	
 	/**
 	 * Creates an application using {@code gdx2d}.
 	 * Screen dimension are ignored when running on Android.
@@ -50,30 +79,40 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	 * @param width     The width of the screen (only for desktop)
 	 * @param height    The height of the screen (only for desktop)
 	 */
+	@Deprecated
 	public PortableApplication(boolean onAndroid, int width, int height) {
 		this(onAndroid, width, height, false);
 	}
+	
+	/**
+	 * Creates an application using {@code gdx2d}.
+	 * Screen dimension are ignored when running on Android.
+	 *
+	 * @param width     The width of the screen (only for desktop)
+	 * @param height    The height of the screen (only for desktop)
+	 */
+	public PortableApplication(int width, int height) {
+		this(width, height, false);
+	}
 
 	/**
-	 * Create a full-screen {@code gdx2d} desktop application.
+	 * Create a full-screen {@code gdx2d} application.
 	 *
-	 * @param useNativeResolution Indicates if the application should be launched full screen or
-	 *                            using the default resolution
-	 * @param width               The width of the screen
-	 * @param height              The height of the screen
+	 * @param width      The width of the screen
+	 * @param height     The height of the screen
+	 * @param fullScreen Indicates if the application should be launched full
+	 *                   screen on desktop, or in default resolution
 	 */
-	public PortableApplication(int width, int height, boolean useNativeResolution) {
-		onAndroid = false;
-
-		if (useNativeResolution) {
+	public PortableApplication(int width, int height, boolean fullScreen) {
+		if (fullScreen) {
 			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			width = gd.getDisplayMode().getWidth();
 			height = gd.getDisplayMode().getHeight();
 		}
 
 		// We only create a context when we were not built from the DemoSelector
-		if (fromDemoSelector() == false && CreateLwjglApplication)
-			createLwjglApplication(width, height, true);
+		if (!onAndroid() && fromDemoSelector() == false && CreateLwjglApplication)
+			createLwjglApplication(width, height, fullScreen);
 	}
 
 	/**
@@ -85,9 +124,8 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	 * @param height     The height of the screen (only for desktop)
 	 * @param fullScreen {@code true} to create a fullscreen application (only for desktop)
 	 */
+	@Deprecated
 	public PortableApplication(boolean onAndroid, int width, int height, boolean fullScreen) {
-		this.onAndroid = onAndroid;
-
 		if (!onAndroid && !fromDemoSelector() && CreateLwjglApplication)
 			createLwjglApplication(width, height, fullScreen);
 	}
@@ -300,7 +338,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	public static boolean CreateLwjglApplication = true;
 
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
-		assert (!onAndroid);
+		assert (!onAndroid());
 		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 
 		LwjglApplicationConfiguration config = GdxConfig.getLwjglConfig(width, height, fullScreen);

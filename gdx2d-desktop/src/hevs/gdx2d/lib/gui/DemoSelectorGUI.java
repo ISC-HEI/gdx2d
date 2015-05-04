@@ -19,7 +19,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -52,7 +51,7 @@ public class DemoSelectorGUI extends JFrame {
 		container = new JPanel();
 
 		// Add the starting demo
-		canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles(false)));
+		canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()));
 		canvas.getCanvas().setSize(500, 500);
 		container.add(canvas.getCanvas());
 		add(container);
@@ -211,11 +210,7 @@ public class DemoSelectorGUI extends JFrame {
 					canvas = null;
 
 					try {
-						//final Constructor<?> constructor = clazz.getConstructor(boolean.class);
-						@SuppressWarnings("unchecked")
-						final Constructor<PortableApplication> constructor = (Constructor<PortableApplication>) demosMap.get(selectedDemoName).clazz.getConstructor(boolean.class);
-
-						canvas = new LwjglAWTCanvas(new Game2D(constructor.newInstance(false)));
+						canvas = new LwjglAWTCanvas(new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance()));
 						canvas.getCanvas().setSize(500, 500);
 						container.add(canvas.getCanvas());
 						pack();

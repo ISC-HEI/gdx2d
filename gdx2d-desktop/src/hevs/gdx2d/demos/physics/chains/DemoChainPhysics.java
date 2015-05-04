@@ -38,15 +38,15 @@ public class DemoChainPhysics extends PortableApplication {
 	float width, height;
 	boolean generate = false;
 
-	public DemoChainPhysics(boolean onAndroid) {
-		super(onAndroid);
+	public DemoChainPhysics() {
+		super();
 
-		if (onAndroid)
+		if (onAndroid())
 			GENERATION_RATE = 3;
 	}
 
 	public DemoChainPhysics(int w, int h) {
-		super(false, w, h);
+		super(w, h);
 	}
 
 	public static void main(String args[]) {

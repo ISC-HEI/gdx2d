@@ -31,16 +31,16 @@ public class DemoParticlePhysics extends PortableApplication {
 	boolean mouseActive = false;
 	Vector2 position;
 
-	public DemoParticlePhysics(boolean onAndroid) {
-		super(onAndroid);
+	public DemoParticlePhysics() {
+		super();
 	}
 
-	public DemoParticlePhysics(boolean onAndroid, int x, int y) {
-		super(onAndroid, x, y);
+	public DemoParticlePhysics(int x, int y) {
+		super(x, y);
 	}
 
 	public static void main(String args[]) {
-		new DemoParticlePhysics(false, 1000, 600);
+		new DemoParticlePhysics(1000, 600);
 	}
 
 	@Override

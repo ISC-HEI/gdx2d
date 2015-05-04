@@ -19,12 +19,8 @@ public class DemoAccelerometer extends PortableApplication {
 	// For low-pass filtering
 	private float smoothedValue = 0;
 
-	public DemoAccelerometer(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoAccelerometer(false);
+		new DemoAccelerometer();
 	}
 
 	@Override

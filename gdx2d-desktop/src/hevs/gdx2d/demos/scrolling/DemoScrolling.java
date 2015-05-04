@@ -36,12 +36,8 @@ public class DemoScrolling extends PortableApplication {
 	}
 
 	// Create a default-sized application
-	public DemoScrolling(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String[] args) {
-		new DemoScrolling(false);
+		new DemoScrolling();
 	}
 
 	public void onInit() {

@@ -23,12 +23,8 @@ public class DemoPositionInterpolator extends PortableApplication {
 	private Ball[] balls;
 	private int height, width, margin;
 
-	public DemoPositionInterpolator(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	public static void main(String args[]) {
-		new DemoPositionInterpolator(false);
+		new DemoPositionInterpolator();
 	}
 
 	@Override
