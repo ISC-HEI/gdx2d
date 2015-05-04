@@ -50,6 +50,7 @@ public class DemoSimpleAnimation extends PortableApplication {
 		radius += speed;
 
 		g.drawSchoolLogo();
+		g.drawFPS();
 	}
 
 	@Override
