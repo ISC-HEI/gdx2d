@@ -24,7 +24,7 @@ public class SelectedDemos {
 		}
 	}
 
-	static DemoCategory list[] =
+	public static DemoCategory list[] =
 	{
 		new DemoCategory
 		(

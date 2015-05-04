@@ -13,6 +13,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import hevs.gdx2d.lib.gui.SelectedDemos;
+import hevs.gdx2d.lib.gui.SelectedDemos.DemoCategory;
+import hevs.gdx2d.lib.gui.SelectedDemos.DemoDescriptor;
 import hevs.gdx2d.lib.interfaces.AndroidResolver;
 
 import java.util.LinkedHashMap;
@@ -32,34 +35,15 @@ public class DemoSelectorActivity extends ListActivity implements
 	private final static LinkedHashMap<String, String> demoList;
 
 	static {
-
-		// TODO: add some others desktop demos (mei)
-
 		demoList = new LinkedHashMap<String, String>();
-		demoList.put("Very simple shapes", "simple.DemoSimpleShapes");
-		demoList.put("Simple animation", "simple.DemoSimpleAnimation");
-		demoList.put("Image drawing", "image_drawing.DemoSimpleImage");
-		demoList.put("Image mirroring", "image_drawing.DemoMirrorImage");
-		demoList.put("Image alpha", "image_drawing.DemoAlphaImage");
-		demoList.put("Rotating image", "image_drawing.DemoRotatingImage");
-		demoList.put("Music player", "music.DemoMusicPlay");
-		demoList.put("Gestures", "gestures.DemoGesture");
-		demoList.put("Scrolling", "scrolling.DemoScrolling");
-		demoList.put("Animation tweening", "tween.tweenengine.DemoTween");
-		demoList.put("Position interpolation", "tween.interpolatorengine.DemoPositionInterpolator");
-		demoList.put("Complex shapes", "complex_shapes.DemoComplexShapes");
-		demoList.put("Accelerometer", "accelerometer.DemoAccelerometer");
-		demoList.put("Simple physics (dominoes)", "physics.DemoSimplePhysics");
-		demoList.put("Physics soccer ball", "physics.DemoPhysicsBalls");
-		demoList.put("Physics finger interaction", "physics.mouse_interaction.DemoPhysicsMouse");
-		demoList.put("Physics collision detection", "physics.collisions.DemoCollisionListener");
-		demoList.put("Physics chains", "physics.chains.DemoChainPhysics");
-		demoList.put("Particles", "physics.particle.DemoParticlePhysics");
-		demoList.put("Lights", "lights.DemoLight");
-		demoList.put("Lights (moving)", "lights.DemoRotateLight");
 
-		// FIXME: not all shader are working on Android and resolution is too big (mei)
-		demoList.put("Shaders collection", "shaders.DemoAllShaders");
+		for (DemoCategory cat : SelectedDemos.list)
+		{
+			for (DemoDescriptor demo : cat.descs)
+			{
+				demoList.put(demo.name, demo.clazz.getName());
+			}
+		}
 	}
 
 	@Override

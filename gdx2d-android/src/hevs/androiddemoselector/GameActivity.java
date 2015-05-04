@@ -31,7 +31,7 @@ public class GameActivity extends AndroidApplication {
 
 		try {
 			// Get the class we want
-			Class<?> clazz = Class.forName("hevs.gdx2d.demos." + className);
+			Class<?> clazz = Class.forName(className);
 			// Extract its constructor using reflection
 			Constructor<?> constructor = clazz.getConstructor(boolean.class);
 
