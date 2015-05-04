@@ -124,12 +124,4 @@ public class DemoPhysicsBalls extends PortableApplication {
 		g.drawSchoolLogoUpperRight();
 		g.drawFPS();
 	}
-
-	/**
-	 * Called periodically
-	 */
-	@Override
-	public void onGameLogicUpdate() {
-
-	}
 }
