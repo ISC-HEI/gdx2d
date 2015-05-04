@@ -17,10 +17,6 @@ public class HelloWorld extends PortableApplication {
 
 	private BitmapImage imgBitmap;
 
-	public HelloWorld(boolean onAndroid) {
-		super(onAndroid);
-	}
-
 	@Override
 	public void onInit() {
 		setTitle("Hello World - mei,mui 2014");
@@ -71,7 +67,7 @@ public class HelloWorld extends PortableApplication {
 	}
 
 	public static void main(String[] args) {
-		new HelloWorld(false);
+		new HelloWorld();
 	}
 }
 
