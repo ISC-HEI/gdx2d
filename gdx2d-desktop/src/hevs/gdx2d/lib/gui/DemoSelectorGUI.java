@@ -197,23 +197,26 @@ public class DemoSelectorGUI extends JFrame {
 				// Stop the running canvas
 				canvasList.get(0).stop();
 
-				try {
-					Game2D g = new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance());
-					// Create a new one
-					LwjglAWTCanvas canvas = new LwjglAWTCanvas(g);
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						try
+						{
+							Game2D g = new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance());
+							// Create a new one
+							LwjglAWTCanvas canvas = new LwjglAWTCanvas(g);
+							canvas.getCanvas().setSize(500, 500);
 
-					// Remove the old canvas from the list
-					canvasList.clear();
-					canvasList.add(0, canvas);
-
-					container.remove(0);
-					canvas.getCanvas().setSize(500, 500);
-					container.add(canvas.getCanvas());
-
-					pack();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+							// Remove the old canvas from the list
+							canvasList.clear();
+							canvasList.add(0, canvas);
+							container.add(canvas.getCanvas());
+							container.remove(0);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		}
 
