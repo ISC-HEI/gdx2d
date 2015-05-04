@@ -155,18 +155,13 @@ public class DemoSelectorGUI extends JFrame {
 
 			accordion.setVerticalAccordionTabRenderer(new TabRenderer());
 
-			try {
-				loadFromJson(); // Load tabs
-			} catch (FileNotFoundException e) {
-				System.err.println("Unable to read the Json demos file.");
-				e.printStackTrace();
-			}
+			registerDemos(); // Load tabs
 
 			// Open the last selected tab (if any) or the first one
 			accordion.setSelectedIndex(0);
 		}
 
-		private void loadFromJson() throws FileNotFoundException {
+		private void registerDemos() {
 			demosMap = new LinkedHashMap<String, DemoDescriptor>();
 
 			int demoCounter = 1;

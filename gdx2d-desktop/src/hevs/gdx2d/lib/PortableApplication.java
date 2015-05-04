@@ -332,7 +332,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		this.resolver = resolver;
 	}
 
-	// TODO This is ugly and only required for the DemoSwingIntegration to prevent creating of a the context
+	// TODO This is ugly and only required for the DemoSwingIntegration to prevent the creation of context
 	public static boolean CreateLwjglApplication = true;
 
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
