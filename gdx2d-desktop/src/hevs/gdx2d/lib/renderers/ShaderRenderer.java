@@ -49,17 +49,17 @@ public class ShaderRenderer implements Disposable {
 		vertexShader = Gdx.files.internal("data/shader/default.vs");
 		create(handle.readString(), vertexShader.readString());
 
-//		String[] att = shader.getAttributes();
-//		String[] unif = shader.getUniforms();	
-//		System.out.println("Shader uniforms are :");
-//		for (String string : unif) {			
-//			System.out.println("\t" + string);
-//		}
-//		
-//		System.out.println("Shader attributes are :");
-//		for (String string : att) {			
-//			System.out.println("\t" + string);
-//		}
+		String[] att = shader.getAttributes();
+		String[] unif = shader.getUniforms();
+		System.out.println("Shader uniforms are :");
+		for (String string : unif) {
+			System.out.println("\t" + string);
+		}
+
+		System.out.println("Shader attributes are :");
+		for (String string : att) {
+			System.out.println("\t" + string);
+		}
 	}
 
 	private void create(String fragmentShader, String vertexShader) {

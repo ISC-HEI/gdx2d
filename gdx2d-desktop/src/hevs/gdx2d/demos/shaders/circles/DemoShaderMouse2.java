@@ -1,5 +1,6 @@
 package hevs.gdx2d.demos.shaders.circles;
 
+import com.badlogic.gdx.math.Vector2;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
@@ -30,7 +31,7 @@ public class DemoShaderMouse2 extends PortableApplication {
 		// Sets some values, once
 		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/circles/circle2.fp");
-			g.getShaderRenderer().setUniform("radius", 30);
+			g.getShaderRenderer().setUniform("radius", 30.0f);
 		}
 
 		g.clear();

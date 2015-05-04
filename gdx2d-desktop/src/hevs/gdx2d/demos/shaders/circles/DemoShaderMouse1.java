@@ -13,10 +13,6 @@ public class DemoShaderMouse1 extends PortableApplication {
 
 	Circle c;
 
-	public static void main(String args[]) {
-		new DemoShaderMouse1();
-	}
-
 	@Override
 	public void onInit() {
 		this.setTitle("Simple circle shader, mui 2013");
@@ -36,5 +32,9 @@ public class DemoShaderMouse1 extends PortableApplication {
 		g.drawShader();
 		g.drawFPS();
 		g.drawSchoolLogo();
+	}
+
+	public static void main(String args[]) {
+		new DemoShaderMouse1();
 	}
 }

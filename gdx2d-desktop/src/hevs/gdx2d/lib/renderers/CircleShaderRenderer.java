@@ -61,7 +61,7 @@ public class CircleShaderRenderer implements Disposable {
 		batch.setShader(shader);
 
 		shader.begin();
-		// Pass the size of the shader, once		
+		// Pass the size of the shader, once
 		shader.setUniformf("resolution", w, h);
 		shader.end();
 	}

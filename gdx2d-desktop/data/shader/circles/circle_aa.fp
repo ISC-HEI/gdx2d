@@ -20,5 +20,5 @@ void main() {
 	// see for instance http://www.geeks3d.com/20130705/shader-library-circle-disc-fake-sphere-in-glsl-opengl-glslhacker/2/	
 	gl_FragColor = mix(vec4(color, 1.0), 
 					   vec4(0, 0, 0, 0), 
-					   smoothstep(radius, radius + antialias_distance, dist));	
+					   smoothstep(radius, radius + antialias_distance, dist));
 }
