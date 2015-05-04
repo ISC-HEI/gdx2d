@@ -43,10 +43,8 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	public boolean onAndroid() {
 	    try {
 	        Class.forName("android.app.Activity");
-	        System.out.println("we're on android");
 	        return true;
 	    } catch(ClassNotFoundException e) {
-	    	System.out.println("we're not on android");
 	        return false;
 	    }
 	}
