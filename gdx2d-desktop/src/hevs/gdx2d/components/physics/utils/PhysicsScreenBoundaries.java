@@ -20,9 +20,9 @@ public class PhysicsScreenBoundaries {
 	 * @param height The height of the boundaries box
 	 */
 	public PhysicsScreenBoundaries(float width, float height) {
-		new PhysicsStaticBox("ground", new Vector2(width / 2, 0), width, .5f);
-		new PhysicsStaticBox("leftwall", new Vector2(0, height / 2), .5f, height);
-		new PhysicsStaticBox("rightwall", new Vector2(width, height / 2), .5f, height);
-		new PhysicsStaticBox("ceiling", new Vector2(width / 2, height), width, .5f);
+		new PhysicsStaticBox("ground", new Vector2(width / 2, 0), width, 1f);
+		new PhysicsStaticBox("leftwall", new Vector2(0, height / 2), 1f, height);
+		new PhysicsStaticBox("rightwall", new Vector2(width, height / 2), 1f, height);
+		new PhysicsStaticBox("ceiling", new Vector2(width / 2, height), width, 1f);
 	}
 }
