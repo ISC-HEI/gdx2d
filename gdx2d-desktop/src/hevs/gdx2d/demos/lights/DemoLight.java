@@ -131,7 +131,9 @@ public class DemoLight extends PortableApplication {
 		}
 
 		// Render the lights
+		g.beginCustomRendering();
 		rayHandler.updateAndRender();
+		g.endCustomRendering();
 
 		// Update the physics
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
