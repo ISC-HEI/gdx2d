@@ -2,12 +2,20 @@
  * Solution from http://stackoverflow.com/questions/2797549/block-filters-using-fragment-shaders
  * IMHO, this is probably slow as hell
  */
+#version 300 es
+#pragma debug(on)
+#pragma optimize(on)
+
+precision mediump float;
 
 // IN
-varying vec4 vColor;
-varying vec2 vTexCoord;
+in vec4 vColor;
+in vec2 vTexCoord;
 uniform sampler2D texture0;
 uniform int matrix;
+
+// OUT
+out vec4 o_fragColor; // Each fragment color
 
 const float width = 256.0;
 const float height = 256.0;
@@ -46,16 +54,16 @@ void main(void)
    if(vTexCoord.x < 0.5)
    {
       mat3 I, R, G, B;
-      vec3 sample;
+      vec3 cor;
 
       // fetch the 3x3 neighbourhood and use the RGB vector's length as intensity value
       for (int i=0; i<3; i++){
         for (int j=0; j<3; j++) {
-          sample = texture2D(texture0, vTexCoord.xy + vec2(i-1,j-1)/vec2(width, height)).rgb;
-          I[i][j] = length(sample); //intensity (or illumination)
-          R[i][j] = sample.r; 
-          G[i][j] = sample.g;
-          B[i][j] = sample.b;  
+          cor = texture(texture0, vTexCoord.xy + vec2(i-1,j-1)/vec2(width, height)).rgb;
+          I[i][j] = length(cor); //intensity (or illumination)
+          R[i][j] = cor.r;
+          G[i][j] = cor.g;
+          B[i][j] = cor.b;
         }
       }
 
@@ -81,12 +89,12 @@ void main(void)
   }
    else if( vTexCoord.x >0.51 )
    {
-        sum = texture2D(texture0, vTexCoord.xy);
+        sum = texture(texture0, vTexCoord.xy);
    }
    else // Draw a red line
    {
         sum = vec4(1.0, 0.0, 0.0, 1.0);
    }
 
-   gl_FragColor = sum;
+   o_fragColor = sum;
 }
