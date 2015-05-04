@@ -102,6 +102,10 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	 *                   screen on desktop, or in default resolution
 	 */
 	public PortableApplication(int width, int height, boolean fullScreen) {
+		if (onAndroid()) {
+			fullScreen = false;
+		}
+
 		if (fullScreen) {
 			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			width = gd.getDisplayMode().getWidth();
@@ -109,7 +113,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		}
 
 		// We only create a context when we were not built from the DemoSelector
-		if (!onAndroid() && fromDemoSelector() == false && CreateLwjglApplication)
+		if (!onAndroid() && !fromDemoSelector() && CreateLwjglApplication)
 			createLwjglApplication(width, height, fullScreen);
 	}
 
