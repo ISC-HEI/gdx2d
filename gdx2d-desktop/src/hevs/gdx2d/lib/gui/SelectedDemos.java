@@ -12,11 +12,11 @@ public class SelectedDemos {
 			desc = d;
 		}
 	}
-	
+
 	public static class DemoCategory {
 		public String name;
 		public DemoDescriptor descs[];
-		
+
 		public DemoCategory(String n, DemoDescriptor d[])
 		{
 			name = n;
@@ -29,7 +29,7 @@ public class SelectedDemos {
 		new DemoCategory
 		(
 			"Getting started with simple demos",
-			
+
 			new DemoDescriptor[]
 		    {
 				new DemoDescriptor(
@@ -72,7 +72,7 @@ public class SelectedDemos {
 		new DemoCategory
 		(
 			"Image drawing",
-			
+
 			new DemoDescriptor[]
 		    {
 				new DemoDescriptor(
@@ -115,7 +115,7 @@ public class SelectedDemos {
 		new DemoCategory
 		(
 			"Music, sound effects, text and fonts",
-			
+
 			new DemoDescriptor[]
 		    {
 				new DemoDescriptor(
@@ -143,7 +143,7 @@ public class SelectedDemos {
 		new DemoCategory
 		(
 			"Advanced techniques",
-			
+
 			new DemoDescriptor[]
 		    {
 				new DemoDescriptor(
@@ -171,7 +171,7 @@ public class SelectedDemos {
 		new DemoCategory
 		(
 			"Physics simulations",
-			
+
 			new DemoDescriptor[]
 		    {
 				new DemoDescriptor(
@@ -185,9 +185,14 @@ public class SelectedDemos {
 					"A demo for soccer fans! Just interact with the screen to make balls fall. On Android, this demos uses the accelerometers."
 				),
 				new DemoDescriptor(
+				    "Polygons as physics objects",
+				    hevs.gdx2d.demos.physics.DemoPolygonPhysics.class,
+				    "This demos shows how to use general polygons as physics objects."
+				),
+				new DemoDescriptor(
 					"Obstacles made of a chain of objects",
 					hevs.gdx2d.demos.physics.chains.DemoChainPhysics.class,
-					"This demos shows how to create a chain of objects that are seen as obstacles for other physics objects"
+					"This demos shows how to create a chain of objects that are seen as obstacles for other physics objects."
 				),
 				new DemoDescriptor(
 					"Collisions notification",
@@ -229,7 +234,7 @@ public class SelectedDemos {
 		new DemoCategory
 		(
 			"Shaders (advanced)",
-			
+
 			new DemoDescriptor[]
 		    {
 				new DemoDescriptor(
