@@ -19,17 +19,14 @@ import hevs.gdx2d.lib.utils.Logger;
  * @version 1.0
  */
 public class DemoPostProcessing extends PortableApplication {
-
 	float time = 0;
 	boolean shaderEnabled = true;
+
 	// Used for off screen rendering
 	FrameBuffer fbo;
+
 	// Standard images used for drawing
 	BitmapImage imageAndroid, imageBackground;
-
-	public static void main(String args[]) {
-		new DemoPostProcessing();
-	}
 
 	@Override
 	public void onInit() {
@@ -46,14 +43,14 @@ public class DemoPostProcessing extends PortableApplication {
 			g.setShader("data/shader/advanced/postprocessing.fp");
 		}
 
-		// Draw some stuff to an offscreen buffer, using normal
+		// Draws some stuff to an offscreen buffer, using normal
 		// gdx2d primitives
 		fbo.begin();
-		g.clear();
-		g.drawPicture(256, 256, imageBackground);
-		g.drawTransformedPicture(256, 256, time * 100, 1, imageAndroid);
-		g.drawFPS();
-		g.drawSchoolLogo();
+			g.clear();
+			g.drawPicture(256, 256, imageBackground);
+			g.drawTransformedPicture(256, 256, time * 100, 1, imageAndroid);
+			g.drawFPS();
+			g.drawSchoolLogo();
 		fbo.end();
 
 		// Copy the offscreen buffer to the displayed bufer
@@ -67,5 +64,9 @@ public class DemoPostProcessing extends PortableApplication {
 	public void onClick(int x, int y, int button) {
 		super.onClick(x, y, button);
 		shaderEnabled = !shaderEnabled;
+	}
+
+	public static void main(String args[]) {
+		new DemoPostProcessing();
 	}
 }
