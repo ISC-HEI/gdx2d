@@ -4,7 +4,6 @@ import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
-
 import hevs.gdx2d.demos.simple.DemoCircles;
 import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.PortableApplication;
@@ -15,7 +14,6 @@ import hevs.gdx2d.lib.gui.SelectedDemos.DemoDescriptor;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -33,7 +31,8 @@ import java.util.Map;
 @SuppressWarnings({"serial"})
 public class DemoSelectorGUI extends JFrame {
 
-	LwjglAWTCanvas canvas;
+	ArrayList<LwjglAWTCanvas> canvasList = new ArrayList<LwjglAWTCanvas>();
+
 	JPanel container = new JPanel();
 
 	public DemoSelectorGUI() throws Exception {
@@ -50,9 +49,10 @@ public class DemoSelectorGUI extends JFrame {
 		container = new JPanel();
 
 		// Add the starting demo
-		canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()));
+		LwjglAWTCanvas canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()));
 		canvas.getCanvas().setSize(500, 500);
 		container.add(canvas.getCanvas());
+		canvasList.add(canvas);
 		add(container);
 
 		pack();
@@ -97,12 +97,9 @@ public class DemoSelectorGUI extends JFrame {
 
 		private void setIcon() {
 			List<Image> icons = new ArrayList<Image>();
-			icons.add(new ImageIcon(getClass().getResource("/lib/icon16.png"))
-					.getImage());
-			icons.add(new ImageIcon(getClass().getResource("/lib/icon32.png"))
-					.getImage());
-			icons.add(new ImageIcon(getClass().getResource("/lib/icon64.png"))
-					.getImage());
+			icons.add(new ImageIcon(getClass().getResource("/lib/icon16.png")).getImage());
+			icons.add(new ImageIcon(getClass().getResource("/lib/icon32.png")).getImage());
+			icons.add(new ImageIcon(getClass().getResource("/lib/icon64.png")).getImage());
 			setIconImages(icons);
 		}
 
@@ -197,21 +194,25 @@ public class DemoSelectorGUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Stop the running canvas
+				canvasList.get(0).stop();
 
-				synchronized (canvas) {
-					canvas.stop();
-					container.remove(canvas.getCanvas());
-					canvas = null;
+				try {
+					Game2D g = new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance());
+					// Create a new one
+					LwjglAWTCanvas canvas = new LwjglAWTCanvas(g);
 
-					try {
-						Game2D g = new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance());
-						canvas = new LwjglAWTCanvas(g);
-						canvas.getCanvas().setSize(500, 500);
-						container.add(canvas.getCanvas());
-						pack();
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
+					// Remove the old canvas from the list
+					canvasList.clear();
+					canvasList.add(0, canvas);
+
+					container.remove(0);
+					canvas.getCanvas().setSize(500, 500);
+					container.add(canvas.getCanvas());
+
+					pack();
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
