@@ -1240,5 +1240,22 @@ public class GdxGraphics implements Disposable {
 	public void sbFlush() {
 		spriteBatch.flush();
 	}
-	
+
+	/**
+	 * Begin custom rendering
+	 *
+	 * Must be called before a custom renderer.
+	 */
+	public void beginCustomRendering() {
+		checkmode(t_rendering_mode.NONE);
+	}
+
+	/**
+	 * Begin custom rendering
+	 *
+	 * Must be called after a custom renderer.
+	 */
+	public void endCustomRendering() {
+		// Do nothing at this time, but can be usefull later
+	}
 }

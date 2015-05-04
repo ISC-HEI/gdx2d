@@ -113,7 +113,9 @@ public class DemoRotateLight extends PortableApplication {
 			p.setPosition((float) (rotationCenter.x - radius + radius * Math.cos(angle)), (float) (rotationCenter.y + radius * Math.sin(angle)));
 
 		// Update the light rays
+		g.beginCustomRendering();
 		rayHandler.updateAndRender();
+		g.endCustomRendering();
 
 		// Update the physics
 		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());

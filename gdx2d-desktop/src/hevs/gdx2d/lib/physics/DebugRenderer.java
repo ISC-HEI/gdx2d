@@ -4,7 +4,9 @@ package hevs.gdx2d.lib.physics;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
+import hevs.gdx2d.lib.Game2D;
 import hevs.gdx2d.lib.utils.Utils;
 
 /**
@@ -22,7 +24,9 @@ public class DebugRenderer extends Box2DDebugRenderer {
 
 	@Override
 	public void render(World world, Matrix4 projMatrix) {
+		Game2D.g.beginCustomRendering();
 		Matrix4 debugM = projMatrix.cpy().scale(PhysicsConstants.METERS_TO_PIXELS, PhysicsConstants.METERS_TO_PIXELS, 1);
 		super.render(world, debugM);
+		Game2D.g.endCustomRendering();
 	}
 }

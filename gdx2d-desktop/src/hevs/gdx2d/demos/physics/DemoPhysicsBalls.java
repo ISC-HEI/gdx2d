@@ -56,6 +56,8 @@ public class DemoPhysicsBalls extends PortableApplication {
 		// Used to display debug information about the physics
 		debugRenderer = new DebugRenderer();
 		img = new BitmapImage("data/images/soccer.png");
+		
+		addBall(getWindowWidth()/2, getWindowHeight()/2);
 	}
 
 	/**
