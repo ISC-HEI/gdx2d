@@ -2,9 +2,10 @@
 
 # Script updated from 'https://github.com/ReadyTalk/swt-bling/blob/master/.utility/push-javadoc-to-gh-pages.sh'
 
-if [ "$TRAVIS_REPO_SLUG" == "hevs-isi/gdx2d" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]
+# Must be the master branch (not a PR) and Java JDK 6 (openjdk6)
+if [ "$TRAVIS_REPO_SLUG" == "hevs-isi/gdx2d" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_JDK_VERSION" == "openjdk6" ]
 then
-  echo -e "Publishing latest javadoc to 'http://hevs-isi.github.io/gdx2d/javadoc/latest/'\n"
+  echo -e "Publishing latest javadoc using ('$TRAVIS_JDK_VERSION') to 'http://hevs-isi.github.io/gdx2d/javadoc/latest/'\n"
 
   mkdir -p $HOME/javadoc
   cp -R doc/latest $HOME/javadoc/
@@ -25,5 +26,5 @@ then
   git commit -m $'Lastest javadoc auto-published.\nTravis build '$TRAVIS_BUILD_NUMBER'.'
   git push -fq origin gh-pages > /dev/null
 else
-  echo -e "Javadoc not published.\n"
+  echo -e "Skipping Javadoc...\n"
 fi
