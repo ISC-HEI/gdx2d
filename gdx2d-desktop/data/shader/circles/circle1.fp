@@ -1,12 +1,11 @@
 // Draw a very simple disc in the center of the screen
 // Pierre-André Mudry, 2014-2015
 
-#version 300 es
+#version 130
 #pragma debug(on)
 #pragma optimize(on)
 
 precision mediump float;
-
 // What we get
 uniform vec2 center;  // From Java
 out vec4 o_fragColor; // Each fragment color

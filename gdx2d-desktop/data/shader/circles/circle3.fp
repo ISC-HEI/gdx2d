@@ -2,7 +2,7 @@
 // Its color is dependent on its position
 // Pierre-André Mudry, 2014
 
-#version 300 es
+#version 130
 #pragma debug(on)
 #pragma optimize(on)
 
