@@ -24,6 +24,9 @@ import hevs.gdx2d.lib.physics.AbstractPhysicsObject;
 import hevs.gdx2d.lib.physics.DebugRenderer;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 
+/**
+ * WORK IN PROGRESS, DO NOT USE
+ */
 public class DemoPinball extends PortableApplication {
 
 	World world = PhysicsWorld.getInstance();
