@@ -1,5 +1,5 @@
 // Draw a very simple disc in the center of the screen
-// Pierre-André Mudry, 2014-2015
+// mui, 2014-2015
 
 #version 130
 #pragma debug(on)
@@ -7,17 +7,18 @@
 
 precision mediump float;
 
-// What we get
-uniform vec2 center;  // A constant value set from Java for all fragments
+// What we get from Java, *once*
+uniform vec2 center;
 
 /**
- * Received
+ * Received from vertex shader
  */
-// From the vertex shader, this is the interpolated color of each fragment before transform
+
+// The interpolated color of each fragment before transform
 in vec4 v_color;
 
 /**
- * Produced
+ * Produced by the fragment shader
  */
 out vec4 o_fragColor; // Each fragment color
 
