@@ -2,10 +2,10 @@ package hevs.gdx2d.demos.tilemap.advanced;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
@@ -17,6 +17,7 @@ import java.util.TreeMap;
  *
  * @author Alain Woeffray (woa)
  * @author Pierre-André Mudry (mui)
+ * @author Marc Pignat (pim)
  */
 public class DemoTileAdvanced extends PortableApplication {
 
@@ -27,7 +28,6 @@ public class DemoTileAdvanced extends PortableApplication {
     private Hero hero;
 
     // tiles management
-    private OrthographicCamera cam;
     private TiledMap tiledMap;
     private TiledMapRenderer tileMapRenderer;
     private TiledMapTileLayer tileLayer;
@@ -48,10 +48,6 @@ public class DemoTileAdvanced extends PortableApplication {
         tiledMap = new TmxMapLoader().load("data/maps/desert.tmx");
         tileMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         tileLayer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
-        cam = new OrthographicCamera();
-        cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        cam.translate(0, 0);
-        cam.update();
     }
 
     @Override
@@ -60,17 +56,18 @@ public class DemoTileAdvanced extends PortableApplication {
 
         // Hero activity
         manageHero();
+      
+        // Camera follows the hero
+        moveCamera(g);
 
         // Render the tilemap
-        tileMapRenderer.setView(cam);
+        tileMapRenderer.setView(g.getCamera());
         tileMapRenderer.render();
 
         // Draw the hero
         hero.animate(Gdx.graphics.getDeltaTime());
         hero.draw(g);
 
-        // Camera follows the hero
-        moveCamera(g);
 
         g.drawFPS();
         g.drawSchoolLogo();
@@ -81,12 +78,9 @@ public class DemoTileAdvanced extends PortableApplication {
      * @param g Graphics object
      */
     private void moveCamera(GdxGraphics g){
-        int dx = (int)(hero.getPosition().x - cam.position.x);
-        int dy = (int)(hero.getPosition().y - cam.position.y);
-        cam.translate(dx, dy);
+        int dx = (int)(hero.getPosition().x - g.getCamera().position.x);
+        int dy = (int)(hero.getPosition().y - g.getCamera().position.y);
         g.scroll(dx, dy);
-
-        cam.update();
     }
 
     /**
