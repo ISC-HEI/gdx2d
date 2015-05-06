@@ -6,12 +6,23 @@
 #pragma optimize(on)
 
 precision mediump float;
+
 // What we get
-uniform vec2 center;  // From Java
+uniform vec2 center;  // A constant value set from Java for all fragments
+
+/**
+ * Received
+ */
+// From the vertex shader, this is the interpolated color of each fragment before transform
+in vec4 v_color;
+
+/**
+ * Produced
+ */
 out vec4 o_fragColor; // Each fragment color
 
 void main() {
-	// compute the distance between fragment and mouse position	
+	// compute the distance between fragment and mouse position
 	float dist = distance(gl_FragCoord.xy, center);
 
 	// if the distance is bigger than a radius, discard the pixel
