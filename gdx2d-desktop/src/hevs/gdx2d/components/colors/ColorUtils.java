@@ -3,22 +3,27 @@ package hevs.gdx2d.components.colors;
 import com.badlogic.gdx.graphics.Color;
 
 /**
- * Color conversion utilities methods.
- * <p/>
- * <br>The source code was adapted from a question on
- * <a href=http://stackoverflow.com/questions/7896280/converting-from-hsv-hsb-in-java-to-rgb-without-using-java-awt-color-disallowe"> stack overflow</a>
+ * {@link Color} conversion utilities methods.
+ * <p>
+ * The source code was adapted from a question on
+ * <a href="http://stackoverflow.com/questions/7896280/converting-from-hsv-hsb-in-java-to-rgb-without-using-java-awt-color-disallowe"> stack overflow</a>.
  *
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class ColorUtils {
+public final class ColorUtils {
+
+	private ColorUtils() {
+		// Never called
+	}
+
 	/**
 	 * Conversion from the HSV color space to {@link Color}.
 	 *
-	 * @param hue        Hue of the original color (tint)
-	 * @param saturation The amount of color saturation
-	 * @param value      Value of the current color
-	 * @return The converted {@link Color}
+	 * @param hue        hue of the original color (tint)
+	 * @param saturation the amount of color saturation
+	 * @param value      value of the current color
+	 * @return the converted {@link Color}
 	 */
 	public static Color hsvToColor(float hue, float saturation, float value) {
 		return intToColor(hsvToRgb(hue, saturation, value));
@@ -28,10 +33,10 @@ public class ColorUtils {
 	 * Converts hue-saturation-value color space to red-green-blue integer
 	 * value representation.
 	 *
-	 * @param hue        Hue of the original color (tint)
-	 * @param saturation The amount of color saturation
-	 * @param value      Value of the current color
-	 * @return The integer representation of the {@link Color}
+	 * @param hue        hue of the original color (tint)
+	 * @param saturation the amount of color saturation
+	 * @param value      value of the current color
+	 * @return the integer representation of the {@link Color}
 	 */
 	public static int hsvToRgb(float hue, float saturation, float value) {
 
