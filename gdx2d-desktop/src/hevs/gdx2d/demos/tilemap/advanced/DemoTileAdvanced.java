@@ -183,7 +183,7 @@ public class DemoTileAdvanced extends PortableApplication {
 			// Is the move valid ?
 			if (isWalkable(nextCell)) {
 				// Go
-				hero.setSpeed(3*getSpeed(nextCell));
+				hero.setSpeed(getSpeed(nextCell));
 				hero.go(goalDirection);
 			} else {
 				// Face the wall
