@@ -207,19 +207,23 @@ public class GdxGraphics implements Disposable {
 		switch (mode) {
 			case SHAPE_LINE:
 				shapeRenderer.begin(ShapeType.Line);
+				shapeRenderer.setProjectionMatrix(camera.combined);
 				break;
 
 			case SHAPE_FILLED:
 				shapeRenderer.begin(ShapeType.Filled);
+				shapeRenderer.setProjectionMatrix(camera.combined);
 				break;
 
 			case SHAPE_POINT:
 				shapeRenderer.begin(ShapeType.Point);
+				shapeRenderer.setProjectionMatrix(camera.combined);
 				shapeRenderer.identity();
 				break;
 
 			case SPRITE:
 				spriteBatch.begin();
+				spriteBatch.setProjectionMatrix(camera.combined);
 				break;
 
 			case NONE:
@@ -383,6 +387,8 @@ public class GdxGraphics implements Disposable {
 	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y) {
 		checkmode(t_rendering_mode.SHAPE_LINE);
+		shapeRenderer.identity();
+		shapeRenderer.setColor(currentColor);
 		shapeRenderer.line(p1x, p1y, p2x, p2y);
 	}
 
