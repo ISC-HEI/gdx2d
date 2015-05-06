@@ -29,8 +29,8 @@ public class DemoTileAdvanced extends PortableApplication {
 
     // tiles management
     private TiledMap tiledMap;
-    private TiledMapRenderer tileMapRenderer;
-    private TiledMapTileLayer tileLayer;
+    private TiledMapRenderer tiledMapRenderer;
+    private TiledMapTileLayer tiledLayer;
 
     @Override
     public void onInit() {
@@ -46,8 +46,8 @@ public class DemoTileAdvanced extends PortableApplication {
 
         // create map
         tiledMap = new TmxMapLoader().load("data/maps/desert.tmx");
-        tileMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        tileLayer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        tiledLayer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class DemoTileAdvanced extends PortableApplication {
         moveCamera(g);
 
         // Render the tilemap
-        tileMapRenderer.setView(g.getCamera());
-        tileMapRenderer.render();
+        tiledMapRenderer.setView(g.getCamera());
+        tiledMapRenderer.render();
 
         // Draw the hero
         hero.animate(Gdx.graphics.getDeltaTime());
@@ -93,10 +93,10 @@ public class DemoTileAdvanced extends PortableApplication {
      */
     private TiledMapTile getTile(Vector2 position, int offsetX, int offsetY){
         try {
-            int x = (int)(position.x / tileLayer.getTileWidth()) + offsetX;
-            int y = (int)(position.y / tileLayer.getTileHeight()) + offsetY;
+            int x = (int)(position.x / tiledLayer.getTileWidth()) + offsetX;
+            int y = (int)(position.y / tiledLayer.getTileHeight()) + offsetY;
 
-            return tileLayer.getCell(x, y).getTile();
+            return tiledLayer.getCell(x, y).getTile();
         }catch( Exception e){
 
             return null;
