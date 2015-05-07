@@ -212,6 +212,8 @@ public class DemoSelectorGUI extends JFrame {
 							canvasList.add(0, canvas);
 							container.add(canvas.getCanvas());
 							container.remove(0);
+							pack();
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
