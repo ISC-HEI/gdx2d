@@ -2,11 +2,9 @@ package hevs.gdx2d.components.bitmaps;
 
 import hevs.gdx2d.lib.utils.Utils;
 
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,7 +27,7 @@ final public class BitmapImage implements Disposable {
 	protected TextureRegion tRegion;
 
 	protected String filePath;
-	protected BufferedImage cleanImage;
+	protected Pixmap pixmap;
 
 	public BitmapImage(String file) {
 		Utils.assertGdxLoaded("BitmapImages can only be created in the onInit "
@@ -107,7 +105,8 @@ final public class BitmapImage implements Disposable {
 	 *
 	 * @param pixelPosition The pixel we want to read, in screen coordinates
 	 * @param imagePosition The current position of the image, in screen coordinates
-	 * @return The pixel position in the image space coordinates
+	 * @return The pi	protected BufferedImage cleanImage;
+xel position in the image space coordinates
 	 */
 	public Vector2 pixelInScreenSpace(Vector2 pixelPosition, Vector2 imagePosition) {
 		int width = image.getWidth();
@@ -126,16 +125,15 @@ final public class BitmapImage implements Disposable {
 	 * @param y The y position we want to read
 	 * @return The color read
 	 */
-	public int getColor(int x, int y) {
-		// Read the image only if needed
-		if (cleanImage == null) {
-			try {
-				cleanImage = ImageIO.read(Gdx.files.internal(filePath).file());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	public Color getColor(int x, int y) {
+		if (pixmap == null) {
+	        if (!image.getTextureData().isPrepared()) {
+	        	image.getTextureData().prepare();
+	        }		
+			pixmap = image.getTextureData().consumePixmap();			
 		}
-		return cleanImage.getRGB(x, cleanImage.getHeight() - y);
+
+		return new Color(pixmap.getPixel(x,pixmap.getHeight()-y));
 	}
 
 	/**
@@ -144,6 +142,10 @@ final public class BitmapImage implements Disposable {
 	 */
 	@Override
 	public void dispose() {
+		if (pixmap != null && image.getTextureData().disposePixmap())
+		{
+			pixmap.dispose();
+		}
 		image.dispose();
 	}
 

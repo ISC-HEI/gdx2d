@@ -1,9 +1,9 @@
 package hevs.gdx2d.demos.image_drawing;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.colors.ColorUtils;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
@@ -61,11 +61,11 @@ public class DemoGetImageColor extends PortableApplication {
 		Vector2 imgPixel = imgBitmap.pixelInScreenSpace(sampledPixel, imagePosition);
 
 		if (imgBitmap.isContained(imgPixel)) {
-			int c = imgBitmap.getColor((int) imgPixel.x, (int) imgPixel.y);
+			Color c = imgBitmap.getColor((int) imgPixel.x, (int) imgPixel.y);
 
 			// Draw a circle corresponding to the read color
 			g.drawStringCentered(300, "Color read from the image");
-			g.drawFilledCircle(250, 250, 20, ColorUtils.intToColor(c));
+			g.drawFilledCircle(250, 250, 20, c);
 		}
 
 		g.drawFPS();        // Draws the number of frame per second
