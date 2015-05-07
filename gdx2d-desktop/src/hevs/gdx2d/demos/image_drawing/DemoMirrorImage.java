@@ -36,7 +36,7 @@ public class DemoMirrorImage extends PortableApplication {
 		// Clear the screen
 		g.clear();
 
-		// Render an with mirror
+		// Renders the image mirrored
 		g.drawPicture(getWindowWidth() / 3.0f, getWindowHeight() / 3.0f, imgBitmap);
 		imgBitmap.mirrorUpDown();
 		g.drawPicture(getWindowWidth() * 2.0f / 3.0f, getWindowHeight() / 3.0f, imgBitmap);
