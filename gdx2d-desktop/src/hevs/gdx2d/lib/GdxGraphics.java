@@ -858,6 +858,36 @@ public class GdxGraphics implements Disposable {
 		cameraUpdated();
 	}
 
+	private Vector2 inside(Vector2 v, Vector2 p1, Vector2 p2) {
+		return new Vector2((float) Math.min(Math.max(p1.x, v.x), p2.x),
+				(float) Math.min(Math.max(p1.y, v.y), p2.y));
+	}
+
+	/**
+	 * Point the camera to the center of interest limited by the game size
+	 * @param interest_x
+	 * @param interest_y
+	 * @param world_width
+	 * @param world_height
+	 */
+	public void moveCamera(float interest_x, float interest_y, float world_width, float world_height) {
+		Vector2 camera_min = new Vector2(0,0);
+		Vector2 camera_max = new Vector2(
+			world_width - Gdx.graphics.getWidth() * camera.zoom,
+			world_height - Gdx.graphics.getHeight() * camera.zoom
+		);
+
+		// Center the camera on the interest
+		Vector2 pos = new Vector2(
+				interest_x, interest_y).sub(Gdx.graphics.getWidth() / 2 * camera.zoom, Gdx.graphics.getHeight() / 2 * camera.zoom);
+
+		// Limit the camera position inside the game
+		pos = inside(pos, camera_min, camera_max);
+
+		moveCamera(pos.x, pos.y);
+	}
+
+
 	/**
 	 * Resets the camera at its original location, in the center of the screen
 	 */
