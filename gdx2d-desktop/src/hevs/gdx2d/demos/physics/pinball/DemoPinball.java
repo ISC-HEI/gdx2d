@@ -99,7 +99,7 @@ public class DemoPinball extends PortableApplication {
 		}
 
 	}
-
+	
 	private Flipper leftFlipper;
 	private Flipper rightFlipper;
 	private Ball ball;
