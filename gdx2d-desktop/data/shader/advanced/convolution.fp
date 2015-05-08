@@ -2,7 +2,6 @@
  * Solution from http://stackoverflow.com/questions/2797549/block-filters-using-fragment-shaders
  * IMHO, this is probably slow as hell
  */
-#version 300 es
 #pragma debug(on)
 #pragma optimize(on)
 

@@ -16,13 +16,14 @@ import hevs.gdx2d.lib.utils.Logger;
  * Renders things using a GLSL shader program included
  * in a file.
  * <p/>
- * TODO The interface is rather basic as of now
- * but should be improved in a future version.
  *
  * @author Pierre-André Mudry
- * @version 0.3
+ * @version 0.4
  */
 public class ShaderRenderer implements Disposable {
+	// Shader versions that is going to be added at the beginning of *every* shader
+	private final String shaderVersion = "#version 130\n";
+
 	private ShaderProgram shader;
 	private Texture tex[] = new Texture[10];
 	private int textureCount = 0;
@@ -47,7 +48,7 @@ public class ShaderRenderer implements Disposable {
 		w = width;
 		h = height;
 		vertexShader = Gdx.files.internal("data/shader/default.vs");
-		create(handle.readString(), vertexShader.readString());
+		create(shaderVersion + handle.readString(), shaderVersion + vertexShader.readString());
 
 		String[] att = shader.getAttributes();
 		String[] unif = shader.getUniforms();

@@ -1,7 +1,5 @@
 // Draw a very simple disc in the center of the screen
 // mui, 2014-2015
-
-#version 130
 #pragma debug(on)
 #pragma optimize(on)
 

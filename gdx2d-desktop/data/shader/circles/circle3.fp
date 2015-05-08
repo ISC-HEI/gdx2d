@@ -1,8 +1,6 @@
 // Draws a mouse controlled circle, which radius changes over time
 // Its color is dependent on its position
 // Pierre-André Mudry, 2014
-
-#version 130
 #pragma debug(on)
 #pragma optimize(on)
 

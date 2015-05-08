@@ -1,5 +1,4 @@
 // A default vertex shader, adapted from the original from libgdx
-#version 130
 #pragma debug(on)
 #pragma optimize(on)
 

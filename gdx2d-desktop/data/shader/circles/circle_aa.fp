@@ -1,7 +1,5 @@
 // An anti-aliased circled shader, made with the circle equation
 // Pierre-André Mudry, 2014
-
-#version 130
 #pragma debug(on)
 #pragma optimize(on)
 

@@ -1,8 +1,6 @@
 // Draws a circle that can be moved with the mouse. The radius is also
 // controllable.
 // mui, 2014-2015
-
-#version 130
 #pragma debug(on)
 #pragma optimize(on)
 
