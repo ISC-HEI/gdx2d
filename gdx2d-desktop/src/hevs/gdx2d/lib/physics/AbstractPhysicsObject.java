@@ -502,6 +502,18 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	}
 
 	/**
+	 * Set (or unset) sensor mode
+	 * @param enable
+	 *
+	 * Set the body traversable, but still sensible to collisions
+	 */
+	public void setSensor(boolean enable) {
+		for (Fixture x : getBody().getFixtureList()) {
+			x.setSensor(true);
+		}
+	}
+
+	/**
 	 * Convenience method for some special operations. You should not use that
 	 * normally because the dimensions are not scaled appropriately in the
 	 * object itself.
