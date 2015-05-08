@@ -31,12 +31,16 @@ public class DemoTileAdvanced extends PortableApplication {
 	private TiledMap tiledMap;
 	private TiledMapRenderer tiledMapRenderer;
 	private TiledMapTileLayer tiledLayer;
+	private float zoom;
 
 	@Override
 	public void onInit() {
 
-		// create hero
+		// Create hero
 		hero = new Hero(10, 20);
+
+		// Set initial zoom
+		zoom = 1;
 
 		// init keys status
 		keyStatus.put(Input.Keys.UP, false);
@@ -58,7 +62,8 @@ public class DemoTileAdvanced extends PortableApplication {
 		manageHero();
 
 		// Camera follows the hero
-		moveCamera(g);
+		g.zoom(zoom);
+		g.moveCamera(hero.getPosition().x, hero.getPosition().y, tiledLayer.getWidth() * tiledLayer.getTileWidth(), tiledLayer.getHeight() * tiledLayer.getTileHeight());
 
 		// Render the tilemap
 		tiledMapRenderer.setView(g.getCamera());
@@ -70,35 +75,6 @@ public class DemoTileAdvanced extends PortableApplication {
 
 		g.drawFPS();
 		g.drawSchoolLogo();
-	}
-
-	Vector2 inside(Vector2 v, Vector2 p1, Vector2 p2) {
-		return new Vector2((float) Math.min(Math.max(p1.x, v.x), p2.x),
-				(float) (float) Math.min(Math.max(p1.y, v.y), p2.y));
-	}
-
-	/**
-	 * Move the camera to the hero's position
-	 * 
-	 * @param g Graphics object
-	 */
-	private void moveCamera(GdxGraphics g) {
-		Vector2 camera_min = new Vector2(0,0);
-		Vector2 camera_max = new Vector2(
-			tiledLayer.getWidth() * tiledLayer.getTileWidth() - Gdx.graphics.getWidth(),
-			tiledLayer.getHeight() * tiledLayer.getTileHeight() - Gdx.graphics.getHeight()
-		);
-		
-		// Camera position (bottom left) centered on the hero 
-		Vector2 pos = new Vector2(
-				hero.getPosition()).sub(Gdx.graphics.getWidth() /2, Gdx.graphics.getHeight() / 2);
-		
-		// Don't move the camera outside the tiledMap area
-		pos = inside(pos, camera_min, camera_max);
-		
-		// Fixme : deal with the zoom
-		
-		g.moveCamera(pos.x, pos.y);
 	}
 
 	/**
@@ -204,6 +180,20 @@ public class DemoTileAdvanced extends PortableApplication {
 	public void onKeyDown(int keycode) {
 		super.onKeyDown(keycode);
 
+		switch (keycode) {
+		case Input.Keys.Z:
+			if (zoom == 1.0) {
+				zoom = .5f;
+			} else if (zoom == .5) {
+				zoom = 2;
+			} else {
+				zoom = 1;
+			}
+			return;
+
+		default:
+			break;
+		}
 		keyStatus.put(keycode, true);
 	}
 
