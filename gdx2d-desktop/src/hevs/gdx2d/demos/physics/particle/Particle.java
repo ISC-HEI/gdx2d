@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Filter;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.physics.PhysicsBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsBox;
 import hevs.gdx2d.lib.GdxGraphics;
 
 /**

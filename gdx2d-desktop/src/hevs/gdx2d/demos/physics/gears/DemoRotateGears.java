@@ -27,9 +27,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.joints.GearJointDef;
 
 import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.physics.PhysicsBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsMotor;
-import hevs.gdx2d.components.physics.PhysicsStaticBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.physics.DebugRenderer;

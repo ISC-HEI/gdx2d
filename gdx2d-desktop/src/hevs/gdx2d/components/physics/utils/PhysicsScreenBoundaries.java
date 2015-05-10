@@ -1,7 +1,7 @@
 package hevs.gdx2d.components.physics.utils;
 
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.components.physics.PhysicsStaticBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
 
 /**
  * Creates solid boundaries around the screen so everything will stay inside it for physics simulation.

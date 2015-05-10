@@ -1,4 +1,4 @@
-package hevs.gdx2d.components.physics;
+package hevs.gdx2d.components.physics.primitives;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Shape.Type;

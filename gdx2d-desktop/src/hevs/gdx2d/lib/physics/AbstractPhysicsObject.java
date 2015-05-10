@@ -5,17 +5,19 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Shape.Type;
 import com.badlogic.gdx.utils.Array;
-import hevs.gdx2d.components.physics.PhysicsBox;
-import hevs.gdx2d.components.physics.PhysicsCircle;
-import hevs.gdx2d.components.physics.PhysicsStaticBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsCircle;
+import hevs.gdx2d.components.physics.primitives.PhysicsPolygon;
+import hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsStaticCircle;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 
 
 /**
  * An abstract physical object that contains everything required for simulation.<br>
  * For concrete instances, see {@link PhysicsBox}, {@link PhysicsCircle},
- * {@link hevs.gdx2d.components.physics.PhysicsPolygon}, {@link PhysicsStaticBox} and
- * {@link hevs.gdx2d.components.physics.PhysicsStaticCircle}.
+ * {@link PhysicsPolygon}, {@link PhysicsStaticBox} and
+ * {@link PhysicsStaticCircle}.
  *
  * @author Pierre-André Mudry (mui)
  * @version 1.3
@@ -25,11 +27,6 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	static final private BodyDef bodyDef = new BodyDef();
 	private final float p2m = PhysicsConstants.P2M;
 	private final float m2p = PhysicsConstants.M2P;
-
-	// To make sure the native library has been loaded at least once
-	static{
-		PhysicsWorld.getInstance();
-	}
 
 	/**
 	 * A name for the object

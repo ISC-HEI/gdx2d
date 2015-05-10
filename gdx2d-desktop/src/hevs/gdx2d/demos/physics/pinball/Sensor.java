@@ -2,7 +2,7 @@ package hevs.gdx2d.demos.physics.pinball;
 
 import com.badlogic.gdx.math.Vector2;
 
-import hevs.gdx2d.components.physics.PhysicsStaticBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
 
 public class Sensor extends PhysicsStaticBox {
 

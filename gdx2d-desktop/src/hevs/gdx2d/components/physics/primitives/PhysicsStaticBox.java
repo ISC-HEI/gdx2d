@@ -1,4 +1,4 @@
-package hevs.gdx2d.components.physics;
+package hevs.gdx2d.components.physics.primitives;
 
 import hevs.gdx2d.lib.physics.AbstractPhysicsObject;
 

@@ -9,9 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import hevs.gdx2d.components.bitmaps.Spritesheet;
-import hevs.gdx2d.components.physics.PhysicsPolygon;
-import hevs.gdx2d.components.physics.PhysicsStaticCircle;
-import hevs.gdx2d.components.physics.PhysicsStaticLine;
+import hevs.gdx2d.components.physics.primitives.PhysicsPolygon;
+import hevs.gdx2d.components.physics.primitives.PhysicsStaticCircle;
+import hevs.gdx2d.components.physics.primitives.PhysicsStaticLine;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
 import hevs.gdx2d.lib.utils.Logger;

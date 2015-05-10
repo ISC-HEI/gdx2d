@@ -3,11 +3,11 @@
  * <p>
  * Some built-in physics objects are available in this package:
  * <ul>
- * <li>{@link hevs.gdx2d.components.physics.PhysicsBox}</li>
- * <li>{@link hevs.gdx2d.components.physics.PhysicsCircle}</li>
- * <li>{@link hevs.gdx2d.components.physics.PhysicsPolygon}</li>
- * <li>{@link hevs.gdx2d.components.physics.PhysicsStaticBox}</li>
- * <li>{@link hevs.gdx2d.components.physics.PhysicsStaticCircle}</li>
+ * <li>{@link hevs.gdx2d.components.physics.primitives.PhysicsBox}</li>
+ * <li>{@link hevs.gdx2d.components.physics.primitives.PhysicsCircle}</li>
+ * <li>{@link hevs.gdx2d.components.physics.primitives.PhysicsPolygon}</li>
+ * <li>{@link hevs.gdx2d.components.physics.primitives.PhysicsStaticBox}</li>
+ * <li>{@link hevs.gdx2d.components.physics.primitives.PhysicsStaticCircle}</li>
  * <br>
  * <li>{@link hevs.gdx2d.components.physics.PhysicsMotor}</li>
  * <li>{@link hevs.gdx2d.components.physics.PhysicsChain}</li>

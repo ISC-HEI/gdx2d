@@ -3,9 +3,9 @@ package hevs.gdx2d.demos.physics.pinball;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import hevs.gdx2d.components.physics.PhysicsBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsBox;
 import hevs.gdx2d.components.physics.PhysicsMotor;
-import hevs.gdx2d.components.physics.PhysicsStaticBox;
+import hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.interfaces.DrawableObject;
 

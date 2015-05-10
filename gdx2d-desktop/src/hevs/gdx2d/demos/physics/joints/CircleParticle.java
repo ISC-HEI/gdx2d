@@ -2,7 +2,7 @@ package hevs.gdx2d.demos.physics.joints;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.components.physics.PhysicsCircle;
+import hevs.gdx2d.components.physics.primitives.PhysicsCircle;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.interfaces.DrawableObject;
 

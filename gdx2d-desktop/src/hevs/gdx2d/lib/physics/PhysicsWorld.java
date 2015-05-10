@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import hevs.gdx2d.components.physics.utils.PhysicsConstants;
 
@@ -18,19 +19,18 @@ import java.util.Vector;
  * @version 1.02
  */
 public class PhysicsWorld {
-
 	// Contains the object to be removed at each simulation step
 	private static final Vector<Body> toRemove = new Vector<Body>();
-	private static World instance = null;
+
+	private static PhysicsWorld instance = null;
+	private World w;
+
 	private static float accumulator;
 	private static float step = PhysicsConstants.STEP_SIZE;
 
-	static {
-		GdxNativesLoader.load();
-	}
-
 	// Exists only to defeat normal instantiation
 	private PhysicsWorld() {
+		w = new World(new Vector2(0, PhysicsConstants.GRAVITY_VALUE), true);
 	}
 
 	/**
@@ -38,9 +38,9 @@ public class PhysicsWorld {
 	 */
 	public static World getInstance() {
 		if (instance == null) {
-			instance = new World(new Vector2(0, PhysicsConstants.GRAVITY_VALUE), true);
+			instance = new PhysicsWorld();
 		}
-		return instance;
+		return instance.w;
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class PhysicsWorld {
 		accumulator += dt;
 
 		while (accumulator >= step) {
-			instance.step(step, PhysicsConstants.VELOCITY_IT, PhysicsConstants.POSITION_IT);
+			instance.w.step(step, PhysicsConstants.VELOCITY_IT, PhysicsConstants.POSITION_IT);
 			accumulator -= step / PhysicsConstants.SPEEDUP;
 		}
 
@@ -82,7 +82,7 @@ public class PhysicsWorld {
 		for (Body obj : toRemove) {
 			assert (obj != null);
 			obj.setUserData(null);
-			instance.destroyBody(obj);
+			instance.w.destroyBody(obj);
 		}
 
 		toRemove.clear();
@@ -93,8 +93,8 @@ public class PhysicsWorld {
 	 */
 	public static void dispose() {
 		if (instance != null) {
-			instance.dispose();
-			instance = null;
+			instance.w.dispose();
+			instance.w = new World(new Vector2(0, PhysicsConstants.GRAVITY_VALUE), true);
 		}
 	}
 }

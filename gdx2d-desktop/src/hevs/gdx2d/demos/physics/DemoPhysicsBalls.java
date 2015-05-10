@@ -7,7 +7,7 @@ import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.physics.PhysicsCircle;
+import hevs.gdx2d.components.physics.primitives.PhysicsCircle;
 import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;

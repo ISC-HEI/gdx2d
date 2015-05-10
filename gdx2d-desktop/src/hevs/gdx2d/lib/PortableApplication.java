@@ -12,7 +12,7 @@ import java.awt.*;
 
 /**
  * The base class that should be sub-classed by all {@code gdx2d} applications.
- * To get the functionalities you simply have tod overload the methods you need.
+ * To get the functionality required you simply have to overload the required methods.
  *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Metrailler (mei)
@@ -22,7 +22,6 @@ import java.awt.*;
  * @see GameInterface
  */
 public abstract class PortableApplication implements TouchInterface, KeyboardInterface, GameInterface, GestureInterface {
-
 	// Default window dimensions
 	private static final int DEFAULT_HEIGHT = 500;
 	private static final int DEFAULT_WIDTH = 500;
