@@ -54,10 +54,6 @@ public class ShaderRenderer implements Disposable {
 		String[] unif = shader.getUniforms();
 
 		if(VERBOSE) {
-
-//			Logger.log(shader.getFragmentShaderSource());
-//			Logger.log(shader.getVertexShaderSource());
-
 			Logger.log("Shader defined uniforms are :");
 			for (String uniform : unif) {
 				Logger.log("\t", uniform + ", " + shader.getAttributeType(uniform));
@@ -71,7 +67,7 @@ public class ShaderRenderer implements Disposable {
 
 		shader.begin();
 			// Pass the size of the shader, once
-			shader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			shader.setUniformf("resolution", w, h);
 		shader.end();
 	}
 
@@ -107,10 +103,10 @@ public class ShaderRenderer implements Disposable {
 	public void render(int posX, int posY, float time) {
 		// FIXME Should handle resolution changes (notably for Android)
 		batch.begin();
-		// Pass time to the shader
-		shader.setUniformf("time", time);
-		// Note that LibGDX coordinate system origin is lower-left
-		batch.draw(tex[0], posX - w / 2, posY - h / 2);
+			// Pass time to the shader
+			shader.setUniformf("time", time);
+			// Note that LibGDX coordinate system origin is lower-left
+			batch.draw(tex[0], posX - w / 2, posY - h / 2);
 		batch.end();
 	}
 
