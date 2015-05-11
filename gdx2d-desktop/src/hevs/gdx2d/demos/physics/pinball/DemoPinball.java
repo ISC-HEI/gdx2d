@@ -107,7 +107,7 @@ public class DemoPinball extends PortableApplication {
 	private PhysicsStaticLine bumperLeft;
 	private PhysicsStaticLine bumperRight;
 	private Spritesheet ballSprite;
-	private int displayHelp;
+	private int displayHelp = 500;
 	private Renderer renderer;
 	private LinkedList<TemporaryDrawable> decorations;
 
@@ -224,13 +224,6 @@ public class DemoPinball extends PortableApplication {
 
 		renderer.draw(g, world, decorations);
 
-		if (displayHelp > 0) {
-			displayHelp--;
-			g.setColor(new Color(Color.BLACK).mul((float) displayHelp / 100));
-			g.drawStringCentered(h / 2,
-					"CTRL keys : flippers, space : new ball");
-		}
-
 		g.drawSchoolLogo();
 	}
 
@@ -241,7 +234,7 @@ public class DemoPinball extends PortableApplication {
 		PhysicsWorld.updatePhysics();
 		moveCamera(g, PhysicsConstants.coordMetersToPixels(ball.getBody()
 				.getPosition()));
-		g.zoom(2f);
+		//g.zoom(2f);
 
 		switch (draw_mode) {
 		case DEBUG:
@@ -256,6 +249,17 @@ public class DemoPinball extends PortableApplication {
 		case STD:
 			drawStd(g);
 			break;
+		}
+		
+		if (displayHelp > 0) {
+			displayHelp--;
+			g.setColor(new Color(Color.BLACK).mul((float) displayHelp / 100));
+			g.drawStringCentered(g.getCamera().position.y,
+					"Warning : work in progress\n" +
+					"CTRL keys : flippers\n" +
+					"SPACE : new ball\n" +
+					"d : debug view\n"
+					);
 		}
 	}
 
@@ -319,7 +323,7 @@ public class DemoPinball extends PortableApplication {
 			break;
 
 		default:
-			displayHelp = 100;
+			displayHelp = 300;
 			break;
 		}
 	}

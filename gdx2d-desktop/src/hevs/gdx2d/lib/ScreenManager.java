@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Handles multiple rendering screens and enables
  * transitions between those screens.
- * Pierre-André Mudry 2015
+ * Pierre-AndrÃ© Mudry 2015
  */
 public class ScreenManager {
 	ArrayList<Class> screens = new ArrayList<Class>();
