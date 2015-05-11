@@ -1,6 +1,5 @@
 package hevs.gdx2d.demos.simple;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -39,16 +38,6 @@ public class DemoJuliaFractal extends PortableApplication {
 	private Texture currentTexture;
 	private boolean isFractalGenerated = false;
 	private long startTime, estimatedTime; // Time measurement
-
-	public DemoJuliaFractal() {
-		// The windows size is the fractal size
-		super(IMAGE_SIZE, IMAGE_SIZE);
-
-		if (onAndroid()) {
-			Logger.error("This demo only works on desktop! Exiting");
-			Gdx.app.exit(); // For now too slow on Android
-		}
-	}
 
 	// Julia fractal on each pixels
 	private static void workPixel(int i, int j, Pixmap pixmap) {
