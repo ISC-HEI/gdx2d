@@ -37,6 +37,5 @@ void main() {
         z.y = y;
     }
 
-    o_fragColor = texture2D(texture0, vec2((i == iter ? 0.0 : float(i)) / 100.0), 0);
+    o_fragColor = texture2D(texture0, vec2((i == iter ? 0.0 : float(i)) / 100.0));
 }
-	
