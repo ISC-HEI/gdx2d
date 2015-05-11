@@ -3,7 +3,6 @@ layout: page
 permalink: doc/physics/fr/
 weight: 3
 title: Physics (fr)
-published: true
 ---
 
 # Le moteur physique Box2D
@@ -12,7 +11,8 @@ Le moteur physique *Box2D* peut être utilisé afin de développer des applicati
 
 ## Les objets physiques
 
-Différents objets physiques (statiques ou dynamiques) sont à disposition et peuvent être utilisés directement. De manière générale, on va simuler principalement des cercles et des rectangles, parfois des polygones. Les classes correspondantes que vous allez utiliser sont :
+Différents objets physiques (statiques ou dynamiques) sont à disposition et peuvent être utilisés directement. De manière générale, on va simuler principalement des cercles et des rectangles, parfois des polygones.<br>
+Les classes correspondantes que vous allez utiliser sont :
 
 * `PhysicsBox` et `PhysicsStaticBox` qui représentent des rectangles. 
 * `PhysicsCircle` et `PhysicsStaticCircle` qui représentent des cercles.
@@ -24,7 +24,7 @@ Le moteur physique va simuler les mouvements des objets en fonction des forces e
 
 ## Un premier exemple
 <center>
-    <img alt="Physics class" src="{{site.url}}images/doc/class-physics.png" width="500">
+    <img alt="Physics class" src="{{site.url}}images/doc/class-physics.svg" width="500">
 </center>
 
 L’application `DemoSimplePhysics`, présentée dans la figure ci-dessus, utilise le moteur physique *Box2D* et montre comment réaliser une simulation. Les applications physiques sont composées des objets suivants :

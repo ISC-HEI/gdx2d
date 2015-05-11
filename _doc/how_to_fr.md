@@ -92,7 +92,7 @@ Le code ci-dessus correspond à l’application suivante :
 Les applications *Gdx2d* (classe `PortableApplication`) ne disposent pas uniquement d’une fonction `main` comme les programmes Java standards. Des méthodes spécifiques sont appelées lorsque l’application est initialisée ou lorsqu’elle doit être mise à jour. Elles sont résumées à l’aide du diagramme suivant et détaillées dans le tableau ci-dessous.
 
 <center>
-    <img alt="Application lifecycle" src="{{site.url}}images/doc/llifecycle.png" width="600">
+    <img alt="Application lifecycle" src="{{site.url}}images/doc/lifecycle.svg" width="600">
 </center>
 
 Le cycle de vie d’une application *Gdx2d* diffère légèrement entre une exécution sur Pc et sur Android. Les méthodes de l’interface `GameInterface` sont détaillées ci-dessous :
@@ -111,7 +111,7 @@ Le cycle de vie d’une application *Gdx2d* diffère légèrement entre une exé
 Afin d’interagir avec les applications *Gdx2d*, différentes interfaces sont à disposition. Elles permettent par exemple de détecter les clics de souris, les pressions de touches du clavier ou encore d’utiliser l’écran tactile sur Android. Toutes les applications *Gdx2d* disposent des méthodes suivantes, qui peuvent être surchargées selon les besoins de chaque application.
 
 <center>
-    <img alt="PortableApplication class diagram" src="{{site.url}}images/doc/class-diag.png" width="450">
+    <img alt="PortableApplication class diagram" src="{{site.url}}images/doc/class-diag.svg" width="450">
 </center>
 
 ## Opérations de dessin
