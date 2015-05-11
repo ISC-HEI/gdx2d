@@ -6,7 +6,7 @@ import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 /**
- * Created by Pierre-André Mudry on 07.05.2015.
+ * Created by Pierre-AndrÃ© Mudry on 07.05.2015.
  * HES-SO Valais, 2015
  */
 public class CreditsScreen extends RenderingScreen {
