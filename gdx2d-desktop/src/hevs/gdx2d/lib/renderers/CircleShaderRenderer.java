@@ -19,6 +19,8 @@ import hevs.gdx2d.lib.utils.Logger;
  * @author Pierre-André Mudry
  */
 public class CircleShaderRenderer implements Disposable {
+	private final String shaderVersion = "#version 130\n";
+
 	public SpriteBatch batch;
 	private ShaderProgram shader;
 	private Texture tex;
@@ -34,7 +36,7 @@ public class CircleShaderRenderer implements Disposable {
 		w = width;
 		h = height;
 		vertexShader = Gdx.files.internal("data/shader/default.vs");
-		create(handle.readString(), vertexShader.readString());
+		create(shaderVersion + handle.readString(), shaderVersion + vertexShader.readString());
 	}
 
 	private void create(String fragmentShader, String vertexShader) {
