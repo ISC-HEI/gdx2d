@@ -1,5 +1,6 @@
 package hevs.gdx2d.lib.renderers;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
+
 import hevs.gdx2d.lib.utils.Logger;
 
 /**
@@ -48,7 +50,14 @@ public class ShaderRenderer implements Disposable {
 		w = width;
 		h = height;
 		vertexShader = Gdx.files.internal("data/shader/default.vs");
-		create(shaderVersion + handle.readString(), shaderVersion + vertexShader.readString());
+		if (Gdx.app.getType() == ApplicationType.Android)
+		{
+			create(handle.readString(), vertexShader.readString());
+		}
+		else
+		{
+			create(shaderVersion + handle.readString(), shaderVersion + vertexShader.readString());
+		}
 
 		String[] att = shader.getAttributes();
 		String[] unif = shader.getUniforms();
