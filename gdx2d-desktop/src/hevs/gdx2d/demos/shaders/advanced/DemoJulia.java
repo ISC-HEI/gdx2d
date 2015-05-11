@@ -35,7 +35,7 @@ public class DemoJulia extends PortableApplication {
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.getShaderRenderer() == null) {
 			g.setShader("data/shader/julia.fp");
-			g.getShaderRenderer().addTexture("data/shader/pal.png", "texture0");
+			g.getShaderRenderer().addTexture("data/shader/lib/pal.png", "texture0");
 		}
 
 		g.getShaderRenderer().setUniform("scale", scale);
