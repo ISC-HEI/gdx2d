@@ -1,18 +1,21 @@
 // An anti-aliased circled shader, made with the circle equation
 // Pierre-André Mudry, 2014
-#pragma debug(on)
-#pragma optimize(on)
 
-#ifdef GL_ES
-	precision mediump float;
-#endif
-
-uniform vec2 resolution;
+// What we get from Java, *once*
 uniform vec2 position;
 uniform vec3 color;
 uniform float radius;
 
+/**
+ * Received from vertex shader
+ */
+in vec4 v_color; // The interpolated color of each fragment before transform
+
+/**
+ * Produced by the fragment shader
+ */
 out vec4 o_fragColor; // Each fragment color
+
 const float antialias_distance = 2.0; // In pixels, the distance from the border of the circle to fade to transparent
 
 void main() {	

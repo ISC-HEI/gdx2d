@@ -1,10 +1,6 @@
 // Draws a circle that can be moved with the mouse. The radius is also
 // controllable.
 // mui, 2014-2015
-#pragma debug(on)
-#pragma optimize(on)
-
-precision mediump float;
 
 // What we get from Java, *once*
 uniform float radius;
@@ -14,9 +10,7 @@ uniform vec2 mouse;
 /**
  * Received from vertex shader
  */
-
-// The interpolated color of each fragment before transform
-in vec4 v_color;
+in vec4 v_color; // The interpolated color of each fragment before transform
 
 /**
  * Produced by the fragment shader

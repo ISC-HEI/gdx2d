@@ -2,12 +2,20 @@
 // Original version by @simesgreen
 // Slightly modified by PA Mudry
 
-#ifdef GL_ES
-	precision highp float;
-#endif
- 
+// What we get from Java, *once*
+uniform vec2 center;
 uniform vec2 resolution;
 uniform float time;
+
+/**
+ * Received from vertex shader
+ */
+in vec4 v_color; // The interpolated color of each fragment before transform
+
+/**
+ * Produced by the fragment shader
+ */
+out vec4 o_fragColor; // Each fragment color
  
 float hash( float n )
 {
@@ -83,5 +91,5 @@ void main(void)
 		yp = max(y, yp);
     }
  		
-    gl_FragColor = vec4(vec3(c),1.0);
+    o_fragColor = vec4(vec3(c),1.0);
 }

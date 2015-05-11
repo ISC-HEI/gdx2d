@@ -1,6 +1,5 @@
 package hevs.gdx2d.demos.shaders.simple;
 
-import com.badlogic.gdx.Gdx;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 
@@ -25,14 +24,14 @@ public class DemoShaderSimple extends PortableApplication {
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
-		if (g.getShaderRenderer() == null)
-			g.setShader("data/shader/colorRect.fp");
+		if (g.getShaderRenderer() == null) {
+			g.setShader("data/shader/bicolor.fp");
+		}
 
 		g.clear();
 
 		// Draws the shader
-		time += Gdx.graphics.getDeltaTime();
-		g.drawShader(time);
+		g.drawShader();
 
 		g.drawFPS();
 		g.drawSchoolLogo();

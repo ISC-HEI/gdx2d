@@ -3,9 +3,20 @@
 
 // precision mediump float; // Fix issue #18
 #define PI 3.1415926535897932384626433832795
- 
+
+// What we get from Java, *once*
 uniform float time;
-varying vec2 vTexCoord;
+
+/**
+ * Received from vertex shader
+ */
+in vec2 vTexCoord;
+
+/**
+ * Produced by the fragment shader
+ */
+out vec4 o_fragColor; // Each fragment color
+
 
 // Scaling factor
 const vec2 u_k = vec2(12, 15.0);
@@ -21,5 +32,5 @@ void main() {
     v = v/2.0;
     
     vec3 col = vec3(1, sin(PI*v), cos(PI*v));
-    gl_FragColor = vec4(col*.5 + .5, 1);
+    o_fragColor = vec4(col*.5 + .5, 1);
 }

@@ -3,13 +3,21 @@
 // http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns/
 // Ported from ShaderToys.com by redexe@gmail.com
 
-#ifdef GL_ES
-	precision mediump float;
-#endif
-
+// What we get from Java, *once*
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
+
+/**
+ * Received from vertex shader
+ */
+in vec4 v_color; // The interpolated color of each fragment before transform
+in vec2 vSurfacePosition;
+
+/**
+ * Produced by the fragment shader
+ */
+out vec4 o_fragColor; // Each fragment color
 
 float field(in vec3 p) {
 	float strength = 7.0;
@@ -36,5 +44,5 @@ void main() {
 	float t = field(p);
 	float v = (1.0 - exp((abs(uv.x) - 1.0) * 6.)) * (1.0 - exp((abs(uv.y) - 1.0) * 6.0));
 	
-	gl_FragColor = mix(0.4, 1.0, v) * vec4(1.8 * t * t * t, 1.4 * t * t, t, 1.0);
+	o_fragColor = mix(0.4, 1.0, v) * vec4(1.8 * t * t * t, 1.4 * t * t, t, 1.0);
 }

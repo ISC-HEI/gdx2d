@@ -15,9 +15,20 @@
 #define distfading 0.730
 #define saturation 0.550
 
+// What we get from Java, *once*
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
+
+/**
+ * Received from vertex shader
+ */
+in vec4 v_color; // The interpolated color of each fragment before transform
+
+/**
+ * Produced by the fragment shader
+ */
+out vec4 o_fragColor; // Each fragment color
 
 void main(void)
 {
@@ -69,5 +80,5 @@ void main(void)
 	}
 	
 	v=mix(vec3(length(v)),v,saturation); //color adjust
-	gl_FragColor = vec4(v*.01, 1.);	
+	o_fragColor  = vec4(v*.01, 1.);
 }

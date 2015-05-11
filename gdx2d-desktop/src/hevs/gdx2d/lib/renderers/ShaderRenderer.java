@@ -18,27 +18,21 @@ import hevs.gdx2d.lib.utils.Logger;
  * <p/>
  *
  * @author Pierre-André Mudry
- * @version 0.4
+ * @version 0.5
  */
 public class ShaderRenderer implements Disposable {
-	// Shader versions that is going to be added at the beginning of *every* shader
-	private final String shaderVersion = "#version 130\n";
 
-	private ShaderProgram shader;
-	private Texture tex[] = new Texture[10];
-	private int textureCount = 0;
-	private SpriteBatch batch;
-	private int w, h;
+	public final boolean VERBOSE = true;
 
-	private FileHandle vertexShader;
+	// Shader include that is going to be added at the beginning of *every* fragment shader
+	protected final String fragmentShaderInclude = Gdx.files.internal("data/shader/lib/fragment_include.glsl").readString();
+	protected ShaderProgram shader;
+	protected Texture tex[] = new Texture[10];
+	protected int textureCount = 0;
+	protected SpriteBatch batch;
+	protected int w, h;
 
-	ShaderRenderer() {
-		this(Gdx.files.internal("data/shader/colorRect.fp"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-	}
-
-	ShaderRenderer(String shaderFileName) {
-		this(shaderFileName, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-	}
+	protected FileHandle vertexShader;
 
 	public ShaderRenderer(String shaderFileName, int width, int height) {
 		this(Gdx.files.internal(shaderFileName), width, height);
@@ -47,20 +41,38 @@ public class ShaderRenderer implements Disposable {
 	ShaderRenderer(FileHandle handle, int width, int height) {
 		w = width;
 		h = height;
-		vertexShader = Gdx.files.internal("data/shader/default.vs");
-		create(shaderVersion + handle.readString(), shaderVersion + vertexShader.readString());
+		vertexShader = Gdx.files.internal("data/shader/lib/default.vs");
+
+		if(VERBOSE) {
+			Logger.log("Fragment shader " + handle);
+			Logger.log("Vertex shader " + vertexShader);
+		}
+
+		create(fragmentShaderInclude + handle.readString(), vertexShader.readString());
 
 		String[] att = shader.getAttributes();
 		String[] unif = shader.getUniforms();
-		System.out.println("Shader uniforms are :");
-		for (String string : unif) {
-			System.out.println("\t" + string);
+
+		if(VERBOSE) {
+
+//			Logger.log(shader.getFragmentShaderSource());
+//			Logger.log(shader.getVertexShaderSource());
+
+			Logger.log("Shader defined uniforms are :");
+			for (String uniform : unif) {
+				Logger.log("\t", uniform + ", " + shader.getAttributeType(uniform));
+			}
+
+			Logger.log("Shader defined attributes are :");
+			for (String attrib : att) {
+				Logger.log("\t", attrib);
+			}
 		}
 
-		System.out.println("Shader attributes are :");
-		for (String string : att) {
-			System.out.println("\t" + string);
-		}
+		shader.begin();
+			// Pass the size of the shader, once
+			shader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		shader.end();
 	}
 
 	private void create(String fragmentShader, String vertexShader) {
@@ -73,22 +85,16 @@ public class ShaderRenderer implements Disposable {
 		shader = new ShaderProgram(vertexShader, fragmentShader);
 
 		if (!shader.isCompiled()) {
-			Logger.log("ShaderRenderer - " + shader.getLog());
-			// FIXME This should call the proper gdx2 method to exit
-			System.exit(0);
+			Logger.log("Shader compile msg - " + shader.getLog());
+			Gdx.app.exit();
 		}
 
 		if (shader.getLog().length() != 0 && !shader.getLog().contains("No errors"))
-			Logger.log("ShaderRenderer - " + shader.getLog());
+			Logger.log("Shader message - " + shader.getLog());
 
 		// Creates a batch with the size of the texture
 		batch = new SpriteBatch(1, shader);
 		batch.setShader(shader);
-
-		shader.begin();
-		// Pass the size of the shader, once
-		shader.setUniformf("resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		shader.end();
 	}
 
 	/**

@@ -1,17 +1,21 @@
 // Draws a mouse controlled circle, which radius changes over time
 // Its color is dependent on its position
 // Pierre-André Mudry, 2014
-#pragma debug(on)
-#pragma optimize(on)
 
-precision mediump float;
-
-// Information given from the Java side.
+// What we get from Java, *once*
 uniform vec2 resolution;
 uniform vec2 mouse;
 uniform float radius;
 uniform float time;
 
+/**
+ * Received from vertex shader
+ */
+in vec4 v_color; // The interpolated color of each fragment before transform
+
+/**
+ * Produced by the fragment shader
+ */
 out vec4 o_fragColor; // Each fragment color
 
 const float default_radius = 30.0;
