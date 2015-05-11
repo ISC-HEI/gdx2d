@@ -2,7 +2,7 @@
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       <h1>
-        <a href="{{ site.url }}">
+        <a href="{{ site.baseurl }}/index.html">
           {{ site.title }}
         </a>
       </h1>
@@ -18,7 +18,9 @@
       {% assign pages = site.collections.doc.docs | sort:"weight"  %}
       <ul>
         {% for p in pages %}
-        <li><a {% if p.url == page.url %}class="active"{% endif %} href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a></li>
+          {% if p.published != false %}
+            <li><a {% if p.url == page.url %}class="active"{% endif %} href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a></li>
+          {% endif %}
         {% endfor %}
         <li><a class="sidebar-nav-item" href="http://hevs-isi.github.io/gdx2d/javadoc/latest/" target="_bank">Javadoc</a></li>
       </ul>
