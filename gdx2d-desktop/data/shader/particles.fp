@@ -1,7 +1,8 @@
 // Original code from http://glsl.heroku.com/e#13789.0
 //MrOMGWTF
 //I have no idea what is it
-//Looks cool tho
+//Looks cool thou
+
 uniform float time;
 uniform sampler2D bb;
 uniform vec2 resolution;

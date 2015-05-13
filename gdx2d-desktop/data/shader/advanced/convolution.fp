@@ -8,9 +8,6 @@ in vec2 vTexCoord;
 uniform sampler2D texture0;
 uniform int matrix;
 
-// OUT
-out vec4 o_fragColor; // Each fragment color
-
 const float width = 256.0;
 const float height = 256.0;
 
@@ -90,5 +87,5 @@ void main(void)
         sum = vec4(1.0, 0.0, 0.0, 1.0);
    }
 
-   o_fragColor = sum;
+   gl_FragColor = sum;
 }

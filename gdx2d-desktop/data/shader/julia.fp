@@ -15,11 +15,6 @@ uniform float scale;
 in vec4 v_color; // The interpolated color of each fragment before transform
 in vec2 vTexCoord;
 
-/**
- * Produced by the fragment shader
- */
-out vec4 o_fragColor; // Each fragment color
-
 const int iter = 1000;
 
 void main() {
@@ -37,5 +32,5 @@ void main() {
         z.y = y;
     }
 
-    o_fragColor = texture2D(texture0, vec2((i == iter ? 0.0 : float(i)) / 100.0));
+    gl_FragColor = texture2D(texture0, vec2((i == iter ? 0.0 : float(i)) / 100.0));
 }

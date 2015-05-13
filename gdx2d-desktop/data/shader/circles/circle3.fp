@@ -13,11 +13,6 @@ uniform float time;
  */
 in vec4 v_color; // The interpolated color of each fragment before transform
 
-/**
- * Produced by the fragment shader
- */
-out vec4 o_fragColor; // Each fragment color
-
 const float default_radius = 30.0;
 
 void main() {	
@@ -31,5 +26,5 @@ void main() {
 		discard;
 
 	// Nicely interpolate the color of the circle
-	o_fragColor = vec4(smoothstep(0.0,1.0,position.y), smoothstep(0.0,1.0,position.x), 1.0, 1.0);
+	gl_FragColor = vec4(smoothstep(0.0,1.0,position.y), smoothstep(0.0,1.0,position.x), 1.0, 1.0);
 }

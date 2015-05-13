@@ -12,12 +12,6 @@ uniform float time;
  */
 in vec2 vTexCoord;
 
-/**
- * Produced by the fragment shader
- */
-out vec4 o_fragColor; // Each fragment color
-
-
 // Scaling factor
 const vec2 u_k = vec2(12, 15.0);
 
@@ -32,5 +26,5 @@ void main() {
     v = v/2.0;
     
     vec3 col = vec3(1, sin(PI*v), cos(PI*v));
-    o_fragColor = vec4(col*.5 + .5, 1);
+    gl_FragColor = vec4(col*.5 + .5, 1);
 }

@@ -10,11 +10,6 @@ uniform vec2 resolution;
  */
 in vec4 v_color; // The interpolated color of each fragment before transform
 
-/**
- * Produced by the fragment shader
- */
-out vec4 o_fragColor; // Each fragment color
-
 void main() {
 	// compute the distance between fragment and mouse position
 	float dist = distance(gl_FragCoord.xy, center);
@@ -25,5 +20,5 @@ void main() {
 		discard;
 
 	// if pixel hasn't been discarded, paint it green 
-	o_fragColor = vec4(0, 1, 0, 1.0);
+	gl_FragColor = vec4(0, 1, 0, 1.0);
 }

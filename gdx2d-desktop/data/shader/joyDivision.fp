@@ -12,11 +12,6 @@ uniform float time;
  */
 in vec4 v_color; // The interpolated color of each fragment before transform
 
-/**
- * Produced by the fragment shader
- */
-out vec4 o_fragColor; // Each fragment color
- 
 float hash( float n )
 {
     return fract(sin(n)*4358.5453);
@@ -39,7 +34,7 @@ float noise(float x)
 }
 
 // 2d noise
-float noise( in vec2 x )
+float noise(vec2 x )
 {
     vec2 p = floor(x);
     vec2 f = fract(x);
@@ -91,5 +86,5 @@ void main(void)
 		yp = max(y, yp);
     }
  		
-    o_fragColor = vec4(vec3(c),1.0);
+    gl_FragColor = vec4(vec3(c),1.0);
 }

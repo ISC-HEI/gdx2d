@@ -11,11 +11,6 @@ uniform vec2 resolution;
  */
 in vec2 vTexCoord;
 
-/**
- * Produced by the fragment shader
- */
-out vec4 o_fragColor; // Each fragment color
-
 #define MAX_ITER 8
 
 void main( void ) {
@@ -34,5 +29,5 @@ void main( void ) {
 
 	c /= float(MAX_ITER);
 	c = 1.5-sqrt(pow(c,3.+(mouse.x*.5)/resolution.x));
-	o_fragColor = vec4(vec3(c*c*c*c*0.3,c*c*c*c*0.5,c*c*c*c*0.925), 1.0);
+	gl_FragColor = vec4(vec3(c*c*c*c*0.3,c*c*c*c*0.5,c*c*c*c*0.925), 1.0);
 }

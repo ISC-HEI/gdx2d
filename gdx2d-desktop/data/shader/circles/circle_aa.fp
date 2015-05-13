@@ -6,16 +6,6 @@ uniform vec2 position;
 uniform vec3 color;
 uniform float radius;
 
-/**
- * Received from vertex shader
- */
-in vec4 v_color; // The interpolated color of each fragment before transform
-
-/**
- * Produced by the fragment shader
- */
-out vec4 o_fragColor; // Each fragment color
-
 const float antialias_distance = 2.0; // In pixels, the distance from the border of the circle to fade to transparent
 
 void main() {	
@@ -24,7 +14,7 @@ void main() {
 	// Interpolate nicely color for having an anti-aliased circle
 	// The smoothstep function which is applied uses Hermite interpolation
 	// see for instance http://www.geeks3d.com/20130705/shader-library-circle-disc-fake-sphere-in-glsl-opengl-glslhacker/2/	
-	o_fragColor = mix(vec4(color, 1.0),
+	gl_FragColor = mix(vec4(color, 1.0),
 					   vec4(0, 0, 0, 0), 
 					   smoothstep(radius, radius + antialias_distance, dist));
 }

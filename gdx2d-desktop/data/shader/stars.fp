@@ -25,11 +25,6 @@ uniform vec2 resolution;
  */
 in vec4 v_color; // The interpolated color of each fragment before transform
 
-/**
- * Produced by the fragment shader
- */
-out vec4 o_fragColor; // Each fragment color
-
 void main(void)
 {
 	//get coords and direction
@@ -80,5 +75,5 @@ void main(void)
 	}
 	
 	v=mix(vec3(length(v)),v,saturation); //color adjust
-	o_fragColor  = vec4(v*.01, 1.);
+	gl_FragColor = vec4(v*.01, 1.);
 }

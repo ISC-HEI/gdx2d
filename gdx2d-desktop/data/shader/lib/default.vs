@@ -1,12 +1,13 @@
 // Default vertex shader for gdx2d
 // mui 2015
-#version 100
+#version 110
 
 #pragma debug(on)
 #pragma optimize(off)
 
 #if __VERSION__ < 130
-   #define varying in
+   #define in attribute
+   #define out varying
 #endif
 
 #ifdef GL_ES
