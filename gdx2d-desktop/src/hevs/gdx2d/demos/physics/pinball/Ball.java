@@ -11,7 +11,6 @@ import hevs.gdx2d.lib.interfaces.DrawableObject;
  * WORK IN PROGRESS, DO NOT USE
  */
 public class Ball extends PhysicsCircle implements DrawableObject{
-	
 	protected TextureRegion[] sprites;
 	private float radius;
 
