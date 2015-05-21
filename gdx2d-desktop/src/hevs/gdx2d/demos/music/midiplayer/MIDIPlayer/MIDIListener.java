@@ -1,4 +1,4 @@
-package hevs.gdx2d.demos.music.midiplayer;
+package hevs.gdx2d.demos.music.midiplayer.MIDIPlayer;
 
 import java.util.ArrayList;
 
