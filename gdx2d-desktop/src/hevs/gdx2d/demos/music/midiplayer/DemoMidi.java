@@ -3,6 +3,9 @@ package hevs.gdx2d.demos.music.midiplayer;
 import com.badlogic.gdx.graphics.Color;
 import hevs.gdx2d.components.audio.SoundSample;
 import hevs.gdx2d.components.colors.ColorUtils;
+import hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIListener;
+import hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIMessage;
+import hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIPLayer;
 import hevs.gdx2d.lib.GdxGraphics;
 import hevs.gdx2d.lib.PortableApplication;
 import hevs.gdx2d.lib.utils.Logger;
@@ -17,11 +20,12 @@ import java.util.Collections;
  * @version 1.2
  */
 public class DemoMIDI extends PortableApplication {
-	protected final int nSamples = 124;
+	// Where the music and samples are stored
+	protected final int nSamples = 104;
 	protected final String DATADIR = "data/music/midiplayer/pianonotes/";
 	protected final String FILEPATH = "data/music/midiplayer/brahms_lullaby.mid";
 
-	// The sound samples for playing
+	// Storage for the loaded sound samples
 	protected ArrayList<SoundSample> notesSamples;
 
 	// Contains the notes that are currently playing
@@ -30,6 +34,7 @@ public class DemoMIDI extends PortableApplication {
 	// This is the class that handles the player inputs
 	protected MIDIPLayer player;
 
+	// The object that will receive the note messages
 	MIDIListener midiListener;
 
 	@Override
@@ -95,7 +100,8 @@ public class DemoMIDI extends PortableApplication {
 		synchronized (currentlyPlayingNotes) {
 			for (Integer note : currentlyPlayingNotes) {
 				Color noteColor = ColorUtils.hsvToColor(0.4f, 1f - (1 * note / 10.0f), 1);
-				g.drawFilledBorderedCircle(250, 250, 10 + 120 - (note * 10f), noteColor, Color.BLACK);
+
+				g.drawFilledCircle(250, 250, 10 + 120 - (note * 10f), noteColor);
 			}
 		}
 	}
