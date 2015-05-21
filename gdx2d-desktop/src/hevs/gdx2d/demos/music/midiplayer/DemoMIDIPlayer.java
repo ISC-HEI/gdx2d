@@ -44,7 +44,7 @@ public class DemoMIDIPlayer extends PortableApplication {
 
 		// Read all the piano samples that are in the directory
 		for (int i = 0; i < nSamples; i++) {
-			notesSamples.add(new SoundSample(DATADIR + String.format("%03d", i) + ".wav"));
+			notesSamples.add(new SoundSample(DATADIR + String.format("%03d", i) + ".mp3"));
 		}
 
 		midiListener = new MIDIListener() {
@@ -91,7 +91,7 @@ public class DemoMIDIPlayer extends PortableApplication {
 	public void onGraphicRender(final GdxGraphics g) {
 		g.clear();
 		g.drawSchoolLogoUpperRight();
-		g.drawStringCentered(getWindowHeight() / 8, "Left click = start, right click = stop");
+		
 
 		/**
 		 * Each message corresponds to a MIDI event, so let's get them
