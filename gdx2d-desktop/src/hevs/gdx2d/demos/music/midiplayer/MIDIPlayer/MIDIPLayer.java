@@ -65,7 +65,7 @@ public class MIDIPLayer {
 							break;
 						}
 
-						totalticks = track.ticks();
+						totalticks = sequence.getMicrosecondLength();
 
 						for (int i = 0; i < track.size(); i++) {
 							if (!running) {
@@ -110,6 +110,7 @@ public class MIDIPLayer {
 									break;
 								} else {
 									notifyListeners(messages);
+									tickCount+=Math.round((msecRes * (float) (current_tick - last_tick)));
 									Thread.sleep(Math.round((msecRes * (float) (current_tick - last_tick))));
 								}
 							} catch (InterruptedException ie) {
