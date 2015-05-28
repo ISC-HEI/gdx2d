@@ -32,6 +32,7 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	 * A name for the object
 	 */
 	public String name;
+
 	/**
 	 * The physical characteristics of the the object, such as friction etc...
 	 */
@@ -230,7 +231,7 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	}
 
 	@Override
-	final public void beginContact(Contact contact) {
+	public void beginContact(Contact contact) {
 		AbstractPhysicsObject ob1, ob2;
 		ob1 = (AbstractPhysicsObject) contact.getFixtureA().getBody()
 				.getUserData();
@@ -244,16 +245,16 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	}
 
 	@Override
-	final public void endContact(Contact contact) {
+	public void endContact(Contact contact) {
 	}
 
 	@Override
-	final public void postSolve(Contact contact, ContactImpulse impulse) {
+	public void postSolve(Contact contact, ContactImpulse impulse) {
 		lastCollideEnergy = impulse.getNormalImpulses()[0];
 	}
 
 	@Override
-	final public void preSolve(Contact contact, Manifold oldManifold) {
+	public void preSolve(Contact contact, Manifold oldManifold) {
 	}
 
 	/**
