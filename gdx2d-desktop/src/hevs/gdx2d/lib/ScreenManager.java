@@ -14,40 +14,53 @@ import hevs.gdx2d.components.screen_management.transitions.SmoothTransition;
 import java.util.ArrayList;
 
 /**
- * Handles multiple rendering screens and enables
- * transitions between those screens.
- * Pierre-André Mudry 2015
+ * Handles multiple rendering screens and enables transitions between those screens.
+ * <br>
+ * You can choose the screen to display using its index or automatically switch to the next screen.
+ * If the screen index to display is out of range, the first or last screen is shown.
+ * <br>
+ * If a transition is already in progress or if the selected screen is already active, the transition is ignored.
+ *
+ * @author Pierre-André Mudry (mui)
+ * @version 1.1
  */
 public class ScreenManager {
-	ArrayList<Class> screens = new ArrayList<Class>();
+	protected ArrayList<Class> screens = new ArrayList<Class>();
 	protected int activeScreen = 0;
 	protected RenderingScreen currScreen, nextScreen;
-	protected enum transition_t {SMOOTH, SLIDE, SLICE};
-	protected transition_t transitionStyle = transition_t.SMOOTH;
+
+	/**
+	 * Available screen transitions effects.
+	 */
+	public enum TransactionType {
+		SMOOTH, SLIDE, SLICE
+	}
+
+	protected TransactionType transitionStyle = TransactionType.SMOOTH;
 
 	// To handle transitions
 	protected FrameBuffer currFbo, nextFbo;
 	protected SpriteBatch batch;
 	protected float time;
 	protected ScreenTransition screenTransition;
-	protected boolean transitioning = false;
 
-	protected  RenderingScreen createInstance(Class c) {
+	protected boolean transitioning = false;
+	protected int nextScreenIdx = -1;
+
+	protected RenderingScreen createInstance(Class c) {
 		try {
 			RenderingScreen s = (RenderingScreen) c.newInstance();
 			s.onInit();
 			return s;
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 
 	/**
 	 * Render the current screen to the GdxGraphics
+	 *
 	 * @param g The instance of GdxGraphics to draw on
 	 */
 	public void render(GdxGraphics g) {
@@ -55,63 +68,56 @@ public class ScreenManager {
 		if (!transitioning) {
 			currScreen.render(g);
 		} else {
-			// Rendering the transition
-			if (transitioning) {
-				// Called at the beginning of the transition
-				if (screenTransition == null) {
-					int w = g.getScreenWidth();
-					int h = g.getScreenHeight();
-					currFbo = new FrameBuffer(Pixmap.Format.RGB888, w, h, false);
-					nextFbo = new FrameBuffer(Pixmap.Format.RGB888, w, h, false);
-					batch = new SpriteBatch();
+			// Called at the beginning of the transition
+			if (screenTransition == null) {
+				int w = g.getScreenWidth();
+				int h = g.getScreenHeight();
+				currFbo = new FrameBuffer(Pixmap.Format.RGB888, w, h, false);
+				nextFbo = new FrameBuffer(Pixmap.Format.RGB888, w, h, false);
+				batch = new SpriteBatch();
 
-					switch(transitionStyle){
-						case SLICE:
-							screenTransition = SliceTransition.init(0.75f,
-												SliceTransition.UP_DOWN,
-												10,
-												Interpolation.pow4Out);
-							break;
-						case SLIDE:
-							screenTransition = SlideTransition.init(0.75f,
-												SlideTransition.LEFT,
-												false,
-												Interpolation.bounceOut);
-							break;
-						case SMOOTH:
-							screenTransition = SmoothTransition.init(0.75f);
-							break;
-					}
-
-					// Render current screen to FBO
-					currFbo.begin();
-						currScreen.render(g);
-					currFbo.end();
-
-					// Releasing resources from the current screen
-					currScreen.dispose();
-					currScreen = null;
-
-					nextScreen = createInstance(screens.get((activeScreen + 1) % screens.size()));
-
-					// Render next screen to FBO
-					nextFbo.begin();
-						nextScreen.render(g);
-					nextFbo.end();
+				switch (transitionStyle) {
+					case SLICE:
+						screenTransition = SliceTransition.init(0.75f,
+								SliceTransition.UP_DOWN,
+								10,
+								Interpolation.pow4Out);
+						break;
+					case SLIDE:
+						screenTransition = SlideTransition.init(0.75f,
+								SlideTransition.LEFT,
+								false,
+								Interpolation.bounceOut);
+						break;
+					case SMOOTH:
+						screenTransition = SmoothTransition.init(0.75f);
+						break;
 				}
 
-				// Do the transition
-				transition(Gdx.graphics.getDeltaTime(), g);
+				// Render current screen to FBO
+				currFbo.begin();
+				currScreen.render(g);
+				currFbo.end();
+
+				// Releasing resources from the current screen
+				currScreen.dispose();
+				currScreen = null;
+
+				nextScreen = createInstance(screens.get(getNextScreenIndex()));
+
+				// Render next screen to FBO
+				nextFbo.begin();
+				nextScreen.render(g);
+				nextFbo.end();
 			}
+
+			// Do the transition
+			transition(Gdx.graphics.getDeltaTime());
 		}
 	}
 
-	/**
-	 * Do the actual transition between the screens
-	 * @param deltaTime
-	 * @param g
-	 */
-	private void transition(float deltaTime, GdxGraphics g) {
+	// Do the actual transition between the screens
+	private void transition(float deltaTime) {
 		float duration = screenTransition.getDuration();
 
 		// Update the progress of ongoing transition
@@ -121,14 +127,14 @@ public class ScreenManager {
 		if (screenTransition == null || time >= duration) {
 			screenTransition = null;
 			transitioning = false;
-			activeScreen = (activeScreen + 1) % screens.size();
+			activeScreen = getNextScreenIndex();
 			currScreen = nextScreen;
 			nextScreen = null;
 			time = 0;
 			return;
 		}
 
-		// Rnender the transition effect to screen
+		// Render the transition effect to screen
 		float alpha = time / duration;
 		screenTransition.render(batch,
 				currFbo.getColorBufferTexture(),
@@ -136,8 +142,27 @@ public class ScreenManager {
 				alpha);
 	}
 
+	// Go to the next screen if no target index has been choose
+	private int getNextScreenIndex() {
+		if (nextScreenIdx < 0)
+			return (activeScreen + 1) % screens.size();
+
+		return nextScreenIdx;
+	}
+
+	// Check if the screen index is out of bound or not
+	private int checkIndexBounds(int screenIndex) {
+		if (screenIndex < 0)
+			return 0;
+		if (screenIndex > screens.size() - 1)
+			return screens.size() - 1;
+
+		return screenIndex;
+	}
+
 	/**
 	 * Add a screen to the screen list
+	 *
 	 * @param s The class of the screen to add
 	 */
 	public void registerScreen(Class s) {
@@ -155,49 +180,94 @@ public class ScreenManager {
 		if (!transitioning) {
 			// Release resources from old screen
 			currScreen.dispose();
-			activeScreen = (activeScreen + 1) % screens.size();
+			nextScreenIdx = -1;
+			activeScreen = getNextScreenIndex();
 			currScreen = createInstance(screens.get(activeScreen));
 		}
 	}
 
 	/**
-	 * Called to transition to the next screen with slicing
+	 * Show the corresponding screen without transition.
+	 *
+	 * @param nextScreen the screen index to display
+	 */
+	public void activateScreen(int nextScreen) {
+		if (activeScreen == nextScreen)
+			return;
+
+		if (!transitioning) {
+			// Release resources from old screen
+			currScreen.dispose();
+			nextScreenIdx = -1;
+			activeScreen = checkIndexBounds(nextScreen);
+			currScreen = createInstance(screens.get(activeScreen));
+		}
+	}
+
+	/**
+	 * Called to transition to the next screen with the corresponding effect.
+	 *
+	 * @param effect the screen transition effect to use
+	 */
+	public void transitionToNext(TransactionType effect) {
+		if (!transitioning) {
+			transitioning = true;
+			transitionStyle = effect;
+		}
+	}
+
+	/**
+	 * Called to transition to the specified screen with the corresponding effect.
+	 *
+	 * @param nextScreen the screen index to display
+	 * @param effect     the screen transition effect to use
+	 */
+	public void transitionTo(int nextScreen, TransactionType effect) {
+		if (activeScreen == nextScreen)
+			return;
+
+		if (!transitioning) {
+			nextScreenIdx = checkIndexBounds(nextScreen);
+			transitioning = true;
+			transitionStyle = effect;
+		}
+	}
+
+	/**
+	 * Called to transition to the next screen with slicing.
+	 * Use the {@link hevs.gdx2d.lib.ScreenManager.TransactionType#SLICE} effect.
+	 *
+	 * @see #transitionToNext(TransactionType)
 	 */
 	public void sliceTransitionToNext() {
-		if (!transitioning) {
-			transitioning = true;
-			transitionStyle = transition_t.SLICE;
-		}
+		transitionToNext(TransactionType.SLICE);
 	}
 
 
 	/**
-	 * Called to transition to the next screen with sliding
+	 * Called to transition to the next screen with sliding.
+	 * Use the {@link hevs.gdx2d.lib.ScreenManager.TransactionType#SLIDE} effect.
+	 *
+	 * @see #transitionToNext(TransactionType)
 	 */
 	public void slideTransitionToNext() {
-		if (!transitioning) {
-			transitioning = true;
-			transitionStyle = transition_t.SLIDE;
-		}
+		transitionToNext(TransactionType.SLIDE);
 	}
 
 	/**
-	 * Called to transition to the next screen with fade-out
+	 * Called to transition to the next screen with fade-out.
+	 * Use the {@link hevs.gdx2d.lib.ScreenManager.TransactionType#SMOOTH} effect.
+	 *
+	 * @see #transitionToNext(TransactionType)
 	 */
 	public void smoothTransitionToNext() {
-		if (!transitioning) {
-			transitioning = true;
-			transitionStyle = transition_t.SMOOTH;
-		}
+		transitionToNext(TransactionType.SMOOTH);
 	}
 
 	/**
-	 * @return The active screen which is currently rendered
+	 * @return the active screen which is currently rendered or {@code null} is a transition is in progress
 	 */
 	public RenderingScreen getActiveScreen() {
-		if (transitioning == false)
-			return currScreen;
-		else
-			return null;
+		return !transitioning ? currScreen : null;
 	}
 }
