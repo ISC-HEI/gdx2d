@@ -1,6 +1,10 @@
 package hevs.gdx2d.demos.music.midiplayer.MIDIPlayer;
 
 import javax.sound.midi.*;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,7 +13,7 @@ import java.util.ArrayList;
  * A MIDI file loader and player
  *
  * @author Mikael Follonier (fom)
- * @version 1.1§
+ * @version 1.11
  */
 public class MIDIPLayer {
 	public static final int NOTE_ON = 0x90;
@@ -36,13 +40,14 @@ public class MIDIPLayer {
 	 * @param s The file we want to play
 	 */
 	public MIDIPLayer(String s) {
-		File f = new File(s);
-
-		try {
-			sequence = MidiSystem.getSequence(f);
+		FileHandle handle = Gdx.files.internal(s);			
+		
+		try {				
+			sequence = MidiSystem.getSequence(handle.read());
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.err.println("Could not open file " + handle);
 			e.printStackTrace();
 		}
 
