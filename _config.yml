@@ -33,7 +33,9 @@ author:
   url:            https://www.hevs.ch
 
 # Custom vars
-version:          1.1.1
 
+# Latest libGDX version
+# The download link is '{{ site.github.repo }}archive/v{{ site.github.latestversion }}.zip'
 github:
-  repo:           https://github.com/hevs-isi/gdx2d/
+  latestversion: 1.1.1
+  repo:          https://github.com/hevs-isi/gdx2d/

@@ -1,18 +1,16 @@
 ---
 layout: page
 permalink: "index.html"
-title: gdx2d home
+title: Welcome
 ---
 
-[![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
+The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.
 
 <p align="center">
 <a href="https://www.youtube.com/watch?v=eoVrifa1Xd0">
   <img src="{{site.url}}images/logo_640.png" target="_blank" alt="Logo"/>
 </a>
 </p>
-
-> *gdx2d* is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. 
 
 ## What can it do?
 The library contains simple to use graphical primitives such as lines, circles, rectangles. In addition, there are methods to draw pictures, rotate them, scale them etc. Physics simulation is also supported (using Box2D) as well as music and sound playing.
@@ -111,9 +109,3 @@ This project contains the library as well as all the demo programs. All the demo
 `gdx2d-android`
 
 This is the Android counterpart of the library. This project depends on the gdx2d-desktop project, which means that this other project must be available in Eclipse. In addition, most of the files that will be executed come from that project as well. As such, it mainly consists of a Java file `GameActivity.java` which determines which is the main program that will be launched on Android.
-
-## Coding style
-Want to contribute? Please do use tabs, no spaces! Encoding of files should be defaulted to UTF-8.
-
-## License
-Project licensed under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0).

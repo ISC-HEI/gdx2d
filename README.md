@@ -13,7 +13,7 @@ $ gem install github-pages
 $ jekyll serve -w
 ```
 
-Visit http://127.0.0.1:4000 in your browser to see a live locally served preview.
+Visit http://127.0.0.1:4000/gdx2d/ in your browser to see a live locally served preview.
 
 ## License
 

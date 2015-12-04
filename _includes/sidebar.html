@@ -15,21 +15,21 @@
 
       <span>Documentation</span>
 
-      {% assign pages = site.collections.doc.docs | sort:"weight"  %}
+      {% assign sorted_doc = (site.doc | sort: 'weight') %}
       <ul>
-        {% for p in pages %}
+        {% for p in sorted_doc %}
           {% if p.published != false %}
             <li><a {% if p.url == page.url %}class="active"{% endif %} href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a></li>
           {% endif %}
         {% endfor %}
-        <li><a class="sidebar-nav-item" href="http://hevs-isi.github.io/gdx2d/javadoc/latest/" target="_bank">Javadoc</a></li>
+        <li><a class="sidebar-nav-item" href="https://hevs-isi.github.io/gdx2d/javadoc/latest/" target="_bank">Javadoc</a></li>
       </ul>
 
-      <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download latest release</a>
+      <a class="sidebar-nav-item" href="{{ site.github.repo }}archive/v{{ site.github.latestversion }}.zip">Download latest release</a>
       <a class="sidebar-nav-item" href="{{ site.github.repo }}">Go to the GitHub project</a>
-      <span class="sidebar-nav-item">Currently v{{ site.version }}</span>
     </nav>
 
+    <p>gdx2d version {{ site.github.latestversion }}</p>
     <p>&copy; {{ site.time | date: '%Y' }}- mui[at]hevs.ch</p>
   </div>
 </div>
