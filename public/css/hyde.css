@@ -59,6 +59,16 @@ html {
   color: rgba(255,255,255,.5);
   background-color: #202020;
 }
+
+@media (max-width: 48em) {
+  .sidebar ul {
+    padding: 0;
+  }
+  .sidebar li {
+    list-style-type: none;
+  }
+}
+
 @media (min-width: 48em) {
   .sidebar {
     position: fixed;
