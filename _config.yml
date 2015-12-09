@@ -24,13 +24,13 @@ collections:
 # Setup
 title:            GDX2D
 tagline:          'A gaming library'
-description:      'A gaming library for the <a href="http://inf1.begincoding.net" target="_blank">INF1 course</a>.'
-url:              http://hevs-isi.github.io/gdx2d/
+description:      'A gaming library for the <a href="http://inf1.begincoding.net" title="INF1" target="_blank">INF1 course</a>.'
+url:              https://hevs-isi.github.io/gdx2d/
 baseurl:          /gdx2d
 
 author:
   name:           'Pierre-André Mudry'
-  url:            https://www.hevs.ch
+  url:            http://www.hevs.ch/isi
 
 # Custom vars
 

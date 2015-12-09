@@ -36,7 +36,3 @@ nbproject
 # grunt-html-validation
 validation-status.json
 validation-report.json
-
-# Folders to ignore
-node_modules
-_posts/2014-3-3-Hello-World.md

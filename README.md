@@ -1,6 +1,6 @@
 # Official gdx2d website
 
-This is the source code of the gdx2d website available online at http://hevs-isi.github.io/gdx2d/.
+This is the source code of the gdx2d website available online at https://hevs-isi.github.io/gdx2d/.
 
 This website is based on the [Hyde](https://github.com/poole/hyde) theme. It is powered by [Jekyll](http://jekyllrb.com) and hosted on GitHub Pages.
 
