@@ -23,7 +23,7 @@ then
   cp -Rf $HOME/javadoc/latest ./javadoc/
   cp -f $HOME/stylesheet.css ./javadoc/latest/stylesheet.css # Restore the Java8 stylesheet
   git add -f .
-  git commit -m $'Lastest javadoc auto-published.\nTravis build '$TRAVIS_BUILD_NUMBER'.'
+  git commit -m $'Latest javadoc auto-published.\nTravis build '$TRAVIS_BUILD_NUMBER'.'
   git push -fq origin gh-pages > /dev/null
 else
   echo -e "Skipping Javadoc...\n"
