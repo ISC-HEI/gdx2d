@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Top level project. Parent POM referencing sub-modules. -->
+  <groupId>ch.hevs.gdx2d</groupId>
+  <artifactId>gdx2d-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0</version>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Gdx2d Top Level.</description>
+  <url>https://hevs-isi.github.io/gdx2d/</url>
+  <organization>
+    <name>HES-SO Valais-Wallis - Institute of Systems Engineering</name>
+    <url>http://hevs.ch/isi</url>
+  </organization>
+
+  <issueManagement>
+  	<system>GitHub</system>
+  	<url>https://github.com/hevs-isi/gdx2d/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+  	<system>Travis CI</system>
+  	<url>https://travis-ci.org/hevs-isi/gdx2d</url>
+  	<notifiers />
+  </ciManagement>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>Developers</id>
+      <url>https://github.com/hevs-isi/gdx2d/graphs/contributors</url>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git@github.com:hevs-isi/gdx2d.git</connection>
+    <developerConnection>scm:git:git@github.com:hevs-isi/gdx2d.git</developerConnection>
+    <url>git@github.com:hevs-isi/gdx2d.git</url>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <libgdx.version>1.5.6</libgdx.version>
+  </properties>
+
+  <modules>
+  	<!-- The gdx2d core library as sub-module -->
+    <module>gdx2d-library</module>
+  </modules>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.3</version>
+          <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+            <showWarnings>true</showWarnings>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+</project>
