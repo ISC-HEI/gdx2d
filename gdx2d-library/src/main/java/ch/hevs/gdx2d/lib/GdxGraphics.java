@@ -1,4 +1,4 @@
-package hevs.gdx2d.lib;
+package ch.hevs.gdx2d.lib;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -19,25 +19,21 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.graphics.Polygon;
-import hevs.gdx2d.lib.renderers.CircleShaderRenderer;
-import hevs.gdx2d.lib.renderers.ShaderRenderer;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.components.graphics.Polygon;
+import ch.hevs.gdx2d.lib.renderers.CircleShaderRenderer;
+import ch.hevs.gdx2d.lib.renderers.ShaderRenderer;
 
 /**
- * A game graphics implementation for LibGDX based on the interface of
- * {@code FunGraphics} for <a href="http://inf1.begincoding.net">INF1 class</a>
- * given at the UAS Western Switzerland, Sion.
+ * A game graphic class implementation based on the LibGDX library.
  * <p/>
- * <p>
- * The objective of this implementation is to provide a simple, yet powerful,
- * set of graphics primitives used for the projects that take place in this
- * course.
- * </p>
+ * The {@link GdxGraphics} class has a similar interface to the {@code FunGraphics} class used for the
+ * <a href="http://inf1.begincoding.net">INF1 course</a> given at the University of Applied Sciences School in Sion.
  * <p/>
- * <p>
+ * The main objective of this implementation is to provide a simple, yet powerful,
+ * set of graphics primitives used for the projects that take place in this course.
+ * <p/>
  * Comments are welcome !
- * </p>
  *
  * @author Pierre-André Mudry (mui)
  * @author Nils Chatton (chn)
@@ -46,28 +42,23 @@ import hevs.gdx2d.lib.renderers.ShaderRenderer;
  */
 public class GdxGraphics implements Disposable {
 	// For sprite-based logo
-	final protected Texture logoTex = new Texture(Gdx.files.internal("lib/logo_hes.png"));
-	final protected Texture circleTex = new Texture(Gdx.files.internal("lib/circle.png"));
+	final protected Texture logoTex = new Texture(Gdx.files.internal("logo_hes.png"));
+	final protected Texture circleTex = new Texture(Gdx.files.internal("circle.png"));
 	protected SpriteBatch spriteBatch;
-	/**
-	 * For camera operations
-	 */
-	protected OrthographicCamera camera, fixedcamera;
+
+	protected OrthographicCamera camera, fixedCamera; // For camera operations
+	protected BitmapFont font; // The standard font
+
 	protected Color currentColor = Color.WHITE;
 	protected Color backgroundColor = Color.BLACK;
-	// The standard font
-	protected BitmapFont font;
 	private ShapeRenderer shapeRenderer;
 
-	/**
-	 * Used for rendering anti-aliased circles
-	 */
+	/** Used for rendering anti-aliased circles */
 	private CircleShaderRenderer circleRenderer;
-	/**
-	 * Used for rendering custom shaders
-	 */
+	/** Used for rendering custom shader */
 	private ShaderRenderer shaderRenderer;
-	private t_rendering_mode rendering_mode = t_rendering_mode.NONE;
+
+	private RenderingMode renderingMode = RenderingMode.NONE;
 
 	public GdxGraphics(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch,
 					   OrthographicCamera camera) {
@@ -77,10 +68,8 @@ public class GdxGraphics implements Disposable {
 
 		circleRenderer = new CircleShaderRenderer();
 
-		/**
-		 * Generates the fonts images from the TTF file
-		 */
-		FileHandle robotoF = Gdx.files.internal("font/RobotoSlab-Regular.ttf");
+		// Generates the fonts images from the TTF file
+		FileHandle robotoF = Gdx.files.internal("RobotoSlab-Regular.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(robotoF);
 
 		// Font parameters for the standard font
@@ -91,8 +80,8 @@ public class GdxGraphics implements Disposable {
 		generator.dispose();
 
 		// A camera that never moves
-		this.fixedcamera = new OrthographicCamera();
-		fixedcamera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		this.fixedCamera = new OrthographicCamera();
+		fixedCamera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
 		// Enable alpha blending for shape renderer
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -102,7 +91,7 @@ public class GdxGraphics implements Disposable {
 
 	/**
 	 * Should be called to release all the resources that have been allocated in
-	 * {@link GdxGraphics}. Normally called automatically
+	 * {@link GdxGraphics}. Normally called automatically.
 	 */
 	@Override
 	public void dispose() {
@@ -117,14 +106,14 @@ public class GdxGraphics implements Disposable {
 
 	/**
 	 * When rendering with other methods than the one present here (for instance
-	 * when using box2dlight), call this method to render shapes correctly
+	 * when using box2dlight), call this method to render shapes correctly.
 	 */
 	private void resetRenderingMode() {
-		checkmode(t_rendering_mode.NONE);
+		checkMode(RenderingMode.NONE);
 	}
 
 	/**
-	 * Draws frame per second (FPS) information in the bottom left corner of the
+	 * Draw frame per second (FPS) information in the bottom left corner of the
 	 * screen. The default {@link Color#WHITE} color is used.
 	 *
 	 * @see GdxGraphics#drawFPS(Color)
@@ -134,13 +123,13 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws frame per second (FPS) information in the bottom left corner of the
+	 * Draw frame per second (FPS) information in the bottom left corner of the
 	 * screen using a custom color.
 	 *
 	 * @param c the text color
 	 */
 	public void drawFPS(Color c) {
-		spriteBatch.setProjectionMatrix(fixedcamera.combined);
+		spriteBatch.setProjectionMatrix(fixedCamera.combined);
 		Color oldColor = font.getColor();
 		font.setColor(c);
 		drawString(5, 15, "FPS: " + Gdx.graphics.getFramesPerSecond());
@@ -149,8 +138,9 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws the University of Applied Sciences Western Switzerland logo in the
-	 * bottom right corner of the screen.<br>
+	 * Draw the University of Applied Sciences Western Switzerland logo in the
+	 * bottom right corner of the screen.
+	 * <p/>
 	 * As this project is mainly aimed the students from the <a
 	 * href='http://inf1.begincoding.net'> inf1 course given at the HES-SO
 	 * Valais</a>, systems engineering, it is nice to have a logo for them !
@@ -158,40 +148,40 @@ public class GdxGraphics implements Disposable {
 	 * @see GdxGraphics#drawSchoolLogoUpperRight()
 	 */
 	public void drawSchoolLogo() {
-		checkmode(t_rendering_mode.SPRITE);
-		spriteBatch.setProjectionMatrix(fixedcamera.combined);
+		checkMode(RenderingMode.SPRITE);
+		spriteBatch.setProjectionMatrix(fixedCamera.combined);
 		spriteBatch.draw(logoTex, getScreenWidth() - logoTex.getWidth(), 0);
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 
 	/**
-	 * Draws the school logo in the upper right corner of the screen.
+	 * Draw the school logo in the upper right corner of the screen.
 	 *
 	 * @see GdxGraphics#drawSchoolLogo()
 	 */
 	public void drawSchoolLogoUpperRight() {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
 
-		spriteBatch.setProjectionMatrix(fixedcamera.combined);
+		spriteBatch.setProjectionMatrix(fixedCamera.combined);
 		spriteBatch.draw(logoTex, width - logoTex.getWidth(),
 				height - logoTex.getHeight());
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 
 	/**
-	 * Switches to the correct rendering mode if needed, calling the required
-	 * begin and end.
+	 * Switch to the correct rendering mode and, if needed, call the required
+	 * {@link #begin()} and {@link #end()} methods.
 	 *
-	 * @param mode {@link t_rendering_mode}
+	 * @param mode {@link RenderingMode}
 	 */
-	private void checkmode(t_rendering_mode mode) {
-		if (mode == rendering_mode) {
+	private void checkMode(RenderingMode mode) {
+		if (mode == renderingMode) {
 			return;
 		}
 
-		switch (rendering_mode) {
+		switch (renderingMode) {
 			case SPRITE:
 				spriteBatch.end();
 				break;
@@ -230,34 +220,36 @@ public class GdxGraphics implements Disposable {
 				break;
 		}
 
-		rendering_mode = mode;
+		renderingMode = mode;
 
 	}
 
 	/**
-	 * A very simple way to change line width for shape operators (line, ...)
+	 * A very simple way to change line width for shape operators (line, ...).
 	 *
-	 * @param width The width of the pen to use as from now
+	 * @param width the width of the pen to use as from now
 	 */
 	public void setPenWidth(float width) {
-		/**
-		 * TODO : Line capping is not working nicely for non vertical lines in
-		 * OpenGL. This is a known problem but at the moment we have decided not
+		/*
+		 * TODO : Line capping is not working nicely for non vertical lines in OpenGL.
+		 * This is a known problem but at the moment we have decided not
 		 * to implement any solution
 		 */
 		// Mode should be put on sprite, this is not a mistake
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		Gdx.gl20.glLineWidth(width);
 	}
 
 	/**
-	 * @return the height of the screen
+	 * Get the height of the rendering surface.
+	 * @return the height of the rendering surface
 	 */
 	public int getScreenHeight() {
 		return Gdx.graphics.getHeight();
 	}
 
 	/**
+	 * Get the width of the rendering surface.
 	 * @return the width of the rendering surface
 	 */
 	public int getScreenWidth() {
@@ -265,8 +257,7 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Clears the screen using the {@link #backgroundColor}.
-	 *
+	 * Clear the screen using the {@link #backgroundColor}.
 	 * @see GdxGraphics#clear(Color)
 	 */
 	public void clear() {
@@ -274,27 +265,25 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Begin drawing
-	 * 
-	 * Usually called by {@link Game2d} before
-	 * {@link PortableApplication.onGraphicRender}
+	 * Begin drawing.
+	 * <p/>
+	 * Usually called by {@link Game2D} before {@link PortableApplication#onGraphicRender(GdxGraphics)}.
 	 */
 	public void begin() {
+		// Empty
 	}
 
 	/**
-	 * End drawing
-	 * 
-	 * Usually called by {@link Game2d} after
-	 * {@link PortableApplication.onGraphicRender}
+	 * End drawing.
+	 * <p/>
+	 * Usually called by {@link Game2D} after {@link PortableApplication#onGraphicRender(GdxGraphics)}.
 	 */
 	public void end() {
-		checkmode(t_rendering_mode.NONE);
+		checkMode(RenderingMode.NONE);
 	}
 
-
 	/**
-	 * Clears the screen with a given {@link Color}.
+	 * Clear the screen with a given {@link Color}.
 	 *
 	 * @param c The color to clear the screen with
 	 * @see GdxGraphics#clear()
@@ -305,7 +294,7 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Sets the current color {@link #currentColor} used for graphics drawing.
+	 * Set the current color {@link #currentColor} used for graphics drawing.
 	 *
 	 * @param c the new color to use
 	 */
@@ -316,10 +305,10 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Sets the color of a pixel using the current color {@link #currentColor}.
+	 * Set the color of a pixel using the current color {@link #currentColor}.
 	 *
-	 * @param x
-	 * @param y
+	 * @param x the x coordinate of the pixel
+	 * @param y the y coordinate of the pixel
 	 * @see GdxGraphics#setPixel(float, float, Color)
 	 */
 	public void setPixel(float x, float y) {
@@ -328,22 +317,23 @@ public class GdxGraphics implements Disposable {
 
 	/**
 	 * Sets the color of a pixel using a custom {@link Color}.
+	 * <p/>
+	 * The {@link #currentColor} is not modified.
 	 *
-	 * @param x
-	 * @param y
-	 * @param c
+	 * @param x the X coordinate of the pixel
+	 * @param y the Y coordinate of the pixel
+	 * @param c the new {@link Color} of the pixel
 	 * @see GdxGraphics#setPixel(float, float)
 	 */
 	public void setPixel(float x, float y, Color c) {
-		checkmode(t_rendering_mode.SHAPE_POINT);
+		checkMode(RenderingMode.SHAPE_POINT);
 		shapeRenderer.setColor(c);
 		shapeRenderer.point(x, y, 0);
 		shapeRenderer.setColor(currentColor);
 	}
 
 	/**
-	 * Sets the background color {@link GdxGraphics#backgroundColor} to use to
-	 * clear pixels.
+	 * Set the background color used when pixels are cleared.
 	 *
 	 * @param c the new background color to use
 	 */
@@ -352,10 +342,10 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Clear a pixel using the {@link GdxGraphics#backgroundColor}.
+	 * Clear a pixel and set it to the {@link GdxGraphics#backgroundColor}.
 	 *
-	 * @param x
-	 * @param y
+	 * @param x the X coordinate of the pixel
+	 * @param y the Y coordinate of the pixel
 	 * @see GdxGraphics#clearPixel(float, float, Color)
 	 */
 	public void clearPixel(float x, float y) {
@@ -363,14 +353,16 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Clear a pixel using the a custom {@link Color}.
+	 * Clear a pixel and set it to a custom {@link Color}.
+	 * <p/>
+	 * The {@link #backgroundColor} is not modified.
 	 *
-	 * @param x
-	 * @param y
+	 * @param x the X coordinate of the pixel
+	 * @param y the Y coordinate of the pixel
 	 * @see GdxGraphics#clearPixel(float, float)
 	 */
 	public void clearPixel(float x, float y, Color c) {
-		checkmode(t_rendering_mode.SHAPE_POINT);
+		checkMode(RenderingMode.SHAPE_POINT);
 		shapeRenderer.identity();
 		shapeRenderer.setColor(c);
 		shapeRenderer.point(x, y, 0);
@@ -378,29 +370,33 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a line that start at P(p1x, p1y) and ends at P(p2x, p2y)
+	 * Draw a line with the current {@link #currentColor}.
+	 * <p/>
+	 * The line starts at {@code P(p1x, p1y)} and ends at {@code P(p1x, p1y)}.
 	 *
-	 * @param p1x Start coordinate X
-	 * @param p1y Start coordinate Y
-	 * @param p2x End coordinate X
-	 * @param p2y End coordinate Y
+	 * @param p1x start coordinate X
+	 * @param p1y start coordinate Y
+	 * @param p2x end coordinate X
+	 * @param p2y end coordinate Y
 	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y) {
-		checkmode(t_rendering_mode.SHAPE_LINE);
+		checkMode(RenderingMode.SHAPE_LINE);
 		shapeRenderer.identity();
 		shapeRenderer.setColor(currentColor);
 		shapeRenderer.line(p1x, p1y, p2x, p2y);
 	}
 
 	/**
-	 * Draws a line that start at P(p1x, p1y) and ends at P(p2x, p2y) with
-	 * {@link Color} c
+	 * Draws a line with a specific color.
+	 * <p/>
+	 * The line starts at {@code P(p1x, p1y)} and ends at {@code P(p1x, p1y)}.
+	 * The {@link #currentColor} is not modified.
 	 *
-	 * @param p1x Start coordinate X
-	 * @param p1y Start coordinate Y
-	 * @param p2x End coordinate X
-	 * @param p2y End coordinate Y
-	 * @param c   The color for drawing the line
+	 * @param p1x start coordinate X
+	 * @param p1y start coordinate Y
+	 * @param p2x end coordinate X
+	 * @param p2y end coordinate Y
+	 * @param c   the color of the line
 	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y, Color c) {
 		shapeRenderer.setColor(c);
@@ -409,17 +405,17 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws an empty rectangle
+	 * Draw an empty (not filled) rectangle.
 	 *
 	 * @param x     X position of the center of the rectangle
 	 * @param y     Y position of the center of the rectangle
-	 * @param w     Width of the rectangle, in pixels
-	 * @param h     Height of the rectangle, in pixels
-	 * @param angle of rotation of the rectangle, in degrees
+	 * @param w     width of the rectangle, in pixel
+	 * @param h     height of the rectangle, in pixel
+	 * @param angle rotation of the rectangle, in degrees
 	 * @see #drawFilledRectangle(float, float, float, float, float, Color)
 	 */
 	public void drawRectangle(float x, float y, float w, float h, float angle) {
-		checkmode(t_rendering_mode.SHAPE_LINE);
+		checkMode(RenderingMode.SHAPE_LINE);
 		shapeRenderer.identity();
 		shapeRenderer.translate(x, y, 0);
 		shapeRenderer.rotate(0, 0, 1, angle);
@@ -427,18 +423,17 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a filled rectangle
+	 * Draw a filled rectangle.
 	 *
 	 * @param x     X position of the center of the rectangle
 	 * @param y     Y position of the center of the rectangle
-	 * @param w     Width of the rectangle
-	 * @param h     Height of the rectangle
-	 * @param angle Rotation angle of the rectangle, in degrees
+	 * @param w     width of the rectangle, in pixel
+	 * @param h     height of the rectangle, in pixel
+	 * @param angle rotation of the rectangle, in degrees
 	 * @see #drawFilledRectangle(float, float, float, float, float, Color)
 	 */
-	public void drawFilledRectangle(float x, float y, float w, float h,
-									float angle) {
-		checkmode(t_rendering_mode.SHAPE_FILLED);
+	public void drawFilledRectangle(float x, float y, float w, float h, float angle) {
+		checkMode(RenderingMode.SHAPE_FILLED);
 		shapeRenderer.identity();
 		shapeRenderer.translate(x, y, 0);
 		shapeRenderer.rotate(0, 0, 1, angle);
@@ -446,29 +441,32 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a filled rectangle at a given location with a given color
+	 * Draw a filled rectangle with a custom color.
+	 * <p/>
+	 * The {@link #currentColor} is not modified.
 	 *
 	 * @param x     X position of the center of the rectangle
 	 * @param y     Y position of the center of the rectangle
-	 * @param w     Width of the rectangle
-	 * @param h     Height of the rectangle
-	 * @param angle Rotation angle of the rectangle, in degrees
-	 * @param c     The color to fill the rectangle with
+	 * @param w     width of the rectangle, in pixel
+	 * @param h     height of the rectangle, in pixel
+	 * @param angle rotation of the rectangle, in degrees
+	 * @param c     the color to fill the rectangle with
 	 */
-	public void drawFilledRectangle(float x, float y, float w, float h,
-									float angle, Color c) {
+	public void drawFilledRectangle(float x, float y, float w, float h, float angle, Color c) {
 		shapeRenderer.setColor(c);
 		drawFilledRectangle(x, y, w, h, angle);
 		shapeRenderer.setColor(currentColor);
 	}
 
 	/**
-	 * Draws an empty circle
+	 * Draw an empty (non filled) circle with a custom color.
+	 * <p/>
+	 * The {@link #currentColor} is not modified.
 	 *
-	 * @param centerX Center x position of the circle to draw
-	 * @param centerY Center y position of the circle to draw
-	 * @param radius  The radius of the circle
-	 * @param c       The {@link Color} to use
+	 * @param centerX center X position of the circle
+	 * @param centerY center Y position of the circle
+	 * @param radius  radius of the circle, in pixel
+	 * @param c       the color to fill the circle with
 	 */
 	public void drawCircle(float centerX, float centerY, float radius, Color c) {
 		shapeRenderer.setColor(c);
@@ -477,30 +475,32 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws an empty circle
+	 * Draw an empty (non filled) circle.
 	 *
-	 * @param centerX Center x position of the circle to draw
-	 * @param centerY Center y position of the circle to draw
-	 * @param radius  The radius of the circle
+	 * @param centerX center X position of the circle
+	 * @param centerY center Y position of the circle
+	 * @param radius  radius of the circle, in pixel
 	 * @see #drawCircle(float, float, float, Color)
 	 */
 	public void drawCircle(float centerX, float centerY, float radius) {
-		checkmode(t_rendering_mode.SHAPE_LINE);
+		checkMode(RenderingMode.SHAPE_LINE);
 		shapeRenderer.circle(centerX, centerY, radius);
 	}
 
 	/**
-	 * Draws an anti-aliased circle (with nice border without jaggies). However,
-	 * the performance for drawing such circles is still pretty slow. You should
+	 * Draw an anti-aliased circle (with nice border without jaggies).
+	 * <p />
+	 * The performance for drawing such circles is still pretty slow. You should
 	 * avoid this method when you have many circles to draw.
+	 * <p/>
+	 * The {@link #currentColor} is not modified.
 	 *
-	 * @param centerX Center x position of the circle to draw
-	 * @param centerY Center y position of the circle to draw
-	 * @param radius  The radius of the circle
-	 * @param c       The {@link Color} to use
+	 * @param centerX center X position of the circle
+	 * @param centerY center Y position of the circle
+	 * @param radius  radius of the circle, in pixel
+	 * @param c       the color to fill the circle with
 	 */
-	public void drawAntiAliasedCircle(float centerX, float centerY,
-									  float radius, Color c) {
+	public void drawAntiAliasedCircle(float centerX, float centerY, float radius, Color c) {
 		circleRenderer.setColor(new Vector3(c.r, c.g, c.b));
 		circleRenderer.setPosition(new Vector2(centerX, centerY));
 		circleRenderer.setRadius(radius);
@@ -508,21 +508,21 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a filled circle with a given color. Depending on the size of the
-	 * radius, either a texture is drawn or a "real" circle. This method goes
-	 * fast.
+	 * Draw a filled circle with a custom color.
+	 * <p/>
+	 * Depending on the circle radius, either a texture is drawn or a "real" circle.
+	 * This method is fast.
 	 *
-	 * @param centerX Center x position of the circle to draw
-	 * @param centerY Center y position of the circle to draw
-	 * @param radius  The radius of the circle
-	 * @param c       The {@link Color} to use
+	 * @param centerX center X position of the circle
+	 * @param centerY center Y position of the circle
+	 * @param radius  radius of the circle, in pixel
+	 * @param c       the color to fill the circle with
 	 */
-	public void drawFilledCircle(float centerX, float centerY, float radius,
-								 Color c) {
+	public void drawFilledCircle(float centerX, float centerY, float radius, Color c) {
 		// TODO Do this with a shader instead of formulas or textures !!
 		// Draw big circles with mathematical formulas
 		if (radius > 100) {
-			checkmode(t_rendering_mode.SHAPE_FILLED);
+			checkMode(RenderingMode.SHAPE_FILLED);
 			shapeRenderer.setColor(c);
 			shapeRenderer.identity();
 			shapeRenderer.circle(centerX, centerY, radius);
@@ -530,7 +530,7 @@ public class GdxGraphics implements Disposable {
 		} else {
 			// Draw smaller circles with an image, this goes faster
 			Color old = spriteBatch.getColor();
-			checkmode(t_rendering_mode.SPRITE);
+			checkMode(RenderingMode.SPRITE);
 			spriteBatch.setColor(c);
 			spriteBatch.draw(circleTex, centerX - 64, centerY - 64, 64, 64,
 					128, 128, radius / 64, radius / 64, 0, 0, 0, 128, 128,
@@ -540,20 +540,21 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a filled circle with a border. However, this does not work really
-	 * well as of now. This should be improved in a future version of the
-	 * libary.
+	 * Draw a filled circle with a border.
+	 * <p/>
+	 * This does not work really well as of now.
+	 * This should be improved in a future version of the library.
 	 *
-	 * @param centerX Center x position of the circle to draw
-	 * @param centerY Center y position of the circle to draw
-	 * @param radius  The radius of the circle to be drawn. Note that the actual
+	 * @param centerX center X position of the circle
+	 * @param centerY center Y position of the circle
+	 * @param radius  radius of the circle to be drawn. Note that the actual
 	 *                circle has a radius which is 3 pixels larger
-	 * @param inner   The inner {@link Color} (used for inside the circle)s
-	 * @param outer   The outer {@link Color} (used for the border)
+	 * @param inner   inner {@link Color} (used inside the circle)
+	 * @param outer   outer {@link Color} (used for the border)
 	 */
 	public void drawFilledBorderedCircle(float centerX, float centerY,
 										 float radius, Color inner, Color outer) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		// This is not really beautiful but it works more or less
 		// TODO Improve this
 		drawFilledCircle(centerX, centerY, radius + 3, outer);
@@ -561,29 +562,28 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a text at a specified position.
+	 * Draw a text at a specified position.
 	 * <p/>
 	 * The default font type and font size is used and the text is left aligned.
 	 * The text position reference is the top left corner.
 	 *
-	 * @param posX Left position of the text, in pixels
-	 * @param posY Top position of the text, in pixels
-	 * @param str  The text to display on the screen
+	 * @param posX left position of the text
+	 * @param posY top position of the text
+	 * @param str  the text to display on the screen
 	 * @see {@link #drawString(float, float, String, BitmapFont, int)}
-	 * for more options
 	 */
 	public void drawString(float posX, float posY, String str) {
 		drawString(posX, posY, str, font);
 	}
 
 	/**
-	 * Draws a text with a specific font at a specified position. Default alignement is left.
+	 * Draw a text with a specific font at a specified position.
 	 * <p/>
-	 * The text position reference is the top left edge.
+	 * The text position reference is the top left edge. By default, the text is left aligned.
 	 *
 	 * @param posX left position of the text
 	 * @param posY Y top position of the text
-	 * @param str  the text to display
+	 * @param str  the text to display on the screen
 	 * @param f    the custom font to use
 	 */
 	public void drawString(float posX, float posY, String str, BitmapFont f) {
@@ -591,34 +591,32 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a text at a specified position. Can be left, right or center
-	 * aligned.
+	 * Draw a text at a specified position.
 	 * <p/>
-	 * The text position reference is the top left edge.
+	 * The text position reference is the top left edge. Can be left, right or center aligned.
 	 *
-	 * @param posX  left, right or center position of the text
-	 * @param posY  Y top position of the text
-	 * @param str   the text to display
-	 * @param align left, center or right align
+	 * @param posX left, right or center position of the text
+	 * @param posY Y top position of the text
+	 * @param str  the text to display on the screen
+	 * @param align left, center or right aligned
 	 */
 	public void drawString(float posX, float posY, String str, int align) {
 		drawString(posX, posY, str, font, align);
 	}
 
 	/**
-	 * Draws a text with a specific font at a specified position. Can be left,
-	 * right or center aligned.
+	 * Draw a text with a specific font at a specified position.
 	 * <p/>
-	 * The text position reference is the top left edge.
+	 * The text position reference is the top left edge. Can be left, right or center aligned.
 	 *
 	 * @param posX  left, right or center position of the text
-	 * @param posY  Y top position of the text
-	 * @param str   the text to display
+	 * @param posY Y top position of the text
+	 * @param str  the text to display on the screen
 	 * @param f     the custom font to use
-	 * @param align left, center or right align
+	 * @param align left, center or right aligned
 	 */
 	public void drawString(float posX, float posY, String str, BitmapFont f, int align) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		final float w = f.getScaleX();
 
 		// Draw the string (reference is the top left edge)
@@ -626,11 +624,11 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a text in the middle of the screen.
+	 * Draw a text in the middle of the screen.
 	 * <p/>
 	 * The default font type and font size is used.
 	 *
-	 * @param posY Y top position of the text
+	 * @param posY centered Y position of the text
 	 * @param str  the text to display
 	 */
 	public void drawStringCentered(float posY, String str) {
@@ -638,22 +636,22 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a text in the middle of the screen with a specific font.
+	 * Draw a text in the middle of the screen with a specific font.
 	 *
 	 * @param posY centered Y position of the text
 	 * @param str  the text to display
-	 * @param f    the custom {@link BitmapFont} to use
+	 * @param f    the custom font to use
 	 */
 	public void drawStringCentered(float posY, String str, BitmapFont f) {
 		drawString(getScreenWidth() / 2.0f, posY, str, f, Align.center);
 	}
 
 	/**
-	 * Draws an image in the background that will not move with the camera.
+	 * Draw an image in the background that will not move with the camera.
 	 *
-	 * @param t The {@link BitmapImage} image to draw
-	 * @param i x coordinate in the screen space
-	 * @param j y coordinate in the screen space
+	 * @param t the image to draw
+	 * @param i X coordinate in the screen space
+	 * @param j Y coordinate in the screen space
 	 */
 	public void drawBackground(BitmapImage t, float i, float j) {
 		drawBackground(t.getImage(), i, j);
@@ -662,13 +660,13 @@ public class GdxGraphics implements Disposable {
 	/**
 	 * Draws a texture in background that will not move with the camera.
 	 *
-	 * @param t A {@link Texture}
-	 * @param i x coordinate of the center of the texture, in the screen space
-	 * @param j y coordinate of the center of the texture, in the screen space
+	 * @param t the texture to draw
+	 * @param i X coordinate of the center of the texture, in the screen space
+	 * @param j Y coordinate of the center of the texture, in the screen space
 	 */
 	public void drawBackground(Texture t, float i, float j) {
-		checkmode(t_rendering_mode.SPRITE);
-		spriteBatch.setProjectionMatrix(fixedcamera.combined);
+		checkMode(RenderingMode.SPRITE);
+		spriteBatch.setProjectionMatrix(fixedCamera.combined);
 		spriteBatch.disableBlending();
 		spriteBatch.draw(t, i, j);
 		spriteBatch.enableBlending();
@@ -676,26 +674,26 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a picture at position ({@code posX, posY}) using a
-	 * {@link BitmapImage}
+	 * Draw a picture at a specific position.
 	 *
-	 * @param posX
-	 * @param posY
-	 * @param bitmap
+	 * @param posX X coordinate in the screen space
+	 * @param posY Y coordinate in the screen space
+	 * @param bitmap the image to draw
 	 */
 	public void drawPicture(float posX, float posY, BitmapImage bitmap) {
 		drawTransformedPicture(posX, posY, 0, 1, bitmap);
 	}
 
 	/**
-	 * Draws a picture at position ({@code posX, posY}). Center of rotation is
-	 * located in the middle of the image.
+	 * Draws a picture at a specific position with a scale and an angle.
+	 * <p/>
+	 * The center of rotation is located in the middle of the image.
 	 *
-	 * @param posX
-	 * @param posY
-	 * @param angle
-	 * @param scale
-	 * @param bitmap
+	 * @param posX X coordinate in the screen space
+	 * @param posY Y coordinate in the screen space
+	 * @param angle the rotation angle, in degree
+	 * @param scale scale of the image to draw ({@code 1} is not scaled)
+	 * @param bitmap the image to draw
 	 */
 	public void drawTransformedPicture(float posX, float posY, float angle,
 									   float scale, BitmapImage bitmap) {
@@ -704,42 +702,37 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a picture at position ({@code posX, posY}) with a fixed width and
-	 * height (not the one of the {@link BitmapImage} itself).
+	 * Draw a stretched picture at a specific position.
 	 *
-	 * @param posX   The x position at which we want to display the image
-	 * @param posY   The y position at which we want to display the image
-	 * @param angle  The image can be rotated by this angle (in degrees)
-	 * @param width  The width of the resulting image (which will be scaled for
-	 *               display)
-	 * @param height The height of the resulting image
-	 * @param bitmap The {@link BitmapImage} to use
+	 * @param posX X coordinate in the screen space
+	 * @param posY Y coordinate in the screen space
+	 * @param angle the rotation angle, in degree
+	 * @param width  the width of the resulting image (which will be scaled for display)
+	 * @param height the height of the resulting image
+	 * @param bitmap the image to draw
 	 */
 	public void drawTransformedPicture(float posX, float posY, float angle,
 									   float width, float height, BitmapImage bitmap) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(bitmap.getRegion(), posX - width, posY
 						- height, width, height, width * 2, height * 2, 1.0f, 1.0f,
 				angle);
 	}
 
 	/**
-	 * Draws a picture at position ({@code posX, posY}) with a selectable center
-	 * of rotation which is located at position offset by (
-	 * {@code centerX, centerY}).
+	 * Draw a picture at a specific position with a custom center of rotation.
 	 *
-	 * @param posX    The x position at which we want to display the image
-	 * @param posY    The y position at which we want to display the image
-	 * @param centerX The x position of the rotation center
-	 * @param centerY The y position of the rotation center
-	 * @param angle   The angle of rotation of the displayed image, in degrees
-	 * @param scale   The scale factor of the image. {@code 1.0} is the default
-	 *                value
-	 * @param bitmap  The {@link BitmapImage} to use
+	 * @param posX X coordinate in the screen space
+	 * @param posY Y coordinate in the screen space
+	 * @param centerX X position of the rotation center
+	 * @param centerY Y position of the rotation center
+	 * @param angle the rotation angle, in degree
+	 * @param scale scale of the image to draw ({@code 1} is not scaled)
+	 * @param bitmap the image to draw
 	 */
 	public void drawTransformedPicture(float posX, float posY, float centerX,
 									   float centerY, float angle, float scale, BitmapImage bitmap) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(bitmap.getRegion(), posX
 						- bitmap.getRegion().getRegionWidth() / 2, posY
 						- bitmap.getRegion().getRegionHeight() / 2, centerX, centerY,
@@ -749,52 +742,41 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a picture at position {@code pos} with a selectable alpha
-	 * (transparency). See
-	 * {@link #drawAlphaPicture(float, float, float, float, float, float, float, BitmapImage)}
+	 * Draw a picture at a specific position with transparency (alpha).
 	 *
-	 * @param pos   The {@link Vector2} position at which we want to display the
-	 *              image
-	 * @param alpha The alpha value to use. 0.0 is completely transparent, 1.0 is
-	 *              opaque
-	 * @param img   The {@link BitmapImage} to use
+	 * @param pos   the {@link Vector2} position to draw the image
+	 * @param alpha transparency value (0.0 is transparent, 1.0 is opaque)
+	 * @param img   the image to draw
 	 */
 	public void drawAlphaPicture(Vector2 pos, float alpha, BitmapImage img) {
 		drawAlphaPicture(pos.x, pos.y, alpha, img);
 	}
 
-	public void drawAlphaPicture(float posX, float posY, float scale,
-								 float alpha, BitmapImage img) {
-		drawAlphaPicture(posX, posY, img.getImage().getWidth() / 2, img
-				.getImage().getHeight() / 2, 0, 1.0f, alpha, img);
-	}
-
 	/**
-	 * @param posX
-	 * @param posY
-	 * @param alpha
-	 * @param img
+	 * Draw a picture at a specific position with transparency (alpha).
+	 *
+	 * @param posX X coordinate in the screen space
+	 * @param posY Y coordinate in the screen space
+	 * @param alpha transparency value (0.0 is transparent, 1.0 is opaque)
+	 * @param img   the image to draw
 	 * @see #drawAlphaPicture(Vector2, float, BitmapImage)
 	 */
-	public void drawAlphaPicture(float posX, float posY, float alpha,
-								 BitmapImage img) {
-		drawAlphaPicture(posX, posY, img.getImage().getWidth() / 2, img
-				.getImage().getHeight() / 2, 0, 1.0f, alpha, img);
+	public void drawAlphaPicture(float posX, float posY, float alpha, BitmapImage img) {
+		drawAlphaPicture(posX, posY, 0, 1.0f, alpha, img);
 	}
 
 	/**
-	 * @param posX
-	 * @param posY
-	 * @param centerX
-	 * @param centerY
-	 * @param angle
-	 * @param scale
-	 * @param alpha
-	 * @param img
+	 * Draw a picture at a specific position with transparency (alpha).
+	 *
+	 * @param posX X coordinate in the screen space
+	 * @param posY Y coordinate in the screen space
+	 * @param angle the rotation angle, in degree
+	 * @param scale scale of the image to draw ({@code 1} is not scaled)
+	 * @param alpha transparency value (0.0 is transparent, 1.0 is opaque)
+	 * @param img   the image to draw
 	 * @see GdxGraphics#drawAlphaPicture(Vector2, float, BitmapImage)
 	 */
-	public void drawAlphaPicture(float posX, float posY, float centerX,
-								 float centerY, float angle, float scale, float alpha,
+	public void drawAlphaPicture(float posX, float posY, float angle, float scale, float alpha,
 								 BitmapImage img) {
 		Color old = spriteBatch.getColor();
 		spriteBatch.setColor(1.0f, 1.0f, 1.0f, alpha);
@@ -803,26 +785,26 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws a {@link Polygon} on the screen
+	 * Draw an empty (not filled) {@link Polygon}.
 	 *
-	 * @param p The {@link Polygon} to draw
+	 * @param p the polygon to draw
 	 */
 	public void drawPolygon(Polygon p) {
-		checkmode(t_rendering_mode.SHAPE_LINE);
+		checkMode(RenderingMode.SHAPE_LINE);
 		shapeRenderer.identity();
 		shapeRenderer.polygon(p.getVertices());
 	}
 
 	/**
-	 * Draws a filled {@link Polygon} on the screen
+	 * Draw a filled {@link Polygon}.
 	 *
-	 * @param polygon The {@link Polygon} to draw
-	 * @param c       The {@link Color} to use
+	 * @param p the polygon to draw
+	 * @param c the color to fill the polygon with
 	 */
-	public void drawFilledPolygon(Polygon polygon, Color c) {
-		float[] vertices = polygon.getEarClippedVertices();
+	public void drawFilledPolygon(Polygon p, Color c) {
+		float[] vertices = p.getEarClippedVertices();
 
-		checkmode(t_rendering_mode.SHAPE_FILLED);
+		checkMode(RenderingMode.SHAPE_FILLED);
 		shapeRenderer.setColor(c);
 		shapeRenderer.identity();
 
@@ -836,7 +818,8 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * @return The current {@link OrthographicCamera}
+	 * Get the current camera.
+	 * @return the current {@link OrthographicCamera}
 	 */
 	public OrthographicCamera getCamera() {
 		return camera;
@@ -847,10 +830,10 @@ public class GdxGraphics implements Disposable {
 	 ****************************************************/
 
 	/**
-	 * Move the camera to a fixed position
+	 * Move the camera to a fixed position.
 	 *
-	 * @param x The new x position of the camera
-	 * @param y The new y position of the camera
+	 * @param x X position of the camera
+	 * @param y Y position of the camera
 	 */
 	public void moveCamera(float x, float y) {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -864,11 +847,12 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Point the camera to the center of interest limited by the game size
-	 * @param interest_x
-	 * @param interest_y
-	 * @param world_width
-	 * @param world_height
+	 * Point the camera to the center of interest limited by the game size.
+	 *
+	 * @param interest_x X position of the center of interest
+	 * @param interest_y Y position of the center of interest
+	 * @param world_width max width of the game
+	 * @param world_height max height of the game
 	 */
 	public void moveCamera(float interest_x, float interest_y, float world_width, float world_height) {
 		Vector2 camera_min = new Vector2(0,0);
@@ -889,7 +873,7 @@ public class GdxGraphics implements Disposable {
 
 
 	/**
-	 * Resets the camera at its original location, in the center of the screen
+	 * Resets the camera at its original location, in the center of the screen.
 	 */
 	public void resetCamera() {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -897,10 +881,10 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Displace the camera by a value
+	 * Translate the camera by a value on the X and Y axes.
 	 *
-	 * @param dx Displacement along the x axis, can be positive or negative
-	 * @param dy Displacement along the y axis, can be positive or negative
+	 * @param dx displacement along the x axis, can be positive or negative
+	 * @param dy displacement along the y axis, can be positive or negative
 	 */
 	public void scroll(float dx, float dy) {
 		camera.translate(dx, dy);
@@ -908,9 +892,9 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Zooms in and out the camera, 1 is the default zoom-level
+	 * Zooms in and out the camera.
 	 *
-	 * @param factor The new zoom factor
+	 * @param factor zoom factor (1 is the default zoom-level)
 	 */
 	public void zoom(float factor) {
 		camera.zoom = factor;
@@ -923,20 +907,20 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draws the currently assigned shader
+	 * Draw the current assigned shader.
 	 */
 	public void drawShader() {
 		drawShader(getScreenWidth() / 2, getScreenHeight() / 2, 0f);
 	}
 
 	/****************************************************
-	 * Shaders stuff
+	 * Shader stuff
 	 ****************************************************/
 
 	/**
-	 * Draws the currently assigned shader
+	 * Draw the current assigned shader.
 	 *
-	 * @param shaderTime The current time that is passed to the fragment shader
+	 * @param shaderTime the current time that is passed to the fragment shader
 	 */
 	public void drawShader(float shaderTime) {
 		drawShader(getScreenWidth() / 2, getScreenHeight() / 2, shaderTime);
@@ -946,16 +930,16 @@ public class GdxGraphics implements Disposable {
 	 * Request shader rendering that passes an uniform value with the current
 	 * rendering location.
 	 *
-	 * @param posX       The value passed to the shader, might be discarded
-	 * @param posY       The value passed to the shader, might be discarded
-	 * @param shaderTime The value passed to the shader, might be discarded
+	 * @param posX       value passed to the shader, might be discarded
+	 * @param posY       value passed to the shader, might be discarded
+	 * @param shaderTime value passed to the shader, might be discarded
 	 */
 	public void drawShader(int posX, int posY, float shaderTime) {
 		if (getShaderRenderer() != null)
 			getShaderRenderer().render(posX, posY, shaderTime);
 		else {
 			try {
-				new Exception("Shader renderer not set, aborting.");
+				throw new Exception("Shader renderer not set, aborting.");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -964,23 +948,23 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Sets a shader that will be drawable
+	 * Set a shader to be drawn.
 	 *
-	 * @param s The path of the shader file
+	 * @param s the path of the shader file
 	 */
 	public void setShader(String s) {
 		setShader(s, getScreenWidth(), getScreenHeight());
 	}
 
 	/**
-	 * Sets a shader that will be drawn
+	 * Set a shader to be drawn with a specific size.
 	 *
-	 * @param s      The path of the shader
-	 * @param height The height of the texture to draw the shader on
-	 * @param width  The width of the texture to draw the shader on
+	 * @param s the path of the shader file
+	 * @param height height of the texture to draw the shader on
+	 * @param width  width of the texture to draw the shader on
 	 */
 	public void setShader(String s, int width, int height) {
-		// TODO Allowing multiple shaders at once would be nice
+		// TODO Allowing multiple shader at once would be nice
 		// Dispose of the allocated resources
 		if (getShaderRenderer() != null) {
 			getShaderRenderer().dispose();
@@ -989,269 +973,175 @@ public class GdxGraphics implements Disposable {
 		setShaderRenderer(new ShaderRenderer(s, width, height));
 	}
 
+	/**
+	 * Get the shader renderer.
+	 * @return the shader renderer
+	 */
 	public ShaderRenderer getShaderRenderer() {
 		return shaderRenderer;
 	}
 
+	/**
+	 * Set a custom shader renderer.
+	 * @param shaderRenderer the shader renderer
+	 */
 	public void setShaderRenderer(ShaderRenderer shaderRenderer) {
 		this.shaderRenderer = shaderRenderer;
 	}
 
 	/**
-	 * Set blending function on the spriteBatch
-	 * 
-	 * @param srcFunc
-	 * @param dstFunc
-	 * 
-	 * @see resetBlend
+	 * Set blending function on the SpriteBatch.
+	 *
+	 * @param srcFunc source blending function
+	 * @param dstFunc destination blending function
+	 *
+	 * @see #resetBlend()
 	 */
 	public void setBlendFunction(int srcFunc, int dstFunc) {
 		spriteBatch.setBlendFunction(srcFunc, dstFunc);
 	}
 
 	/**
-	 * Restore default blending function on the spriteBatch
+	 * Restore the default blending function on the SpriteBatch.
 	 */
 	public void resetBlend() {
 		setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 	}
-	
+
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param originX
-	 * @param originY
-	 * @param width
-	 * @param height
-	 * @param scaleX
-	 * @param scaleY
-	 * @param rotation
-	 * @param srcX
-	 * @param srcY
-	 * @param srcWidth
-	 * @param srcHeight
-	 * @param flipX
-	 * @param flipY
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(Texture texture, float x, float y, float originX,
 			float originY, float width, float height, float scaleX,
 			float scaleY, float rotation, int srcX, int srcY, int srcWidth,
 			int srcHeight, boolean flipX, boolean flipY) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y, originX, originY, width, height,
 				scaleX, scaleY, rotation, srcX, srcY, srcWidth, srcHeight,
 				flipX, flipY);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param srcX
-	 * @param srcY
-	 * @param srcWidth
-	 * @param srcHeight
-	 * @param flipX
-	 * @param flipY
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(Texture texture, float x, float y, float width,
 			float height, int srcX, int srcY, int srcWidth, int srcHeight,
 			boolean flipX, boolean flipY) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y, width, height, srcX, srcY, srcWidth,
 				srcHeight, flipX, flipY);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param srcX
-	 * @param srcY
-	 * @param srcWidth
-	 * @param srcHeight
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(Texture texture, float x, float y, int srcX, int srcY,
 			int srcWidth, int srcHeight) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y, srcX, srcY, srcWidth, srcHeight);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param u
-	 * @param v
-	 * @param u2
-	 * @param v2
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(Texture texture, float x, float y, float width,
 			float height, float u, float v, float u2, float v2) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y, width, height, u, v, u2, v2);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(Texture texture, float x, float y) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(Texture texture, float x, float y, float width,
 			float height) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y, width, height);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param texture
-	 * @param spriteVertices
-	 * @param offset
-	 * @param count
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(Texture texture, float[] spriteVertices, int offset,
 			int count) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, spriteVertices, offset, count);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param region
-	 * @param x
-	 * @param y
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(TextureRegion region, float x, float y) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(region, x, y);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param region
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(TextureRegion region, float x, float y, float width,
 			float height) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(region, x, y, width, height);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param region
-	 * @param x
-	 * @param y
-	 * @param originX
-	 * @param originY
-	 * @param width
-	 * @param height
-	 * @param scaleX
-	 * @param scaleY
-	 * @param rotation
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(TextureRegion region, float x, float y, float originX,
 			float originY, float width, float height, float scaleX,
 			float scaleY, float rotation) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(region, x, y, originX, originY, width, height, scaleX,
 				scaleY, rotation);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param region
-	 * @param x
-	 * @param y
-	 * @param originX
-	 * @param originY
-	 * @param width
-	 * @param height
-	 * @param scaleX
-	 * @param scaleY
-	 * @param rotation
-	 * @param clockwise
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(TextureRegion region, float x, float y, float originX,
 			float originY, float width, float height, float scaleX,
 			float scaleY, float rotation, boolean clockwise) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(region, x, y, originX, originY, width, height, scaleX,
 				scaleY, rotation, clockwise);
 	}
 
 	/**
-	 * Draw on the spriteBatch
-	 * 
-	 * @param region
-	 * @param width
-	 * @param height
-	 * @param transform
+	 * Draw on the SpriteBatch.
 	 */
 	public void draw(TextureRegion region, float width, float height,
 			Affine2 transform) {
-		checkmode(t_rendering_mode.SPRITE);
+		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(region, width, height, transform);
 	}
-	
-	/*
-	 * For optimizing the current rendering mode and minimizing the number of
-	 * calls to begin() and end() in spriteBatch
-	 */
-	private enum t_rendering_mode {
+
+	// For optimizing the current rendering mode and minimizing the number of
+	// calls to begin() and end() in SpriteBatch.
+	private enum RenderingMode {
 		NONE, SHAPE_FILLED, SHAPE_LINE, SHAPE_POINT, SPRITE
 	}
 
 	/**
-	 * Get the current color of the spriteBatch
-	 * 
-	 * @return the color
+	 * Get the current color of the SpriteBatch.
+	 *
+	 * @return the current color of the SpriteBatch
 	 */
 	public Color sbGetColor() {
 		return spriteBatch.getColor();
 	}
 
 	/**
-	 * Set the current color of the spriteBatch
-	 * 
+	 * Set the current color of the SpriteBatch.
+	 *
 	 * @param r red
 	 * @param g green
 	 * @param b blue
@@ -1260,10 +1150,10 @@ public class GdxGraphics implements Disposable {
 	public void sbSetColor(float r, float g, float b, float a) {
 		spriteBatch.setColor(r, g, b, a);
 	}
-	
+
 	/**
-	 * Set the current color of the spriteBatch
-	 * 
+	 * Set the current color of the SpriteBatch.
+	 *
 	 * @param col the color
 	 */
 	public void sbSetColor(Color col) {
@@ -1271,27 +1161,27 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Flush the current spriteBatch
+	 * Flush the current SpriteBatch.
 	 */
 	public void sbFlush() {
 		spriteBatch.flush();
 	}
 
 	/**
-	 * Begin custom rendering
-	 *
+	 * Begin custom rendering.
+	 * <p/>
 	 * Must be called before a custom renderer.
 	 */
 	public void beginCustomRendering() {
-		checkmode(t_rendering_mode.NONE);
+		checkMode(RenderingMode.NONE);
 	}
 
 	/**
-	 * Begin custom rendering
-	 *
+	 * Begin custom rendering.
+	 * <p/>
 	 * Must be called after a custom renderer.
 	 */
 	public void endCustomRendering() {
-		// Do nothing at this time, but can be usefull later
+		// Do nothing at this time, but can be useful later...
 	}
 }

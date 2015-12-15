@@ -32,10 +32,10 @@
 
     <resources>
       <resource>
-        <directory>src/main/resources</directory>
+        <directory>src/main/resources/lib</directory>
         <filtering>false</filtering>
         <excludes>
-          <exclude>archetype-resources/pom.xml</exclude>
+          <exclude>**/*.md</exclude>
         </excludes>
       </resource>
     </resources>
@@ -64,6 +64,7 @@
     </dependency>
 
     <!-- Natives -->
+    <!-- FIXME: natives desktop lib should not be included in this project -->
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-platform</artifactId>
