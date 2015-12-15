@@ -1,12 +1,11 @@
-package hevs.gdx2d.lib.perf_tests;
+package ch.hevs.gdx2d.perf_tests;
 
-import java.util.Random;
-
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.PortableApplication;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+import java.util.Random;
 
 /**
  * @author Pierre-André Mudry (mui)
@@ -14,24 +13,26 @@ import hevs.gdx2d.lib.PortableApplication;
  */
 public class Benchmarker extends PortableApplication {
 
+	// FIXME: should not be included in the lib project. Requires native to be ran.
+
 	private static int TIME_LOOP_MS = 2000;
 	private static int START_N = 100;
-	
+
 	class FastRandom
 	{
 		private Random r;
 		private float cache[];
 		private int i;
-		FastRandom(long Seed, int cache_size)
+		FastRandom(long seed, int cache_size)
 		{
-			r = new Random();
+			r = new Random(seed);
 			cache = new float[cache_size];
-			
+
 			for (int i = 0 ; i < cache.length;i++)
 			{
 				cache[i] = r.nextFloat();
 			}
-			
+
 		}
 		public float nextFloat() {
 			i = (i + 1) % cache.length;
@@ -40,7 +41,7 @@ public class Benchmarker extends PortableApplication {
 	}
 
 	private FastRandom r = new FastRandom(0, 100000);
-	
+
 	abstract class Tester {
 		Tester(String n) {
 			name = n;
@@ -62,7 +63,7 @@ public class Benchmarker extends PortableApplication {
 				g.clear();
 				g.setColor(new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), r
 						.nextFloat()));
-	
+
 				for (;;) {
 					for (int y = 0; y < h; y++) {
 						for (int x = 0; x < w; x++) {
@@ -76,7 +77,7 @@ public class Benchmarker extends PortableApplication {
 				}
 			}
 		},
-			
+
 		new Tester("drawLine") {
 			@Override
 			void draw(GdxGraphics g, long n) {
@@ -86,7 +87,7 @@ public class Benchmarker extends PortableApplication {
 				g.clear();
 				g.setColor(new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), r
 						.nextFloat()));
-	
+
 				for (;;) {
 					g.drawLine(w*r.nextFloat(), h*r.nextFloat(), w*r.nextFloat(), h*r.nextFloat());
 					i++;
@@ -96,7 +97,7 @@ public class Benchmarker extends PortableApplication {
 				}
 			}
 		},
-		
+
 		new Tester("drawRectangle") {
 			@Override
 			void draw(GdxGraphics g, long n) {
@@ -106,7 +107,7 @@ public class Benchmarker extends PortableApplication {
 				g.clear();
 				g.setColor(new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), r
 						.nextFloat()));
-	
+
 				for (;;) {
 					g.drawRectangle(w*r.nextFloat(), h*r.nextFloat(), w*r.nextFloat(), h*r.nextFloat(), 360*r.nextFloat());
 					i++;
@@ -116,7 +117,7 @@ public class Benchmarker extends PortableApplication {
 				}
 			}
 		},
-		
+
 		new Tester("drawFilledRectangle") {
 			@Override
 			void draw(GdxGraphics g, long n) {
@@ -126,7 +127,7 @@ public class Benchmarker extends PortableApplication {
 				g.clear();
 				g.setColor(new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), r
 						.nextFloat()));
-	
+
 				for (;;) {
 					g.drawFilledRectangle(w*r.nextFloat(), h*r.nextFloat(), w*r.nextFloat(), h*r.nextFloat(), 360*r.nextFloat());
 					i++;
@@ -136,7 +137,7 @@ public class Benchmarker extends PortableApplication {
 				}
 			}
 		},
-		
+
 		new Tester("drawCircle") {
 			@Override
 			void draw(GdxGraphics g, long n) {
@@ -146,7 +147,7 @@ public class Benchmarker extends PortableApplication {
 				g.clear();
 				g.setColor(new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), r
 						.nextFloat()));
-	
+
 				for (;;) {
 					g.drawCircle(w*r.nextFloat(), h*r.nextFloat(), w*r.nextFloat());
 					i++;
@@ -165,7 +166,7 @@ public class Benchmarker extends PortableApplication {
 				long i = 0;
 				g.clear();
 				Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), r.nextFloat());
-	
+
 				for (;;) {
 					g.drawAntiAliasedCircle(w*r.nextFloat(), h*r.nextFloat(), w*r.nextFloat(), c);
 					i++;
@@ -175,7 +176,7 @@ public class Benchmarker extends PortableApplication {
 				}
 			}
 		},
-		
+
 		new Tester("drawFilledCircle") {
 			@Override
 			void draw(GdxGraphics g, long n) {
@@ -184,7 +185,7 @@ public class Benchmarker extends PortableApplication {
 				long i = 0;
 				g.clear();
 				Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), r.nextFloat());
-	
+
 				for (;;) {
 					g.drawFilledCircle(w*r.nextFloat(), h*r.nextFloat(), w*r.nextFloat(), c);
 					i++;
@@ -210,6 +211,8 @@ public class Benchmarker extends PortableApplication {
 		state = -1;
 		start = System.currentTimeMillis();
 		fps = 0;
+
+		setTitle(this.getClass().getSimpleName());
 	}
 
 	@Override
