@@ -18,25 +18,60 @@
   <url>https://hevs-isi.github.io/gdx2d/</url>
 
   <build>
-    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
+          <artifactId>maven-jar-plugin</artifactId>
           <configuration>
-            <testFailureIgnore>true</testFailureIgnore>
+            <archive>
+              <index>true</index>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+              <manifestEntries>
+                <Project-Url>${project.url}</Project-Url>
+                <Libgdx-Version>${libgdx.version}</Libgdx-Version>
+                <Built-By>${project.artifactId}</Built-By>
+              </manifestEntries>
+            </archive>
           </configuration>
         </plugin>
+
+        <plugin>
+          <!-- Fat Jar with libgdx dependencies included -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
-    </pluginManagement>
 
     <resources>
       <resource>
         <directory>src/main/resources/lib</directory>
+        <targetPath>res/lib</targetPath>
         <filtering>false</filtering>
         <excludes>
           <exclude>**/*.md</exclude>
         </excludes>
+      </resource>
+      <resource>
+        <directory>./</directory>
+        <includes>
+          <include>*.md</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>../</directory>
+        <includes>
+          <include>LICENSE</include>
+        </includes>
       </resource>
     </resources>
   </build>
