@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 /**
- * Implements a shader for rendering circles.
+ * An anti-aliased circle shader, based on the circle equation.
  *
  * @author Pierre-André Mudry
  */
@@ -15,11 +15,11 @@ public class CircleShaderRenderer extends ShaderRenderer {
 	// TODO: Use instancing to make this faster?
 
 	public CircleShaderRenderer() {
-		super(Gdx.files.internal("circle_aa.fp"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		super(Gdx.files.internal("res/lib/circle_aa.fp"), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
 	/**
-	 * Renders the shaders
+	 * Render the shader.
 	 */
 	public void render() {
 		// FIXME Should handle resolution changes (notably for Android)
@@ -29,9 +29,11 @@ public class CircleShaderRenderer extends ShaderRenderer {
 	}
 
 	/**
-	 * Sets an uniform pair (key, value) that is passed to the shader
+	 * Set the circle radius.
+	 * <p/>
+	 * Set an uniform pair (key, value) that is passed to the shader.
 	 *
-	 * @param value The value of the variable, float
+	 * @param value the radius of the shader
 	 */
 	public void setRadius(float value) {
 		batch.begin();
@@ -39,6 +41,13 @@ public class CircleShaderRenderer extends ShaderRenderer {
 		batch.end();
 	}
 
+	/**
+	 * Set the circle color.
+	 * <p/>
+	 * Set an uniform pair (key, value) that is passed to the shader.
+	 *
+	 * @param col the circle color (RGB value)
+	 */
 	public void setColor(Vector3 col) {
 		batch.begin();
 			shader.setUniformf("color", col);
@@ -46,7 +55,9 @@ public class CircleShaderRenderer extends ShaderRenderer {
 	}
 
 	/**
-	 * Sets an uniform pair (key, value) that is passed to the shader
+	 * Set the circle position.
+	 * <p/>
+	 * Set an uniform pair (key, value) that is passed to the shader.
 	 */
 	public void setPosition(Vector2 center) {
 		batch.begin();

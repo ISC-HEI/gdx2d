@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Disposable;
 import ch.hevs.gdx2d.lib.utils.Logger;
 
 /**
- * Renders things using a GLSL shader program included in a file.
+ * Render things using a GLSL shader program included in a file.
  *
  * @author Pierre-André Mudry
  * @version 0.5
@@ -22,7 +22,7 @@ import ch.hevs.gdx2d.lib.utils.Logger;
 public class ShaderRenderer implements Disposable {
 
 	// Shader include that is going to be added at the beginning of *every* fragment shader
-	protected final String fragmentShaderInclude = Gdx.files.internal("fragment_include.glsl").readString();
+	protected final String fragmentShaderInclude = Gdx.files.internal("res/lib/fragment_include.glsl").readString();
 	protected ShaderProgram shader;
 	protected Texture tex[] = new Texture[10];
 	protected int textureCount = 0;
@@ -31,6 +31,12 @@ public class ShaderRenderer implements Disposable {
 
 	protected FileHandle vertexShader;
 
+	/**
+	 * Create a shader render from an existing shader file.
+	 * @param shaderFileName the shader file name to renderer
+	 * @param width the shader width
+	 * @param height the shader height
+	 */
 	public ShaderRenderer(String shaderFileName, int width, int height) {
 		this(Gdx.files.internal(shaderFileName), width, height);
 	}
@@ -38,26 +44,25 @@ public class ShaderRenderer implements Disposable {
 	ShaderRenderer(FileHandle handle, int width, int height) {
 		w = width;
 		h = height;
-		vertexShader = Gdx.files.internal("default.vs");
+		vertexShader = Gdx.files.internal("res/lib/default.vs");
 
-		Logger.dbg("Fragment shader " + handle);
-		Logger.dbg("Vertex shader " + vertexShader);
+		Logger.dbg(String.format("Fragment shader '%s' loaded.", handle));
+		Logger.dbg(String.format("Vertex shader '%s' loaded.", vertexShader));
 
 		create(fragmentShaderInclude + handle.readString(), vertexShader.readString());
 
-		String[] att = shader.getAttributes();
-		String[] unif = shader.getUniforms();
-
 		if(Version.isSnapshot) {
-			Logger.dbg("Shader defined uniforms are :");
-			for (String uniform : unif) {
-				Logger.log("\t", uniform + ", " + shader.getAttributeType(uniform));
+			String log = "Shader defined uniforms are :\n";
+			for (String uniform : shader.getUniforms()) {
+				log += "\t" + uniform + " = " + shader.getAttributeType(uniform) + "\n";
 			}
+			Logger.dbg(log);
 
-			Logger.dbg("Shader defined attributes are :");
-			for (String a : att) {
-				Logger.log("\t", a);
+			log = "Shader defined attributes are :\n";
+			for (String a : shader.getAttributes()) {
+				log += String.format("\t%s\n", a);
 			}
+			Logger.dbg(log);
 		}
 
 		shader.begin();
@@ -89,11 +94,11 @@ public class ShaderRenderer implements Disposable {
 	}
 
 	/**
-	 * Renders the shaders
+	 * Render the shader.
 	 *
-	 * @param posX Center, x-position of the texture shader to draw
-	 * @param posY Center, y-position of the texture shader to draw
-	 * @param time The time information to pass to the shader
+	 * @param posX X center position of the texture shader to draw
+	 * @param posY Y center position of the texture shader to draw
+	 * @param time the time information to pass to the shader
 	 */
 	public void render(int posX, int posY, float time) {
 		// FIXME Should handle resolution changes (notably for Android)
@@ -105,11 +110,13 @@ public class ShaderRenderer implements Disposable {
 		batch.end();
 	}
 
+	// FIXME: (mei) the `setUniform` method should use templates
+
 	/**
-	 * Sets an uniform pair (key, value) that is passed to the shader
+	 * Set an uniform pair (key, value) that is passed to the shader.
 	 *
-	 * @param uniform The uniform variable to change
-	 * @param value   The value of the variable, int
+	 * @param uniform the uniform variable to change
+	 * @param value   the value of the variable, int
 	 */
 	public void setUniform(String uniform, int value) {
 		batch.begin();

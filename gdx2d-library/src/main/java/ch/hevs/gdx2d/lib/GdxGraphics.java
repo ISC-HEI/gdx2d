@@ -42,8 +42,8 @@ import ch.hevs.gdx2d.lib.renderers.ShaderRenderer;
  */
 public class GdxGraphics implements Disposable {
 	// For sprite-based logo
-	final protected Texture logoTex = new Texture(Gdx.files.internal("logo_hes.png"));
-	final protected Texture circleTex = new Texture(Gdx.files.internal("circle.png"));
+	final protected Texture logoTex = new Texture(Gdx.files.internal("res/lib/logo_hes.png"));
+	final protected Texture circleTex = new Texture(Gdx.files.internal("res/lib/circle.png"));
 	protected SpriteBatch spriteBatch;
 
 	protected OrthographicCamera camera, fixedCamera; // For camera operations
@@ -69,7 +69,7 @@ public class GdxGraphics implements Disposable {
 		circleRenderer = new CircleShaderRenderer();
 
 		// Generates the fonts images from the TTF file
-		FileHandle robotoF = Gdx.files.internal("RobotoSlab-Regular.ttf");
+		FileHandle robotoF = Gdx.files.internal("res/lib/RobotoSlab-Regular.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(robotoF);
 
 		// Font parameters for the standard font
