@@ -12,8 +12,8 @@
   <description>Gdx2d Top Level.</description>
   <url>https://hevs-isi.github.io/gdx2d/</url>
   <organization>
-    <name>HES-SO Valais-Wallis - Institute of Systems Engineering</name>
-    <url>http://hevs.ch/isi</url>
+    <name>HEVs - Institute of Systems Engineering</name>
+    <url>http://www.hevs.ch/isi</url>
   </organization>
 
   <issueManagement>
@@ -64,6 +64,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.3</version>
           <configuration>
             <source>1.6</source>
             <target>1.6</target>

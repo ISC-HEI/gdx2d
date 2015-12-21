@@ -22,6 +22,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
+          <version>2.6</version>
           <configuration>
             <archive>
               <index>true</index>
@@ -37,10 +38,15 @@
           </configuration>
         </plugin>
 
+        <!--
+          Fat Jar with libgdx dependencies.
+          Library resource are included with all dependencies and Markdown documentation.
+          Source files are available in the source jar file only.
+        -->
         <plugin>
-          <!-- Fat Jar with libgdx dependencies included -->
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-shade-plugin</artifactId>
+          <version>2.4.2</version>
           <executions>
             <execution>
               <phase>package</phase>
@@ -50,7 +56,34 @@
             </execution>
           </executions>
         </plugin>
-      </plugins>
+
+        <!--
+          Create jar with Java source files.
+          Java source and Markdown documents are included.
+          The Library resources and images are not included.
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+            <excludeResources>false</excludeResources>
+            <includes>
+              <include>ch/hevs/gdx2d/**/*.java</include>
+              <include>*.md</include>
+              <include>LICENSE</include>
+            </includes>
+          </configuration>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+    </plugins>
 
     <resources>
       <resource>
