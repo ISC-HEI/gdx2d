@@ -22,7 +22,7 @@ cache:
   directories:
   - $HOME/.m2
 
-# Use to push the javadoc online to the gdx2d website
+# Use to publish the gdx2d API Javadoc to the gdx2d website
 env:
   global:
     secure: Trl21W5O4XR8sTR9JPrYk4Rl/9j3CfbXLvFOWepQ8dcl5r90OeqUtBZvEygxzem1fqBGDHPryC/hSMoimac5YQj9J7PFqi15zQ4JhYNbg8zvpgfGk4tJwmJ+nBzz9TF6lkZQsRGwqpWYaSnv5BlL8fnuIRREe2FbHyCEZEcLeNk=
@@ -31,4 +31,4 @@ before_script:
   - mvn clean package
 
 after_success:
-  - ../.travis/publish-javadoc.sh
+  - ./.travis/publish-javadoc-api.sh
