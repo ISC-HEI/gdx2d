@@ -106,7 +106,8 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public interface <span class="typeNameLabel">TouchInterface</span></pre>
-<div class="block">An interface that applications implement to interact with the user using mouse or touch.<br>
+<div class="block">An interface that applications implement to interact with the user using mouse or touch.
+ <p/>
  Coordinates origin is the lower left corner.</div>
 <dl>
 <dt><span class="simpleTagLabel">Version:</span></dt>
@@ -186,12 +187,14 @@ var activeTableTab = "activeTableTab";
              int&nbsp;y,
              int&nbsp;button)</pre>
 <div class="block">Invoked when the pointer (mouse or touch) is pressed (once).
- The button parameter will be <code>Input.Buttons#LEFT</code> on Android.</div>
+ <p/>
+ Note: on Android, the button parameter will always be <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>x</code> - the screen X coordinate (origin is the lower left corner)</dd>
 <dd><code>y</code> - the screen Y coordinate (origin is the lower left corner)</dd>
-<dd><code>button</code> - <code>Input.Buttons#LEFT</code> or <code>Input.Buttons#RIGHT</code> button clicked</dd>
+<dd><code>button</code> - <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a> or
+               <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#RIGHT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.RIGHT</code></a> button clicked</dd>
 </dl>
 </li>
 </ul>
@@ -221,12 +224,14 @@ var activeTableTab = "activeTableTab";
                int&nbsp;y,
                int&nbsp;button)</pre>
 <div class="block">Invoked when the pointer (mouse or touch) is released.
- The button parameter will be <code>Input.Buttons#LEFT</code> on Android.</div>
+ <p/>
+ Note: on Android, the button parameter will always be <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>x</code> - the screen X coordinate (origin is the lower left corner)</dd>
 <dd><code>y</code> - the screen Y coordinate (origin is the lower left corner)</dd>
-<dd><code>button</code> - <code>Input.Buttons#LEFT</code> or <code>Input.Buttons#RIGHT</code> button clicked</dd>
+<dd><code>button</code> - <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a> or
+               <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#RIGHT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.RIGHT</code></a> button clicked</dd>
 </dl>
 </li>
 </ul>
@@ -237,10 +242,12 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <h4>onScroll</h4>
 <pre>void&nbsp;onScroll(int&nbsp;amount)</pre>
-<div class="block">Invoked when the mouse scroll (wheel) has been moved.</div>
+<div class="block">Invoked when the mouse scroll (wheel) has been moved.
+ <p/>
+ The amount can be positive or negative depending on the direction the wheel was scrolled.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>amount</code> - the scroll amount, -1 or 1 depending on the direction the wheel was scrolled</dd>
+<dd><code>amount</code> - the scroll amount</dd>
 </dl>
 </li>
 </ul>
@@ -313,6 +320,6 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014-2015 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d"> 				    https://github.com/hevs-isi/gdx2d</a></small></p>
+<p class="legalCopy"><small>Copyright &#169; 2014-2015 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">https://github.com/hevs-isi/gdx2d</a></small></p>
 </body>
 </html>

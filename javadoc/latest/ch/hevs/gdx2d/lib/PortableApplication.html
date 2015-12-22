@@ -633,14 +633,16 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
                     int&nbsp;button)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onClick-int-int-int-">TouchInterface</a></code></span></div>
 <div class="block">Invoked when the pointer (mouse or touch) is pressed (once).
- The button parameter will be <code>Input.Buttons#LEFT</code> on Android.</div>
+ <p/>
+ Note: on Android, the button parameter will always be <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a>.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onClick-int-int-int-">onClick</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html" title="interface in ch.hevs.gdx2d.lib.interfaces">TouchInterface</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>x</code> - the screen X coordinate (origin is the lower left corner)</dd>
 <dd><code>y</code> - the screen Y coordinate (origin is the lower left corner)</dd>
-<dd><code>button</code> - <code>Input.Buttons#LEFT</code> or <code>Input.Buttons#RIGHT</code> button clicked</dd>
+<dd><code>button</code> - <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a> or
+               <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#RIGHT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.RIGHT</code></a> button clicked</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onClick-int-int-int-"><code>TouchInterface.onClick(int, int, int)</code></a></dd>
 </dl>
@@ -678,14 +680,16 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
                       int&nbsp;button)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onRelease-int-int-int-">TouchInterface</a></code></span></div>
 <div class="block">Invoked when the pointer (mouse or touch) is released.
- The button parameter will be <code>Input.Buttons#LEFT</code> on Android.</div>
+ <p/>
+ Note: on Android, the button parameter will always be <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a>.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onRelease-int-int-int-">onRelease</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html" title="interface in ch.hevs.gdx2d.lib.interfaces">TouchInterface</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>x</code> - the screen X coordinate (origin is the lower left corner)</dd>
 <dd><code>y</code> - the screen Y coordinate (origin is the lower left corner)</dd>
-<dd><code>button</code> - <code>Input.Buttons#LEFT</code> or <code>Input.Buttons#RIGHT</code> button clicked</dd>
+<dd><code>button</code> - <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a> or
+               <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#RIGHT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.RIGHT</code></a> button clicked</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onRelease-int-int-int-"><code>TouchInterface.onRelease(int, int, int)</code></a></dd>
 </dl>
@@ -699,12 +703,14 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <h4>onScroll</h4>
 <pre>public&nbsp;void&nbsp;onScroll(int&nbsp;amount)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onScroll-int-">TouchInterface</a></code></span></div>
-<div class="block">Invoked when the mouse scroll (wheel) has been moved.</div>
+<div class="block">Invoked when the mouse scroll (wheel) has been moved.
+ <p/>
+ The amount can be positive or negative depending on the direction the wheel was scrolled.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onScroll-int-">onScroll</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html" title="interface in ch.hevs.gdx2d.lib.interfaces">TouchInterface</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>amount</code> - the scroll amount, -1 or 1 depending on the direction the wheel was scrolled</dd>
+<dd><code>amount</code> - the scroll amount</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../ch/hevs/gdx2d/lib/interfaces/TouchInterface.html#onScroll-int-"><code>TouchInterface.onScroll(int)</code></a></dd>
 </dl>
@@ -719,12 +725,13 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <pre>public&nbsp;void&nbsp;onKeyDown(int&nbsp;keycode)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/KeyboardInterface.html#onKeyDown-int-">KeyboardInterface</a></code></span></div>
 <div class="block">Invoked when a key is typed.
- Use <code>Input.Keys</code> to read the key code.</div>
+ <p/>
+ Use <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Keys.html?is-external=true" title="class or interface in com.badlogic.gdx"><code>Input.Keys</code></a> to read the key code.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/KeyboardInterface.html#onKeyDown-int-">onKeyDown</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/KeyboardInterface.html" title="interface in ch.hevs.gdx2d.lib.interfaces">KeyboardInterface</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>keycode</code> - the code key, see <code>Input.Keys</code></dd>
+<dd><code>keycode</code> - the code key, see <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Keys.html?is-external=true" title="class or interface in com.badlogic.gdx"><code>Input.Keys</code></a></dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../ch/hevs/gdx2d/lib/interfaces/KeyboardInterface.html#onKeyDown-int-"><code>KeyboardInterface.onKeyDown(int)</code></a></dd>
 </dl>
@@ -739,12 +746,13 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <pre>public&nbsp;void&nbsp;onKeyUp(int&nbsp;keycode)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/KeyboardInterface.html#onKeyUp-int-">KeyboardInterface</a></code></span></div>
 <div class="block">Invoked when a key is released.
- Use <code>Input.Keys</code> to read the key code.</div>
+ <p/>
+ Use <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Keys.html?is-external=true" title="class or interface in com.badlogic.gdx"><code>Input.Keys</code></a> to read the key code.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/KeyboardInterface.html#onKeyUp-int-">onKeyUp</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/KeyboardInterface.html" title="interface in ch.hevs.gdx2d.lib.interfaces">KeyboardInterface</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>keycode</code> - the code key, see <code>Input.Keys</code></dd>
+<dd><code>keycode</code> - the code key, see <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Keys.html?is-external=true" title="class or interface in com.badlogic.gdx"><code>Input.Keys</code></a></dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../ch/hevs/gdx2d/lib/interfaces/KeyboardInterface.html#onKeyUp-int-"><code>KeyboardInterface.onKeyUp(int)</code></a></dd>
 </dl>
@@ -759,6 +767,7 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <pre>public&nbsp;void&nbsp;onDispose()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GameInterface.html#onDispose--">GameInterface</a></code></span></div>
 <div class="block">Called when the application stops.
+ <p/>
  Tidying up must be done here.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -776,7 +785,9 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <h4>onPause</h4>
 <pre>public&nbsp;void&nbsp;onPause()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GameInterface.html#onPause--">GameInterface</a></code></span></div>
-<div class="block">Invoked when the application is paused. <b>Called only when running on Android.</b></div>
+<div class="block">Invoked when the application is paused.
+ <p/>
+ <b>Called only when running on Android.</b></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GameInterface.html#onPause--">onPause</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GameInterface.html" title="interface in ch.hevs.gdx2d.lib.interfaces">GameInterface</a></code></dd>
@@ -810,7 +821,9 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <h4>onResume</h4>
 <pre>public&nbsp;void&nbsp;onResume()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GameInterface.html#onResume--">GameInterface</a></code></span></div>
-<div class="block">Called when the application is restarted. <b>Called only when running on Android.</b>
+<div class="block">Called when the application is restarted.
+ <p/>
+ <b>Called only when running on Android.</b>
  Initializations and creation of new new objects must be done here.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -830,6 +843,7 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
                    float&nbsp;distance)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GestureInterface.html#onZoom-float-float-">GestureInterface</a></code></span></div>
 <div class="block">Called when the user performs a pinch zoom gesture on Android.
+ <p/>
  The original distance is the distance in pixels when the gesture started.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -854,6 +868,7 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
                   int&nbsp;button)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GestureInterface.html#onTap-float-float-int-int-">GestureInterface</a></code></span></div>
 <div class="block">Invoked for a tap gesture on Android.
+ <p/>
  A tap happens if a touch went down on the screen and was lifted again without moving outside of the tap square.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -862,7 +877,8 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <dd><code>x</code> - the screen X coordinate (origin is the lower left corner)</dd>
 <dd><code>y</code> - the screen Y coordinate (origin is the lower left corner)</dd>
 <dd><code>count</code> - the number of taps</dd>
-<dd><code>button</code> - <code>Input.Buttons#LEFT</code> or <code>Input.Buttons#RIGHT</code> button clicked</dd>
+<dd><code>button</code> - <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a> or
+               <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#RIGHT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.RIGHT</code></a> button clicked</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GestureInterface.html#onTap-float-float-int-int-"><code>GestureInterface.onTap(float, float, int, int)</code></a></dd>
 </dl>
@@ -956,9 +972,10 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GestureInterface.html#onFling-float-float-int-">onFling</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GestureInterface.html" title="interface in ch.hevs.gdx2d.lib.interfaces">GestureInterface</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>velocityX</code> - velocity on x in seconds</dd>
-<dd><code>velocityY</code> - velocity on y in seconds</dd>
-<dd><code>button</code> - <code>Input.Buttons#LEFT</code> or <code>Input.Buttons#RIGHT</code> button clicked</dd>
+<dd><code>velocityX</code> - velocity on the X axis in seconds</dd>
+<dd><code>velocityY</code> - velocity on the Y axis in seconds</dd>
+<dd><code>button</code> - <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#LEFT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.LEFT</code></a> or
+                  <a href="https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/Input.Buttons.html?is-external=true#RIGHT" title="class or interface in com.badlogic.gdx"><code>Input.Buttons.RIGHT</code></a> button clicked</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../ch/hevs/gdx2d/lib/interfaces/GestureInterface.html#onFling-float-float-int-"><code>GestureInterface.onFling(float, float, int)</code></a></dd>
 </dl>
@@ -1067,6 +1084,6 @@ public&nbsp;PortableApplication(boolean&nbsp;onAndroid,
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2014-2015 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d"> 				    https://github.com/hevs-isi/gdx2d</a></small></p>
+<p class="legalCopy"><small>Copyright &#169; 2014-2015 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">https://github.com/hevs-isi/gdx2d</a></small></p>
 </body>
 </html>
