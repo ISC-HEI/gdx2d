@@ -1,8 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <!--
+    Maven build script for the gdx2d project.
+    Top level project. Parent POM referencing sub-modules.
 
-  <!-- Top level project. Parent POM referencing sub-modules. -->
+  	@author Christopher Métrailler (mei@hevs.ch)
+	  @version 1.0
+  -->
   <groupId>ch.hevs.gdx2d</groupId>
   <artifactId>gdx2d-parent</artifactId>
   <packaging>pom</packaging>
@@ -17,14 +22,14 @@
   </organization>
 
   <issueManagement>
-  	<system>GitHub</system>
-  	<url>https://github.com/hevs-isi/gdx2d/issues</url>
+    <system>GitHub</system>
+    <url>https://github.com/hevs-isi/gdx2d/issues</url>
   </issueManagement>
 
   <ciManagement>
-  	<system>Travis CI</system>
-  	<url>https://travis-ci.org/hevs-isi/gdx2d</url>
-  	<notifiers />
+    <system>Travis CI</system>
+    <url>https://travis-ci.org/hevs-isi/gdx2d</url>
+    <notifiers/>
   </ciManagement>
 
   <licenses>
@@ -48,13 +53,25 @@
     <url>git@github.com:hevs-isi/gdx2d.git</url>
   </scm>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <libgdx.version>1.5.6</libgdx.version>
   </properties>
 
   <modules>
-  	<!-- The gdx2d core library as sub-module -->
+    <!-- The gdx2d core library as sub-module -->
     <module>gdx2d-library</module>
   </modules>
 

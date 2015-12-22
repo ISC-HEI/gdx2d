@@ -1,7 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <!--
+    Maven build script for the gdx2d library project.
 
+  	@author Christopher Métrailler (mei@hevs.ch)
+	  @version 1.0
+  -->
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
     <artifactId>gdx2d-parent</artifactId>
@@ -17,96 +22,147 @@
   <description>2D game and graphics framework.</description>
   <url>https://hevs-isi.github.io/gdx2d/</url>
 
+  <profiles>
+    <profile>
+      <id>doclint-java8-disable</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <properties>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
+      </properties>
+    </profile>
+  </profiles>
+
+  <!-- TODO: add a student profile here ? -->
+
   <build>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>2.6</version>
-          <configuration>
-            <archive>
-              <index>true</index>
-              <manifest>
-                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              </manifest>
-              <manifestEntries>
-                <Project-Url>${project.url}</Project-Url>
-                <Libgdx-Version>${libgdx.version}</Libgdx-Version>
-                <Built-By>${project.artifactId}</Built-By>
-              </manifestEntries>
-            </archive>
-          </configuration>
-        </plugin>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+            <manifestEntries>
+              <Project-Url>${project.url}</Project-Url>
+              <Libgdx-Version>${libgdx.version}</Libgdx-Version>
+              <Built-By>${project.artifactId}</Built-By>
+              <Build-Time>${maven.build.timestamp}</Build-Time>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
 
-        <!--
-          Fat Jar with libgdx dependencies.
-          Library resource are included with all dependencies and Markdown documentation.
-          Source files are available in the source jar file only.
-        -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-shade-plugin</artifactId>
-          <version>2.4.2</version>
-          <executions>
-            <execution>
-              <phase>package</phase>
-              <goals>
-                <goal>shade</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
+      <!--
+        Fat Jar with libgdx dependencies.
+        Library resource are included with all dependencies and Markdown documentation.
+        Source files are available in the source jar file only.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
-        <!--
-          Create jar with Java source files.
-          Java source and Markdown documents are included.
-          The Library resources and images are not included.
-        -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>2.4</version>
-          <configuration>
-            <excludeResources>false</excludeResources>
-            <includes>
-              <include>ch/hevs/gdx2d/**/*.java</include>
-              <include>*.md</include>
-              <include>LICENSE</include>
-            </includes>
-          </configuration>
-          <executions>
-            <execution>
-              <id>attach-sources</id>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
+      <!--
+        Create jar with Java source files (required by OSSRH).
+        Java source and Markdown documents are included.
+        The Library resources and images are not included.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <excludeResources>false</excludeResources>
+          <includes>
+            <include>ch/hevs/gdx2d/**/*.java</include>
+            <include>*.md</include>
+            <include>LICENSE</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
-        <!--
-          Javadoc generation.
-          Only contains the javadoc as html files.
-        -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.3</version>
-          <configuration>
-            <additionalparam>-Xdoclint:none</additionalparam>
-          </configuration>
-          <executions>
-            <execution>
-              <id>attach-javadocs</id>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
+      <!--
+        Javadoc HTML generation (required by OSSRH).
+        Contains the javadoc as html files or packed in a jar file (see target/site/apidocs).
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <additionalparam>${javadoc.opts}</additionalparam>
+          <failOnError>false</failOnError>
+          <author>true</author>
+          <version>true</version>
+          <use>true</use>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <windowtitle>gdx2d API version ${project.version}</windowtitle>
+          <notimestamp>true</notimestamp>
+          <doctitle><![CDATA[
+				    <h1>gdx2d library API</h1>
+				    <p>gdx2d is a simple to use 2d game framework. It is multi-platform (working on Windows, Linux and Android).
+				    It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.</p>
+				    <p>Website: <a target="_parent" href="https://hevs-isi.github.io/gdx2d/">https://hevs-isi.github.io/gdx2d/</a></p>
+				    <hr>
+				    Build date: ${maven.build.timestamp}<br>
+				    Version: <b>${project.version}</b><br>
+			    ]]></doctitle>
+          <bottom><![CDATA[
+				    Copyright &#169; 2014-2015 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">
+				    https://github.com/hevs-isi/gdx2d</a>
+			    ]]></bottom>
+          <links>
+            <link>http://docs.oracle.com/javase/6/docs/api/</link>
+            <link>https://libgdx.badlogicgames.com/nightlies/docs/api/</link>
+          </links>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
-    <!-- TODO: add a student profile here ? -->
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.3</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+    </plugins>
 
     <resources>
       <resource>
