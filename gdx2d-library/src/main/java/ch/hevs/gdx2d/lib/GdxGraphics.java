@@ -570,7 +570,7 @@ public class GdxGraphics implements Disposable {
 	 * @param posX left position of the text
 	 * @param posY top position of the text
 	 * @param str  the text to display on the screen
-	 * @see {@link #drawString(float, float, String, BitmapFont, int)}
+	 * @see #drawString(float, float, String, BitmapFont, int)
 	 */
 	public void drawString(float posX, float posY, String str) {
 		drawString(posX, posY, str, font);

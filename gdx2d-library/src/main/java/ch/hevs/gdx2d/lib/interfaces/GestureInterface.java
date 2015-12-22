@@ -1,7 +1,5 @@
 package ch.hevs.gdx2d.lib.interfaces;
 
-
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -15,6 +13,7 @@ public interface GestureInterface {
 
 	/**
 	 * Called when the user performs a pinch zoom gesture on Android.
+	 * <p/>
 	 * The original distance is the distance in pixels when the gesture started.
 	 *
 	 * @param initialDistance distance between fingers when the gesture started
@@ -24,12 +23,14 @@ public interface GestureInterface {
 
 	/**
 	 * Invoked for a tap gesture on Android.
+	 * <p/>
 	 * A tap happens if a touch went down on the screen and was lifted again without moving outside of the tap square.
 	 *
 	 * @param x      the screen X coordinate (origin is the lower left corner)
 	 * @param y      the screen Y coordinate (origin is the lower left corner)
 	 * @param count  the number of taps
-	 * @param button {@link Input.Buttons#LEFT} or {@link Input.Buttons#RIGHT} button clicked
+	 * @param button {@link com.badlogic.gdx.Input.Buttons#LEFT} or
+	 *               {@link com.badlogic.gdx.Input.Buttons#RIGHT} button clicked
 	 */
 	void onTap(float x, float y, int count, int button);
 
@@ -66,9 +67,10 @@ public interface GestureInterface {
 	 * Called when the user dragged a finger over the screen and lifted it.
 	 * Reports the last known velocity of the finger in pixels per second.
 	 *
-	 * @param velocityX velocity on x in seconds
-	 * @param velocityY velocity on y in seconds
-	 * @param button    {@link Input.Buttons#LEFT} or {@link Input.Buttons#RIGHT} button clicked
+	 * @param velocityX velocity on the X axis in seconds
+	 * @param velocityY velocity on the Y axis in seconds
+	 * @param button    {@link com.badlogic.gdx.Input.Buttons#LEFT} or
+	 *                  {@link com.badlogic.gdx.Input.Buttons#RIGHT} button clicked
 	 */
 	void onFling(float velocityX, float velocityY, int button);
 }

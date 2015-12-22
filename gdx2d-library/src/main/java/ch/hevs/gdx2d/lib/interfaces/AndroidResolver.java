@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.lib.interfaces;
 
 /**
- * An interface for Android actions that should be triggered from libgdx side.
+ * An interface for Android actions that should be triggered from the {@code libgdx} side.
  *
  * @author Pierre-Andre Mudry (mui)
  * @author Christopher Metrailler (mei)

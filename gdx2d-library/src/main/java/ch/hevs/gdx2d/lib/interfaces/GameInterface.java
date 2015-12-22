@@ -4,8 +4,9 @@ import ch.hevs.gdx2d.lib.GdxGraphics;
 
 /**
  * Contains the methods to handle the application lifecycle.
+ * <p/>
  * This lifecycle is independent from the hardware it runs on.
- * <p></p>
+ * <p/>
  * Methods {@link GameInterface#onPause()} and {@link GameInterface#onResume()} are only
  * invoked when the application runs on Android.
  *
@@ -16,12 +17,14 @@ public interface GameInterface {
 
 	/**
 	 * Called when the application starts.
+	 * <p/>
 	 * Initializations and creation of new new objects must be done here.
 	 */
 	void onInit();
 
 	/**
 	 * Called when the application stops.
+	 * <p/>
 	 * Tidying up must be done here.
 	 */
 	void onDispose();
@@ -36,15 +39,19 @@ public interface GameInterface {
 	 */
 	void onGameLogicUpdate();
 
-    /* Android only */
+	/* Android only */
 
 	/**
-	 * Invoked when the application is paused. <b>Called only when running on Android.</b>
+	 * Invoked when the application is paused.
+	 * <p/>
+	 * <b>Called only when running on Android.</b>
 	 */
 	void onPause();
 
 	/**
-	 * Called when the application is restarted. <b>Called only when running on Android.</b>
+	 * Called when the application is restarted.
+	 * <p/>
+	 * <b>Called only when running on Android.</b>
 	 * Initializations and creation of new new objects must be done here.
 	 */
 	void onResume();
