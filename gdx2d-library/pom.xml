@@ -106,7 +106,7 @@
 
       <!--
         Javadoc HTML generation (required by OSSRH).
-        Contains the javadoc as html files or packed in a jar file (see target/site/apidocs).
+        Contains the javadoc as html files or packed in a jar file (see target/apidocs).
       -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -132,10 +132,7 @@
 				    Build date: ${maven.build.timestamp}<br>
 				    Version: <b>${project.version}</b><br>
 			    ]]></doctitle>
-          <bottom><![CDATA[
-				    Copyright &#169; 2014-2015 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">
-				    https://github.com/hevs-isi/gdx2d</a>
-			    ]]></bottom>
+          <bottom><![CDATA[Copyright &#169; 2014-2015 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">https://github.com/hevs-isi/gdx2d</a>]]></bottom>
           <links>
             <link>http://docs.oracle.com/javase/6/docs/api/</link>
             <link>https://libgdx.badlogicgames.com/nightlies/docs/api/</link>
@@ -209,29 +206,5 @@
       <artifactId>gdx-box2d</artifactId>
       <version>${libgdx.version}</version>
     </dependency>
-
-    <!-- Natives -->
-    <!-- FIXME: natives desktop lib should not be included in this project -->
-    <dependency>
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-platform</artifactId>
-      <version>${libgdx.version}</version>
-      <classifier>natives-desktop</classifier>
-    </dependency>
-    <dependency>
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-freetype-platform</artifactId>
-      <version>${libgdx.version}</version>
-      <classifier>natives-desktop</classifier>
-    </dependency>
-
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
-
 </project>
