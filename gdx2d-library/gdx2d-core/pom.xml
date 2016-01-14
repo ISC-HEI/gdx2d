@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!--
+    Maven build script for the gdx2d core library.
+
+  	@author Christopher Métrailler (mei@hevs.ch)
+	  @version 1.0
+  -->
+  <parent>
+    <groupId>ch.hevs.gdx2d</groupId>
+    <artifactId>gdx2d-lib</artifactId>
+    <version>1.2-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>gdx2d-core</artifactId>
+  <packaging>jar</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Gdx2d core library.</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-freetype</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-box2d</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!--
+          Javadoc HTML generation (required by OSSRH).
+          Contains the javadoc as html files or packed in a jar file (see target/apidocs).
+        -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <additionalparam>${javadoc.opts}</additionalparam>
+          <failOnError>false</failOnError>
+          <author>true</author>
+          <version>true</version>
+          <use>true</use>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <windowtitle>gdx2d API version ${project.version}</windowtitle>
+          <notimestamp>true</notimestamp>
+          <doctitle><![CDATA[
+				    <h1>Gdx2d core API</h1>
+				    <p>gdx2d is a simple to use 2d game framework. It is multi-platform (working on Windows, Linux and Android).
+				    It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.</p>
+				    <p>Website: <a target="_parent" href="https://hevs-isi.github.io/gdx2d/">https://hevs-isi.github.io/gdx2d/</a></p>
+				    <hr>
+				    Build date: ${maven.build.timestamp}<br>
+				    Version: <b>${project.version}</b><br>
+			    ]]></doctitle>
+          <bottom>
+            <![CDATA[Copyright &#169; 2014-2015 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">https://github.com/hevs-isi/gdx2d</a>]]></bottom>
+          <links>
+            <link>http://docs.oracle.com/javase/6/docs/api/</link>
+            <link>https://libgdx.badlogicgames.com/nightlies/docs/api/</link>
+          </links>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+    <resources>
+      <resource>
+        <directory>src/main/resources/lib</directory>
+        <targetPath>res/lib</targetPath>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/*.md</exclude>
+        </excludes>
+      </resource>
+    </resources>
+  </build>
+
+</project>
