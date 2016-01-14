@@ -1,9 +1,10 @@
-package ch.hevs.gdx2d.lib;
+package ch.hevs.gdx2d.desktop;
 
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.Version;
 import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -13,8 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 /**
- * A wrapper for the {@link ApplicationListener} class provided for the INF1
- * class. Used mainly for creating a {@link LwjglApplication} in {@link PortableApplication}.
+ * A wrapper for the {@link ApplicationListener} class.
  * <p/>
  * Links together a {@link PortableApplication}, which is the class instantiated
  * by the user and {@link GdxGraphics}. This link is made by proper calls at {@link GdxGraphics}

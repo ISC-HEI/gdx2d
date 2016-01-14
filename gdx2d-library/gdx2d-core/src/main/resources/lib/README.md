@@ -5,7 +5,7 @@ These resources are shared in every projects, so please keep this folder light.
 
 ## Library resources list
 
-1. `GdxConfig`
+1. `GdxConfig` (desktop only)
 	* icon16.png (Windows only)
 	* icon32.png
 	* icon64.png

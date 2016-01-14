@@ -1,4 +1,4 @@
-package ch.hevs.gdx2d.lib;
+package ch.hevs.gdx2d.desktop;
 
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -19,7 +19,7 @@ public class GdxConfig {
 		config.height = height;
 		config.width = width;
 		config.fullscreen = fullScreen;
-		config.title = "GDX2D application";
+		config.title = "Gdx2d desktop application";
 		config.vSyncEnabled = true; // Ignored under Linux
 		config.foregroundFPS = 60; // Target value if vSync not working
 		config.backgroundFPS = config.foregroundFPS;
@@ -30,11 +30,11 @@ public class GdxConfig {
 
 		// Under windows, the icon *must* be the small one
 		if (os.contains("win")) {
-			config.addIcon("res/lib/icon16.png", Files.FileType.Internal);
+			config.addIcon("res/lib/desktop/icon16.png", Files.FileType.Internal);
 		}
 
-		config.addIcon("res/lib/icon32.png", Files.FileType.Internal);
-		config.addIcon("res/lib/icon64.png", Files.FileType.Internal);
+		config.addIcon("res/lib/desktop/icon32.png", Files.FileType.Internal);
+		config.addIcon("res/lib/desktop/icon64.png", Files.FileType.Internal);
 
 		return config;
 	}

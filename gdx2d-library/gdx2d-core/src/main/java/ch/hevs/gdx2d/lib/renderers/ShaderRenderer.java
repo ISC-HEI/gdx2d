@@ -184,6 +184,7 @@ public class ShaderRenderer implements Disposable {
 		batch.end();
 	}
 
+	//FIXME: find duplicate with the create method
 	public int addTexture(Texture t, String n) {
 		try {
 			if (textureCount >= GL20.GL_MAX_TEXTURE_UNITS) {
