@@ -10,7 +10,7 @@ Two projects are available for desktop (PC, Mac, Linux) and Android. They can be
 Simply import the latest `gdx2d-src-X.X.X.zip` archive file into your workspace :
 
 <center>
-    <img alt="Import projects" height="500" src="{{site.url}}images/doc/import.png">
+    <img alt="Import projects" height="500" src="{{ site.baseurl }}/assets/doc/import.png">
 </center>
 
 Then run the main Java file `gdx2d-desktop/src/hevs/gdx2d/demos/DemoSelector.java` to display the `DemoSelector` or directly start the demo you are interested in.
@@ -18,7 +18,7 @@ Then run the main Java file `gdx2d-desktop/src/hevs/gdx2d/demos/DemoSelector.jav
 To run the `gdx2d-helloDesktop` project, launch the Java main file `HelloWorld.java` :
 
 <center>
-    <img alt="Import projects" src="{{site.url}}images/doc/hello-world-students.png">
+    <img alt="Import projects" src="{{ site.baseurl }}/assets/doc/hello-world-students.png">
 </center>
 
 ### Test environment

@@ -4,11 +4,11 @@ permalink: "index.html"
 title: Welcome
 ---
 
-The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.
+:exclamation: The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.
 
 <div style="text-align:center">
   <a href="https://www.youtube.com/watch?v=eoVrifa1Xd0" target="_blank">
-    <img style="margin-left:auto;margin-right:auto;" src="{{ site.baseurl }}/images/logo_640.png" alt="Logo"/>
+    <img style="margin-left:auto;margin-right:auto;" src="{{ site.baseurl }}/assets/img/logo_640.png" alt="Logo"/>
   </a>
 </div>
 
@@ -19,7 +19,7 @@ The library contains simple to use graphical primitives such as lines, circles, 
 For each feature, a Java demo is provided for simple integration. Here are some examples of what the library is capable of (you can check the [YouTube demo reel](https://www.youtube.com/watch?v=eoVrifa1Xd0)):
 
 <div style="text-align:center">
-  <img style="margin-left:auto;margin-right:auto;" src="{{ site.baseurl }}/images/doc/screenshot.png" alt="Screenshots"/>
+  <img style="margin-left:auto;margin-right:auto;" src="{{ site.baseurl }}/assets/doc/screenshot.png" alt="Screenshots"/>
 </div>
 
 ## Why has framework been developed?

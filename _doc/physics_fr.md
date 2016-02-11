@@ -24,7 +24,7 @@ Le moteur physique va simuler les mouvements des objets en fonction des forces e
 
 ## Un premier exemple
 <center>
-    <img alt="Physics class" src="{{site.url}}images/doc/class-physics.svg" width="500">
+    <img alt="Physics class" src="{{ site.baseurl }}/assets/doc/class-physics.svg" width="500">
 </center>
 
 L’application `DemoSimplePhysics`, présentée dans la figure ci-dessus, utilise le moteur physique *Box2D* et montre comment réaliser une simulation. Les applications physiques sont composées des objets suivants :
@@ -34,7 +34,7 @@ L’application `DemoSimplePhysics`, présentée dans la figure ci-dessus, utili
 * La classe `PhysicsScreenBoundaries` peut être utilisée afin de limiter automatiquement le monde physique à la taille de la fenêtre. Par défaut, les collisions sont activées entre tous les objets.
 
 <center>
-    <img alt="Physics demo" src="{{site.url}}images/doc/physics.png" width="250">
+    <img alt="Physics demo" src="{{ site.baseurl }}/assets/doc/physics.png" width="250">
 </center>
 
 Pour cette application, la méthode de dessin est la suivante :
