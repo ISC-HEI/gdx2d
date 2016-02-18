@@ -1,0 +1,32 @@
+---
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://hevs-isi.github.io/gdx2d/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  {% for post in site.posts %}
+  <url>
+    <loc>https://hevs-isi.github.io/gdx2d{{ post.url }}</loc>
+    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  {% endfor %}
+  
+  {% assign sorted_doc = (site.doc | sort: 'weight') %}
+  {% for p in sorted_doc %}
+    {% if p.published != false %}
+	  <url>
+	    <loc>https://hevs-isi.github.io/gdx2d{{ p.url }}</loc>
+	    <lastmod>{{ p.date | date_to_xmlschema }}</lastmod>
+	    <changefreq>daily</changefreq>
+	    <priority>0.8</priority>
+	  </url>
+    {% endif %}
+  {% endfor %}
+</urlset>
