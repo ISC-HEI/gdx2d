@@ -1,12 +1,15 @@
 # Dependencies
 markdown:         redcarpet
-highlighter:      pygments
+highlighter:      rouge
 
 redcarpet:
   extensions: ["smart", "tables"]
 
 kramdown: 
   input: GFM
+
+gems:
+  - jemoji
 
 # Permalinks
 relative_permalinks: false
