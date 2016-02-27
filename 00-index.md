@@ -4,7 +4,7 @@ permalink: "index.html"
 title: Welcome
 ---
 
-:exclamation: The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.
+The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.
 
 <div style="text-align:center">
   <a href="https://www.youtube.com/watch?v=eoVrifa1Xd0" target="_blank">
