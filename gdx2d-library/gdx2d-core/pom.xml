@@ -4,8 +4,8 @@
   <!--
     Maven build script for the gdx2d core library.
 
-  	@author Christopher Métrailler (mei@hevs.ch)
-	  @version 1.0
+    @author Christopher Métrailler (mei@hevs.ch)
+    @version 1.0
   -->
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
@@ -18,24 +18,6 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Gdx2d core library.</description>
-
-  <dependencies>
-    <dependency>
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx</artifactId>
-      <version>${libgdx.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-freetype</artifactId>
-      <version>${libgdx.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-box2d</artifactId>
-      <version>${libgdx.version}</version>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>

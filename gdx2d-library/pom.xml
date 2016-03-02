@@ -4,8 +4,8 @@
   <!--
     Maven build script for the gdx2d library.
 
-  	@author Christopher Métrailler (mei@hevs.ch)
-	  @version 1.0
+    @author Christopher Métrailler (mei@hevs.ch)
+    @version 1.0
   -->
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
@@ -18,7 +18,6 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>2D game and graphics framework.</description>
-  <url>https://hevs-isi.github.io/gdx2d/</url>
 
   <modules>
     <!-- Gdx2d core module -->
@@ -26,6 +25,25 @@
     <!-- Gdx2d core with desktop natives -->
     <module>gdx2d-desktop</module>
   </modules>
+
+  <!-- Shared dependencies for all gdx2d modules -->
+  <dependencies>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-freetype</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-box2d</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+  </dependencies>
 
   <profiles>
     <profile>
@@ -47,12 +65,12 @@
         <version>2.6</version>
         <configuration>
           <archive>
-            <index>true</index>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
             </manifest>
             <manifestEntries>
-              <Project-Url>${project.url}</Project-Url>
+              <Project-URL>${gdx2d.url}</Project-URL>
+              <Implementation-URL>${gdx2d.url}</Implementation-URL>
               <Libgdx-Version>${libgdx.version}</Libgdx-Version>
               <Built-By>${project.artifactId}</Built-By>
               <Build-Time>${maven.build.timestamp}</Build-Time>
