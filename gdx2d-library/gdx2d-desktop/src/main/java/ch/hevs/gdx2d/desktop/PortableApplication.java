@@ -1,14 +1,11 @@
 package ch.hevs.gdx2d.desktop;
 
-import ch.hevs.gdx2d.desktop.Game2D;
+import ch.hevs.gdx2d.lib.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-
-import ch.hevs.gdx2d.lib.interfaces.*;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.math.Vector2;
 
 import java.awt.*;
 

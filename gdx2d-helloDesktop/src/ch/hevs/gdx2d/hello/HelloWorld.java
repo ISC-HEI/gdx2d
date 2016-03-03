@@ -1,10 +1,10 @@
-package hevs.gdx2d.hello;
+package ch.hevs.gdx2d.hello;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.desktop.PortableApplication;
 
 /**
  * Hello World demo.

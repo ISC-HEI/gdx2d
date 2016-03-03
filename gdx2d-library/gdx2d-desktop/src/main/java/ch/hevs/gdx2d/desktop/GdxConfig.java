@@ -30,11 +30,11 @@ public class GdxConfig {
 
 		// Under windows, the icon *must* be the small one
 		if (os.contains("win")) {
-			config.addIcon("res/lib/desktop/icon16.png", Files.FileType.Internal);
+			config.addIcon("res/lib/icon16.png", Files.FileType.Internal);
 		}
 
-		config.addIcon("res/lib/desktop/icon32.png", Files.FileType.Internal);
-		config.addIcon("res/lib/desktop/icon64.png", Files.FileType.Internal);
+		config.addIcon("res/lib/icon32.png", Files.FileType.Internal);
+		config.addIcon("res/lib/icon64.png", Files.FileType.Internal);
 
 		return config;
 	}
