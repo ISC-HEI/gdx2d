@@ -20,7 +20,8 @@ public class HelloWorld extends PortableApplication {
 	@Override
 	public void onInit() {
 		setTitle("Hello World - mei,mui 2014");
-		imgBitmap = new BitmapImage("data/images/hei-pi.png");
+		//
+		imgBitmap = new BitmapImage("res/lib/icon64.png" /* "images/hei-pi.png" */);
 	}
 
 	/**
