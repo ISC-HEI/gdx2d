@@ -2,29 +2,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!--
-    Maven build script for the gdx2d desktop library.
+    Maven build script for the gdx2d natives desktop library.
 
-  	@author Christopher Métrailler (mei@hevs.ch)
-	  @version 1.0
+    @author Christopher Métrailler (mei@hevs.ch)
+    @version 1.1
   -->
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
     <artifactId>gdx2d-lib</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
 
   <artifactId>gdx2d-desktop</artifactId>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
-  <description>Gdx2d desktop library.</description>
+  <description>gdx2d desktop library</description>
+  <version>1.2.0-SNAPSHOT</version>
 
   <dependencies>
-
     <dependency>
       <groupId>ch.hevs.gdx2d</groupId>
       <artifactId>gdx2d-core</artifactId>
-      <version>1.2-SNAPSHOT</version>
+      <version>1.2.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Libgdx desktop natives -->
@@ -50,6 +50,7 @@
   <build>
     <resources>
       <resource>
+        <!-- Include desktop specific resources available for any desktop project -->
         <directory>src/main/resources/desktop</directory>
         <targetPath>res/desktop</targetPath>
         <filtering>false</filtering>
