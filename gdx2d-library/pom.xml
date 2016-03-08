@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!--
-    Maven build script for the gdx2d library.
+    Maven build script for the gdx2d library and its modules.
 
     @author Christopher Métrailler (mei@hevs.ch)
     @version 1.0
@@ -10,14 +10,15 @@
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
     <artifactId>gdx2d-parent</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
 
   <artifactId>gdx2d-lib</artifactId>
   <packaging>pom</packaging>
+  <version>1.0</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
-  <description>2D game and graphics framework.</description>
+  <description>2D game and graphics framework</description>
 
   <modules>
     <!-- Gdx2d core module -->
@@ -26,7 +27,7 @@
     <module>gdx2d-desktop</module>
   </modules>
 
-  <!-- Shared dependencies for all gdx2d modules -->
+  <!-- Shared dependencies used in every gdx2d modules -->
   <dependencies>
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
@@ -59,6 +60,7 @@
 
   <build>
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -100,8 +102,8 @@
 
       <!--
         Create jar with Java source files (required by OSSRH).
-        Java source and Markdown documents are included.
-        The Library resources and images are not included.
+        Java sources and the Markdown docs are included.
+        The resources and not included.
       -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -131,24 +133,78 @@
         <version>1.6.3</version>
         <extensions>true</extensions>
         <configuration>
+          <!-- See the "settings.xml" file -->
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
+
+      <!--
+        Javadoc generation (required by OSSRH).
+        Generates the javadoc as html files (see target/apidocs/) and pack it in a "-javadoc.jar" file.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <additionalparam>${javadoc.opts}</additionalparam>
+          <failOnError>false</failOnError>
+          <author>true</author>
+          <version>true</version>
+          <use>true</use>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <windowtitle>${project.artifactId} version ${project.version}</windowtitle>
+          <notimestamp>true</notimestamp>
+          <doctitle><![CDATA[
+            <h1>${project.artifactId}</h1>
+            <p>gdx2d is a simple to use 2d game framework. It is multi-platform (working on Windows, Linux and Android).
+            It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.</p>
+            <p>Website: <a target="_parent" href="${gdx2d.url}">${gdx2d.url}</a></p>
+            <hr>
+            Artifact name: ${project.groupId}:${project.artifactId}<br>
+            Description: ${project.description}<br><br>
+            Build date: ${maven.build.timestamp}<br>
+            Libgdx version: ${libgdx.version}<br>
+            Version: <b>${project.version}</b><br>
+          ]]></doctitle>
+          <bottom>
+            <![CDATA[Copyright &#169; 2014-2016 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">https://github.com/hevs-isi/gdx2d</a>]]></bottom>
+          <links>
+            <link>http://docs.oracle.com/javase/6/docs/api/</link>
+            <link>https://libgdx.badlogicgames.com/nightlies/docs/api/</link>
+          </links>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
 
     <resources>
       <resource>
+        <!-- Library resources -->
         <directory>./</directory>
         <includes>
           <include>*.md</include>
         </includes>
       </resource>
       <resource>
+        <!-- Top level project resources -->
         <directory>../</directory>
         <includes>
           <include>LICENSE</include>
+          <include>CONTRIBUTING.md</include>
+          <include>CHANGELOG.md</include>
         </includes>
       </resource>
     </resources>
