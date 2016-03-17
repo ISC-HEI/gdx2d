@@ -2,11 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!--
-    Maven build script for the gdx2d project.
-    Top level project. Parent POM referencing sub-modules.
+    Maven build script for the gdx2d project (top level).
 
-  	@author Christopher Métrailler (mei@hevs.ch)
-	  @version 1.0
+    @author Christopher Métrailler (mei@hevs.ch)
+    @version 1.0
   -->
   <groupId>ch.hevs.gdx2d</groupId>
   <artifactId>gdx2d-parent</artifactId>
@@ -14,7 +13,7 @@
   <version>1.0</version>
 
   <name>${project.groupId}:${project.artifactId}</name>
-  <description>Gdx2d Top Level.</description>
+  <description>2D game and graphics framework</description>
   <url>https://hevs-isi.github.io/gdx2d/</url>
   <organization>
     <name>HEVs - Institute of Systems Engineering</name>
@@ -53,6 +52,7 @@
     <url>git@github.com:hevs-isi/gdx2d.git</url>
   </scm>
 
+  <!-- Maven deploy plugin -->
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -68,6 +68,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <libgdx.version>1.5.6</libgdx.version>
+    <gdx2d.url>https://hevs-isi.github.io/gdx2d/</gdx2d.url>
   </properties>
 
   <modules>
@@ -87,6 +88,20 @@
             <target>1.6</target>
             <showWarnings>true</showWarnings>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.5</version>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
