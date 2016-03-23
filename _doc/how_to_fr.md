@@ -19,7 +19,7 @@ Voici quelques exemples d’applications développées à l’aide de *Gdx2d*. D
 
 Les applications développées pour *Gdx2d* doivent hériter de la classe `PortableApplication`. Le code ci-dessous présente une application de démonstration basique :
 
-```java
+{% highlight java %}
 package hevs.gdx2d.demos.simple;
 
 import com.badlogic.gdx.Gdx;
@@ -78,8 +78,7 @@ public class DemoSimpleAnimation extends PortableApplication {
         new DemoSimpleAnimation(false);
     }
 }
-
-```
+{% endhighlight %}
 
 Le code ci-dessus correspond à l’application suivante :
 
@@ -118,7 +117,7 @@ Afin d’interagir avec les applications *Gdx2d*, différentes interfaces sont �
 
 La méthode onGraphicRender est appelée périodiquement (60 fois par seconde) afin de mettre à jour le rendu (le dessin) de l’application. La scène doit d’abord être effacée, puis les objets qui composent l’application doivent être dessinés les uns après les autres, en sachant que les objets dessinés en dernier peuvent recouvrir les objets précédemment dessinés.
 
-```java
+{% highlight java %}
 @Override
 public void onGraphicRender(GdxGraphics g) {
     g.clear(Color.BLACK);
@@ -130,7 +129,7 @@ public void onGraphicRender(GdxGraphics g) {
     g.drawSchoolLogo();
     g.drawFPS();
 }
-```
+{% endhighlight %}
 
 La classe `GdxGraphics` met à disposition un nombre varié de méthodes qui peuvent être utilisées pour afficher des images, dessiner des formes, afficher du texte, etc. La Javadoc de la classe `GdxGraphics` contient une description détaillée des méthodes disponibles.
 
@@ -140,7 +139,7 @@ Les classes `BitmapImage`, `FileHandle`, `MusicPlayer` et `Spritesheet` gèrent 
 
 ### Affichage d’une image
 
-```java
+{% highlight java %}
 BitmapImage imgBitmap;
 
 @Override
@@ -150,14 +149,14 @@ public void onInit() {
 
 @Override
 public void onGraphicRender(GdxGraphics g) {
-    g.clear();              
+    g.clear();
     g.drawPicture(getWindowWidth()/2, getWindowHeight()/2, imgBitmap); 
 }
-```
+{% endhighlight %}
 
 ### Ecriture d’un texte avec une police personnalisée
 
-```java
+{% highlight java %}
 BitmapFont optimus40;
 
 @Override
@@ -182,11 +181,11 @@ public void onGraphicRender(GdxGraphics g) {
 public void onDispose() {
     optimus40.dispose();
 }
-```
+{% endhighlight %}
 
 ### Utilisation d’un lecteur de musique
 
-```java
+{% highlight java %}
 MusicPlayer player;
 
 @Override
@@ -201,11 +200,11 @@ public void onClick(int x, int y, int button) {
    else
       player.loop();
 }
-```
+{% endhighlight %}
 
 ### Spritesheet pour créer des animations
 
-```java
+{% highlight java %}
 Spritesheet sprites;
 @Override
 public void onInit() {
@@ -217,7 +216,7 @@ public void onGraphicRender(GdxGraphics g) {
     g.clear();
     g.spriteBatch.draw(sprites.sprites[1][1], 0, 0); // Draw a region
 }
-```
+{% endhighlight %}
 
 Voici un exemple de texture qui peut être utilisé comme "spritesheet". La même image contient différentes régions de textures qui peuvent être sélectionnées lors du dessin.
 
@@ -229,7 +228,7 @@ Voici un exemple de texture qui peut être utilisé comme "spritesheet". La mêm
 
 L’exemple ci-dessous permet de capturer certains événements du clavier (`KeyboardInterface`) et de la souris (`TouchInterface`) :
 
-```java
+{% highlight java %}
 Vector2 mouse = new Vector2();
 boolean isMousPressed = false ;
 
@@ -290,4 +289,4 @@ public void onKeyDown(int keycode) {
 public void onKeyUp(int keycode) {
     Logger.log(String.format("Key '%d' released", keycode));
 }
-```
+{% endhighlight %}

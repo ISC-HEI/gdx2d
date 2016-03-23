@@ -38,7 +38,7 @@ It is multi-platform so that you can run your code on desktop computers (running
 
 Using the framework, the following code displays a shrinking/growing circle running smoothly:
 
-```java
+{% highlight java %}
 package hevs.gdx2d.demos.simple;
 
 import com.badlogic.gdx.Gdx;
@@ -97,7 +97,7 @@ public class DemoSimpleAnimation extends PortableApplication {
         new DemoSimpleAnimation(false);
     }
 }
-```
+{% endhighlight %}
 
 ## Who did this and why?
 

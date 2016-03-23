@@ -39,7 +39,7 @@ L’application `DemoSimplePhysics`, présentée dans la figure ci-dessus, utili
 
 Pour cette application, la méthode de dessin est la suivante :
 
-```java
+{% highlight java %}
 @Override
 public void onGraphicRender(GdxGraphics g) {
     g.clear();
@@ -50,14 +50,14 @@ public void onGraphicRender(GdxGraphics g) {
     g.drawSchoolLogoUpperRight();
     g.drawFPS();
 }
-```
+{% endhighlight %}
 
 Elle consiste à faire le rendu du monde physique à l’aide de la classe `DebugRenderer`, puis de recalculer la position des objets du monde en utilisant la méthode `updatePhysics`.
 
 ## Dessin des objets physiques avec textures
 La classe `DebugRenderer` permet de dessiner le contour des objets physiques automatiquement. Il est possible d’ajouter une texture à ces objets en dessinant périodiquement une image à la position actuelle des objets. Pour ce faire, les objets du monde doivent être sauvegardés dans une liste, comme le montre l’exemple suivant :
 
-```java
+{% highlight java %}
 // List of physics objets available in the world
 LinkedList<AbstractPhysicsObject> list = new LinkedList<AbstractPhysicsObject>();
 BitmapImage img;
@@ -89,7 +89,7 @@ public void onGraphicRender(GdxGraphics g) {
 
    PhysicsWorld.updatePhysics();
 }
-```
+{% endhighlight %}
 
 Ainsi, il n’est plus nécessaire de dessiner le `DebugRenderer`.
 
@@ -99,7 +99,7 @@ lorsque ces derniers sont en dehors de la fenêtre) à l’aide de la méthode `
 
 Pour ce faire, le code suivant peut être utilisé :
 
-```java
+{% highlight java %}
 List<PhysicsBall> balls = new LinkedList<PhysicsBall>();
 // balls.add(new PhysicsBall(...));
 
@@ -124,17 +124,17 @@ public void onGraphicRender(GdxGraphics g) {
     g.drawString(5, 30, "#Obj: " + world.getBodyCount());
     PhysicsWorld.updatePhysics();
 }
-```
+{% endhighlight %}
 
 ## Groupes de collisions
 Des groupes de collisions peuvent être mis en place afin d’activer ou désactiver les collisions entre des objets physiques de même type. Pour ce faire, la méthode `setCollisionGroup` est disponible pour tous les `AbstractPhysicsObject` :
 
-```java
+{% highlight java %}
 PhysicsCircle b = new PhysicsCircle(null, new Vector2(x, y), 30);
 b.setCollisionGroup(-2);
 
 PhysicsBox box = new PhysicsBox(null, new Vector2(x, y), 30, 30);
 box.setCollisionGroup(1);
-```
+{% endhighlight %}
 
 Un identifiant négatif permet de désactiver les collisions entre les objets du même type. Dans cet exemple, les collisions entre les cercles sont désactivées. Toutes les autres collisions (box contre box et box contre cercles) restent actives.
