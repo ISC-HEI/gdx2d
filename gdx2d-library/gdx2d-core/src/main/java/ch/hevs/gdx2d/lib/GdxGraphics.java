@@ -138,12 +138,12 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
-	 * Draw the University of Applied Sciences Western Switzerland logo in the
-	 * bottom right corner of the screen.
+	 * Draw the the school logo in the bottom right corner of the screen.
 	 * <p/>
 	 * As this project is mainly aimed the students from the <a
-	 * href='http://inf1.begincoding.net'> inf1 course given at the HES-SO
-	 * Valais</a>, systems engineering, it is nice to have a logo for them !
+	 * href="http://inf1.begincoding.net">inf1 course</a> given at the 
+	 * University of Applied Sciences Western Switzerland (HES-SO) Valais, 
+	 * systems engineering, it is nice to have a logo for them !
 	 *
 	 * @see GdxGraphics#drawSchoolLogoUpperRight()
 	 */
