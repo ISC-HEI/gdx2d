@@ -23,6 +23,18 @@
   <build>
     <resources>
       <resource>
+        <!-- Top level project resources -->
+        <directory>../../</directory>
+        <includes>
+          <include>LICENSE</include>
+          <include>CONTRIBUTING.md</include>
+          <include>CHANGELOG.md</include>
+          <include>README.md</include>
+        </includes>
+        <filtering>false</filtering>
+      </resource>
+
+      <resource>
         <!-- Include all library resources available for any gdx2d project -->
         <directory>src/main/resources/lib</directory>
         <targetPath>res/lib</targetPath>
@@ -30,5 +42,4 @@
       </resource>
     </resources>
   </build>
-
 </project>

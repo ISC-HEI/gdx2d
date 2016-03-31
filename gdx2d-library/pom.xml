@@ -111,6 +111,7 @@
         <version>2.4</version>
         <configuration>
           <excludeResources>false</excludeResources>
+          <useDefaultManifestFile>true</useDefaultManifestFile>
           <includes>
             <include>ch/hevs/gdx2d/**/*.java</include>
             <include>*.md</include>
@@ -187,27 +188,6 @@
           </execution>
         </executions>
       </plugin>
-
     </plugins>
-
-    <resources>
-      <resource>
-        <!-- Library resources -->
-        <directory>./</directory>
-        <includes>
-          <include>*.md</include>
-        </includes>
-      </resource>
-      <resource>
-        <!-- Top level project resources -->
-        <directory>../</directory>
-        <includes>
-          <include>LICENSE</include>
-          <include>CONTRIBUTING.md</include>
-          <include>CHANGELOG.md</include>
-        </includes>
-      </resource>
-    </resources>
   </build>
-
 </project>
