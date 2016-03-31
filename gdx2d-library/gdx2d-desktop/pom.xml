@@ -48,7 +48,34 @@
   </dependencies>
 
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <!-- Aggregate the doc from gdx2d-core to have all the doc in one place -->
+          <includeDependencySources>true</includeDependencySources>
+          <dependencySourceIncludes>
+            <dependencySourceInclude>ch.hevs.*</dependencySourceInclude>
+          </dependencySourceIncludes>
+        </configuration>
+      </plugin>
+    </plugins>
+
     <resources>
+      <resource>
+        <!-- Top level project resources -->
+        <directory>../../</directory>
+        <includes>
+          <include>LICENSE</include>
+          <include>CONTRIBUTING.md</include>
+          <include>CHANGELOG.md</include>
+          <include>README.md</include>
+        </includes>
+        <filtering>false</filtering>
+      </resource>
+
       <resource>
         <!-- Include desktop specific resources available for any desktop project -->
         <directory>src/main/resources/desktop</directory>
@@ -57,5 +84,4 @@
       </resource>
     </resources>
   </build>
-
 </project>
