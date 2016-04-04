@@ -1,5 +1,3 @@
-/gdx2d-desktop-pregit
-
 # Eclipse Android project and workspace
 # source: https://github.com/github/gitignore
 bin/
@@ -18,17 +16,10 @@ proguard/
 *.log
 seed.txt
 map.txt
-##
-# .settings
-# .classpath
-# .project
-# local.properties
-##
 
 # IntelliJ IDEA
 out/
 .idea/
 .gradle/
 build/
-gdx2d-desktop/data/images/Thumbs.db
 *.db
