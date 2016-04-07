@@ -1,0 +1,193 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!--
+    Maven build script for the gdx2d library and its modules.
+
+    @author Christopher Métrailler (mei@hevs.ch)
+    @version 1.0
+  -->
+  <parent>
+    <groupId>ch.hevs.gdx2d</groupId>
+    <artifactId>gdx2d-parent</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <artifactId>gdx2d-lib</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0</version>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>2D game and graphics framework</description>
+
+  <modules>
+    <!-- Gdx2d core module -->
+    <module>gdx2d-core</module>
+    <!-- Gdx2d core with desktop natives -->
+    <module>gdx2d-desktop</module>
+  </modules>
+
+  <!-- Shared dependencies used in every gdx2d modules -->
+  <dependencies>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-freetype</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-box2d</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>doclint-java8-disable</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <properties>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+            <manifestEntries>
+              <Project-URL>${gdx2d.url}</Project-URL>
+              <Implementation-URL>${gdx2d.url}</Implementation-URL>
+              <Libgdx-Version>${libgdx.version}</Libgdx-Version>
+              <Built-By>${project.artifactId}</Built-By>
+              <Build-Time>${maven.build.timestamp}</Build-Time>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <!--
+        Fat Jar with libgdx dependencies.
+        Library resource are included with all dependencies and Markdown documentation.
+        Source files are available in the source jar file only.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--
+        Create jar with Java source files (required by OSSRH).
+        Java sources and the Markdown docs are included.
+        The resources and not included.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <excludeResources>false</excludeResources>
+          <useDefaultManifestFile>true</useDefaultManifestFile>
+          <includes>
+            <include>ch/hevs/gdx2d/**/*.java</include>
+            <include>*.md</include>
+            <include>LICENSE</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.3</version>
+        <extensions>true</extensions>
+        <configuration>
+          <!-- See the "settings.xml" file -->
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+
+      <!--
+        Javadoc generation (required by OSSRH).
+        Generates the javadoc as html files (see target/apidocs/) and pack it in a "-javadoc.jar" file.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <additionalparam>${javadoc.opts}</additionalparam>
+          <failOnError>false</failOnError>
+          <author>true</author>
+          <version>true</version>
+          <use>true</use>
+          <charset>UTF-8</charset>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <windowtitle>${project.artifactId} version ${project.version}</windowtitle>
+          <notimestamp>true</notimestamp>
+          <doctitle><![CDATA[
+            <h1>${project.artifactId}</h1>
+            <p>gdx2d is a simple to use 2d game framework. It is multi-platform (working on Windows, Linux and Android).
+            It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.</p>
+            <p>Website: <a target="_parent" href="${gdx2d.url}">${gdx2d.url}</a></p>
+            <hr>
+            Artifact name: ${project.groupId}:${project.artifactId}<br>
+            Description: ${project.description}<br><br>
+            Build date: ${maven.build.timestamp}<br>
+            Libgdx version: ${libgdx.version}<br>
+            Version: <b>${project.version}</b><br>
+          ]]></doctitle>
+          <bottom>
+            <![CDATA[Copyright &#169; 2014-2016 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">https://github.com/hevs-isi/gdx2d</a>]]></bottom>
+          <links>
+            <link>http://docs.oracle.com/javase/6/docs/api/</link>
+            <link>https://libgdx.badlogicgames.com/nightlies/docs/api/</link>
+          </links>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

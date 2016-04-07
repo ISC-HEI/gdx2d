@@ -5,6 +5,7 @@ gen/
 target/
 proguard/
 
+.settings
 *.class
 *.dex
 *.apk
