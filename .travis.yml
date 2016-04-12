@@ -30,5 +30,6 @@ env:
 before_script:
   - mvn clean package
 
-after_success:
-  - ./.travis/publish-javadoc-api.sh
+# Do not generate the javadoc for each modules any more
+# after_success:
+#   - ./.travis/publish-javadoc-api.sh
