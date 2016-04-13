@@ -5,7 +5,7 @@
 	The Java main class must be set in the build properties file.
 
 	@author Christopher Métrailler (mei@hevs.ch)
-	@version 2.0
+	@version 2.1
 -->
 <project default="jar" name="gdx2d-helloDesktop" basedir=".">
 
@@ -39,7 +39,7 @@
 	<property name="ant.build.javac.source" value="1.6" />
 	<property name="ant.build.javac.target" value="1.6" />
 
-	<!-- Include gdx2d library -->
+	<!-- Include the 'gdx2d-desktop' library -->
 	<path id="project-classpath">
 		<fileset dir="${libs.dir}" includes="**/*.jar" />
 	</path>
@@ -70,15 +70,14 @@
 	</target>
 
 	<!-- The same Jar is used to run the demos and to include in a new project. -->
-	<target name="jar" depends="compile" description="Export the project to a runnable jar.">
+	<target name="jar" depends="compile" description="Export the project as a runnable jar.">
 		<jar destfile="${dist.dir}/${jar.file}.jar" update="true" basedir="${build.dir}">
 
 			<!-- Include all sources in the Jar file, to correct the project ;) -->
 			<fileset dir="${src.dir}" includes="**/*.java" />
-			<zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx2d-library_1.1.1.jar"/>
-			
+			<zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx2d-desktop-1.2.0.jar" />
+
 			<manifest>
-				<!-- Demo selector launcher -->
 				<attribute name="Main-Class" value="${jar.main}" />
 				<attribute name="Implementation-Vendor" value="${impl.vendor}" />
 				<attribute name="Implementation-Title" value="${impl.title}" />
@@ -89,7 +88,7 @@
 		<echo>Jar file exported to "${dist.dir}/${jar.file}.jar".</echo>
 	</target>
 
-	<!-- Launch the demo selector. -->
+	<!-- Launch demo project. -->
 	<target name="run" description="Run the project using the compiled Jar file.">
 		<!-- Run only if the jar is available. -->
 		<fail message="Runnable jar ${jar.file}.jar not found. It must be exported first.">
