@@ -30,8 +30,8 @@ env:
 
 # Maven build only (test and gpg signature disabled)
 # Snapshots and releases are upload manually to Sonatype for now
-before_script:
-  - mvn clean package -DskipTests -Dgpg.skip
+install:
+  - mvn install -DskipTests=true -Dgpg.skip=true
 
 # Do not generate the javadoc for each modules any more
 # after_success:
