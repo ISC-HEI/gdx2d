@@ -128,19 +128,6 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.3</version>
-        <extensions>true</extensions>
-        <configuration>
-          <!-- See the "settings.xml" file -->
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
-
       <!--
         Javadoc generation (required by OSSRH).
         Generates the javadoc as html files (see target/apidocs/) and pack it in a "-javadoc.jar" file.
