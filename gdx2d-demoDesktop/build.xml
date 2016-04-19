@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
 	ANT Build script for the gdx2d-desktop project.
-	
+
 	This project contains the gdx2d library and a lot
 	of demos running on PC.
-	
+
 	The project is compiled in the "bin" folder and
-	runnables jar files are exported to the "dist" folder.
+	runnable jar files are exported to the "dist" folder.
 	The runnable jar can be executed to run the DemoSelector and
 	play with demos. Sources are included in the Jar.
 	The javadoc can also be exported.
-	
+
 	@author Christopher Métrailler (mei@hevs.ch), mui@hevs.ch
-	@version 1.3
+	@version 2.0
 -->
-<project default="build-jar" name="gdx2d-library" basedir=".">
+<project default="build-jar" name="gdx2d-demosDesktop" basedir=".">
 
     <description>
         ANT build script for "${ant.project.name}".
