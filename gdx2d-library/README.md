@@ -1,37 +1,40 @@
-# gdx2d library project
+# gdx2d library
 
-The gdx2d library project contains two modules.
+The gdx2d library project contains two modules:
 
-1. The first module is the core library. It is no platform dependent.
-2. The desktop module contains the natives backends to run on PC. It uses the core library module as a dependency.
+1. The first module is the `core` library. It is not platform dependent.
+2. The second module is the `desktop` native back end needed to run `gdx2d` on a PC. It uses the core module as a dependency.
 
-At this time, the Android backend is not available. The current library implementation is based on Libgdx version `1.5.6`.
+At this time, the Android back end is not available. The current library implementation is based on Libgdx version `1.5.6`.
 
 ## Download
 
 Download the latest JAR or grab it via Maven:
 
-	<dependency>
-	  <groupId>ch.hevs.gdx2d</groupId>
-	  <artifactId>gdx2d-desktop</artifactId>
-	  <version>1.2.0</version>
-	</dependency>
-
+```xml
+<dependency>
+  <groupId>ch.hevs.gdx2d</groupId>
+  <artifactId>gdx2d-desktop</artifactId>
+  <version>1.2.0</version>
+</dependency>
+```
 Or via Gradle:
 
-	compile 'ch.hevs.gdx2d:gdx2d-desktop:1.2.0'
+```gradle
+compile 'ch.hevs.gdx2d:gdx2d-desktop:1.2.0'
+```
 
-Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/ch/hevs/gdx2d/).
+The snapshots artifacts are available in the [Sonatype snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/ch/hevs/gdx2d/) and official releases are available on [the Maven Central repository](http://search.maven.org/#search%7Cga%7C1%7Cch.hevs.gdx2d).
 
-Group         | Artifact        | Versions                   | Download
-:-------------|:----------------|:---------------------------|:--------
-ch.hevs.gdx2d | `gdx2d-parent`  | pom                        | 1.0
-ch.hevs.gdx2d | `gdx2d-lib`     | pom                        | 1.0
-ch.hevs.gdx2d | `gdx2d-core`    | jar, sources, javadoc      | [1.2.0-SNAPSHOT][core]
-ch.hevs.gdx2d | `gdx2d-desktop` | jar, sources, javadoc      | [1.2.0-SNAPSHOT][desktop]
+Group           | Artifact        | Versions              | Download
+:---------------|:----------------|:----------------------|:--------
+`ch.hevs.gdx2d` | `gdx2d-parent`  | pom                   | 1.0
+`ch.hevs.gdx2d` | `gdx2d-lib`     | pom                   | 1.0
+`ch.hevs.gdx2d` | `gdx2d-core`    | jar, sources, javadoc | [1.2.0][core]
+`ch.hevs.gdx2d` | `gdx2d-desktop` | jar, sources, javadoc | [1.2.0][desktop]
 
-[core]: https://oss.sonatype.org/content/repositories/snapshots/ch/hevs/gdx2d/gdx2d-core/1.2.0-SNAPSHOT/
-[desktop]: https://oss.sonatype.org/content/repositories/snapshots/ch/hevs/gdx2d/gdx2d-desktop/1.2.0-SNAPSHOT/
+[core]: http://search.maven.org/#artifactdetails%7Cch.hevs.gdx2d%7Cgdx2d-core%7C1.2.0%7Cjar
+[desktop]: http://search.maven.org/#artifactdetails%7Cch.hevs.gdx2d%7Cgdx2d-desktop%7C1.2.0%7Cjar
 
 ## Building from sources
 
@@ -52,21 +55,21 @@ These resources are shared for every target and included in the library `jar` fo
 ### Available resources
 
 1. `GdxConfig`
-	* icon16.png (Windows only)
-	* icon32.png
-	* icon64.png
+    * icon16.png (Windows only)
+    * icon32.png
+    * icon64.png
 
 2. `GdxGraphics`
-	* logo_hes.png
-	* circle.png
-	* RobotoSlab-Regular.ttf (default font)
+    * logo_hes.png
+    * circle.png
+    * RobotoSlab-Regular.ttf (default font)
 
 3. `ShaderRenderer`
-	* fragment_include.glsl
-	* default.vs
+    * fragment_include.glsl
+    * default.vs
 
 4. `CircleShaderRenderer`
-	* circle_aa.fp
+    * circle_aa.fp
 
 ### How to use resources
 
