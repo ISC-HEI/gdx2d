@@ -1,11 +1,11 @@
 package ch.hevs.gdx2d.demos.shaders;
 
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.utils.Logger;
 
 /**
  * A demo that shows many shaders, some of them from

@@ -1,15 +1,15 @@
 package ch.hevs.gdx2d.demos.physics;
 
+import ch.hevs.gdx2d.components.graphics.GeomUtils;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsPolygon;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.components.graphics.GeomUtils;
-import hevs.gdx2d.components.physics.primitives.PhysicsPolygon;
-import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.physics.DebugRenderer;
-import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 /**
  * Demonstrates how to use general polygons as physics objects

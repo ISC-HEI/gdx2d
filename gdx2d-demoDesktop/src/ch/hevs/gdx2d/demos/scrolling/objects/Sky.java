@@ -1,12 +1,12 @@
 package ch.hevs.gdx2d.demos.scrolling.objects;
 
+import ch.hevs.gdx2d.components.colors.ColorUtils;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
-import hevs.gdx2d.components.colors.ColorUtils;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
 
 /**
  * A quite complex background image that is linked to the camera.

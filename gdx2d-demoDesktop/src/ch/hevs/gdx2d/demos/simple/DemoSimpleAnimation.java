@@ -1,9 +1,9 @@
 package ch.hevs.gdx2d.demos.simple;
 
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * A very simple demonstration on how to display something animated with the

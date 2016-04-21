@@ -1,8 +1,8 @@
 package ch.hevs.gdx2d.demos.simple;
 
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * A very simple demonstration on how to display something animated with the
@@ -12,8 +12,8 @@ import hevs.gdx2d.lib.PortableApplication;
  * @version 1.0
  */
 public class DemoCircles extends PortableApplication {
-	int radius[] = new int[8];
-	int speed[] = new int[8];
+	private int radius[] = new int[8];
+  private int speed[] = new int[8];
 
 	public static void main(String[] args) {
 		/**

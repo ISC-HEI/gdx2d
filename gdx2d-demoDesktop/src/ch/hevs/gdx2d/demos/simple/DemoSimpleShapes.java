@@ -1,10 +1,10 @@
 package ch.hevs.gdx2d.demos.simple;
 
+import ch.hevs.gdx2d.components.graphics.Polygon;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.components.graphics.Polygon;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * A very simple demonstration on how to

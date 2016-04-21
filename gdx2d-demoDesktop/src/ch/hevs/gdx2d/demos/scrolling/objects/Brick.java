@@ -1,8 +1,8 @@
 package ch.hevs.gdx2d.demos.scrolling.objects;
 
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
 
 /**
  * A simple brick that does nothing special

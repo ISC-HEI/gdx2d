@@ -1,9 +1,9 @@
 package ch.hevs.gdx2d.demos.shaders.advanced;
 
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.utils.Logger;
 
 /**
  * Julia set as a shader, based on mei code

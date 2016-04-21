@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.demos.simple.mistify;
 
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.lib.GdxGraphics;
 
 import java.util.Random;
 

@@ -1,8 +1,8 @@
 package ch.hevs.gdx2d.demos.image_drawing;
 
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 
 /**
  * Demo application to demonstrate how to load a file which
@@ -25,7 +25,7 @@ public class DemoSimpleImage extends PortableApplication {
 		// Sets the window title
 		setTitle("Simple image drawing, mui 2013");
 
-		// Loads the image that will be displayed in the middle of the scren
+		// Loads the image that will be displayed in the middle of the screen
 		imgBitmap = new BitmapImage("data/images/compass_150.png");
 	}
 

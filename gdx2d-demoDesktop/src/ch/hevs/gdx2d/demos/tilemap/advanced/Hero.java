@@ -1,11 +1,11 @@
 package ch.hevs.gdx2d.demos.tilemap.advanced;
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.components.bitmaps.Spritesheet;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.bitmaps.Spritesheet;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
 
 /**
  * Character for the demo.
@@ -13,7 +13,7 @@ import hevs.gdx2d.lib.interfaces.DrawableObject;
  * @author Alain Woeffray (woa)
  * @author Pierre-André Mudry (mui)
  */
-public class Hero implements DrawableObject{
+public class Hero implements DrawableObject {
 
     public enum Direction{
         UP,

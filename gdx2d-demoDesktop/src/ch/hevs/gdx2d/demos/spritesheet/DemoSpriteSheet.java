@@ -1,12 +1,12 @@
 package ch.hevs.gdx2d.demos.spritesheet;
 
+import ch.hevs.gdx2d.components.bitmaps.Spritesheet;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.components.bitmaps.Spritesheet;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.utils.Logger;
 
 /**
  * This demo demonstrates how to load a spritesheet
@@ -22,7 +22,7 @@ public class DemoSpriteSheet extends PortableApplication {
 	 */
 	final int SPRITE_WIDTH = 64;
 	final int SPRITE_HEIGHT = 64;
-	final double FRAME_TIME = 0.15; // Duration of each frime
+	final double FRAME_TIME = 0.15; // Duration of each frame
 	Spritesheet ss;
 	/**
 	 * The currently selected sprite for animation

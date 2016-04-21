@@ -2,10 +2,10 @@ package ch.hevs.gdx2d.demos.menus.swing;
 
 
 import ch.hevs.gdx2d.demos.physics.DemoSimplePhysics;
+import ch.hevs.gdx2d.desktop.Game2D;
+import ch.hevs.gdx2d.desktop.PortableApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import ch.hevs.gdx2d.demos.simple.DemoCircles;
-import hevs.gdx2d.lib.Game2D;
-import hevs.gdx2d.lib.PortableApplication;
 
 import javax.swing.*;
 import java.awt.*;

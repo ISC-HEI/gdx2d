@@ -1,13 +1,13 @@
 package ch.hevs.gdx2d.demos.physics.car.components;
 
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants;
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-import hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import hevs.gdx2d.components.physics.utils.PhysicsConstants;
-import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 /**
  * A wheel of the car, adapted from

@@ -1,7 +1,8 @@
 package ch.hevs.gdx2d.demos.shaders.circles;
 
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 
 /**
  * Draws a simple, yet ugly, circle. This uses a shader.

@@ -1,9 +1,9 @@
 package ch.hevs.gdx2d.demos.menus.screens.example_screens;
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.components.screen_management.RenderingScreen;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.screen_management.RenderingScreen;
-import hevs.gdx2d.lib.GdxGraphics;
 
 /**
  * A simple @SplashScreen to demonstrate transition between screens

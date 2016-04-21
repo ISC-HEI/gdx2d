@@ -1,12 +1,14 @@
 package ch.hevs.gdx2d.demos.image_drawing;
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.utils.Logger;
+
+import static org.lwjgl.opengl.Display.setTitle;
 
 /**
  * Demonstrates the use of the {@link BitmapImage#getColor(int, int)} function on

@@ -1,8 +1,8 @@
 package ch.hevs.gdx2d.demos.shaders.advanced;
 
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.Gdx;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * Demonstrates the use of multiple textures in a shader

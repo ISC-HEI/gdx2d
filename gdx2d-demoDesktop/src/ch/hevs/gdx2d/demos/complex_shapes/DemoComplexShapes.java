@@ -1,12 +1,13 @@
 package ch.hevs.gdx2d.demos.complex_shapes;
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.components.colors.PaletteGenerator;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.colors.PaletteGenerator;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+
 
 import java.util.Random;
 import java.util.Vector;

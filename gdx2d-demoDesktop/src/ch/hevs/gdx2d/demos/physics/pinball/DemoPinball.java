@@ -2,25 +2,25 @@ package ch.hevs.gdx2d.demos.physics.pinball;
 
 import java.util.LinkedList;
 
+import ch.hevs.gdx2d.components.bitmaps.Spritesheet;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsPolygon;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticCircle;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticLine;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
+import ch.hevs.gdx2d.lib.physics.AbstractPhysicsObject;
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-import hevs.gdx2d.components.bitmaps.Spritesheet;
-import hevs.gdx2d.components.physics.primitives.PhysicsPolygon;
-import hevs.gdx2d.components.physics.primitives.PhysicsStaticCircle;
-import hevs.gdx2d.components.physics.primitives.PhysicsStaticLine;
-import hevs.gdx2d.components.physics.utils.PhysicsConstants;
-import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import hevs.gdx2d.lib.utils.Logger;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
-import hevs.gdx2d.lib.physics.AbstractPhysicsObject;
-import hevs.gdx2d.lib.physics.DebugRenderer;
-import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 /**
  * WORK IN PROGRESS, DO NOT USE
@@ -41,7 +41,7 @@ public class DemoPinball extends PortableApplication {
 	private draw_mode_e draw_mode = draw_mode_e.DEBUG_STD;
 
 	private class DrawablePhysicsStaticLine extends PhysicsStaticLine implements
-			DrawableObject {
+    DrawableObject {
 
 		private Vector2 p1;
 		private Vector2 p2;

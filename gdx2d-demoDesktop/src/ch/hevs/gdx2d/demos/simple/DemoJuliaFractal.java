@@ -1,13 +1,13 @@
 package ch.hevs.gdx2d.demos.simple;
 
+import ch.hevs.gdx2d.components.colors.ColorUtils;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
-import hevs.gdx2d.components.colors.ColorUtils;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.utils.Logger;
 
 /**
  * Compute a Julia fractal (Julia set).
@@ -106,7 +106,7 @@ public class DemoJuliaFractal extends PortableApplication {
 		g.drawSchoolLogo();
 
 		// Display the fractal generation time
-		final String info = String.format("Fractal genereated in %d ms.", estimatedTime);
+		final String info = String.format("Fractal generated in %d ms.", estimatedTime);
 		g.drawString(10, (int) (0.98 * g.getScreenHeight()), info);
 	}
 

@@ -1,12 +1,12 @@
 package ch.hevs.gdx2d.demos.physics.particle;
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Filter;
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import hevs.gdx2d.lib.GdxGraphics;
 
 /**
  * Demonstrates how to render particles

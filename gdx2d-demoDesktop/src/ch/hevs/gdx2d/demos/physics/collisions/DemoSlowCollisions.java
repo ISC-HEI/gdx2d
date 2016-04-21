@@ -1,13 +1,14 @@
 package ch.hevs.gdx2d.demos.physics.collisions;
 
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.physics.DebugRenderer;
-import hevs.gdx2d.lib.physics.PhysicsWorld;
+
 
 /**
  * Simple collision handling in box2d

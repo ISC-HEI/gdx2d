@@ -1,10 +1,10 @@
 package ch.hevs.gdx2d.demos.music;
 
+import ch.hevs.gdx2d.components.audio.SoundSample;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.components.audio.SoundSample;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
 
 import static com.badlogic.gdx.graphics.Color.LIGHT_GRAY;
 

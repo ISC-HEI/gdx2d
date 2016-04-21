@@ -1,10 +1,10 @@
 package ch.hevs.gdx2d.demos.physics.joints;
 
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.components.physics.primitives.PhysicsCircle;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
 
 /**
  * A simple class to display physics circles with a color

@@ -1,15 +1,13 @@
-package hevs.gdx2d.lib.gui;
+package ch.hevs.gdx2d.demos.selector;
 
+import ch.hevs.gdx2d.demos.simple.DemoCircles;
+import ch.hevs.gdx2d.desktop.Game2D;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.Version;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
-import hevs.gdx2d.demos.simple.DemoCircles;
-import hevs.gdx2d.lib.Game2D;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.Version;
-import hevs.gdx2d.lib.gui.SelectedDemos.DemoCategory;
-import hevs.gdx2d.lib.gui.SelectedDemos.DemoDescriptor;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -65,7 +63,7 @@ public class DemoSelectorGUI extends JFrame {
 	 */
 	class TestList extends JPanel {
 
-		private Map<String, DemoDescriptor> demosMap;
+		private Map<String, SelectedDemos.DemoDescriptor> demosMap;
 
 		/* GUI components */
 		private JSCAccordion accordion = new JSCAccordion();
@@ -158,21 +156,21 @@ public class DemoSelectorGUI extends JFrame {
 		}
 
 		private void registerDemos() {
-			demosMap = new LinkedHashMap<String, DemoDescriptor>();
+			demosMap = new LinkedHashMap<String, SelectedDemos.DemoDescriptor>();
 
 			int demoCounter = 1;
 
 			// Read all categories
-			for (DemoCategory catDemos : SelectedDemos.list) {
+			for (SelectedDemos.DemoCategory catDemos : SelectedDemos.list) {
 				String catName = catDemos.name;
 
 				List<String> l = new ArrayList<String>();
 				// Read all demos in the category
-				for (DemoDescriptor currentDemo : catDemos.descs) {
+				for (SelectedDemos.DemoDescriptor currentDemo : catDemos.descs) {
 					final String name = String.format("%02d. %s", demoCounter, currentDemo.name);
 					final Class<?> clazz = currentDemo.clazz;
 					final String descText = currentDemo.desc;
-					SelectedDemos.DemoDescriptor d = new DemoDescriptor(name, clazz, descText);
+					SelectedDemos.DemoDescriptor d = new SelectedDemos.DemoDescriptor(name, clazz, descText);
 					demosMap.put(name, d);
 					l.add(name);
 					demoCounter++;
@@ -187,7 +185,7 @@ public class DemoSelectorGUI extends JFrame {
 
 		class RunButton extends JButton implements ActionListener {
 
-			public RunButton() {
+			RunButton() {
 				super("Run!");
 				addActionListener(this);
 			}
@@ -213,7 +211,7 @@ public class DemoSelectorGUI extends JFrame {
 							container.add(canvas.getCanvas());
 							container.remove(0);
 							pack();
-							
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -224,7 +222,7 @@ public class DemoSelectorGUI extends JFrame {
 
 		class DemoList extends JList {
 
-			public DemoList(String[] demos) {
+			DemoList(String[] demos) {
 				super(demos);
 
 				final Dimension commentDimension = new Dimension(400, 55);

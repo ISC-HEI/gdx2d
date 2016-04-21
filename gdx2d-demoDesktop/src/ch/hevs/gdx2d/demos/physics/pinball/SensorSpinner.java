@@ -1,9 +1,9 @@
 package ch.hevs.gdx2d.demos.physics.pinball;
 
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
-import hevs.gdx2d.lib.physics.AbstractPhysicsObject;
 
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
+import ch.hevs.gdx2d.lib.physics.AbstractPhysicsObject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;

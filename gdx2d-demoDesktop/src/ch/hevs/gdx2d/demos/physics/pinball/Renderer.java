@@ -2,12 +2,12 @@ package ch.hevs.gdx2d.demos.physics.pinball;
 
 import java.util.LinkedList;
 
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
 
 public class Renderer {
 	public void draw(GdxGraphics g, World world, LinkedList<TemporaryDrawable> decorations) {

@@ -33,7 +33,7 @@
     <property file="build.properties"/>
 
     <!-- Library runnable Jar -->
-    <property name="demos.main" value="hevs.gdx2d.demos.DemoSelector"/>
+    <property name="demos.main" value="ch.hevs.gdx2d.demos.DemoSelector"/>
     <property name="demos.version" value="${version.major}.${version.minor}.${version.patch}"/>
     <property name="lib.version" value="${demos.version}"/>
     <property name="demos.file" value="${ant.project.name}_${demos.version}"/>

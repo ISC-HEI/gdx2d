@@ -1,6 +1,6 @@
-package hevs.gdx2d.lib.gui;
+package ch.hevs.gdx2d.demos.selector;
 
-import hevs.gdx2d.lib.Version;
+import ch.hevs.gdx2d.lib.Version;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ import java.net.URI;
  * @author Christopher Métrailler (mei)
  * @version 1.0
  */
-public class AboutDialog {
+class AboutDialog {
 	private final Icon icon = new ImageIcon(getClass().getResource("/lib/icon64.png"));
 	private Component parent;
 	private JPanel aboutPanel = new JPanel();
@@ -31,7 +31,7 @@ public class AboutDialog {
 	 *
 	 * @param parent the parent component
 	 */
-	public AboutDialog(Component parent) {
+	AboutDialog(Component parent) {
 		this.parent = parent;
 
 		aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.Y_AXIS));

@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.demos.perf_tests;
 
+import ch.hevs.gdx2d.desktop.PortableApplication;
 import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.PortableApplication;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
@@ -18,7 +18,7 @@ public class Benchmarker extends PortableApplication {
   private static int TIME_LOOP_MS = 2000;
   private static int START_N = 100;
 
-  class FastRandom
+  private class FastRandom
   {
     private Random r;
     private float cache[];
@@ -34,7 +34,7 @@ public class Benchmarker extends PortableApplication {
       }
 
     }
-    public float nextFloat() {
+    float nextFloat() {
       i = (i + 1) % cache.length;
       return cache[i];
     }
@@ -42,7 +42,7 @@ public class Benchmarker extends PortableApplication {
 
   private FastRandom r = new FastRandom(0, 100000);
 
-  abstract class Tester {
+  private abstract class Tester {
     Tester(String n) {
       name = n;
     }
@@ -53,7 +53,7 @@ public class Benchmarker extends PortableApplication {
     abstract void draw(GdxGraphics g, long n);
   }
 
-  Tester testers[] = {
+  private Tester testers[] = {
     new Tester("setPixel") {
       @Override
       void draw(GdxGraphics g, long n) {
@@ -201,10 +201,10 @@ public class Benchmarker extends PortableApplication {
     new Benchmarker();
   }
 
-  int state;
-  long start;
-  long n;
-  int fps;
+  private int state;
+  private long start;
+  private long n;
+  private int fps;
 
   @Override
   public void onInit() {

@@ -1,8 +1,9 @@
 package ch.hevs.gdx2d.demos.shaders.simple;
 
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.Gdx;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+
 
 /**
  * A nice particle shader. Shader code taken from

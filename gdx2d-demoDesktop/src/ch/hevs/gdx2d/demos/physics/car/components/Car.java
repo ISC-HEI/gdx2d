@@ -1,10 +1,10 @@
 package ch.hevs.gdx2d.demos.physics.car.components;
 
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,14 +1,13 @@
 package ch.hevs.gdx2d.demos.menus.screens;
 
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.ScreenManager;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.Input;
 import ch.hevs.gdx2d.demos.menus.screens.example_screens.CreditsScreen;
 import ch.hevs.gdx2d.demos.menus.screens.example_screens.PhysicsScreen;
 import ch.hevs.gdx2d.demos.menus.screens.example_screens.SplashScreen;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.ScreenManager;
-import hevs.gdx2d.lib.ScreenManager.TransactionType;
-import hevs.gdx2d.lib.utils.Logger;
 
 /**
  * Show how to add multiple screen and switch between them with different transitions.
@@ -51,20 +50,20 @@ public class DemoScreen extends PortableApplication {
 
         // Switch to next screen using all available transitions effects
         if (keycode == Input.Keys.SPACE) {
-            s.transitionToNext(TransactionType.values()[transactionTypeId]);
+            s.transitionToNext(ScreenManager.TransactionType.values()[transactionTypeId]);
 
             // Switch to the next transition effect
-            transactionTypeId = (transactionTypeId + 1) % TransactionType.values().length;
+            transactionTypeId = (transactionTypeId + 1) % ScreenManager.TransactionType.values().length;
         }
 
         if (keycode == Input.Keys.NUM_1)
-            s.transitionTo(0, TransactionType.SLICE); // s.activateScreen(0);
+            s.transitionTo(0, ScreenManager.TransactionType.SLICE); // s.activateScreen(0);
 
         if (keycode == Input.Keys.NUM_2)
-            s.transitionTo(1, TransactionType.SLIDE); // s.activateScreen(1);
+            s.transitionTo(1, ScreenManager.TransactionType.SLIDE); // s.activateScreen(1);
 
         if (keycode == Input.Keys.NUM_3)
-            s.transitionTo(2, TransactionType.SMOOTH); // s.activateScreen(2);
+            s.transitionTo(2, ScreenManager.TransactionType.SMOOTH); // s.activateScreen(2);
     }
 
     public static void main(String[] args) {

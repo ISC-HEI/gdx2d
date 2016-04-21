@@ -1,8 +1,8 @@
 package ch.hevs.gdx2d.demos.shaders.simple;
 
-import hevs.gdx2d.components.colors.Palette;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+import ch.hevs.gdx2d.components.colors.Palette;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 
 import java.util.Random;
 

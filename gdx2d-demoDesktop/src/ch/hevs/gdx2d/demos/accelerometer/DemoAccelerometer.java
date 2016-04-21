@@ -1,10 +1,10 @@
 package ch.hevs.gdx2d.demos.accelerometer;
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Peripheral;
-import hevs.gdx2d.components.bitmaps.BitmapImage;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
 
 /**
  * A demonstration program for the accelerometers

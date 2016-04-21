@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.demos.simple.mistify;
 
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 
 /**
  * A classical Mistify screen saver clone.<br>

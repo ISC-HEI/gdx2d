@@ -1,12 +1,13 @@
 package ch.hevs.gdx2d.demos.scrolling;
 
 import ch.hevs.gdx2d.demos.scrolling.objects.*;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.interfaces.DrawableObject;
-import hevs.gdx2d.lib.utils.Logger;
+
 
 import java.util.Vector;
 

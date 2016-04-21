@@ -1,16 +1,16 @@
 package ch.hevs.gdx2d.demos.menus.screens.example_screens;
 
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
+import ch.hevs.gdx2d.components.screen_management.RenderingScreen;
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import hevs.gdx2d.components.physics.primitives.PhysicsCircle;
-import hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
-import hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import hevs.gdx2d.components.screen_management.RenderingScreen;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.physics.DebugRenderer;
-import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 /**
  * A screen to check that physics work in screens

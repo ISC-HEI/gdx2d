@@ -1,6 +1,6 @@
 package ch.hevs.gdx2d.demos.image_drawing;
 
-import hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 
 /**
  * Demo application to demonstrate how to rotate an image

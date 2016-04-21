@@ -1,6 +1,6 @@
 package ch.hevs.gdx2d.demos;
 
-import hevs.gdx2d.lib.gui.DemoSelectorGUI;
+import ch.hevs.gdx2d.demos.selector.DemoSelectorGUI;
 
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;

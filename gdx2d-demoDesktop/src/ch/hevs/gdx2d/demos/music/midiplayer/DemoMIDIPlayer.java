@@ -1,14 +1,14 @@
 package ch.hevs.gdx2d.demos.music.midiplayer;
 
+import ch.hevs.gdx2d.components.audio.SoundSample;
+import ch.hevs.gdx2d.components.colors.ColorUtils;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.graphics.Color;
-import hevs.gdx2d.components.audio.SoundSample;
-import hevs.gdx2d.components.colors.ColorUtils;
 import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIListener;
 import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIMessage;
 import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIPLayer;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;

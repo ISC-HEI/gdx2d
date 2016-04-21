@@ -2,18 +2,18 @@ package ch.hevs.gdx2d.demos.lights;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
+import ch.hevs.gdx2d.components.colors.ColorUtils;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import hevs.gdx2d.components.colors.ColorUtils;
-import hevs.gdx2d.components.physics.primitives.PhysicsCircle;
-import hevs.gdx2d.components.physics.utils.PhysicsConstants;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import hevs.gdx2d.lib.physics.PhysicsWorld;
 
 /**
  * A simple demo for the gdx2light integration (lights and shadows)

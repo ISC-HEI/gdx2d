@@ -1,7 +1,7 @@
 package ch.hevs.gdx2d.demos.shaders.simple;
 
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+import ch.hevs.gdx2d.desktop.PortableApplication;
+import ch.hevs.gdx2d.lib.GdxGraphics;
 
 /**
  * Shows how to interwind shaders and normal GDX operations
