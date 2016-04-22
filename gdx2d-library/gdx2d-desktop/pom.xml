@@ -18,16 +18,16 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>gdx2d desktop library</description>
-  <version>1.2.0</version>
+  <version>1.2.1-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
       <groupId>ch.hevs.gdx2d</groupId>
       <artifactId>gdx2d-core</artifactId>
-      <version>1.2.0</version>
+      <version>1.2.1-SNAPSHOT</version>
     </dependency>
 
-    <!-- Libgdx desktop natives -->
+    <!-- Libgdx / Box2d desktop natives -->
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-backend-lwjgl</artifactId>
@@ -38,6 +38,13 @@
       <artifactId>gdx-platform</artifactId>
       <version>${libgdx.version}</version>
       <classifier>natives-desktop</classifier>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-box2d-platform</artifactId>
+      <classifier>natives-desktop</classifier>
+      <version>${libgdx.version}</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
