@@ -15,14 +15,14 @@ import java.net.URI;
  * @version 1.0
  */
 class AboutDialog {
-	private final Icon icon = new ImageIcon(getClass().getResource("/lib/icon64.png"));
+	private final Icon icon = new ImageIcon(getClass().getResource("/selector/icon64.png"));
 	private Component parent;
 	private JPanel aboutPanel = new JPanel();
 
 	private final static String TITLE = "About this application";
 
 	private final static String INFO = "<HTML><BODY>"
-			+ "<b>Demos selector for the \"gdx2d\" library.</b><br><br>"
+			+ "<b>Gdx2d demos selector.</b><br><br>"
 			+ "Pierre-Andr&eacute; Mudry<br>"
 			+ "Christopher M&eacute;trailler<br><br></BODY></HTML>";
 
@@ -42,7 +42,7 @@ class AboutDialog {
 		aboutPanel.add(webLabel);
 
 		JLabel gitLabel = new JLabel();
-		addUrl(gitLabel, "http://hevs-isi.github.io/gdx2d/", "http://hevs-isi.github.io/gdx2d/");
+		addUrl(gitLabel, "https://hevs-isi.github.io/gdx2d/", "https://hevs-isi.github.io/gdx2d/");
 		aboutPanel.add(gitLabel);
 
 		aboutPanel.add(new JLabel("<html><br><pre>" + Version.printVerbose() + "</pre></html>"));
@@ -51,7 +51,7 @@ class AboutDialog {
 	/**
 	 * Show the about dialog as a {@link JOptionPane}.
 	 */
-	public void setVisible() {
+	void setVisible() {
 		JOptionPane.showMessageDialog(parent, aboutPanel, TITLE, JOptionPane.INFORMATION_MESSAGE, icon);
 	}
 

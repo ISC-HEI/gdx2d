@@ -95,9 +95,9 @@ public class DemoSelectorGUI extends JFrame {
 
 		private void setIcon() {
 			List<Image> icons = new ArrayList<Image>();
-			icons.add(new ImageIcon(getClass().getResource("/lib/icon16.png")).getImage());
-			icons.add(new ImageIcon(getClass().getResource("/lib/icon32.png")).getImage());
-			icons.add(new ImageIcon(getClass().getResource("/lib/icon64.png")).getImage());
+			icons.add(new ImageIcon(getClass().getResource("/selector/icon16.png")).getImage());
+      icons.add(new ImageIcon(getClass().getResource("/selector/icon32.png")).getImage());
+      icons.add(new ImageIcon(getClass().getResource("/selector/icon64.png")).getImage());
 			setIconImages(icons);
 		}
 
