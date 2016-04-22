@@ -10,6 +10,7 @@ import com.javaswingcomponents.accordion.TabOrientation;
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -29,29 +30,30 @@ import java.util.Map;
 @SuppressWarnings({"serial"})
 public class DemoSelectorGUI extends JFrame {
 
-	ArrayList<LwjglAWTCanvas> canvasList = new ArrayList<LwjglAWTCanvas>();
+	private List<LwjglAWTCanvas> canvasList = new ArrayList<LwjglAWTCanvas>();
 
-	JPanel container = new JPanel();
+	private JPanel container = new JPanel();
 
 	public DemoSelectorGUI() throws Exception {
-		super("GDX2D " + Version.VERSION);
-		setResizable(false);
+		super("Demos gdx2d " + Version.VERSION);
 
-		PortableApplication.CreateLwjglApplication = false; // TODO: configuration this way is ugly...
+		// TODO: configuration this way is ugly...
+		PortableApplication.CreateLwjglApplication = false;
+
+		setResizable(false);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BorderLayout());
+		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
 		// Populate the window
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setLayout(new FlowLayout());
-
-		add(new TestList());
-		container = new JPanel();
+		getContentPane().add(new TestList(), BorderLayout.WEST);
 
 		// Add the starting demo
 		LwjglAWTCanvas canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()));
 		canvas.getCanvas().setSize(500, 500);
 		container.add(canvas.getCanvas());
 		canvasList.add(canvas);
-		add(container);
+		getContentPane().add(container, BorderLayout.EAST);
 
 		pack();
 		setLocationRelativeTo(null);
@@ -61,7 +63,7 @@ public class DemoSelectorGUI extends JFrame {
 	/**
 	 * Display all available demos classed in categories.
 	 */
-	class TestList extends JPanel {
+	private class TestList extends JPanel {
 
 		private Map<String, SelectedDemos.DemoDescriptor> demosMap;
 
@@ -73,17 +75,18 @@ public class DemoSelectorGUI extends JFrame {
 		/* GUI preferences */
 		private String selectedDemoName = null;
 
-		public TestList() {
+		TestList() {
 			setLayout(new BorderLayout());
 			setIcon();
 			createMenus();
 			setupAccordeon();
 			setPreferredSize(new Dimension(500, 500));
+			setBorder(new EmptyBorder(5, 5, 5, 5));
 
 			add(accordion, BorderLayout.CENTER);
 
 			JPanel p = new JPanel();
-			p.setBackground(new Color(0xF5F5F5));
+			p.setBackground(new Color(0xffffff));
 			p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
 
 			p.add(Box.createRigidArea(new Dimension(10, 0)));
