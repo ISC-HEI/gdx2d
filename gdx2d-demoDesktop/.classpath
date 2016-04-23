@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="data" path="data"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="libs/accordion-1.2.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="libs/box2dlights-1.3-sources.jar"/>
+	<classpathentry kind="lib" path="libs/box2dlights-1.3.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-box2d-platform-1.5.6-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-box2d.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-freetype-platform-1.5.6-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-freetype.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-platform-1.5.6-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-platform-1.5.6.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-1.5.6-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-1.5.6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
