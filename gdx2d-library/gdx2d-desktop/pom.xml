@@ -5,7 +5,7 @@
     Maven build script for the gdx2d natives desktop library.
 
     @author Christopher Métrailler (mei@hevs.ch)
-    @version 1.1
+    @version 2.0
   -->
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
@@ -57,11 +57,60 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack-sources</id>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <!-- Include the 'gdx2d-core' and 'gdx2d-desktop' source files for the students -->
+              <outputDirectory>${project.build.directory}/sources</outputDirectory>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>ch.hevs.gdx2d</groupId>
+                  <artifactId>gdx2d-core</artifactId>
+                  <version>1.2.1-SNAPSHOT</version>
+                  <classifier>sources</classifier>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>ch.hevs.gdx2d</groupId>
+                  <artifactId>gdx2d-desktop</artifactId>
+                  <version>1.2.1-SNAPSHOT</version>
+                  <classifier>sources</classifier>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>source-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/assembly/src.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.10.3</version>
         <configuration>
-          <!-- Aggregate the doc from gdx2d-core to have all the doc in one place -->
+          <!-- Aggregate the doc from 'gdx2d-core' to include all the doc in one place -->
           <includeDependencySources>true</includeDependencySources>
           <dependencySourceIncludes>
             <dependencySourceInclude>ch.hevs.*</dependencySourceInclude>

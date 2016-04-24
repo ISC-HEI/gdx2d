@@ -45,7 +45,10 @@ class AboutDialog {
 		addUrl(gitLabel, "https://hevs-isi.github.io/gdx2d/", "https://hevs-isi.github.io/gdx2d/");
 		aboutPanel.add(gitLabel);
 
-		aboutPanel.add(new JLabel("<html><br><pre>" + Version.printVerbose() + "</pre></html>"));
+		String version = String.format("<html><br><pre>gdx2d-core v%s, libgdx v%s<br>%s</pre></html>", Version.VERSION, com.badlogic.gdx.Version.VERSION, Version.COPY);
+		JLabel vLabel = new JLabel(version);
+		vLabel.setBackground(Color.WHITE);
+		aboutPanel.add(vLabel);
 	}
 
 	/**
