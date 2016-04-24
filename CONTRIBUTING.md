@@ -16,3 +16,15 @@ The gdxd library is built using Maven and its modules are distributed as jar fil
 In order to deploy to Maven central, the project has to meet a number of requirements (publish sources, javadoc, sign files, etc.). All requirements [are detailed here](http://central.sonatype.org/pages/requirements.html).
 
 Snapshot and release versions of the gdx2d library can be uploaded [to Sonatype](https://oss.sonatype.org/#nexus-search;quick~ch.hevs) using the Maven deploy task (`$ mvn clean deploy`). Please have a look [at this guide](http://central.sonatype.org/pages/apache-maven.html) to setup the environment and read [this guide](http://central.sonatype.org/pages/releasing-the-deployment.html) to publish a release version from OSSRH to the Maven Central Repository.
+
+### New gdx2d release
+
+Before releasing any gdx2d version, please:
+
+1. Update the `Version.java` file in the `gdx2d-core` project. The version name and the `isSnapshot` must be set correctly. Output debug information must be disabled in any official release.
+2. Update the `CHANGELOG.md` and `README.md` files before the release. These files are included in the released jar files.
+3. Install the Maven artifacts locally and check check the Manifest files and all the included files. All artifacts must be signed. The sources and the Javadoc must also be released.
+4. Publish and test with `SNAPSHOT` releases first.
+5. Finally, publish the new final release to the Maven Central repository.
+
+After a release, both projects `gdx2d-demoDesktop` and `gdx2d-helloDesktop` must be updated to the latest gdx2d version manually.
