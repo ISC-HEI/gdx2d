@@ -1,30 +1,30 @@
 package ch.hevs.gdx2d.demos.selector;
 
-public class SelectedDemos {
-	public static class DemoDescriptor {
+class SelectedDemos {
+	static class DemoDescriptor {
 		public String name;
-		public Class<?> clazz;
-		public String desc;
+		Class<?> clazz;
+		String desc;
 
-		public DemoDescriptor(String n, Class<?> c, String d) {
+		DemoDescriptor(String n, Class<?> c, String d) {
 			clazz = c;
 			name = n;
 			desc = d;
 		}
 	}
 
-	public static class DemoCategory {
+	static class DemoCategory {
 		public String name;
-		public DemoDescriptor descs[];
+		DemoDescriptor descs[];
 
-		public DemoCategory(String n, DemoDescriptor d[])
+		DemoCategory(String n, DemoDescriptor d[])
 		{
 			name = n;
 			descs = d;
 		}
 	}
 
-	public static DemoCategory list[] =
+	static DemoCategory list[] =
 	{
 		new DemoCategory
 		(
@@ -245,17 +245,12 @@ public class SelectedDemos {
 				new DemoDescriptor(
 					"Julia fractal on the GPU",
           ch.hevs.gdx2d.demos.shaders.advanced.DemoJulia.class,
-					"Need to add some fancy effects to your game? That's the place to go!"
+          "What would be the world without fractals?"
 				),
 				new DemoDescriptor(
 					"Scene post-processing",
           ch.hevs.gdx2d.demos.shaders.advanced.DemoPostProcessing.class,
-					"What would be the world without fractals?"
-				),
-				new DemoDescriptor(
-					"Adding lights to a game",
-          ch.hevs.gdx2d.demos.lights.DemoLight.class,
-					"If you want to create a special ambiance in your game, maybe using lights and shadows is a good idea. This demo demonstrates how it can be easily done in gdx2d"
+          "Need to add some fancy effects to your game? That's the place to go!"
 				),
 				new DemoDescriptor(
 					"Shaders collection",
