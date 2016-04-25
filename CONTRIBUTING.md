@@ -21,10 +21,13 @@ Snapshot and release versions of the gdx2d library can be uploaded [to Sonatype]
 
 Before releasing any gdx2d version, please:
 
-1. Update the `Version.java` file in the `gdx2d-core` project. The version name and the `isSnapshot` must be set correctly. Output debug information must be disabled in any official release.
-2. Update the `CHANGELOG.md` and `README.md` files before the release. These files are included in the released jar files.
-3. Install the Maven artifacts locally and check check the Manifest files and all the included files. All artifacts must be signed. The sources and the Javadoc must also be released.
-4. Publish and test with `SNAPSHOT` releases first.
-5. Finally, publish the new final release to the Maven Central repository.
+1. Create a release branch from the develop branch to start a release (see the [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)).
+2. Update the `Version.java` file in the `gdx2d-core` project. The version name and the `isSnapshot` must be set correctly. Output debug information must be disabled for official releases.
+3. Update the `CHANGELOG.md`, `README.md` files and guides before releasing a new version. These files are included in the released jar files.
+4. Install the Maven artifacts locally. In the generated Jar file, check the Manifest and all included files. All artifacts must be signed. The sources and the Javadoc must also be released.
+5. Publish and test a `SNAPSHOT` releases first.
+6. Finally, when ready, publish the final release to the Maven Central repository.
+7. Close the current release branch. Merge into develop and master and add a tag for the latest version.
+8. Prepare for the next `SNAPSHOT` by incrementing the version number.
 
 After a release, both projects `gdx2d-demoDesktop` and `gdx2d-helloDesktop` must be updated to the latest gdx2d version manually.

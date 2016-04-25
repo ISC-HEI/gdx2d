@@ -81,7 +81,7 @@ public class DemoSimpleAnimation extends PortableApplication {
 ```
 
 ## Who did this and why?
-It was developped for the [inf1 course](http://inf1.begincoding.net) taught at [HES-SO Valais / Systems engineering](http://hevs.ch/isi) by Pierre-André Mudry. The framework was written by P.-A. Mudry & N. Chatton with the help of C. Métrailler. The list of contributors is [available here](https://github.com/hevs-isi/gdx2d/graphs/contributors).
+It was developed for the [inf1 course](http://inf1.begincoding.net) taught at [HES-SO Valais / Systems engineering](http://hevs.ch/isi) by Pierre-André Mudry. The framework was written by P.-A. Mudry & N. Chatton with the help of C. Métrailler. The list of contributors is [available here](https://github.com/hevs-isi/gdx2d/graphs/contributors).
 
 ## License
 The gdx2d project is licensed under the [Apache 2.0 license](https://github.com/hevs-isi/gdx2d/blob/master/LICENSE).
