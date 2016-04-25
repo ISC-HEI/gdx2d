@@ -7,22 +7,29 @@ The gdx2d library project contains two modules:
 
 At this time, the Android back end is not available. The current library implementation is based on Libgdx version `1.5.6`.
 
-## Download
+## Installation
 
-Download the latest JAR or grab it via Maven:
+### Maven
+
+Add `gdx2d-desktop` as a dependency in your `pom.xml`:
 
 ```xml
 <dependency>
   <groupId>ch.hevs.gdx2d</groupId>
   <artifactId>gdx2d-desktop</artifactId>
-  <version>1.2.0</version>
+  <version>1.2.1</version>
 </dependency>
 ```
-Or via Gradle:
+
+### Gradle
+
+Add `gdx2d-desktop` to the dependencies section in your `build.gradle`:
 
 ```gradle
-compile 'ch.hevs.gdx2d:gdx2d-desktop:1.2.0'
+compile 'ch.hevs.gdx2d:gdx2d-desktop:1.2.1'
 ```
+
+### Download manually
 
 The snapshots artifacts are available in the [Sonatype snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/ch/hevs/gdx2d/) and official releases are available on [the Maven Central repository](http://search.maven.org/#search%7Cga%7C1%7Cch.hevs.gdx2d).
 
@@ -30,22 +37,38 @@ Group           | Artifact        | Versions              | Download
 :---------------|:----------------|:----------------------|:--------
 `ch.hevs.gdx2d` | `gdx2d-parent`  | pom                   | 1.0
 `ch.hevs.gdx2d` | `gdx2d-lib`     | pom                   | 1.0
-`ch.hevs.gdx2d` | `gdx2d-core`    | jar, sources, javadoc | [1.2.0][core]
-`ch.hevs.gdx2d` | `gdx2d-desktop` | jar, sources, javadoc | [1.2.0][desktop]
+`ch.hevs.gdx2d` | `gdx2d-core`    | jar, sources, javadoc | [1.2.1][core]
+`ch.hevs.gdx2d` | `gdx2d-desktop` | jar, sources, javadoc | [1.2.1][desktop]
 
-[core]: http://search.maven.org/#artifactdetails%7Cch.hevs.gdx2d%7Cgdx2d-core%7C1.2.0%7Cjar
-[desktop]: http://search.maven.org/#artifactdetails%7Cch.hevs.gdx2d%7Cgdx2d-desktop%7C1.2.0%7Cjar
+[core]: http://search.maven.org/#artifactdetails%7Cch.hevs.gdx2d%7Cgdx2d-core%7C1.2.1%7Cjar
+[desktop]: http://search.maven.org/#artifactdetails%7Cch.hevs.gdx2d%7Cgdx2d-desktop%7C1.2.1%7Cjar
 
 ## Building from sources
 
-The core library and the desktop library can be compiled from the sources using Maven:
+The core and the desktop library can be compiled from the sources using Maven:
 
     $ mvn clean package
     [INFO] Scanning for projects...
-    [INFO] Building ch.hevs.gdx2d:gdx2d-lib 1.2.0
+    [INFO] Building ch.hevs.gdx2d:gdx2d-lib 1.2.1
     [INFO] BUILD SUCCESS
 
 The generated files are available in the `target` folder (jar file, sources and javadoc).
+
+## Dependencies
+
+The `gdx2d-core` dependencies are:
+
+ * `com.badlogicgames.gdx:gdx:${libgdx.version}`
+ * `com.badlogicgames.gdx:gdx-freetype:${libgdx.version}`
+ * `com.badlogicgames.gdx:gdx-box2d:${libgdx.version}`
+ * `com.badlogicgames.box2dlights:box2dlights:1.3`
+
+The `gdx2d-desktop` dependencies are:
+
+ * `com.badlogicgames.gdx:gdx-backend-lwjgl:${libgdx.version}`
+ * `com.badlogicgames.gdx:gdx-platform:${libgdx.version}`
+ * `com.badlogicgames.gdx:gdx-box2d-platform:${libgdx.version}`
+ * `com.badlogicgames.gdx:gdx-freetype-platform:${libgdx.version}`
 
 ## Library resources
 

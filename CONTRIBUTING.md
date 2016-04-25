@@ -16,3 +16,18 @@ The gdxd library is built using Maven and its modules are distributed as jar fil
 In order to deploy to Maven central, the project has to meet a number of requirements (publish sources, javadoc, sign files, etc.). All requirements [are detailed here](http://central.sonatype.org/pages/requirements.html).
 
 Snapshot and release versions of the gdx2d library can be uploaded [to Sonatype](https://oss.sonatype.org/#nexus-search;quick~ch.hevs) using the Maven deploy task (`$ mvn clean deploy`). Please have a look [at this guide](http://central.sonatype.org/pages/apache-maven.html) to setup the environment and read [this guide](http://central.sonatype.org/pages/releasing-the-deployment.html) to publish a release version from OSSRH to the Maven Central Repository.
+
+### New gdx2d release
+
+Before releasing any gdx2d version, please:
+
+1. Create a release branch from the develop branch to start a release (see the [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)).
+2. Update the `Version.java` file in the `gdx2d-core` project. The version name and the `isSnapshot` must be set correctly. Output debug information must be disabled for official releases.
+3. Update the `CHANGELOG.md`, `README.md` files and guides before releasing a new version. These files are included in the released jar files.
+4. Install the Maven artifacts locally. In the generated Jar file, check the Manifest and all included files. All artifacts must be signed. The sources and the Javadoc must also be released.
+5. Publish and test a `SNAPSHOT` releases first.
+6. Finally, when ready, publish the final release to the Maven Central repository.
+7. Close the current release branch. Merge into develop and master and add a tag for the latest version.
+8. Prepare for the next `SNAPSHOT` by incrementing the version number.
+
+After a release, both projects `gdx2d-demoDesktop` and `gdx2d-helloDesktop` must be updated to the latest gdx2d version manually.

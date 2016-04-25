@@ -18,13 +18,13 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>gdx2d desktop library</description>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.2.1</version>
 
   <dependencies>
     <dependency>
       <groupId>ch.hevs.gdx2d</groupId>
       <artifactId>gdx2d-core</artifactId>
-      <version>1.2.1-SNAPSHOT</version>
+      <version>1.2.1</version>
     </dependency>
 
     <!-- Libgdx / Box2d desktop natives -->
@@ -71,13 +71,13 @@
                 <artifactItem>
                   <groupId>ch.hevs.gdx2d</groupId>
                   <artifactId>gdx2d-core</artifactId>
-                  <version>1.2.1-SNAPSHOT</version>
+                  <version>1.2.1</version>
                   <classifier>sources</classifier>
                 </artifactItem>
                 <artifactItem>
                   <groupId>ch.hevs.gdx2d</groupId>
                   <artifactId>gdx2d-desktop</artifactId>
-                  <version>1.2.1-SNAPSHOT</version>
+                  <version>1.2.1</version>
                   <classifier>sources</classifier>
                 </artifactItem>
               </artifactItems>

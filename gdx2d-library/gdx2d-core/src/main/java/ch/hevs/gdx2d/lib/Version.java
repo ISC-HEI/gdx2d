@@ -5,17 +5,19 @@ package ch.hevs.gdx2d.lib;
  */
 public class Version {
 
+  /** Copyright and authors information. */
   public final static String COPY = "mui, chn, mei, pim (c) 2012-2016";
 
   /**
    * Current version name of the gdx2d library (major.minor.revision).
    */
-  public final static String VERSION = "1.2.1-SNAPSHOT";
+  public final static String VERSION = "1.2.1";
 
   /**
-   * Indicates if if it is a debug or release version.
+   * Indicates if it is a debug or release version.
+   * When snapshot version is set to `false`, debug logs are disabled.
    */
-  public final static boolean isSnapshot = true;
+  public final static boolean isSnapshot = false;
 
 
   /**

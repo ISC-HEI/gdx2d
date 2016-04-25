@@ -34,9 +34,10 @@ class AboutDialog {
 	AboutDialog(Component parent) {
 		this.parent = parent;
 
+		aboutPanel.setPreferredSize(new Dimension(320, 200));		
 		aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.Y_AXIS));
 		aboutPanel.add(new JLabel(INFO));
-
+		
 		JLabel webLabel = new JLabel("Made for the ");
 		addUrl(webLabel, "http://inf1.begincoding.net", "inf1 course");
 		aboutPanel.add(webLabel);

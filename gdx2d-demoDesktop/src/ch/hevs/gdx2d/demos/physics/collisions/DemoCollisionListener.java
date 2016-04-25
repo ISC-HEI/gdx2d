@@ -12,8 +12,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.LinkedList;
 
-import static org.lwjgl.opengl.Display.setTitle;
-
 /**
  * Simple collision handling in box2d
  *

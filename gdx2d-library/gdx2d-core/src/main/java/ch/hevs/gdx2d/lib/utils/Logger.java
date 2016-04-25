@@ -28,7 +28,7 @@ public class Logger {
 	/** Log error and normal messages. */
 	public static final int INFO = Application.LOG_INFO;
 
-	private static final String TAG = "gdx2d-lib";
+	private static final String TAG = "gdx2d";
 
 	static {
 		if(Version.isSnapshot)
