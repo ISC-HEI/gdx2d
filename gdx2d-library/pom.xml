@@ -5,7 +5,7 @@
     Maven build script for the gdx2d library and its modules.
 
     @author Christopher Métrailler (mei@hevs.ch)
-    @version 1.0
+    @version 1.1
   -->
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
@@ -43,6 +43,11 @@
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-box2d</artifactId>
       <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.badlogicgames.box2dlights</groupId>
+      <artifactId>box2dlights</artifactId>
+      <version>1.3</version>
     </dependency>
   </dependencies>
 
@@ -126,19 +131,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.3</version>
-        <extensions>true</extensions>
-        <configuration>
-          <!-- See the "settings.xml" file -->
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
       </plugin>
 
       <!--

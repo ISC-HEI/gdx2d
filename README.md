@@ -1,4 +1,4 @@
-# Welcome to gdx2d [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d)
+# Welcome to gdx2d [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.hevs.gdx2d/gdx2d-core/badge.svg)](http://search.maven.org/#search%7Cga%7C1%7Cch.hevs.gdx2d)
 
 The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. 
 
@@ -80,19 +80,8 @@ public class DemoSimpleAnimation extends PortableApplication {
 }
 ```
 
-## Installing the code
-The library consists of two Eclipse projects (one for Android, one for desktop) that can be imported easily. Once downloaded, an archive can be imported in Eclipse using `File->Import->Existing project into workspace`. You can then either give the path of the archive or extract the data manually and then point to that directory.
-
-`gdx2d-desktop`
-
-This project contains the library as well as all the demo programs. All the demos can be run on PC or on Android. In order to run a demo, either use the `DemoSelector` class which provides a simple way to choose which demo to run or run each demo individually.
-
-`gdx2d-android`
-
-This is the Android counterpart of the library. This project depends on the `gdx2d-desktop` project, which means that this other project must be available in Eclipse. In addition, most of the files that will be executed come from that project as well. As such, it mainly consists of a Java file `GameActivity.java` which determines which is the main program that will be launched on Android.
-
 ## Who did this and why?
-It was developped for the [inf1 course](http://inf1.begincoding.net) taught at [HES-SO Valais / Systems engineering](http://hevs.ch/isi) by Pierre-André Mudry. The framework was written by P.-A. Mudry & N. Chatton with the help of C. Métrailler. The list of contributors is [available here](https://github.com/hevs-isi/gdx2d/graphs/contributors).
+It was developed for the [inf1 course](http://inf1.begincoding.net) taught at [HES-SO Valais / Systems engineering](http://hevs.ch/isi) by Pierre-André Mudry. The framework was written by P.-A. Mudry & N. Chatton with the help of C. Métrailler. The list of contributors is [available here](https://github.com/hevs-isi/gdx2d/graphs/contributors).
 
 ## License
 The gdx2d project is licensed under the [Apache 2.0 license](https://github.com/hevs-isi/gdx2d/blob/master/LICENSE).

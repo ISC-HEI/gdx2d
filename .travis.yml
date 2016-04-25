@@ -2,6 +2,7 @@ language: java
 jdk:
   - openjdk6
   - openjdk7
+  - oraclejdk7
   - oraclejdk8
 
 # blacklist
@@ -27,8 +28,11 @@ env:
   global:
     secure: Trl21W5O4XR8sTR9JPrYk4Rl/9j3CfbXLvFOWepQ8dcl5r90OeqUtBZvEygxzem1fqBGDHPryC/hSMoimac5YQj9J7PFqi15zQ4JhYNbg8zvpgfGk4tJwmJ+nBzz9TF6lkZQsRGwqpWYaSnv5BlL8fnuIRREe2FbHyCEZEcLeNk=
 
-before_script:
-  - mvn clean package
+# Maven build only (test and gpg signature disabled)
+# Snapshots and releases are upload manually to Sonatype for now
+install:
+  - mvn install -DskipTests=true -Dgpg.skip=true
 
-after_success:
-  - ./.travis/publish-javadoc-api.sh
+# Do not generate the javadoc for each modules any more
+# after_success:
+#   - ./.travis/publish-javadoc-api.sh

@@ -11,7 +11,7 @@ import ch.hevs.gdx2d.desktop.PortableApplication;
  *
  * @author Christopher Métrailler (mei)
  * @author Pierre-André Mudry (mui)
- * @version 1.01
+ * @version 2.1
  */
 public class HelloWorld extends PortableApplication {
 
@@ -19,19 +19,20 @@ public class HelloWorld extends PortableApplication {
 
 	@Override
 	public void onInit() {
-		setTitle("Hello World - mei,mui 2014");
-		//
-		imgBitmap = new BitmapImage("res/lib/icon64.png" /* "images/hei-pi.png" */);
+		setTitle("Hello World - mei, mui 2016");
+
+		// Load a custom image (or from the lib "res/lib/icon64.png")
+		imgBitmap = new BitmapImage("data/images/hei-pi.png");
 	}
 
 	/**
 	 * Animation related variables
 	 */
-	int direction = 1;
-	float currentTime = 0;
-	final float ANIMATION_LENGTH = 2f; // Animation length (in seconds)
-	final float MIN_ANGLE = -20;
-	final float MAX_ANGLE = 20;
+	private int direction = 1;
+	private float currentTime = 0;
+	private final float ANIMATION_LENGTH = 2f; // Animation length (in seconds)
+	private final float MIN_ANGLE = -20;
+	private final float MAX_ANGLE = 20;
 
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
@@ -44,14 +45,13 @@ public class HelloWorld extends PortableApplication {
 
 		// Draw everything
 		g.drawTransformedPicture(getWindowWidth() / 2.0f, getWindowHeight() / 2.0f, angle, 1.0f, imgBitmap);
-		g.drawStringCentered(getWindowHeight() * 0.8f, "Welcome to GDX2D!");
+		g.drawStringCentered(getWindowHeight() * 0.8f, "Welcome to gdx2d !");
 		g.drawFPS();
 		g.drawSchoolLogo();
 	}
 
 	/**
-	 * Compute time percentage for making
-	 * a looping animation
+	 * Compute time percentage for making a looping animation
 	 *
 	 * @return the current normalized time
 	 */
@@ -71,4 +71,3 @@ public class HelloWorld extends PortableApplication {
 		new HelloWorld();
 	}
 }
-

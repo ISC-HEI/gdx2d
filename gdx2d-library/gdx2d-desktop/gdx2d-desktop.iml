@@ -25,9 +25,11 @@
     <orderEntry type="library" name="Maven: com.badlogicgames.jlayer:jlayer:1.0.1-gdx" level="project" />
     <orderEntry type="library" name="Maven: org.jcraft:jorbis:0.0.17" level="project" />
     <orderEntry type="library" name="Maven: com.badlogicgames.gdx:gdx-platform:natives-desktop:1.5.6" level="project" />
+    <orderEntry type="library" name="Maven: com.badlogicgames.gdx:gdx-box2d-platform:natives-desktop:1.5.6" level="project" />
     <orderEntry type="library" name="Maven: com.badlogicgames.gdx:gdx-freetype-platform:natives-desktop:1.5.6" level="project" />
     <orderEntry type="library" name="Maven: com.badlogicgames.gdx:gdx:1.5.6" level="project" />
     <orderEntry type="library" name="Maven: com.badlogicgames.gdx:gdx-freetype:1.5.6" level="project" />
     <orderEntry type="library" name="Maven: com.badlogicgames.gdx:gdx-box2d:1.5.6" level="project" />
+    <orderEntry type="library" name="Maven: com.badlogicgames.box2dlights:box2dlights:1.3" level="project" />
   </component>
 </module>
