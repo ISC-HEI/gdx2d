@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+	ANT Build script for the gdx2d-desktop project.
+
+	This project contains the gdx2d library and a lot
+	of demos running on PC.
+
+	The project is compiled in the "bin" folder and
+	runnable jar files are exported to the "dist" folder.
+	The runnable jar can be executed to run the DemoSelector and
+	play with demos. Sources are included in the Jar.
+	The javadoc can also be exported.
+
+	@author Christopher Métrailler (mei@hevs.ch), mui@hevs.ch
+	@version 2.0
+-->
+<project default="jar" name="gdx2d-demoDesktop" basedir=".">
+
+    <description>
+        ANT build script for "${ant.project.name}".
+    </description>
+
+    <!-- Folders input locations -->
+    <property name="src.dir" location="src"/>
+    <property name="data.dir" location="data"/>
+    <property name="libs.dir" location="libs"/>
+
+    <!-- Folders output locations -->
+    <property name="build.dir" location="bin"/>
+    <property name="dist.dir" location="dist"/>
+
+    <property file="build.properties"/>
+
+    <!-- Library runnable Jar -->
+    <property name="demos.main" value="ch.hevs.gdx2d.demos.DemoSelector"/>
+    <property name="demos.file" value="${ant.project.name}-${gdx2d.version}"/>
+
+    <!-- Manifest attributes -->
+    <property name="impl.vendor" value="http://inf1.begincoding.net/"/>
+    <property name="impl.title" value="${ant.project.name}"/>
+    <property name="impl.version" value="${gdx2d.version}"/>
+    <tstamp>
+        <format property="today" pattern="yyyy-MM-dd HH:mm:ss"/>
+    </tstamp>
+
+    <!-- Force Java 6 -->
+    <property name="ant.build.javac.source" value="1.6"/>
+    <property name="ant.build.javac.target" value="1.6"/>
+
+    <!-- Demo jar classpath -->
+    <path id="project-classpath">
+        <fileset dir="${libs.dir}" includes="**/*.jar"/>
+    </path>
+
+    <!-- Build targets -->
+	<echo>ANT build script for "${ant.project.name}".</echo>
+
+    <target name="init" description="Init build folders.">
+        <tstamp/>
+        <!-- Create output folders -->
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="clean" description="Clean all unused folders.">
+        <!-- Remove all output folders -->
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean, init" description="Compile the demos.">
+
+        <!-- Resources are copied to the data folder -->
+        <copy todir="${build.dir}/data">
+            <fileset dir="${data.dir}"/>
+        </copy>
+
+        <!-- Library icons for Swing -->
+        <copy todir="${build.dir}/selector">
+            <fileset dir="${data.dir}/selector"/>
+        </copy>
+
+        <copy todir="${build.dir}/font">
+            <fileset dir="${data.dir}/font"/>
+        </copy>
+
+        <!-- Compile all gdx2d Java source files. -->
+        <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="project-classpath" includeantruntime="false">
+            <!-- Exclude javadoc files -->
+            <exclude name="**/package-info.java"/>
+        </javac>
+    </target>
+
+    <!-- The same Jar is used to run the demos and to include in a new project. -->
+    <target name="jar" depends="compile" description="Export all the demos to a runnable jar.">
+        <jar destfile="${dist.dir}/${demos.file}.jar" update="true" basedir="${build.dir}">
+
+            <!-- Remove libraries sources to spare a bit space -->
+            <fileset dir="${libs.dir}" excludes="**/*-sources*"/>
+
+            <!-- Include sources for the gdx2d lib and components in the Jar.
+            It is easier for the students to have sources directly in it. -->
+            <fileset dir="${src.dir}" includes="hevs/gdx2d/lib/**/*.java"/>
+            <fileset dir="${src.dir}" includes="hevs/gdx2d/components/**/*.java"/>
+
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/accordion-1.2.0-jar-with-dependencies.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${libs.dir}/gdx2d-desktop-${gdx2d.version}.jar"/>
+
+            <manifest>
+                <!-- Demo selector launcher -->
+                <attribute name="Main-Class" value="${demos.main}"/>
+                <attribute name="Implementation-Vendor" value="${impl.vendor}"/>
+                <attribute name="Implementation-Title" value="${impl.title}"/>
+                <attribute name="Implementation-Version" value="${impl.version}"/>
+                <attribute name="Built-By" value="mei@hevs.ch"/>
+                <attribute name="Built-Date" value="${today}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Launch the demo selector. -->
+    <target name="run" description="Run demos using the compiled Jar file.">
+        <!-- Run only if the jar is available. -->
+        <fail message="Runnable jar ${demos.file}.jar not found. It must be exported first.">
+            <condition>
+                <not>
+                    <and>
+                        <available file="${dist.dir}/${demos.file}.jar" type="file"/>
+                    </and>
+                </not>
+            </condition>
+        </fail>
+        <java jar="${dist.dir}/${demos.file}.jar" fork="true"/>
+    </target>
+</project>
