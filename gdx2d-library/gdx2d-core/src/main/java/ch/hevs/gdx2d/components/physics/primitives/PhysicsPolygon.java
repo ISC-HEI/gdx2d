@@ -23,13 +23,14 @@ public class PhysicsPolygon extends AbstractPhysicsObject {
 	 * Create a physics polygon.
 	 *
 	 * @param name        An optional name for the object (for debug)
+	 * @param position    The polygon position
 	 * @param vertices    The polygon vertices
 	 * @param density     The density of the object, in kg/ms2
 	 * @param restitution The restitution factor (energy given back on collision). 1 means all the energy is restored, 0 means no energy is given back
 	 * @param friction    The friction factor (between 0 and 1)
 	 */
-	public PhysicsPolygon(String name, Vector2[] vertices, float density, float restitution, float friction, boolean dynamic) {
-		super(name, Vector2.Zero, vertices, density, restitution, friction, dynamic);
+	public PhysicsPolygon(String name, Vector2 position, Vector2[] vertices, float density, float restitution, float friction, boolean dynamic) {
+		super(name, position, vertices, density, restitution, friction, dynamic);
 	}
 
 	/**
