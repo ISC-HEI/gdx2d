@@ -4,6 +4,9 @@
 	<classpathentry kind="src" output="data" path="data"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="libs/accordion-1.2.0-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="libs/gdx2d-desktop-1.2.1.jar" sourcepath="libs/gdx2d-desktop-1.2.1-sources.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/gdx2d-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/gdx2d-desktop"/>
+	<classpathentry kind="lib" path="/gdx2d-core/target/gdx2d-core-1.2.2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/gdx2d-desktop/target/gdx2d-desktop-1.2.2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
