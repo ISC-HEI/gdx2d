@@ -46,12 +46,11 @@ public class ShaderRenderer implements Disposable {
 		h = height;
 		vertexShader = Gdx.files.internal("res/lib/default.vs");
 
-		Logger.dbg(String.format("Fragment shader '%s' loaded.", handle));
-		Logger.dbg(String.format("Vertex shader '%s' loaded.", vertexShader));
-
 		create(fragmentShaderInclude + handle.readString(), vertexShader.readString());
 
 		if(Version.isSnapshot) {
+			Logger.dbg(String.format("Fragment shader '%s' loaded.", handle));
+			Logger.dbg(String.format("Vertex shader '%s' loaded.", vertexShader));
 			String log = "Shader defined uniforms are :\n";
 			for (String uniform : shader.getUniforms()) {
 				log += "\t" + uniform + " = " + shader.getAttributeType(uniform) + "\n";

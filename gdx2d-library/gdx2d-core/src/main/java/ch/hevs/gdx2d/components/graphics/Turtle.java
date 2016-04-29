@@ -62,8 +62,8 @@ public class Turtle {
 	 */
 	public void forward(double distance) {
 		// Compute new position
-		float newX = x + Math.round(Math.cos(angle) * distance);
-		float newY = y + Math.round(Math.sin(angle) * distance);
+		float newX = (float)(x + Math.cos(angle) * distance);
+		float newY = (float)(y + Math.sin(angle) * distance);
 
 		// Write if the pen is down
 		if (penDown) {
@@ -72,6 +72,7 @@ public class Turtle {
 			g.drawLine(x, y, newX, newY);
 			g.setColor(oldColor);
 		}
+		
 		x = newX;
 		y = newY;
 	}
@@ -82,7 +83,7 @@ public class Turtle {
 	 * @param x X coordinate of the destination
 	 * @param y Y coordinate of the destination
 	 */
-	public void jump(int x, int y) {
+	public void jump(float x, float y) {
 		this.x = x;
 		this.y = y;
 
