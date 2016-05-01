@@ -1,0 +1,13 @@
+<!--
+  Maven deploy settings for Travis
+  OSSRH login and password must be encrypted and available in the environment.
+-->
+<settings>
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>${env.CI_DEPLOY_USERNAME}</username>
+      <password>${env.CI_DEPLOY_PASSWORD}</password>
+    </server>
+  </servers>
+</settings>
