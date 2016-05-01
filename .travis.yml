@@ -1,37 +1,36 @@
 language: java
 jdk:
-  - openjdk6
-  - openjdk7
-  - oraclejdk7
-  - oraclejdk8
+- openjdk6
+- openjdk7
+- oraclejdk7
+- oraclejdk8
 
-# blacklist
-branches:
-  except:
-    - gh-pages
-
-# whitelist
 branches:
   only:
-    - master
-    - develop
+  - master
+  - develop
 
-# Use the container-based infrastructure
 sudo: false
 
 cache:
   directories:
-  - $HOME/.m2
+  - "$HOME/.m2"
 
-# Use to publish the gdx2d API Javadoc to the gdx2d website
 env:
   global:
-    secure: Trl21W5O4XR8sTR9JPrYk4Rl/9j3CfbXLvFOWepQ8dcl5r90OeqUtBZvEygxzem1fqBGDHPryC/hSMoimac5YQj9J7PFqi15zQ4JhYNbg8zvpgfGk4tJwmJ+nBzz9TF6lkZQsRGwqpWYaSnv5BlL8fnuIRREe2FbHyCEZEcLeNk=
+  # Publish the gdx2d API Javadoc to the gdx2d website
+  # - secure: Trl21W5O4XR8sTR9JPrYk4Rl/9j3CfbXLvFOWepQ8dcl5r90OeqUtBZvEygxzem1fqBGDHPryC/hSMoimac5YQj9J7PFqi15zQ4JhYNbg8zvpgfGk4tJwmJ+nBzz9TF6lkZQsRGwqpWYaSnv5BlL8fnuIRREe2FbHyCEZEcLeNk=
 
-# Maven build only (test and gpg signature disabled)
-# Snapshots and releases are upload manually to Sonatype for now
+  # Publish snapshots to Sonatype (CI_DEPLOY_PASSWORD)
+  - CI_DEPLOY_USERNAME=metc
+  - secure: LfqFpafZjmZlq3ows8cUQ1kzev3YVPrPfAjxwfHJm6rWNjbzd5a7e4WK4ligtnVVjHvbOOsXaPF25j6DmIZGpOfCwscEdba7Nc3rPFlTubS6LT79p54/USbrr3jGOx+UlObjf91TU2WJqPSV5a5z17Awl/vXLAoDMebTYoaJSHA=
+
 install:
-  - mvn install -DskipTests=true -Dgpg.skip=true
+- mvn install -DskipTests=true -Dgpg.skip=true
+
+# Publish snapshots to Sonatype
+after_success:
+  - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && [[ ${TRAVIS_TAG} == '' ]] && mvn deploy -DskipTests --settings ./.travis/deploy-settings.xml"
 
 # Do not generate the javadoc for each modules any more
 # after_success:
