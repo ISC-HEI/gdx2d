@@ -21,9 +21,9 @@ env:
   # Publish the gdx2d API Javadoc to the gdx2d website
   # - secure: Trl21W5O4XR8sTR9JPrYk4Rl/9j3CfbXLvFOWepQ8dcl5r90OeqUtBZvEygxzem1fqBGDHPryC/hSMoimac5YQj9J7PFqi15zQ4JhYNbg8zvpgfGk4tJwmJ+nBzz9TF6lkZQsRGwqpWYaSnv5BlL8fnuIRREe2FbHyCEZEcLeNk=
 
-  # Publish snapshots to Sonatype (CI_DEPLOY_PASSWORD)
-  - CI_DEPLOY_USERNAME=metc
-  - secure: LfqFpafZjmZlq3ows8cUQ1kzev3YVPrPfAjxwfHJm6rWNjbzd5a7e4WK4ligtnVVjHvbOOsXaPF25j6DmIZGpOfCwscEdba7Nc3rPFlTubS6LT79p54/USbrr3jGOx+UlObjf91TU2WJqPSV5a5z17Awl/vXLAoDMebTYoaJSHA=
+  # Publish snapshots to Sonatype (CI_DEPLOY_USERNAME, CI_DEPLOY_PASSWORD)
+  - secure: UijlByzGPikgOuNd4xhoD/T+OOApxO1Pqt7Xk/02eGtSehxLlkHDR+mlBPzwubiuaH6ZT/hJ9DQ21WKmwOlIUT/cj97qLBi/i3Rfp/bqPIE5rBSXVR6QeqT2WJx8ourNAcZ86eSodTx5FkkHpcCHLCmEG/CP+SO 1e1pspfDxA0c=
+  - secure: pm0jRzQFV0JGRns7MpyhGRCM5klJy8NDgX40mgQfTdSOq724CpzlEAM0I/KzFEQiuYTaw680a6MCrm4tdfk0v/b7Q5rhyawIYXZwYINRLC+PZyvIx/n8EPSQQiTwZVFfPcsOJet0570dKvZfSSQNcCFfJsaJi4aAtzP3f2p4KXo=
 
 install:
 - mvn install -DskipTests=true -Dgpg.skip=true
