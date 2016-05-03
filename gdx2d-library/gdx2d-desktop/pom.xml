@@ -27,6 +27,14 @@
       <version>1.2.2-SNAPSHOT</version>
     </dependency>
 
+    <dependency>
+      <!-- Add the sources of the core for the students -->
+      <groupId>ch.hevs.gdx2d</groupId>
+      <artifactId>gdx2d-core</artifactId>
+      <version>1.2.2-SNAPSHOT</version>
+      <classifier>sources</classifier>
+    </dependency>
+
     <!-- Libgdx / Box2d desktop natives -->
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
@@ -56,55 +64,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack-sources</id>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <!-- Include the 'gdx2d-core' and 'gdx2d-desktop' source files for the students -->
-              <outputDirectory>${project.build.directory}/sources</outputDirectory>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>ch.hevs.gdx2d</groupId>
-                  <artifactId>gdx2d-core</artifactId>
-                  <version>1.2.1</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>ch.hevs.gdx2d</groupId>
-                  <artifactId>gdx2d-desktop</artifactId>
-                  <version>1.2.1</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
-        <executions>
-          <execution>
-            <id>source-assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>src/assembly/src.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
