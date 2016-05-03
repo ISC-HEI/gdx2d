@@ -25,9 +25,6 @@ env:
   - secure: "kNBemLDqDCzTf0OUtBImE68EO6s4nhXM5fxn+iGfEtAk+W70KlV6L5BkKmAbmlI/iZqtwA13FMmj4cIK9gNDj0nydgDLuCUGRIbnYdOnxrVc6Ykkw0ja61aRtiFpJs/WWqIqrZOJqnp/f9pmx+s3QKnHvTndepqv8/LKEdfeYLQ="
   - secure: "H4ipPQ5dP0P1hmRBXQSIvmgEgZS4YI8ZrRjl2pNKImJ3KVN+pM9Jft9+DxOC8kCbLyI6dPHRkNFIa5A2BWoWrj20nOz2fTBNtW/kJQReAALoCycMZilN5YXKFsPERSSfJpws2qXTfIZq9A1PwsfsNOgdUM3z58T5Zyp5rzoTzVg="
 
-before_install:
-  - "git clone -b travis `git config --get remote.origin.url` target/travis"
-
 install:
   - mvn install -DskipTests=true -Dgpg.skip=true
 
