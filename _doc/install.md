@@ -5,32 +5,55 @@ weight: 1
 title: Installing the lib
 ---
 
-Two projects are available for desktop (PC, Mac, Linux) and Android. They can be imported in Eclipse to work quickly with a functional `gdx2d` project.
+A Zip file with desktop demos and a simple bootstrap project [can be downloaded from Github](https://github.com/hevs-isi/gdx2d/releases/download/v1.2.1/gdx2d-1.2.1-students.zip) to get started with the `gdx2d` library quickly.
 
-Simply import the latest `gdx2d-src-X.X.X.zip` archive file into your workspace :
-
-<center>
-    <img alt="Import projects" height="500" src="{{ site.baseurl }}/assets/doc/import.png">
-</center>
-
-Then run the main Java file `gdx2d-desktop/src/hevs/gdx2d/demos/DemoSelector.java` to display the `DemoSelector` or directly start the demo you are interested in.
-
-To run the `gdx2d-helloDesktop` project, launch the Java main file `HelloWorld.java` :
+You can also [download](https://github.com/hevs-isi/gdx2d/releases/download/v1.2.1/gdx2d-demoDesktop-1.2.1.jar) and run the `gdx2d-demoDesktop-1.2.1.jar` file to see the latest demos programs on your PC (no development environment is required):
 
 <center>
-    <img alt="Import projects" src="{{ site.baseurl }}/assets/doc/hello-world-students.png">
+  <a title="Gdx2d demos selector" href="https://github.com/hevs-isi/gdx2d/releases/download/v1.2.1/gdx2d-demoDesktop-1.2.1.jar"><img alt="Gdx2d demos selector" height="450" src="{{ site.baseurl }}/assets/doc/demo-selector.png"></a>
 </center>
 
-### Test environment
-The library has been successfully tested and built on the following environments
+## Run demo programs in Eclipse
 
-#### Linux
-* OS: Ubuntu 12.04.3 LTS x86_64
-* Java: Java 1.6.0_27 - OpenJDK 64-Bit
-* IDE: Eclipse 4.2.1, ADT version 22.0.5, Apache Ant(TM) version 1.8.3
-* Android: Android 4.3 (API 18)
+[Download](https://github.com/hevs-isi/gdx2d/releases/download/v1.2.1/gdx2d-1.2.1-students.zip) and extract the `gdx2d-1.2.1-students.zip` file, then import the two project in you Eclipse workspace (using the `File->Import...->Existing Projects into Workspace` menu in Eclipse):
 
-#### Windows
-* OS: Windows 8.1
-* Java: Java 1.8.0_40 from Oracle(TM) (64 bits)
-* IDE: IntelliJ and Eclipse Luna
+<center>
+    <img alt="Import existing projects in Eclipse" height="550" src="{{ site.baseurl }}/assets/doc/import.png">
+</center>
+
+The `gdx2d-demoDesktop` contains several program examples you can run on your PC. All the source code of the demo programs are provided. Select and run the main Java file `gdx2d-demoDesktop/src/ch/hevs/gdx2d/demos/DemoSelector.java` to display the demo selector window, or select the demo you are interested in and launch it from Eclipse.
+
+## Hello gdx2d project in Eclipse
+
+The `gdx2d-helloDesktop` project is a simple project you can use as a base to start coding with the `gdx2d` library. Select and launch the `HelloWorld.java` file to see your first program:
+
+<center>
+    <img alt="Gdx2d bootstrap project" height="350" src="{{ site.baseurl }}/assets/doc/hello-world-students.png">
+</center>
+
+## Maven-based project
+
+Advanced user can also use Maven or Gradle based projects to get started with the `gdx2d` library on desktop.
+
+* Add `gdx2d-desktop` as a dependency in your `pom.xml`:
+
+{% highlight xml %}
+<dependency>
+  <groupId>ch.hevs.gdx2d</groupId>
+  <artifactId>gdx2d-desktop</artifactId>
+  <version>1.2.1</version>
+</dependency>
+{% endhighlight %}
+
+* Or add `gdx2d-desktop` to the dependencies section in your `build.gradle`:
+
+{% highlight gradle %}
+compile 'ch.hevs.gdx2d:gdx2d-desktop:1.2.1'
+{% endhighlight %}
+
+More information are available [on this page](https://github.com/hevs-isi/gdx2d/tree/v1.2.1/gdx2d-library).
+
+## Development versions
+
+Development / snapshots versions of the `gdx2d` library can be downloaded from the [Sonatype snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/ch/hevs/gdx2d/).
+It is also possible to build the library from sources using Maven. Please have a look [at this page](https://github.com/hevs-isi/gdx2d/tree/v1.2.1/gdx2d-library) for the details.
