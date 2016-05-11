@@ -65,171 +65,21 @@ public class Game2D implements ApplicationListener {
 
         g = new GdxGraphics(shapeRenderer, batch, camera);
 
-        // Let's have multiple input processors
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(new GestureDetector(new GestureListener() {
-
-            @Override
-            public boolean zoom(float initialDistance, float distance) {
-                app.onZoom(initialDistance, distance);
-                return false;
-            }
-
-            @Override
-            public boolean touchDown(float x, float y, int pointer, int button) {
-                return false;
-            }
-
-            @Override
-            public boolean tap(float x, float y, int count, int button) {
-                app.onTap(x, y, count, button);
-                return false;
-            }
-
-            @Override
-            public boolean pinch(Vector2 initialPointer1,
-                                 Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-                app.onPinch(initialPointer1, initialPointer2, pointer1, pointer2);
-                return false;
-            }
-
-            @Override
-            public boolean pan(float x, float y, float deltaX, float deltaY) {
-                app.onPan(x, y, deltaX, deltaY);
-                return false;
-            }
-
-            @Override
-            public boolean longPress(float x, float y) {
-                app.onLongPress(x, y);
-                return false;
-            }
-
-            @Override
-            public boolean fling(float velocityX, float velocityY, int button) {
-                app.onFling(velocityX, velocityY, button);
-                return false;
-            }
-
-            @Override
-            public boolean panStop(float v, float v1, int i, int i1) {
-                return false;
-            }
-        }));
-
-        multiplexer.addProcessor(new InputProcessor() {
-
-            @Override
-            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                app.onRelease(screenX, screenY, button);
-                return false;
-            }
-
-            @Override
-            public boolean touchDragged(int screenX, int screenY, int pointer) {
-                app.onDrag(screenX, Gdx.graphics.getHeight() - screenY);
-                return false;
-            }
-
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                app.onClick(screenX, Gdx.graphics.getHeight() - screenY, button);
-                return false;
-            }
-
-            @Override
-            public boolean scrolled(int amount) {
-                app.onScroll(amount);
-                return false;
-            }
-
-            @Override
-            public boolean mouseMoved(int screenX, int screenY) {
-                return false;
-            }
-
-            @Override
-            public boolean keyUp(int keycode) {
-                app.onKeyUp(keycode);
-                return false;
-            }
-
-            @Override
-            public boolean keyTyped(char character) {
-                return false;
-            }
-
-            @Override
-            public boolean keyDown(int keycode) {
-                // Trigger about box when pressing the menu button on Android
-                if (keycode == Input.Keys.MENU) {
-                    // resolver.showAboutBox();
-                }
-                if (keycode == Input.Keys.ESCAPE) {
-                    Gdx.app.exit();
-                }
-                app.onKeyDown(keycode);
-                return false;
-            }
-        });
+        // Register multiple input processors for gestures, mouse and keyboard events
+        final InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(new GestureDetector(new GdxGestureDetector(app))); // Gestures
+        multiplexer.addProcessor(new GdxInputProcessor(app)); // Mouse and keyboard inputs
 
         Gdx.input.setInputProcessor(multiplexer);
 
+        // Register the controllers input (extension required)
         Controllers.clearListeners();
-        Controllers.addListener(new ControllerListener() {
-          @Override
-          public void connected(Controller controller) {
-            // FIXME: not called on Windows with XBox One game-pad
-          }
-
-          @Override
-          public void disconnected(Controller controller) {
-            // FIXME: not called on Windows with XBox One game-pad
-          }
-
-          @Override
-          public boolean buttonDown(Controller controller, int i) {
-            return false;
-          }
-
-          @Override
-          public boolean buttonUp(Controller controller, int i) {
-            return false;
-          }
-
-          @Override
-          public boolean axisMoved(Controller controller, int i, float v) {
-            return false;
-          }
-
-          @Override
-          public boolean povMoved(Controller controller, int i, PovDirection povDirection) {
-            return false;
-          }
-
-          @Override
-          public boolean xSliderMoved(Controller controller, int i, boolean b) {
-            // FIXME: not called on Windows with XBox One game-pad
-            return false;
-          }
-
-          @Override
-          public boolean ySliderMoved(Controller controller, int i, boolean b) {
-            // FIXME: not called on Windows with XBox One game-pad
-            return false;
-          }
-
-          @Override
-          public boolean accelerometerMoved(Controller controller, int i, Vector3 vector3) {
-            // FIXME: not called on Windows with XBox One game-pad
-            return false;
-          }
-        });
+        Controllers.addListener(new GdxControllersProcessor(app));
 
         app.onInit(); // Initialize app
 
         // FIXME: should we enumerate the controllers here and call the connect method ?
-        // app.connected();
+        // app.onControllerConnected();
     }
 
     /**
