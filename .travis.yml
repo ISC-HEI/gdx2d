@@ -14,7 +14,8 @@ sudo: false
 
 cache:
   directories:
-  - "$HOME/.m2"
+  - '$HOME/.m2/repository'
+  - '$HOME/.sonar/cache'
 
 env:
   global:
@@ -25,8 +26,15 @@ env:
   - secure: "kNBemLDqDCzTf0OUtBImE68EO6s4nhXM5fxn+iGfEtAk+W70KlV6L5BkKmAbmlI/iZqtwA13FMmj4cIK9gNDj0nydgDLuCUGRIbnYdOnxrVc6Ykkw0ja61aRtiFpJs/WWqIqrZOJqnp/f9pmx+s3QKnHvTndepqv8/LKEdfeYLQ="
   - secure: "H4ipPQ5dP0P1hmRBXQSIvmgEgZS4YI8ZrRjl2pNKImJ3KVN+pM9Jft9+DxOC8kCbLyI6dPHRkNFIa5A2BWoWrj20nOz2fTBNtW/kJQReAALoCycMZilN5YXKFsPERSSfJpws2qXTfIZq9A1PwsfsNOgdUM3z58T5Zyp5rzoTzVg="
 
+  # SonarQube analysis (SONAR_TOKEN)
+  - secure: "QY0AlaKUXRfzNGm5M9by4EV5PrZst7FFtLgpmk7WKj/fYgCrh5LAO3q49+OQn+rAoY7TsxZoF+KNtBC7Xdq0/9FzhYhGLXlsCZpvuc1NVU8qCSA1mNs1bkEadITVBguxQkNtL9C8mhBEXsWZ90t1QGBYUaXFtbnwd3yUv4ZbECA="
+
 install:
   - mvn install -DskipTests=true -Dgpg.skip=true
+
+# Run the SonarQube analysis
+script:
+  - .travis/sonar-analysis.sh
 
 # Publish snapshots to Sonatype
 after_success:
