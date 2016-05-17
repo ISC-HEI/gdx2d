@@ -1,12 +1,17 @@
 package ch.hevs.gdx2d.desktop;
 
 import ch.hevs.gdx2d.lib.interfaces.*;
+import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector2;
 
+import com.badlogic.gdx.math.Vector3;
 import java.awt.*;
 
 /**
@@ -20,14 +25,16 @@ import java.awt.*;
  * @see KeyboardInterface
  * @see GameInterface
  */
-public abstract class PortableApplication implements TouchInterface, KeyboardInterface, GameInterface, GestureInterface {
+public abstract class PortableApplication implements TouchInterface, KeyboardInterface, GameInterface,
+  GestureInterface, ControllersInterface {
+
 	// Default window dimensions
 	private static final int DEFAULT_HEIGHT = 500;
 	private static final int DEFAULT_WIDTH = 500;
 
 	@Deprecated
 	protected final boolean onAndroid = onAndroid();
-	
+
 	/**
 	 * {@code true} if the application is running on Android or {@code false} if running on desktop.
 	 */
@@ -35,7 +42,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 
 	/**
 	 * Detect android
-	 * 
+	 *
 	 * @return true when running on Android.
 	 */
 	public boolean onAndroid() {
@@ -46,7 +53,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	        return false;
 	    }
 	}
-	
+
 	/**
 	 * Creates an application using {@code gdx2d}.
 	 * Use a default windows size.
@@ -66,7 +73,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 
-	
+
 	/**
 	 * Creates an application using {@code gdx2d}.
 	 * Screen dimension are ignored when running on Android.
@@ -79,7 +86,7 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	public PortableApplication(boolean onAndroid, int width, int height) {
 		this(onAndroid, width, height, false);
 	}
-	
+
 	/**
 	 * Creates an application using {@code gdx2d}.
 	 * Screen dimension are ignored when running on Android.
@@ -238,7 +245,8 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	public void onKeyUp(int keycode) {
 	}
 
-    /* GestureInterface callbacks */
+
+  /* GestureInterface callbacks */
 
 	/**
 	 * @see GameInterface#onDispose()
@@ -311,6 +319,65 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	@Override
 	public void onFling(float velocityX, float velocityY, int button) {
 	}
+
+
+  /* ControllersInterface callbacks */
+
+  @Override
+  public void connected(Controller controller) {
+    Logger.log("the controller '%s' has been connected", controller.getName());
+  }
+
+  @Override
+  public void disconnected(Controller controller) {
+    Logger.log("the controller '%s' has been disconnected", controller.getName());
+  }
+
+  private int indexOf (Controller controller) {
+    return Controllers.getControllers().indexOf(controller, true);
+  }
+
+  @Override
+  public boolean buttonDown(Controller controller, int buttonCode) {
+    Logger.log("#" + indexOf(controller) + ", button " + buttonCode + " down");
+    return false;
+  }
+
+  @Override
+  public boolean buttonUp(Controller controller, int buttonCode) {
+    Logger.log("#" + indexOf(controller) + ", button " + buttonCode + " up");
+    return false;
+  }
+
+  @Override
+  public boolean axisMoved(Controller controller, int axisIndex, float value) {
+    Logger.log("#" + indexOf(controller) + ", axis " + axisIndex + ": " + value);
+    return false;
+  }
+
+  @Override
+  public boolean povMoved(Controller controller, int povIndex, PovDirection value) {
+    Logger.log("#" + indexOf(controller) + ", pov " + povIndex + ": " + value);
+    return false;
+  }
+
+  @Override
+  public boolean xSliderMoved(Controller controller, int sliderIndex, boolean value) {
+    Logger.log("#" + indexOf(controller) + ", x slider " + sliderIndex + ": " + value);
+    return false;
+  }
+
+  @Override
+  public boolean ySliderMoved(Controller controller, int sliderIndex, boolean value) {
+    Logger.log("#" + indexOf(controller) + ", y slider " + sliderIndex + ": " + value);
+    return false;
+  }
+
+  @Override
+  public boolean accelerometerMoved(Controller controller, int accelIndex, Vector3 accel) {
+    Logger.log("#" + indexOf(controller) + ", y slider " + accelIndex + ": " + accel.x);
+    return false;
+  }
 
 	/**
 	 * Return the {@link AndroidResolver} to use Android actions.

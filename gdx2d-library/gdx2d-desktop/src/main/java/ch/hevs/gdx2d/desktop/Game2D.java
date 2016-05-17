@@ -5,12 +5,17 @@ import ch.hevs.gdx2d.lib.Version;
 import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.ControllerListener;
+import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 /**
@@ -26,7 +31,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
  */
 public class Game2D implements ApplicationListener {
 
-    static public GdxGraphics g;
+    public static GdxGraphics g;
 
     // Force to load native libraries (for Android Proguard)
     // FIXME Is this really required?
@@ -170,8 +175,61 @@ public class Game2D implements ApplicationListener {
 
         Gdx.input.setInputProcessor(multiplexer);
 
-        // Initialize app
-        app.onInit();
+        Controllers.clearListeners();
+        Controllers.addListener(new ControllerListener() {
+          @Override
+          public void connected(Controller controller) {
+            // FIXME: not called on Windows with XBox One game-pad
+          }
+
+          @Override
+          public void disconnected(Controller controller) {
+            // FIXME: not called on Windows with XBox One game-pad
+          }
+
+          @Override
+          public boolean buttonDown(Controller controller, int i) {
+            return false;
+          }
+
+          @Override
+          public boolean buttonUp(Controller controller, int i) {
+            return false;
+          }
+
+          @Override
+          public boolean axisMoved(Controller controller, int i, float v) {
+            return false;
+          }
+
+          @Override
+          public boolean povMoved(Controller controller, int i, PovDirection povDirection) {
+            return false;
+          }
+
+          @Override
+          public boolean xSliderMoved(Controller controller, int i, boolean b) {
+            // FIXME: not called on Windows with XBox One game-pad
+            return false;
+          }
+
+          @Override
+          public boolean ySliderMoved(Controller controller, int i, boolean b) {
+            // FIXME: not called on Windows with XBox One game-pad
+            return false;
+          }
+
+          @Override
+          public boolean accelerometerMoved(Controller controller, int i, Vector3 vector3) {
+            // FIXME: not called on Windows with XBox One game-pad
+            return false;
+          }
+        });
+
+        app.onInit(); // Initialize app
+
+        // FIXME: should we enumerate the controllers here and call the connect method ?
+        // app.connected();
     }
 
     /**
