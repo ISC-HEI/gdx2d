@@ -29,6 +29,8 @@ import com.badlogic.gdx.utils.SharedLibraryLoader;
  * All codes are for buttons expect the L_STICK_XXX, R_STICK_XXX, L_BUMPER and R_BUMPER codes, which are axes.
  *
  * @author badlogic
+ * @author Christopher Metrailler (mei)
+ * @version 1.1
  */
 public class Xbox {
 	// Buttons
@@ -62,19 +64,21 @@ public class Xbox {
 
 	static {
 		if (SharedLibraryLoader.isWindows) {
-			A = -1;
-			B = -1;
-			X = -1;
-			Y = -1;
-			GUIDE = -1;
-			L_BUMPER = -1;
-			R_BUMPER = -1;
-			BACK = -1;
-			START = -1;
-			DPAD_UP = -1;
+			A = 0;
+			B = 1;
+			X = 2;
+			Y = 3;
+			GUIDE = -1; // Does not work
+			L_BUMPER = 4;
+			R_BUMPER = 5;
+			BACK = 6;
+			START = 7;
+
+			DPAD_UP = -1; // Use directions instead
 			DPAD_DOWN = -1;
 			DPAD_LEFT = -1;
 			DPAD_RIGHT = -1;
+
 			L_TRIGGER = -1;
 			R_TRIGGER = -1;
 			L_STICK_VERTICAL_AXIS = -1;
@@ -148,6 +152,6 @@ public class Xbox {
 	 * @return whether the {@link Controller} is an Xbox controller
 	 */
 	public static boolean isXboxController(Controller controller) {
-		return controller.getName().contains("Xbox");
+		return controller.getName().toLowerCase().contains("xbox");
 	}
 }
