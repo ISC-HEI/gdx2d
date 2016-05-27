@@ -1,18 +1,13 @@
 package ch.hevs.gdx2d.demos.controllers;
 
-import ch.hevs.gdx2d.demos.simple.mistify.BounceShape;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.controllers.PovDirection;
+
 import ch.hevs.gdx2d.desktop.PortableApplication;
 import ch.hevs.gdx2d.desktop.Xbox;
 import ch.hevs.gdx2d.lib.GdxGraphics;
 import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.ControllerAdapter;
-import com.badlogic.gdx.controllers.ControllerListener;
-import com.badlogic.gdx.controllers.Controllers;
-import com.badlogic.gdx.controllers.PovDirection;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.sun.org.apache.xpath.internal.objects.XBoolean;
 
 /**
  * Demo program for the {@code controllers} extension.
@@ -24,11 +19,6 @@ public class DemoControllers extends PortableApplication {
 
   private final static String TAG = DemoControllers.class.getSimpleName();
 
-  private boolean controllersFound;
-  private int frameCnt = 0;
-  private BounceShape shape;
-  private Vector2 lastTextPos;
-
   public static void main(String[] args) {
     new DemoControllers();
   }
@@ -37,9 +27,6 @@ public class DemoControllers extends PortableApplication {
   public void onInit() {
     setTitle("Controllers demo, mei 2016");
 
-    shape = new BounceShape(getWindowWidth(), getWindowHeight());
-
-    controllersFound = Controllers.getControllers().size != 0;
     Logger.log(TAG, "%d controller(s) found", Controllers.getControllers().size);
     for (Controller controller : Controllers.getControllers()) {
       Logger.log(TAG, " - " + controller.getName());
@@ -50,7 +37,7 @@ public class DemoControllers extends PortableApplication {
   public void onGraphicRender(GdxGraphics g) {
     g.clear();
 
-
+    //TODO: add a basic demo
 
     g.drawFPS();
     g.drawSchoolLogo();
@@ -58,7 +45,7 @@ public class DemoControllers extends PortableApplication {
 
   @Override
   public void onControllerConnected(Controller controller) {
-    System.out.println("Miaou");
+  	Logger.log("A controller has been connected !");
   }
 
   @Override
