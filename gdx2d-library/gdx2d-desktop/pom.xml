@@ -35,7 +35,6 @@
       <classifier>sources</classifier>
     </dependency>
 
-    <!-- Libgdx / Box2d desktop natives -->
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-backend-lwjgl</artifactId>
@@ -47,16 +46,31 @@
       <version>${libgdx.version}</version>
       <classifier>natives-desktop</classifier>
     </dependency>
+
     <dependency>
+      <!-- Box2D extension -->
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-box2d-platform</artifactId>
       <classifier>natives-desktop</classifier>
       <version>${libgdx.version}</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
+      <!-- Box2DLights extension -->
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-freetype-platform</artifactId>
+      <version>${libgdx.version}</version>
+      <classifier>natives-desktop</classifier>
+    </dependency>
+    <dependency>
+      <!-- Controllers extension -->
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-controllers-desktop</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <!-- Controllers extension -->
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-controllers-platform</artifactId>
       <version>${libgdx.version}</version>
       <classifier>natives-desktop</classifier>
     </dependency>
@@ -74,6 +88,7 @@
           <dependencySourceIncludes>
             <dependencySourceInclude>ch.hevs.*</dependencySourceInclude>
           </dependencySourceIncludes>
+          <show>package</show>
         </configuration>
       </plugin>
     </plugins>

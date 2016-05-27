@@ -5,12 +5,17 @@ import ch.hevs.gdx2d.lib.Version;
 import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.ControllerListener;
+import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 /**
@@ -26,7 +31,7 @@ import com.badlogic.gdx.utils.GdxNativesLoader;
  */
 public class Game2D implements ApplicationListener {
 
-    static public GdxGraphics g;
+    public static GdxGraphics g;
 
     // Force to load native libraries (for Android Proguard)
     // FIXME Is this really required?
@@ -60,118 +65,21 @@ public class Game2D implements ApplicationListener {
 
         g = new GdxGraphics(shapeRenderer, batch, camera);
 
-        // Let's have multiple input processors
-        InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(new GestureDetector(new GestureListener() {
-
-            @Override
-            public boolean zoom(float initialDistance, float distance) {
-                app.onZoom(initialDistance, distance);
-                return false;
-            }
-
-            @Override
-            public boolean touchDown(float x, float y, int pointer, int button) {
-                return false;
-            }
-
-            @Override
-            public boolean tap(float x, float y, int count, int button) {
-                app.onTap(x, y, count, button);
-                return false;
-            }
-
-            @Override
-            public boolean pinch(Vector2 initialPointer1,
-                                 Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-                app.onPinch(initialPointer1, initialPointer2, pointer1, pointer2);
-                return false;
-            }
-
-            @Override
-            public boolean pan(float x, float y, float deltaX, float deltaY) {
-                app.onPan(x, y, deltaX, deltaY);
-                return false;
-            }
-
-            @Override
-            public boolean longPress(float x, float y) {
-                app.onLongPress(x, y);
-                return false;
-            }
-
-            @Override
-            public boolean fling(float velocityX, float velocityY, int button) {
-                app.onFling(velocityX, velocityY, button);
-                return false;
-            }
-
-            @Override
-            public boolean panStop(float v, float v1, int i, int i1) {
-                return false;
-            }
-        }));
-
-        multiplexer.addProcessor(new InputProcessor() {
-
-            @Override
-            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                app.onRelease(screenX, screenY, button);
-                return false;
-            }
-
-            @Override
-            public boolean touchDragged(int screenX, int screenY, int pointer) {
-                app.onDrag(screenX, Gdx.graphics.getHeight() - screenY);
-                return false;
-            }
-
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                app.onClick(screenX, Gdx.graphics.getHeight() - screenY, button);
-                return false;
-            }
-
-            @Override
-            public boolean scrolled(int amount) {
-                app.onScroll(amount);
-                return false;
-            }
-
-            @Override
-            public boolean mouseMoved(int screenX, int screenY) {
-                return false;
-            }
-
-            @Override
-            public boolean keyUp(int keycode) {
-                app.onKeyUp(keycode);
-                return false;
-            }
-
-            @Override
-            public boolean keyTyped(char character) {
-                return false;
-            }
-
-            @Override
-            public boolean keyDown(int keycode) {
-                // Trigger about box when pressing the menu button on Android
-                if (keycode == Input.Keys.MENU) {
-                    // resolver.showAboutBox();
-                }
-                if (keycode == Input.Keys.ESCAPE) {
-                    Gdx.app.exit();
-                }
-                app.onKeyDown(keycode);
-                return false;
-            }
-        });
+        // Register multiple input processors for gestures, mouse and keyboard events
+        final InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(new GestureDetector(new GdxGestureDetector(app))); // Gestures
+        multiplexer.addProcessor(new GdxInputProcessor(app)); // Mouse and keyboard inputs
 
         Gdx.input.setInputProcessor(multiplexer);
 
-        // Initialize app
-        app.onInit();
+        // Register the controllers input (extension required)
+        Controllers.clearListeners();
+        Controllers.addListener(new GdxControllersProcessor(app));
+
+        app.onInit(); // Initialize app
+
+        // FIXME: should we enumerate the controllers here and call the connect method ?
+        // app.onControllerConnected();
     }
 
     /**
