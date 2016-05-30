@@ -1,28 +1,55 @@
 package ch.hevs.gdx2d.lib.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /**
- * Various utils for checking things
+ * Various utils for checking things.
  *
  * @author Nils Chatton (chn)
- * @version 1.0
+ * @author Christopher Métrailler (mei)
+ * @version 1.1
  */
 public class Utils {
 
+	private Utils() {
+		// Not allowed
+	}
+
 	/**
-	 * Checks that gdx is correctly loaded.
-	 * <p/>
-	 * BitmapImage, DebugRenderer, MusicPlayer etc. cannot be created until Gdx
-	 * is not loaded.
+	 * Check if gdx is correctly loaded.
 	 *
 	 * @param msg The message to log if not loaded
+	 * @throws GdxRuntimeException if Gdx is not loaded
 	 */
 	public static void assertGdxLoaded(String msg) {
 		if (Gdx.graphics.getGL20() == null) {
-			Logger.error(msg);
 			Gdx.app.exit();
-			throw new UnsupportedOperationException(msg);
+			throw new GdxRuntimeException(msg);
+		}
+	}
+
+	/**
+	 * Checks that gdx is correctly loaded. If not, print an error message.
+	 * <p/>
+	 * The following classes cannot be created if Gdx is not loaded:
+	 * <ul>
+	 *     <li>{@link ch.hevs.gdx2d.components.bitmaps.BitmapImage}</li>
+	 *     <li>{@link ch.hevs.gdx2d.components.audio.SoundSample}</li>
+	 *     <li>{@link ch.hevs.gdx2d.components.audio.MusicPlayer}</li>
+	 *     <li>{@link ch.hevs.gdx2d.components.bitmaps.Spritesheet}</li>
+	 * </ul>
+	 *
+	 * @param c the class which cannot be created before Gdx is loaded
+	 * @throws GdxRuntimeException if Gdx is not loaded
+	 */
+	public static void assertGdxLoaded(Class c) {
+		if (Gdx.graphics.getGL20() == null) {
+			final String error = String.format("Gdx must be loaded to create a '%s'. It can only be created in the onInit "
+			+ "method of a class extending PortableApplication (or must be called from within this method).",
+			c.getSimpleName());
+			Gdx.app.exit();
+			throw new GdxRuntimeException(error);
 		}
 	}
 
@@ -46,14 +73,9 @@ public class Utils {
 		}
 
 		if (callFromWrongLocation) {
-			try {
-				throw new Exception(
-						"This new instance shall be created in a call subsequent from the onInit() method "
-								+ "from the class implementing PortableApplication");
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.exit(-1);
-			}
+      		throw new GdxRuntimeException(
+            		"This new instance shall be created in a call subsequent from the onInit() method "
+              		+ "from the class implementing PortableApplication");
 		}
 	}
 
@@ -74,15 +96,9 @@ public class Utils {
 		}
 
 		if (callFromWrongLocation) {
-			try {
-				throw new Exception(
-						"For performance issues, this new instance shall not be created in "
-								+ "the onGraphicRender() method from the class implementing PortableApplication.");
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.exit(-1);
-			}
+				throw new GdxRuntimeException(
+					"For performance issues, this new instance shall not be created in "
+              		+ "the onGraphicRender() method from the class implementing PortableApplication.");
 		}
-
 	}
 }

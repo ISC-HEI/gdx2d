@@ -10,16 +10,25 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /**
- * An image encapsulation class. Allows to store an image
- * and to use it for drawing.
+ * An image encapsulation class.
+ * </p>
+ * Allow to store an image and to use it for drawing. Use one of the following methods to draw the picture:
+ * <ul>
+ *     <li>{@link ch.hevs.gdx2d.lib.GdxGraphics#drawPicture(float, float, BitmapImage)}</li>
+ *     <li>{@link ch.hevs.gdx2d.lib.GdxGraphics#drawAlphaPicture(float, float, float, BitmapImage)}</li>
+ *     <li>{@link ch.hevs.gdx2d.lib.GdxGraphics#drawBackground(BitmapImage, float, float)}</li>
+ * </ul>
+ * </p>
+ * Do not forget to call the {@link #dispose()} method.
  *
  * @author Nils Chatton (chn)
  * @author Pierre-André Mudry (mui)
- * @version 1.11
+ * @version 1.2
  */
-final public class BitmapImage implements Disposable {
+public final class BitmapImage implements Disposable {
 
 	// TODO: loading each image in a texture is a bad idea but it works. Refactor this
 	// using http://steigert.blogspot.ch/search?updated-max=2012-03-15T18:29:00-03:00&max-results=3&start=3&by-date=false
@@ -29,15 +38,18 @@ final public class BitmapImage implements Disposable {
 	protected String filePath;
 	protected Pixmap pixmap;
 
+	/**
+	 * Create an image from a file. Gdx must be loaded.
+	 *
+	 * @param file the path of the image to load
+	 * @throws GdxRuntimeException if Gdx is not loaded
+	 */
 	public BitmapImage(String file) {
-		Utils.assertGdxLoaded("BitmapImages can only be created in the onInit "
-				+ "method of a class extending PortableApplication "
-				+ "(or must be called from within this method)");
+		Utils.assertGdxLoaded(BitmapImage.class);
 
 		image = new Texture(Gdx.files.internal(file));
 		tRegion = new TextureRegion(image);
 		image.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
 		filePath = file;
 	}
 
@@ -112,7 +124,7 @@ final public class BitmapImage implements Disposable {
 		int height = image.getWidth();
 
 		Vector2 center = pixelPosition.sub(imagePosition);
-		center.add(width / 2, height / 2);
+		center.add(width / 2f, height / 2f);
 
 		return center;
 	}
@@ -128,8 +140,8 @@ final public class BitmapImage implements Disposable {
 		if (pixmap == null) {
 	        if (!image.getTextureData().isPrepared()) {
 	        	image.getTextureData().prepare();
-	        }		
-			pixmap = image.getTextureData().consumePixmap();			
+	        }
+			pixmap = image.getTextureData().consumePixmap();
 		}
 
 		return new Color(pixmap.getPixel(x,pixmap.getHeight()-y));
@@ -141,8 +153,7 @@ final public class BitmapImage implements Disposable {
 	 */
 	@Override
 	public void dispose() {
-		if (pixmap != null && image.getTextureData().disposePixmap())
-		{
+		if (pixmap != null && image.getTextureData().disposePixmap()) {
 			pixmap.dispose();
 		}
 		image.dispose();
