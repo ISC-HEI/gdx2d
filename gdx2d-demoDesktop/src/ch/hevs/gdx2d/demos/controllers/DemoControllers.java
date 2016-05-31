@@ -17,7 +17,7 @@ import ch.hevs.gdx2d.lib.utils.Logger;
  */
 public class DemoControllers extends PortableApplication {
 
-  private final static String TAG = DemoControllers.class.getSimpleName();
+  private static final String TAG = DemoControllers.class.getSimpleName();
 
   public static void main(String[] args) {
     new DemoControllers();

@@ -7,6 +7,8 @@ import com.badlogic.gdx.controllers.Controllers;
 
 /**
  * Input mouse and keyboard processor for gdx2d.
+ * <p/>
+ * Automatically quits the application when the {@code ESCAPE} key is pressed.
  *
  * @see com.badlogic.gdx.InputProcessor
  *
@@ -34,7 +36,7 @@ class GdxInputProcessor extends InputAdapter {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		app.onRelease(screenX, screenY, button);
+		app.onRelease(screenX, Gdx.graphics.getHeight() - screenY, button);
 		return false;
 	}
 
