@@ -12,59 +12,104 @@ import ch.hevs.gdx2d.lib.utils.Logger;
 /**
  * Demo program for the {@code controllers} extension.
  *
+ * @author Pierre-André Mudry (mui)
  * @author Christopher Metrailler (mei)
  * @version 1.0
  */
 public class DemoControllers extends PortableApplication {
 
-  private static final String TAG = DemoControllers.class.getSimpleName();
+	private static final String TAG = DemoControllers.class.getSimpleName();
 
-  public static void main(String[] args) {
-    new DemoControllers();
-  }
+	public static void main(String[] args) {
+		new DemoControllers();
+	}
 
-  @Override
-  public void onInit() {
-    setTitle("Controllers demo, mei 2016");
+	@Override
+	public void onInit() {
+		setTitle("Controllers demo, mui / mei 2016");
 
-    Logger.log(TAG, "%d controller(s) found", Controllers.getControllers().size);
-    for (Controller controller : Controllers.getControllers()) {
-      Logger.log(TAG, " - " + controller.getName());
-    }
-  }
+		Logger.log(TAG, "%d controller(s) found", Controllers.getControllers().size);
+		for (Controller controller : Controllers.getControllers()) {
+			Logger.log(TAG, " - " + controller.getName());
+		}
 
-  @Override
-  public void onGraphicRender(GdxGraphics g) {
-    g.clear();
+		leftDisplayPosX = this.getWindowWidth() / 2 - 100;
+		leftDisplayPosY = this.getWindowHeight() / 2;
 
-    //TODO: add a basic demo
+		rightDisplayPosX = this.getWindowWidth() / 2 + 100;
+		rightDisplayPosY = this.getWindowHeight() / 2;
 
-    g.drawFPS();
-    g.drawSchoolLogo();
-  }
+	}
 
-  @Override
-  public void onControllerConnected(Controller controller) {
-  	Logger.log("A controller has been connected !");
-  }
+	float xLeft, yLeft;
+	float xRight, yRight;
 
-  @Override
-  public void onControllerKeyDown(Controller controller, int buttonCode) {
-    boolean found = Xbox.isXboxController(controller);
-    if(!found) {
-      Logger.log("Xbox controller not found !");
-      return;
-    }
+	int leftDisplayPosX, leftDisplayPosY;
+	int rightDisplayPosX, rightDisplayPosY;
 
-    Logger.log("Xbox controller found !");
-    Logger.log("Button " + buttonCode + " pressed");
+	@Override
+	public void onGraphicRender(GdxGraphics g) {
+		g.clear();
 
-    if(buttonCode == Xbox.X)
-      Logger.log("Button X pressed");
-  }
+		// Left controller display
+		float end_x = leftDisplayPosX + xLeft * 80;
+		float end_y = leftDisplayPosY - yLeft * 80;
+		g.drawLine(leftDisplayPosX, leftDisplayPosY, end_x, end_y);
 
-  @Override
-  public void onControllerPovMoved(Controller controller, int povCode, PovDirection value) {
-    Logger.log("POV: " + value);
-  }
+		// Right controller display
+		end_x = rightDisplayPosX + xRight * 80;
+		end_y = rightDisplayPosY - yRight * 80;
+		g.drawLine(rightDisplayPosX, rightDisplayPosY, end_x, end_y);
+
+		g.drawFPS();
+		g.drawSchoolLogo();
+	}
+
+	@Override
+	public void onControllerConnected(Controller controller) {
+		Logger.log("A controller has been connected !");
+	}
+
+	@Override
+	public void onControllerKeyDown(Controller controller, int buttonCode) {
+		if (buttonCode == Xbox.X)
+			Logger.log("Button X pressed");
+		if (buttonCode == Xbox.Y)
+			Logger.log("Button Y pressed");
+		if (buttonCode == Xbox.A)
+			Logger.log("Button A pressed");
+		if (buttonCode == Xbox.B)
+			Logger.log("Button B pressed");
+		if (buttonCode == Xbox.L_TRIGGER)
+			Logger.log("Button L trigger pressed");
+		if (buttonCode == Xbox.R_TRIGGER)
+			Logger.log("Button R trigger pressed");
+
+	}
+
+	@Override
+	public void onControllerAxisMoved(Controller controller, int axisCode, float value) {
+		super.onControllerAxisMoved(controller, axisCode, value);
+
+		if (axisCode == Xbox.L_STICK_HORIZONTAL_AXIS) {
+			xLeft = value;
+		}
+
+		if (axisCode == Xbox.L_STICK_VERTICAL_AXIS) {
+			yLeft = value;
+		}
+
+		if (axisCode == Xbox.R_STICK_HORIZONTAL_AXIS) {
+			xRight = value;
+		}
+
+		if (axisCode == Xbox.R_STICK_VERTICAL_AXIS) {
+			yRight = value;
+		}
+	}
+
+	@Override
+	public void onControllerPovMoved(Controller controller, int povCode, PovDirection value) {
+		Logger.log("POV: " + value);
+	}
 }
