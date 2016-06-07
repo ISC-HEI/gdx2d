@@ -26,7 +26,7 @@ public class DemoCollisionListener extends PortableApplication {
 	boolean generate = false;
 	BumpyBall b1, b2, b3, b4;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoCollisionListener();
 	}
 

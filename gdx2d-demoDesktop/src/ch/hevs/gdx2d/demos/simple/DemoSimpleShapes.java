@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class DemoSimpleShapes extends PortableApplication {
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoSimpleShapes();
 	}
 

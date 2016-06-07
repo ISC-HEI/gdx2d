@@ -68,7 +68,7 @@ public class DemoJuliaFractal extends PortableApplication {
 	}
 
 	// Java main for the desktop demonstration
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoJuliaFractal();
 	}
 

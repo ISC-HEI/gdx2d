@@ -19,7 +19,7 @@ public class DemoAccelerometer extends PortableApplication {
 	// For low-pass filtering
 	private float smoothedValue = 0;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoAccelerometer();
 	}
 

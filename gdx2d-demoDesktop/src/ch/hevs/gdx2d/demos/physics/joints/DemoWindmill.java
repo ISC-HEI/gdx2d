@@ -46,7 +46,7 @@ public class DemoWindmill extends PortableApplication {
 	int GENERATION_RATE = 2;
 	boolean generate = false;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoWindmill();
 	}
 
