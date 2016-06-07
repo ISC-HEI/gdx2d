@@ -20,6 +20,9 @@ public class PaletteGenerator {
 
 	private static Random random = new Random(123);
 
+	private PaletteGenerator() {
+	}
+
 	public static Color RandomMix(Color color1, Color color2, Color color3, float greyControl) {
 		int randomIndex = random.nextInt(255) % 3;
 

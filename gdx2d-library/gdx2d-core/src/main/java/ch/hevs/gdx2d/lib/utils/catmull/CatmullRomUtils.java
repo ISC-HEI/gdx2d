@@ -7,6 +7,9 @@ import com.badlogic.gdx.math.Vector2;
  * Adapted from http://hawkesy.blogspot.ch/2010/05/catmull-rom-spline-curve-implementation.html
  */
 public class CatmullRomUtils {
+	private CatmullRomUtils() {
+	}
+
 	/**
 	 * Creates catmull spline curves between the points array.
 	 *

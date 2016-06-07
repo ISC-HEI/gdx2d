@@ -10,6 +10,9 @@ import com.badlogic.gdx.Gdx;
  */
 public class Utils {
 
+	private Utils() {
+	}
+
 	/**
 	 * Checks that gdx is correctly loaded.
 	 * <p/>
