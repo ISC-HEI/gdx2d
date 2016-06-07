@@ -15,7 +15,7 @@ public class DemoMultipleTextures extends PortableApplication {
 	float time = 0;
 	int i = 0;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoMultipleTextures();
 	}
 

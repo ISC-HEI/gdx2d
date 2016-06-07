@@ -37,7 +37,7 @@ public class DemoSpriteSheet extends PortableApplication {
 	int currentFrame = 0;
 	int nFrames = 4;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoSpriteSheet();
 	}
 

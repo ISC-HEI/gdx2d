@@ -26,7 +26,7 @@ public class DemoAllShaders extends PortableApplication {
 	private int previousShaderID = currentShaderID;
 	private Vector2 mouse = new Vector2();
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoAllShaders();
 	}
 
