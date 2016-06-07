@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class DemoSimpleShapes extends PortableApplication {
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoSimpleShapes();
 	}
 
@@ -40,7 +40,7 @@ public class DemoSimpleShapes extends PortableApplication {
 		g.drawFilledRectangle(80, 30, 20, 20, 0, new Color(0.5f, 0.5f, 0.5f, 0.5f));
 
 		// Draws a blue polygon
-		Vector2 points[] = {
+		Vector2[] points = {
 				new Vector2(200, 200),
 				new Vector2(250, 250),
 				new Vector2(300, 200)

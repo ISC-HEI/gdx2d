@@ -24,7 +24,7 @@ public class ShaderRenderer implements Disposable {
 	// Shader include that is going to be added at the beginning of *every* fragment shader
 	protected final String fragmentShaderInclude = Gdx.files.internal("res/lib/fragment_include.glsl").readString();
 	protected ShaderProgram shader;
-	protected Texture tex[] = new Texture[10];
+	protected Texture[] tex = new Texture[10];
 	protected int textureCount = 0;
 	protected SpriteBatch batch;
 	protected int w, h;

@@ -16,7 +16,7 @@ public class SensorSpinner extends Sensor implements DrawableObject {
 	private float width;
 	private float height;
 
-	public SensorSpinner(String name, Vector2 position, float width, float height, TextureRegion sprites[]) {
+	public SensorSpinner(String name, Vector2 position, float width, float height, TextureRegion[] sprites) {
 		super(name, position, width, height);
 		this.sprites = sprites;
 		this.width = width;

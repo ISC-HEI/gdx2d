@@ -50,7 +50,7 @@ public class DemoRotateGears extends PortableApplication {
 		float minute;
 
 		TimeFloat() {
-			String t[] = new SimpleDateFormat("HH:mm:ss").format(new Date())
+			String[] t = new SimpleDateFormat("HH:mm:ss").format(new Date())
 					.split(":");
 			hour = Float.parseFloat(t[0]);
 			minute = Float.parseFloat(t[1]);
@@ -101,7 +101,7 @@ public class DemoRotateGears extends PortableApplication {
 		super(512, 256);
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoRotateGears();
 	}
 

@@ -23,7 +23,7 @@ public class DemoPositionInterpolator extends PortableApplication {
 	private Ball[] balls;
 	private int height, width, margin;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoPositionInterpolator();
 	}
 
