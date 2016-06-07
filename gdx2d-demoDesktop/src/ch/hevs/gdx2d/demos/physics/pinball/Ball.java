@@ -14,7 +14,7 @@ public class Ball extends PhysicsCircle implements DrawableObject {
 	protected TextureRegion[] sprites;
 	private float radius;
 
-	public Ball(String name, Vector2 position, float radius, TextureRegion sprites[]) {
+	public Ball(String name, Vector2 position, float radius, TextureRegion[] sprites) {
 		super(name, position, radius);
 		this.sprites = sprites;
 		this.radius = radius;

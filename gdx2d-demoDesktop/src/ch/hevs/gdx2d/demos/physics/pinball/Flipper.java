@@ -36,7 +36,7 @@ public class Flipper {
 	protected PhysicsBox flipper;
 	protected PhysicsMotor motor;
 
-	public Flipper(String name, Vector2 position, float width, float height, float angle, float angle_var, TextureRegion sprites[]) {
+	public Flipper(String name, Vector2 position, float width, float height, float angle, float angle_var, TextureRegion[] sprites) {
 
 		PhysicsStaticBox frame = new PhysicsStaticBox(name +"_frame", position, .1f, .1f);
 		Vector2 flipper_pos = new Vector2(position).add(new Vector2(width/2, 0).rotate(angle));

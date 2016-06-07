@@ -11,7 +11,7 @@ import ch.hevs.gdx2d.lib.GdxGraphics;
  */
 public class DemoShaderGradient extends PortableApplication {
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoShaderGradient();
 	}
 

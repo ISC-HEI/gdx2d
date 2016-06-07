@@ -22,7 +22,7 @@ public class DemoSlowCollisions extends PortableApplication {
 
 	BumpyBall b1, b2;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoSlowCollisions();
 	}
 

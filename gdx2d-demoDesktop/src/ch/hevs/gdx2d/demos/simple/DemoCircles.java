@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.Color;
  * @version 1.0
  */
 public class DemoCircles extends PortableApplication {
-	private int radius[] = new int[8];
-  private int speed[] = new int[8];
+	private int[] radius = new int[8];
+  private int[] speed = new int[8];
 
 	public static void main(String[] args) {
 		/**

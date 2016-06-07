@@ -49,7 +49,7 @@ public class DemoChainPhysics extends PortableApplication {
 		super(w, h);
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoChainPhysics(1000, 600);
 	}
 

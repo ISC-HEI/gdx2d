@@ -17,7 +17,7 @@ public class DemoShaderMouse3 extends PortableApplication {
 	Circle c;
 	float time = 0;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoShaderMouse3();
 	}
 

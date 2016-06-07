@@ -15,16 +15,16 @@ class SelectedDemos {
 
 	static class DemoCategory {
 		public String name;
-		DemoDescriptor descs[];
+		DemoDescriptor[] descs;
 
-		DemoCategory(String n, DemoDescriptor d[])
+		DemoCategory(String n, DemoDescriptor[] d)
 		{
 			name = n;
 			descs = d;
 		}
 	}
 
-	static DemoCategory list[] =
+	static DemoCategory[] list =
 	{
 		new DemoCategory
 		(

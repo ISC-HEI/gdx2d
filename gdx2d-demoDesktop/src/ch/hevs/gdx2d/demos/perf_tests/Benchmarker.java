@@ -21,7 +21,7 @@ public class Benchmarker extends PortableApplication {
   private class FastRandom
   {
     private Random r;
-    private float cache[];
+    private float[] cache;
     private int i;
     FastRandom(long seed, int cache_size)
     {
@@ -53,7 +53,7 @@ public class Benchmarker extends PortableApplication {
     abstract void draw(GdxGraphics g, long n);
   }
 
-  private Tester testers[] = {
+  private Tester[] testers = {
     new Tester("setPixel") {
       @Override
       void draw(GdxGraphics g, long n) {
@@ -197,7 +197,7 @@ public class Benchmarker extends PortableApplication {
     }
   };
 
-  public static void main(String args[]) {
+  public static void main(String[] args) {
     new Benchmarker();
   }
 

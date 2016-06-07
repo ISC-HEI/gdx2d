@@ -23,7 +23,7 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 	private float time = 0;
 	private float radius = 100;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoShaderCircleAntiAlias();
 	}
 

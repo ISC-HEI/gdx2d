@@ -27,7 +27,7 @@ public class DemoRopeJoint extends PortableApplication {
 	// Contains all the objects that will be simulated
 	DebugRenderer debugRenderer;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoRopeJoint();
 	}
 
