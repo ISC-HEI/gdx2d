@@ -50,6 +50,9 @@ public class Logger {
 			Gdx.app.setLogLevel(Logger.INFO);
 	}
 
+	private Logger() {
+	}
+
 	/**
 	 * Log a message.
 	 *
