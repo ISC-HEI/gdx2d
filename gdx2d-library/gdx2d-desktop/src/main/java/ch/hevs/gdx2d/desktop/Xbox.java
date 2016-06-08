@@ -79,12 +79,12 @@ public class Xbox {
 			DPAD_LEFT = -1;
 			DPAD_RIGHT = -1;
 
-			L_TRIGGER = -1;
-			R_TRIGGER = -1;
-			L_STICK_VERTICAL_AXIS = -1;
-			L_STICK_HORIZONTAL_AXIS = -1;
-			R_STICK_VERTICAL_AXIS = -1;
-			R_STICK_HORIZONTAL_AXIS = -1;
+			L_TRIGGER = 4;
+			R_TRIGGER = 5;
+			L_STICK_VERTICAL_AXIS = 0;
+			L_STICK_HORIZONTAL_AXIS = 1;
+			R_STICK_VERTICAL_AXIS = 2;
+			R_STICK_HORIZONTAL_AXIS = 3;
 		} else if (SharedLibraryLoader.isLinux) {
 			A = 0;
 			B = 1;
@@ -122,7 +122,7 @@ public class Xbox {
 			L_TRIGGER = 0;
 			R_TRIGGER = 1;
 			L_STICK_VERTICAL_AXIS = 3;
-			L_STICK_HORIZONTAL_AXIS = 2; 
+			L_STICK_HORIZONTAL_AXIS = 2;
 			R_STICK_VERTICAL_AXIS = 5;
 			R_STICK_HORIZONTAL_AXIS = 4;
 		} else {
