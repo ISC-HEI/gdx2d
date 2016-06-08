@@ -114,7 +114,7 @@ public abstract class PortableApplication
 		}
 
 		// We only create a context when we were not built from the DemoSelector
-		if (!onAndroid() && !fromDemoSelector() && CREATE_LWJGL_APPLICATION)
+		if (!onAndroid() && !fromDemoSelector() && CreateLwjglApplication)
 			createLwjglApplication(width, height, fullScreen);
 	}
 
@@ -129,7 +129,7 @@ public abstract class PortableApplication
 	 */
 	@Deprecated
 	public PortableApplication(boolean onAndroid, int width, int height, boolean fullScreen) {
-		if (!onAndroid && !fromDemoSelector() && CREATE_LWJGL_APPLICATION)
+		if (!onAndroid && !fromDemoSelector() && CreateLwjglApplication)
 			createLwjglApplication(width, height, fullScreen);
 	}
 
@@ -333,7 +333,7 @@ public abstract class PortableApplication
 	}
 
 	// TODO This is ugly and only required for the DemoSwingIntegration to prevent the creation of context
-	public static final boolean CREATE_LWJGL_APPLICATION = true;
+	public static boolean CreateLwjglApplication = true;
 
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
 		assert (!onAndroid());
