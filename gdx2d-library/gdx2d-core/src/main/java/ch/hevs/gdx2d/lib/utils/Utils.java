@@ -1,5 +1,6 @@
 package ch.hevs.gdx2d.lib.utils;
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
@@ -8,7 +9,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
  *
  * @author Nils Chatton (chn)
  * @author Christopher Métrailler (mei)
- * @version 1.1
+ * @version 1.2
  */
 public class Utils {
 
@@ -23,8 +24,8 @@ public class Utils {
 	 * @throws GdxRuntimeException if Gdx is not loaded
 	 */
 	public static void assertGdxLoaded(String msg) {
-		if (Gdx.graphics.getGL20() == null) {
-			Gdx.app.exit();
+    // Check if the OpenGL context is available or not
+		if (Gdx.graphics == null || Gdx.graphics.getGL20() == null) {
 			throw new GdxRuntimeException(msg);
 		}
 	}
@@ -44,11 +45,10 @@ public class Utils {
 	 * @throws GdxRuntimeException if Gdx is not loaded
 	 */
 	public static void assertGdxLoaded(Class c) {
-		if (Gdx.graphics.getGL20() == null) {
+		if (Gdx.graphics == null || Gdx.graphics.getGL20() == null) {
 			final String error = String.format("Gdx must be loaded to create a '%s'. It can only be created in the onInit "
 			+ "method of a class extending PortableApplication (or must be called from within this method).",
 			c.getSimpleName());
-			Gdx.app.exit();
 			throw new GdxRuntimeException(error);
 		}
 	}
@@ -76,29 +76,6 @@ public class Utils {
       		throw new GdxRuntimeException(
             		"This new instance shall be created in a call subsequent from the onInit() method "
               		+ "from the class implementing PortableApplication");
-		}
-	}
-
-	public static void callCheckExcludeGraphicRender() {
-		String className = "hevs.gdx2d.components.Game";
-		String method = "render";
-
-		boolean callFromWrongLocation = false;
-
-		StackTraceElement[] callStack = Thread.currentThread().getStackTrace();
-
-		for (StackTraceElement elem : callStack) {
-			if (elem.getClassName().equals(className)
-					&& elem.getMethodName().equals(method)) {
-				callFromWrongLocation = true;
-				break;
-			}
-		}
-
-		if (callFromWrongLocation) {
-				throw new GdxRuntimeException(
-					"For performance issues, this new instance shall not be created in "
-              		+ "the onGraphicRender() method from the class implementing PortableApplication.");
 		}
 	}
 }
