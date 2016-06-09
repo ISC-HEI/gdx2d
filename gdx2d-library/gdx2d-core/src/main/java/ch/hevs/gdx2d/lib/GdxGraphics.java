@@ -14,16 +14,17 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Affine2;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
 import ch.hevs.gdx2d.components.graphics.Polygon;
 import ch.hevs.gdx2d.lib.renderers.CircleShaderRenderer;
 import ch.hevs.gdx2d.lib.renderers.ShaderRenderer;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /**
  * A game graphic class implementation based on the LibGDX library.
@@ -620,6 +621,17 @@ public class GdxGraphics implements Disposable {
 		// Draw the string (reference is the top left edge)
 		f.draw(spriteBatch, str, posX, posY, w, align, false);
 	}
+
+  private Matrix4 mx4Font = new Matrix4();
+
+  public void drawStringRotate(float posX, float posY, String str, BitmapFont f, int align, float angleDeg) {
+    mx4Font.setToRotation(new Vector3(0, 0, 1), angleDeg);
+    mx4Font.trn(posX, posY, 0);
+    Matrix4 old = spriteBatch.getTransformMatrix().cpy();
+    spriteBatch.setTransformMatrix(mx4Font);
+    drawString(posX, posY, str, f, align);
+    spriteBatch.setTransformMatrix(old);
+  }
 
 	/**
 	 * Draw a text in the middle of the screen.
