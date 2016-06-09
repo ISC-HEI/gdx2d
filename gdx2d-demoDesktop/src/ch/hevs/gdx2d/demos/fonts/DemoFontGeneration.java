@@ -94,7 +94,7 @@ public class DemoFontGeneration extends PortableApplication {
 		 * Default font is Robot 15.
 		 */
 		g.setColor(Color.WHITE);
-		g.drawStringCentered(y / 2 + y * 1, LOREM);
+		//g.drawStringCentered(y / 2 + y * 1, LOREM);
 
 		/**
 		 * Display different fonts centered on the screen.
@@ -111,6 +111,12 @@ public class DemoFontGeneration extends PortableApplication {
 		g.setColor(Color.MAGENTA);
 		g.drawString(10, h - 10, "left\naligned\ntext", Align.left);
 		g.drawString(w - 10, h - 10, "right\naligned\ntext", Align.right);
+
+    // g.drawString(w/2, h / 2 * 0.25f, "Hello rotate", starjedi40, Align.center);
+    g.drawStringRotate(w/2, h / 2 * 0.25f, "Hello rotate", optimus40, Align.right, 0);
+    g.drawStringRotate(w/2, h / 2 * 0.25f, "Hello rotate", optimus40, Align.right, 45);
+    g.drawStringRotate(w/2, h / 2 * 0.25f, "Hello rotate", optimus40, Align.right, 90);
+    g.drawStringRotate(w/2, h / 2 * 0.25f, "Hello rotate", optimus40, Align.right, 180);
 	}
 
 	@Override
@@ -124,3 +130,4 @@ public class DemoFontGeneration extends PortableApplication {
 		icepixel40.dispose();
 	}
 }
+
