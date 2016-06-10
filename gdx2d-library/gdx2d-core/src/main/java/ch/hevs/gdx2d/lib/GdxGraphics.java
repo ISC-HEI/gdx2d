@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -53,6 +54,7 @@ public class GdxGraphics implements Disposable {
 	protected OrthographicCamera fixedCamera;
 
 	protected BitmapFont font; // The standard font
+	private GlyphLayout fontLayout = new GlyphLayout();
 
 	protected Color currentColor = Color.WHITE;
 	protected Color backgroundColor = Color.BLACK;
@@ -622,15 +624,26 @@ public class GdxGraphics implements Disposable {
 		f.draw(spriteBatch, str, posX, posY, w, align, false);
 	}
 
-  private Matrix4 mx4Font = new Matrix4();
-
-  public void drawStringRotate(float posX, float posY, String str, BitmapFont f, int align, float angleDeg) {
-    mx4Font.setToRotation(new Vector3(0, 0, 1), angleDeg);
-    mx4Font.trn(posX, posY, 0);
-    Matrix4 old = spriteBatch.getTransformMatrix().cpy();
+  /**
+   * Draw a rotated text with a specific font at a specified position.
+   * 
+   * @param centerX the center X of the font used as rotation center
+   * @param centerY the center Y of the font used as rotation center
+   * @param str the text to display on the screen
+   * @param f the custom font to use
+   * @param angleDeg the font rotation angle in degree
+   */
+  public void drawStringRotated(float centerX, float centerY, String str, BitmapFont f, float angleDeg) {
+  	fontLayout.setText(f, str); // Measure the text
+    
+  	// Rotation matrix center on (centerX, centerY)
+  	Matrix4 mx4Font = new Matrix4().rotate(new Vector3(0, 0, 1), angleDeg).trn(centerX, centerY, 0);
+    
+  	Matrix4 old = spriteBatch.getTransformMatrix().cpy();
     spriteBatch.setTransformMatrix(mx4Font);
-    drawString(posX, posY, str, f, align);
-    spriteBatch.setTransformMatrix(old);
+    checkMode(RenderingMode.SPRITE);
+    f.draw(spriteBatch, str, -fontLayout.width / 2, fontLayout.height / 2);
+    spriteBatch.setTransformMatrix(old); // Restore
   }
 
 	/**
