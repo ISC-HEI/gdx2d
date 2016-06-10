@@ -62,12 +62,10 @@ public class Game2D implements ApplicationListener {
 
 		g = new GdxGraphics(shapeRenderer, batch, camera);
 
-		// Register multiple input processors for gestures, mouse and keyboard
-		// events
+		// Register multiple input processors for gestures, mouse and keyboard events
 		final InputMultiplexer multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(new GestureDetector(new GdxGestureDetector(app))); // Gestures
-		multiplexer.addProcessor(new GdxInputProcessor(app)); // Mouse and keyboard
-																													// inputs
+		multiplexer.addProcessor(new GdxInputProcessor(app)); // Mouse and keyboard inputs
 
 		Gdx.input.setInputProcessor(multiplexer);
 
@@ -77,8 +75,7 @@ public class Game2D implements ApplicationListener {
 
 		app.onInit(); // Initialize app
 
-		// FIXME: should we enumerate the controllers here and call the connect
-		// method ?
+		// FIXME: should we enumerate the controllers here and call the connect method ?
 		// app.onControllerConnected();
 	}
 
@@ -93,14 +90,14 @@ public class Game2D implements ApplicationListener {
 	}
 
 	/**
-	 * Called when the screen has been resized
+	 * Called when the screen has been resized.
 	 */
 	@Override
 	public void resize(int width, int height) {
 	}
 
 	/**
-	 * Handles application life-cycle on Android and others
+	 * Handles application life-cycle on Android and others.
 	 */
 	@Override
 	public void pause() {
@@ -108,7 +105,7 @@ public class Game2D implements ApplicationListener {
 	}
 
 	/**
-	 * Handles application life-cycle on Android and others
+	 * Handles application life-cycle on Android and others.
 	 */
 	@Override
 	public void resume() {

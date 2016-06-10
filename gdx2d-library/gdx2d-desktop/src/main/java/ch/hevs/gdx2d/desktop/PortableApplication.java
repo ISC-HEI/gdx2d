@@ -214,6 +214,11 @@ public abstract class PortableApplication
 		if (keycode == Input.Keys.MENU) {
 			Gdx.input.vibrate(300);
 		}
+
+		// Exit when the {@code ESCAPE} key is pressed
+		if (keycode == Input.Keys.ESCAPE) {
+			Gdx.app.exit();
+		}
 	}
 
 	@Override
