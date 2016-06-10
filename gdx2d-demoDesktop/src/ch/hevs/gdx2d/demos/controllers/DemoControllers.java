@@ -45,12 +45,12 @@ public class DemoControllers extends PortableApplication {
 	private Vector2 endPos = new Vector2();
 	private Vector2 center;
 
-  // Contain some button positions used to draw a circle when they are pressed
+	// Contain some button positions used to draw a circle when they are pressed
 	private static Map<Integer, Vector2> buttonPos = new HashMap<Integer, Vector2>();
 	static {
 		buttonPos.put(Xbox.X, new Vector2(85, 97));
 		buttonPos.put(Xbox.Y, new Vector2(113, 123));
-    buttonPos.put(Xbox.A, new Vector2(113, 71));
+		buttonPos.put(Xbox.A, new Vector2(113, 71));
 		buttonPos.put(Xbox.B, new Vector2(141, 97));
 	}
 
@@ -68,7 +68,9 @@ public class DemoControllers extends PortableApplication {
 		for (Controller controller : Controllers.getControllers()) {
 			Logger.log(TAG, " - " + controller.getName());
 		}
-		ctrl = Controllers.getControllers().first();
+
+		if (Controllers.getControllers().size > 0)
+			ctrl = Controllers.getControllers().first();
 
 		background = new BitmapImage("data/images/noun_45114_cc.png");
 
@@ -102,12 +104,12 @@ public class DemoControllers extends PortableApplication {
 		g.drawLine(rightStickPos.x, rightStickPos.y, rightStickPos.x + endPos.x, rightStickPos.y - endPos.y);
 
 		// Buttons clicked
-    for (Integer buttonCode : buttonPos.keySet()) {
-      if (ctrl.getButton(buttonCode)) {
-        Vector2 pos = buttonPos.get(buttonCode).cpy().add(center);
-        g.drawFilledCircle(pos.x, pos.y, 10, Color.RED);
-      }
-    }
+		for (Integer buttonCode : buttonPos.keySet()) {
+			if (ctrl.getButton(buttonCode)) {
+				Vector2 pos = buttonPos.get(buttonCode).cpy().add(center);
+				g.drawFilledCircle(pos.x, pos.y, 10, Color.RED);
+			}
+		}
 
 		g.drawFPS(Color.BLACK);
 		g.drawSchoolLogo();
@@ -116,15 +118,15 @@ public class DemoControllers extends PortableApplication {
 	@Override
 	public void onControllerConnected(Controller controller) {
 		Logger.log(TAG, "A controller has been connected !");
-    ctrl = controller;
+		ctrl = controller;
 	}
 
-  @Override
-  public void onControllerDisconnected(Controller controller) {
-    ctrl = null;
-  }
+	@Override
+	public void onControllerDisconnected(Controller controller) {
+		ctrl = null;
+	}
 
-  @Override
+	@Override
 	public void onControllerKeyDown(Controller controller, int buttonCode) {
 		if (buttonCode == Xbox.X)
 			Logger.log(TAG, "Button X pressed");
