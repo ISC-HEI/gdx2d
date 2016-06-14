@@ -11,21 +11,17 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.utils.Align;
 
 /**
- * A demo that shows how to generate different fonts and hot to display texts
- * with different alignments.
- * Custom font (ttf files) can be loaded from the resource folder and customized
- * using parameters of the {@code FreeTypeFontParameter} class.
+ * A demo that shows how to generate different fonts and hot to display texts with different alignments. Custom font
+ * (ttf files) can be loaded from the resource folder and customized using parameters of the
+ * {@code FreeTypeFontParameter} class.
  *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Métrailler (mei)
  * @version 1.2
  */
 public class DemoFontGeneration extends PortableApplication {
-	private final static String LOREM = "Lorem ipsum dolor sit amet,\n" +
-			"consectetur adipiscing elit.\n" +
-			"In laoreet libero sit amet\n" +
-			"sollicitudin vestibulum.\n" +
-			"The default font is Roboto size 15, white";
+	private final static String LOREM = "Lorem ipsum dolor sit amet,\n" + "consectetur adipiscing elit.\n"
+			+ "In laoreet libero sit amet\n" + "sollicitudin vestibulum.\n" + "The default font is Roboto size 15, white";
 	private BitmapFont optimus60, optimus40, timeless40, starjedi40, icepixel40;
 
 	public static void main(String[] args) {
@@ -90,24 +86,21 @@ public class DemoFontGeneration extends PortableApplication {
 
 		g.clear();
 
-		/**
-		 * Default font is Robot 15.
-		 */
+		// Use the default font Robot 15
 		g.setColor(Color.WHITE);
 		g.drawStringCentered(y / 2 + y * 1, LOREM);
 
-		/**
-		 * Display different fonts centered on the screen.
-		 */
+		// Display different fonts centered (X axis) on the screen
 		g.drawStringCentered(y / 2 + y * 6, "Ice pixel 40", icepixel40);
-		g.drawStringCentered(y / 2 + y * 5, "Star jedi 40", starjedi40);
 		g.drawStringCentered(y / 2 + y * 4, "Timeless size 40", timeless40);
 		g.drawStringCentered(y / 2 + y * 3, "Optimus size 40", optimus40);
 		g.drawStringCentered(y / 2 + y * 2, "Optimus size 60", optimus60);
 
-		/**
-		 * Display fonts left, right and center aligned.
-		 */
+    // Display fonts with rotation
+    g.drawStringRotated(w / 2 - 50, y / 2 + y * 4.8f, "Hello", starjedi40, 20);
+    g.drawStringRotated(w / 2 + 50, y / 2 + y * 4.8f, "World", starjedi40, -20);
+
+		// Display fonts with left, right and center alignment
 		g.setColor(Color.MAGENTA);
 		g.drawString(10, h - 10, "left\naligned\ntext", Align.left);
 		g.drawString(w - 10, h - 10, "right\naligned\ntext", Align.right);

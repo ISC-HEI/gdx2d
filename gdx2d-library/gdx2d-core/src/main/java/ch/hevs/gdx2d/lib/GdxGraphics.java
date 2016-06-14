@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -14,16 +15,17 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Affine2;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
 import ch.hevs.gdx2d.components.graphics.Polygon;
 import ch.hevs.gdx2d.lib.renderers.CircleShaderRenderer;
 import ch.hevs.gdx2d.lib.renderers.ShaderRenderer;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /**
  * A game graphic class implementation based on the LibGDX library.
@@ -52,6 +54,7 @@ public class GdxGraphics implements Disposable {
 	protected OrthographicCamera fixedCamera;
 
 	protected BitmapFont font; // The standard font
+	private GlyphLayout fontLayout = new GlyphLayout();
 
 	protected Color currentColor = Color.WHITE;
 	protected Color backgroundColor = Color.BLACK;
@@ -620,6 +623,28 @@ public class GdxGraphics implements Disposable {
 		// Draw the string (reference is the top left edge)
 		f.draw(spriteBatch, str, posX, posY, w, align, false);
 	}
+
+  /**
+   * Draw a rotated text with a specific font at a specified position.
+   * 
+   * @param centerX the center X of the font used as rotation center
+   * @param centerY the center Y of the font used as rotation center
+   * @param str the text to display on the screen
+   * @param f the custom font to use
+   * @param angleDeg the font rotation angle in degree
+   */
+  public void drawStringRotated(float centerX, float centerY, String str, BitmapFont f, float angleDeg) {
+  	fontLayout.setText(f, str); // Measure the text
+    
+  	// Rotation matrix center on (centerX, centerY)
+  	Matrix4 mx4Font = new Matrix4().rotate(new Vector3(0, 0, 1), angleDeg).trn(centerX, centerY, 0);
+    
+  	Matrix4 old = spriteBatch.getTransformMatrix().cpy();
+    spriteBatch.setTransformMatrix(mx4Font);
+    checkMode(RenderingMode.SPRITE);
+    f.draw(spriteBatch, str, -fontLayout.width / 2, fontLayout.height / 2);
+    spriteBatch.setTransformMatrix(old); // Restore
+  }
 
 	/**
 	 * Draw a text in the middle of the screen.
