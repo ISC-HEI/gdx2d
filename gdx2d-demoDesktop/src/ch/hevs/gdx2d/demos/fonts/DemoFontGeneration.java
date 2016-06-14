@@ -86,24 +86,21 @@ public class DemoFontGeneration extends PortableApplication {
 
 		g.clear();
 
-		/**
-		 * Default font is Robot 15.
-		 */
+		// Use the default font Robot 15
 		g.setColor(Color.WHITE);
 		g.drawStringCentered(y / 2 + y * 1, LOREM);
 
-		/**
-		 * Display different fonts centered on the screen.
-		 */
+		// Display different fonts centered (X axis) on the screen
 		g.drawStringCentered(y / 2 + y * 6, "Ice pixel 40", icepixel40);
-		g.drawStringRotated(w / 2, y / 2 + y * 5, "Star jedi 40", starjedi40, 10);
 		g.drawStringCentered(y / 2 + y * 4, "Timeless size 40", timeless40);
 		g.drawStringCentered(y / 2 + y * 3, "Optimus size 40", optimus40);
 		g.drawStringCentered(y / 2 + y * 2, "Optimus size 60", optimus60);
 
-		/**
-		 * Display fonts left, right and center aligned.
-		 */
+    // Display fonts with rotation
+    g.drawStringRotated(w / 2 - 50, y / 2 + y * 4.8f, "Hello", starjedi40, 20);
+    g.drawStringRotated(w / 2 + 50, y / 2 + y * 4.8f, "World", starjedi40, -20);
+
+		// Display fonts with left, right and center alignment
 		g.setColor(Color.MAGENTA);
 		g.drawString(10, h - 10, "left\naligned\ntext", Align.left);
 		g.drawString(w - 10, h - 10, "right\naligned\ntext", Align.right);
