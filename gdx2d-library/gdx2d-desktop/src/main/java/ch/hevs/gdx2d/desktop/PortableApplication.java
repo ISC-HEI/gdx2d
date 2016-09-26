@@ -113,6 +113,9 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		// We only create a context when we were not built from the DemoSelector
 		if (!onAndroid() && !fromDemoSelector() && CreateLwjglApplication)
 			createLwjglApplication(width, height, fullScreen);
+
+		// Initialize the physics world
+		PhysicsWorld.getInstance();
 	}
 
 	/**
