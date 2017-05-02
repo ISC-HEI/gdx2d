@@ -15,7 +15,7 @@ You can also [download](https://github.com/hevs-isi/gdx2d/releases/download/v1.2
 
 ## Run demo programs in Eclipse
 
-[Download](https://github.com/hevs-isi/gdx2d/releases/download/v1.2.1/gdx2d-1.2.1-students.zip) and extract the `gdx2d-1.2.1-students.zip` file, then import the two project in you Eclipse workspace (using the `File->Import...->Existing Projects into Workspace` menu in Eclipse):
+[Download](https://github.com/hevs-isi/gdx2d/releases/download/v1.2.1/gdx2d-1.2.1-students.zip) the `gdx2d-1.2.1-students.zip` file, then import the two project in you Eclipse workspace (using the `File->Import...->Existing Projects into Workspace` menu in Eclipse then `Select archive file:`):
 
 <center>
     <img alt="Import existing projects in Eclipse" height="550" src="{{ site.baseurl }}/assets/doc/import.png">
