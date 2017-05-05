@@ -6,9 +6,8 @@ kramdown:
 
 gems:
   - jemoji
-  - jekyll-sitemap
 
-# Permalinks
+
 permalink: news/:title/
 
 # Collections
