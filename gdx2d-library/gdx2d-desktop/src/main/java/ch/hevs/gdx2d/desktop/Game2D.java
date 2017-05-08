@@ -15,6 +15,8 @@ import ch.hevs.gdx2d.lib.Version;
 import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
 import ch.hevs.gdx2d.lib.utils.Logger;
 
+import javax.swing.JFrame;
+
 /**
  * A wrapper for the {@link ApplicationListener} class.
  * <p/>
@@ -40,6 +42,7 @@ public class Game2D implements ApplicationListener {
 	protected PortableApplication app;
 	protected ShapeRenderer shapeRenderer;
 	protected SpriteBatch batch;
+	private boolean controllerEnable = true;
 
 	/**
 	 * Default constructor
@@ -70,8 +73,10 @@ public class Game2D implements ApplicationListener {
 		Gdx.input.setInputProcessor(multiplexer);
 
 		// Register the controllers input (extension required)
-		Controllers.clearListeners();
-		Controllers.addListener(new GdxControllersProcessor(app));
+		if(controllerEnable){ //See https://github.com/hevs-isi/gdx2d/issues/148
+			Controllers.clearListeners();
+			Controllers.addListener(new GdxControllersProcessor(app));
+		}
 
 		app.onInit(); // Initialize app
 
@@ -120,5 +125,10 @@ public class Game2D implements ApplicationListener {
 		PhysicsWorld.dispose();
 		g.dispose();
 		app.onDispose();
+	}
+	
+	public Game2D withoutController(){
+		controllerEnable = false;
+		return this;
 	}
 }

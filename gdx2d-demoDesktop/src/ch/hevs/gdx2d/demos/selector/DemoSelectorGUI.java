@@ -49,7 +49,7 @@ public class DemoSelectorGUI extends JFrame {
 		getContentPane().add(new TestList(), BorderLayout.WEST);
 
 		// Add the starting demo
-		LwjglAWTCanvas canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()));
+		LwjglAWTCanvas canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()).withoutController());
 		canvas.getCanvas().setSize(500, 500);
 		container.add(canvas.getCanvas());
 		canvasList.add(canvas);
@@ -203,7 +203,7 @@ public class DemoSelectorGUI extends JFrame {
 					public void run() {
 						try
 						{
-							Game2D g = new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance());
+							Game2D g = new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance()).withoutController();
 							// Create a new one
 							LwjglAWTCanvas canvas = new LwjglAWTCanvas(g);
 							canvas.getCanvas().setSize(500, 500);
