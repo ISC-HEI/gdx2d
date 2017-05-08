@@ -52,6 +52,11 @@ public class DemoPhysicsMouse extends PortableApplication {
 				return true;
 		}
 	};
+	
+	//Constructor used by DemoSelectorGui via reflection
+	public DemoPhysicsMouse() {
+		super();
+	}
 
 	public DemoPhysicsMouse(int w, int h) {
 		super(w, h);
