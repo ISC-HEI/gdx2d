@@ -381,10 +381,7 @@ public class GdxGraphics implements Disposable {
 	 * @param p2y end coordinate Y
 	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y) {
-		checkMode(RenderingMode.SHAPE_LINE);
-		shapeRenderer.identity();
-		shapeRenderer.setColor(currentColor);
-		shapeRenderer.line(p1x, p1y, p2x, p2y);
+		drawLine(p1x,p1y,p2x,p2y,currentColor);
 	}
 
 	/**
@@ -400,8 +397,10 @@ public class GdxGraphics implements Disposable {
 	 * @param c   the color of the line
 	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y, Color c) {
+		checkMode(RenderingMode.SHAPE_LINE);
+		shapeRenderer.identity();
 		shapeRenderer.setColor(c);
-		drawLine(p1x, p1y, p2x, p2y);
+		shapeRenderer.line(p1x, p1y, p2x, p2y);
 		shapeRenderer.setColor(currentColor);
 	}
 
