@@ -26,8 +26,9 @@ Note : sub projects like gdx2d-demoDesktop are using jar generated from the "mvn
 ## Update gdx2d-demoDesktop library jars from gdx2d-library
 
 Assumption : 
-gdx2d-demoDesktop/build.properties/gdx2d.version=1.2.2-SNAPSHOT 
-gdx2d-library/gdx2d-core/src/main/java/ch/hevs/gdx2d/lib/Version.java/Version/VERSION=1.2.2-SNAPSHOT
+
+- gdx2d-demoDesktop/build.properties/gdx2d.version=1.2.2-SNAPSHOT 
+- gdx2d-library/gdx2d-core/src/main/java/ch/hevs/gdx2d/lib/Version.java/Version/VERSION=1.2.2-SNAPSHOT
 
 ```sh
 cd rootOfThisRepository
