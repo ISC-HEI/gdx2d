@@ -9,6 +9,34 @@ If you are using IntelliJ IDEA, [see this article](http://blog.jetbrains.com/ide
 
 Please do use tabs, no spaces! Encoding of files should be defaulted to UTF-8. An [editor configuration file](https://github.com/hevs-isi/gdx2d/blob/master/.editorconfig) is also available.
 
+## Import project in eclipse
+
+```sh
+cd rootOfThisRepository
+mvn clean package
+- import/Existing Projects into Workspace/   Don't use the maven import.
+- Select the root of the gdx2d clone
+- Enable "Search for nested projects"
+- Finish
+```
+
+Note : sub projects like gdx2d-demoDesktop are using jar generated from the "mvn clean package".
+
+
+## Update gdx2d-demoDesktop library jars from gdx2d-library
+
+Assumption : 
+gdx2d-demoDesktop/build.properties/gdx2d.version=1.2.2-SNAPSHOT 
+gdx2d-library/gdx2d-core/src/main/java/ch/hevs/gdx2d/lib/Version.java/Version/VERSION=1.2.2-SNAPSHOT
+
+```sh
+cd rootOfThisRepository
+mvn clean package
+cp gdx2d-library/gdx2d-desktop/target/gdx2d-desktop-1.2.2-SNAPSHOT.jar gdx2d-demoDesktop/libs/gdx2d-desktop-1.2.2-SNAPSHOT.jar
+cp gdx2d-library/gdx2d-desktop/target/gdx2d-desktop-1.2.2-SNAPSHOT-sources.jar gdx2d-demoDesktop/libs/gdx2d-desktop-1.2.2-SNAPSHOT-sources.jar
+```
+
+
 ## Publishing
 
 The gdxd library is built using Maven and its modules are distributed as jar files since version `1.2.0`. Both artifacts `gdx2d-core` and `gdx2d-desktop` are published on Sonatype as [snapshots releases](https://oss.sonatype.org/content/repositories/snapshots/ch/hevs/gdx2d/) and official releases are published [on the Maven Central repository](http://search.maven.org/#search%7Cga%7C1%7Cch.hevs.gdx2d).
