@@ -67,7 +67,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-    <libgdx.version>1.5.6</libgdx.version>
+    <libgdx.version>1.9.8</libgdx.version>
     <gdx2d.url>https://hevs-isi.github.io/gdx2d/</gdx2d.url>
   </properties>
 
