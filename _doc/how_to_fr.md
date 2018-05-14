@@ -24,7 +24,7 @@ package hevs.gdx2d.demos.simple;
 
 import com.badlogic.gdx.Gdx;
 import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
+import hevs.gdx2d.desktop.PortableApplication;
 import com.badlogic.gdx.graphics.Color;
 
 /**
