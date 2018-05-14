@@ -35,5 +35,5 @@ author:
 # Latest libGDX version
 # The download link is '{{ site.github.repo }}archive/v{{ site.github.latestversion }}.zip'
 github:
-  latestversion: 1.2.1
+  latestversion: 1.2.2
   repo:          https://github.com/hevs-isi/gdx2d/
