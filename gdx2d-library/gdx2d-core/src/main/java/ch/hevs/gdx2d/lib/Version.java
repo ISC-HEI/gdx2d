@@ -11,7 +11,7 @@ public class Version {
   /**
    * Current version name of the gdx2d library (major.minor.revision).
    */
-  public final static String VERSION = "1.2.2-SNAPSHOT";
+  public final static String VERSION = "1.2.2";
 
   /**
    * Indicates if it is a debug or release version.

@@ -18,20 +18,20 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>gdx2d desktop library</description>
-  <version>1.2.2-SNAPSHOT</version>
+  <version>1.2.2</version>
 
   <dependencies>
     <dependency>
       <groupId>ch.hevs.gdx2d</groupId>
       <artifactId>gdx2d-core</artifactId>
-      <version>1.2.2-SNAPSHOT</version>
+      <version>1.2.2</version>
     </dependency>
 
     <dependency>
       <!-- Add the sources of the core for the students -->
       <groupId>ch.hevs.gdx2d</groupId>
       <artifactId>gdx2d-core</artifactId>
-      <version>1.2.2-SNAPSHOT</version>
+      <version>1.2.2</version>
       <classifier>sources</classifier>
     </dependency>
 
