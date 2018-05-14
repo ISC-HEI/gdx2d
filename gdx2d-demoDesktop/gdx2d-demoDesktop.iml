@@ -22,11 +22,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/gdx2d-desktop-1.2.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/gdx2d-desktop-1.2.2-SNAPSHOT.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/libs/gdx2d-desktop-1.2.1-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/gdx2d-desktop-1.2.2-SNAPSHOT-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
