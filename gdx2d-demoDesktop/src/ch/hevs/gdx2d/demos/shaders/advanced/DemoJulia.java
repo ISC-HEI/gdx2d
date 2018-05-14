@@ -21,7 +21,7 @@ public class DemoJulia extends PortableApplication {
 	float scale = 1.10f;
 	Vector2 offset = new Vector2(0, 0);
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoJulia();
 	}
 

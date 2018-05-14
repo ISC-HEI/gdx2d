@@ -51,7 +51,7 @@ public class DemoRotateMotor extends PortableApplication {
 		super(512, 256);
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoRotateMotor();
 	}
 

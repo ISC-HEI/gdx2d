@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -14,10 +15,12 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Affine2;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
 import ch.hevs.gdx2d.components.graphics.Polygon;
@@ -42,12 +45,16 @@ import ch.hevs.gdx2d.lib.renderers.ShaderRenderer;
  */
 public class GdxGraphics implements Disposable {
 	// For sprite-based logo
-	final protected Texture logoTex = new Texture(Gdx.files.internal("res/lib/logo_hes.png"));
-	final protected Texture circleTex = new Texture(Gdx.files.internal("res/lib/circle.png"));
+	protected final Texture logoTex = new Texture(Gdx.files.internal("res/lib/logo_hes.png"));
+	protected final Texture circleTex = new Texture(Gdx.files.internal("res/lib/circle.png"));
 	protected SpriteBatch spriteBatch;
 
-	protected OrthographicCamera camera, fixedCamera; // For camera operations
+  // For camera operations
+	protected OrthographicCamera camera;
+	protected OrthographicCamera fixedCamera;
+
 	protected BitmapFont font; // The standard font
+	private GlyphLayout fontLayout = new GlyphLayout();
 
 	protected Color currentColor = Color.WHITE;
 	protected Color backgroundColor = Color.BLACK;
@@ -60,8 +67,7 @@ public class GdxGraphics implements Disposable {
 
 	private RenderingMode renderingMode = RenderingMode.NONE;
 
-	public GdxGraphics(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch,
-					   OrthographicCamera camera) {
+	public GdxGraphics(ShapeRenderer shapeRenderer, SpriteBatch spriteBatch, OrthographicCamera camera) {
 		this.shapeRenderer = shapeRenderer;
 		this.spriteBatch = spriteBatch;
 		this.camera = camera;
@@ -141,8 +147,8 @@ public class GdxGraphics implements Disposable {
 	 * Draw the the school logo in the bottom right corner of the screen.
 	 * <p/>
 	 * As this project is mainly aimed the students from the <a
-	 * href="http://inf1.begincoding.net">inf1 course</a> given at the 
-	 * University of Applied Sciences Western Switzerland (HES-SO) Valais, 
+	 * href="http://inf1.begincoding.net">inf1 course</a> given at the
+	 * University of Applied Sciences Western Switzerland (HES-SO) Valais,
 	 * systems engineering, it is nice to have a logo for them !
 	 *
 	 * @see GdxGraphics#drawSchoolLogoUpperRight()
@@ -150,7 +156,7 @@ public class GdxGraphics implements Disposable {
 	public void drawSchoolLogo() {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.setProjectionMatrix(fixedCamera.combined);
-		spriteBatch.draw(logoTex, getScreenWidth() - logoTex.getWidth(), 0);
+		spriteBatch.draw(logoTex, ((float) getScreenWidth()) - logoTex.getWidth(), 0);
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 
@@ -165,8 +171,7 @@ public class GdxGraphics implements Disposable {
 		int height = Gdx.graphics.getHeight();
 
 		spriteBatch.setProjectionMatrix(fixedCamera.combined);
-		spriteBatch.draw(logoTex, width - logoTex.getWidth(),
-				height - logoTex.getHeight());
+		spriteBatch.draw(logoTex, ((float) width) - logoTex.getWidth(), ((float) height) - logoTex.getHeight());
 		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 
@@ -177,18 +182,15 @@ public class GdxGraphics implements Disposable {
 	 * @param mode {@link RenderingMode}
 	 */
 	private void checkMode(RenderingMode mode) {
-		if (mode == renderingMode) {
+		if (mode == renderingMode)
 			return;
-		}
 
 		switch (renderingMode) {
 			case SPRITE:
 				spriteBatch.end();
 				break;
-
 			case NONE:
 				break;
-
 			default:
 				shapeRenderer.end();
 				break;
@@ -199,29 +201,25 @@ public class GdxGraphics implements Disposable {
 				shapeRenderer.begin(ShapeType.Line);
 				shapeRenderer.setProjectionMatrix(camera.combined);
 				break;
-
 			case SHAPE_FILLED:
 				shapeRenderer.begin(ShapeType.Filled);
 				shapeRenderer.setProjectionMatrix(camera.combined);
 				break;
-
 			case SHAPE_POINT:
 				shapeRenderer.begin(ShapeType.Point);
 				shapeRenderer.setProjectionMatrix(camera.combined);
 				shapeRenderer.identity();
 				break;
-
 			case SPRITE:
 				spriteBatch.begin();
 				spriteBatch.setProjectionMatrix(camera.combined);
 				break;
-
 			case NONE:
+			default:
 				break;
 		}
 
 		renderingMode = mode;
-
 	}
 
 	/**
@@ -361,6 +359,7 @@ public class GdxGraphics implements Disposable {
 	 *
 	 * @param x the X coordinate of the pixel
 	 * @param y the Y coordinate of the pixel
+	 * @param c the new pixel color
 	 * @see GdxGraphics#clearPixel(float, float)
 	 */
 	public void clearPixel(float x, float y, Color c) {
@@ -382,10 +381,7 @@ public class GdxGraphics implements Disposable {
 	 * @param p2y end coordinate Y
 	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y) {
-		checkMode(RenderingMode.SHAPE_LINE);
-		shapeRenderer.identity();
-		shapeRenderer.setColor(currentColor);
-		shapeRenderer.line(p1x, p1y, p2x, p2y);
+		drawLine(p1x,p1y,p2x,p2y,currentColor);
 	}
 
 	/**
@@ -401,8 +397,10 @@ public class GdxGraphics implements Disposable {
 	 * @param c   the color of the line
 	 */
 	public void drawLine(float p1x, float p1y, float p2x, float p2y, Color c) {
+		checkMode(RenderingMode.SHAPE_LINE);
+		shapeRenderer.identity();
 		shapeRenderer.setColor(c);
-		drawLine(p1x, p1y, p2x, p2y);
+		shapeRenderer.line(p1x, p1y, p2x, p2y);
 		shapeRenderer.setColor(currentColor);
 	}
 
@@ -625,6 +623,28 @@ public class GdxGraphics implements Disposable {
 		f.draw(spriteBatch, str, posX, posY, w, align, false);
 	}
 
+  /**
+   * Draw a rotated text with a specific font at a specified position.
+   * 
+   * @param centerX the center X of the font used as rotation center
+   * @param centerY the center Y of the font used as rotation center
+   * @param str the text to display on the screen
+   * @param f the custom font to use
+   * @param angleDeg the font rotation angle in degree
+   */
+  public void drawStringRotated(float centerX, float centerY, String str, BitmapFont f, float angleDeg) {
+  	fontLayout.setText(f, str); // Measure the text
+    
+  	// Rotation matrix center on (centerX, centerY)
+  	Matrix4 mx4Font = new Matrix4().rotate(new Vector3(0, 0, 1), angleDeg).trn(centerX, centerY, 0);
+    
+  	Matrix4 old = spriteBatch.getTransformMatrix().cpy();
+    spriteBatch.setTransformMatrix(mx4Font);
+    checkMode(RenderingMode.SPRITE);
+    f.draw(spriteBatch, str, -fontLayout.width / 2, fontLayout.height / 2);
+    spriteBatch.setTransformMatrix(old); // Restore
+  }
+
 	/**
 	 * Draw a text in the middle of the screen.
 	 * <p/>
@@ -697,10 +717,9 @@ public class GdxGraphics implements Disposable {
 	 * @param scale scale of the image to draw ({@code 1} is not scaled)
 	 * @param bitmap the image to draw
 	 */
-	public void drawTransformedPicture(float posX, float posY, float angle,
-									   float scale, BitmapImage bitmap) {
-		drawTransformedPicture(posX, posY, bitmap.getImage().getWidth() / 2,
-				bitmap.getImage().getHeight() / 2, angle, scale, bitmap);
+	public void drawTransformedPicture(float posX, float posY, float angle, float scale, BitmapImage bitmap) {
+		drawTransformedPicture(posX, posY, bitmap.getImage().getWidth() / 2f,
+				bitmap.getImage().getHeight() / 2f, angle, scale, bitmap);
 	}
 
 	/**
@@ -717,8 +736,7 @@ public class GdxGraphics implements Disposable {
 									   float width, float height, BitmapImage bitmap) {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(bitmap.getRegion(), posX - width, posY
-						- height, width, height, width * 2, height * 2, 1.0f, 1.0f,
-				angle);
+						- height, width, height, width * 2, height * 2, 1.0f, 1.0f, angle);
 	}
 
 	/**
@@ -834,8 +852,8 @@ public class GdxGraphics implements Disposable {
 	/**
 	 * Move the camera to a fixed position.
 	 *
-	 * @param x X position of the camera
-	 * @param y Y position of the camera
+	 * @param x the new x position of the camera
+	 * @param y the new y position of the camera
 	 */
 	public void moveCamera(float x, float y) {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -844,31 +862,30 @@ public class GdxGraphics implements Disposable {
 	}
 
 	private Vector2 inside(Vector2 v, Vector2 p1, Vector2 p2) {
-		return new Vector2((float) Math.min(Math.max(p1.x, v.x), p2.x),
-				(float) Math.min(Math.max(p1.y, v.y), p2.y));
+		return new Vector2(Math.min(Math.max(p1.x, v.x), p2.x), Math.min(Math.max(p1.y, v.y), p2.y));
 	}
 
 	/**
 	 * Point the camera to the center of interest limited by the game size.
 	 *
-	 * @param interest_x X position of the center of interest
-	 * @param interest_y Y position of the center of interest
-	 * @param world_width max width of the game
-	 * @param world_height max height of the game
+	 * @param interestX the x position of the center of interest
+	 * @param interestY the y position of the center of interest
+	 * @param worldWidth max width of the game
+	 * @param worldHeight max height of the game
 	 */
-	public void moveCamera(float interest_x, float interest_y, float world_width, float world_height) {
-		Vector2 camera_min = new Vector2(0,0);
-		Vector2 camera_max = new Vector2(
-			world_width - Gdx.graphics.getWidth() * camera.zoom,
-			world_height - Gdx.graphics.getHeight() * camera.zoom
+	public void moveCamera(float interestX, float interestY, float worldWidth, float worldHeight) {
+		Vector2 cameraMin = new Vector2(0,0);
+		Vector2 cameraMax = new Vector2(
+			worldWidth - Gdx.graphics.getWidth() * camera.zoom,
+			worldHeight - Gdx.graphics.getHeight() * camera.zoom
 		);
 
 		// Center the camera on the interest
 		Vector2 pos = new Vector2(
-				interest_x, interest_y).sub(Gdx.graphics.getWidth() / 2 * camera.zoom, Gdx.graphics.getHeight() / 2 * camera.zoom);
+				interestX, interestY).sub(Gdx.graphics.getWidth() / 2 * camera.zoom, Gdx.graphics.getHeight() / 2 * camera.zoom);
 
 		// Limit the camera position inside the game
-		pos = inside(pos, camera_min, camera_max);
+		pos = inside(pos, cameraMin, cameraMax);
 
 		moveCamera(pos.x, pos.y);
 	}
@@ -939,13 +956,9 @@ public class GdxGraphics implements Disposable {
 	public void drawShader(int posX, int posY, float shaderTime) {
 		if (getShaderRenderer() != null)
 			getShaderRenderer().render(posX, posY, shaderTime);
-		else {
-			try {
-				throw new Exception("Shader renderer not set, aborting.");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		else
+			throw new GdxRuntimeException("Shader renderer not set, aborting.");
+
 		resetRenderingMode();
 	}
 
@@ -968,9 +981,8 @@ public class GdxGraphics implements Disposable {
 	public void setShader(String s, int width, int height) {
 		// TODO Allowing multiple shader at once would be nice
 		// Dispose of the allocated resources
-		if (getShaderRenderer() != null) {
+		if (getShaderRenderer() != null)
 			getShaderRenderer().dispose();
-		}
 
 		setShaderRenderer(new ShaderRenderer(s, width, height));
 	}
@@ -1010,9 +1022,7 @@ public class GdxGraphics implements Disposable {
 		setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
+	/** Draw on the SpriteBatch. */
 	public void draw(Texture texture, float x, float y, float originX,
 			float originY, float width, float height, float scaleX,
 			float scaleY, float rotation, int srcX, int srcY, int srcWidth,
@@ -1023,103 +1033,74 @@ public class GdxGraphics implements Disposable {
 				flipX, flipY);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
+	/** Draw on the SpriteBatch. */
 	public void draw(Texture texture, float x, float y, float width,
 			float height, int srcX, int srcY, int srcWidth, int srcHeight,
 			boolean flipX, boolean flipY) {
 		checkMode(RenderingMode.SPRITE);
-		spriteBatch.draw(texture, x, y, width, height, srcX, srcY, srcWidth,
-				srcHeight, flipX, flipY);
+		spriteBatch.draw(texture, x, y, width, height, srcX, srcY, srcWidth, srcHeight, flipX, flipY);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
-	public void draw(Texture texture, float x, float y, int srcX, int srcY,
-			int srcWidth, int srcHeight) {
+	/** Draw on the SpriteBatch. */
+	public void draw(Texture texture, float x, float y, int srcX, int srcY, int srcWidth, int srcHeight) {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y, srcX, srcY, srcWidth, srcHeight);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
-	public void draw(Texture texture, float x, float y, float width,
-			float height, float u, float v, float u2, float v2) {
+	/** Draw on the SpriteBatch. */
+	public void draw(Texture texture, float x, float y, float width, float height, float u, float v, float u2, float v2) {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y, width, height, u, v, u2, v2);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
+	/** Draw on the SpriteBatch. */
 	public void draw(Texture texture, float x, float y) {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
-	public void draw(Texture texture, float x, float y, float width,
-			float height) {
+	/** Draw on the SpriteBatch. */
+	public void draw(Texture texture, float x, float y, float width, float height) {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, x, y, width, height);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
-	public void draw(Texture texture, float[] spriteVertices, int offset,
-			int count) {
+	/** Draw on the SpriteBatch. */
+	public void draw(Texture texture, float[] spriteVertices, int offset, int count) {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(texture, spriteVertices, offset, count);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
+	/** Draw on the SpriteBatch. */
 	public void draw(TextureRegion region, float x, float y) {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(region, x, y);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
+	/** Draw on the SpriteBatch. */
 	public void draw(TextureRegion region, float x, float y, float width,
 			float height) {
 		checkMode(RenderingMode.SPRITE);
 		spriteBatch.draw(region, x, y, width, height);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
+	/** Draw on the SpriteBatch. */
 	public void draw(TextureRegion region, float x, float y, float originX,
 			float originY, float width, float height, float scaleX,
 			float scaleY, float rotation) {
 		checkMode(RenderingMode.SPRITE);
-		spriteBatch.draw(region, x, y, originX, originY, width, height, scaleX,
-				scaleY, rotation);
+		spriteBatch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
+	/** Draw on the SpriteBatch. */
 	public void draw(TextureRegion region, float x, float y, float originX,
 			float originY, float width, float height, float scaleX,
 			float scaleY, float rotation, boolean clockwise) {
 		checkMode(RenderingMode.SPRITE);
-		spriteBatch.draw(region, x, y, originX, originY, width, height, scaleX,
-				scaleY, rotation, clockwise);
+		spriteBatch.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation, clockwise);
 	}
 
-	/**
-	 * Draw on the SpriteBatch.
-	 */
+	/** Draw on the SpriteBatch. */
 	public void draw(TextureRegion region, float width, float height,
 			Affine2 transform) {
 		checkMode(RenderingMode.SPRITE);

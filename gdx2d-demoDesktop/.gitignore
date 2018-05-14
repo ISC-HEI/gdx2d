@@ -2,6 +2,7 @@
 .metadata
 .gradle
 bin/
+classes/
 tmp/
 *.tmp
 *.bak

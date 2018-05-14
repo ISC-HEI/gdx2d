@@ -13,7 +13,8 @@ public interface KeyboardInterface {
 	/**
 	 * Invoked when a key is typed.
 	 * <p/>
-	 * Use {@link com.badlogic.gdx.Input.Keys} to read the key code.
+	 * Use {@link com.badlogic.gdx.Input.Keys} to read the key code. In default implementation, quit the application when
+	 * the {@code ESCAPE} key is pressed.
 	 *
 	 * @param keycode the code key, see {@link com.badlogic.gdx.Input.Keys}
 	 */

@@ -26,26 +26,26 @@ public class PhysicsConstants {
 	 *
 	 * @see #coordMetersToPixels(Vector2)
 	 */
-	public static float METERS_TO_PIXELS = 75;
+	public static final float METERS_TO_PIXELS = 75;
 
 	/**
 	 * @see #coordMetersToPixels(Vector2)
 	 * @see #METERS_TO_PIXELS
 	 */
-	public static float M2P = METERS_TO_PIXELS;
+	public static final float M2P = METERS_TO_PIXELS;
 
 	/**
 	 * Multiply this ratio to convert pixels to meters.
 	 *
 	 * @see #coordPixelsToMeters(Vector2)
 	 */
-	public static float PIXEL_TO_METERS = 1 / METERS_TO_PIXELS;
+	public static final float PIXEL_TO_METERS = 1 / METERS_TO_PIXELS;
 
 	/**
 	 * @see #coordPixelsToMeters(Vector2)
 	 * @see #PIXEL_TO_METERS
 	 */
-	public static float P2M = PIXEL_TO_METERS;
+	public static final float P2M = PIXEL_TO_METERS;
 
 	public static final int VELOCITY_IT = 6;
 	public static final int POSITION_IT = 5;

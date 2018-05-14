@@ -48,9 +48,9 @@ public class DemoSwingIntegration extends JFrame {
 
 				LwjglAWTCanvas canvas;
 				if ((current % 2) == 1)
-					canvas = new LwjglAWTCanvas(new Game2D(new DemoSimplePhysics()), null);
+					canvas = new LwjglAWTCanvas(new Game2D(new DemoSimplePhysics()));
 				else
-					canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()), null);
+					canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()));
 
 				current++;
 

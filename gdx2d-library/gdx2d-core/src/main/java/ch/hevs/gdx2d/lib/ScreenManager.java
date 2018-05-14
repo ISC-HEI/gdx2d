@@ -27,7 +27,8 @@ import java.util.ArrayList;
 public class ScreenManager {
 	protected ArrayList<Class> screens = new ArrayList<Class>();
 	protected int activeScreen = 0;
-	protected RenderingScreen currScreen, nextScreen;
+	protected RenderingScreen currScreen;
+	protected RenderingScreen nextScreen;
 
 	/**
 	 * Available screen transitions effects.
@@ -39,7 +40,8 @@ public class ScreenManager {
 	protected TransactionType transitionStyle = TransactionType.SMOOTH;
 
 	// To handle transitions
-	protected FrameBuffer currFbo, nextFbo;
+	protected FrameBuffer currFbo;
+	protected FrameBuffer nextFbo;
 	protected SpriteBatch batch;
 	protected float time;
 	protected ScreenTransition screenTransition;
@@ -53,7 +55,7 @@ public class ScreenManager {
 			s.onInit();
 			return s;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Gdx.app.log("gdx2d", "Should be a RenderingScreen !", e);
 		}
 		return null;
 	}
@@ -92,6 +94,8 @@ public class ScreenManager {
 					case SMOOTH:
 						screenTransition = SmoothTransition.init(0.75f);
 						break;
+					default:
+						break;
 				}
 
 				// Render current screen to FBO
@@ -124,7 +128,7 @@ public class ScreenManager {
 		time = Math.min(time + deltaTime, duration);
 
 		// When transition is over
-		if (screenTransition == null || time >= duration) {
+		if (time >= duration) {
 			screenTransition = null;
 			transitioning = false;
 			activeScreen = getNextScreenIndex();
@@ -136,10 +140,7 @@ public class ScreenManager {
 
 		// Render the transition effect to screen
 		float alpha = time / duration;
-		screenTransition.render(batch,
-				currFbo.getColorBufferTexture(),
-				nextFbo.getColorBufferTexture(),
-				alpha);
+		screenTransition.render(batch, currFbo.getColorBufferTexture(), nextFbo.getColorBufferTexture(), alpha);
 	}
 
 	// Go to the next screen if no target index has been choose

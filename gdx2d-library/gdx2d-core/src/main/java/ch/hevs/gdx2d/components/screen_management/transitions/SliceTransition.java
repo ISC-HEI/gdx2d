@@ -20,6 +20,14 @@ public class SliceTransition implements ScreenTransition {
 	private Interpolation easing;
 	private Array<Integer> sliceIndex = new Array<Integer>();
 
+	/**
+	 * Create a screen slice transition.
+	 * @param duration the animation duration
+	 * @param direction the animation direction
+	 * @param numSlices the number of slices
+	 * @param easing the type of interpolation for the animation
+	 * @return the created slice transition
+	 */
 	public static SliceTransition init(float duration, int direction, int numSlices, Interpolation easing) {
 		instance.duration = duration;
 		instance.direction = direction;
@@ -44,7 +52,7 @@ public class SliceTransition implements ScreenTransition {
 
 		float w = currScreen.getWidth();
 		float h = currScreen.getHeight();
-		float x = 0;
+		float x;
 		float y = 0;
 		int sliceWidth = (int) (w / sliceIndex.size);
 
@@ -56,28 +64,30 @@ public class SliceTransition implements ScreenTransition {
 				currScreen.getWidth(), currScreen.getHeight(),
 				false, true);
 
+		float newAlpha = alpha;
 		if (easing != null)
-			alpha = easing.apply(alpha);
+			newAlpha = easing.apply(alpha);
 
 		for (int i = 0; i < sliceIndex.size; i++) {
 			// current slice/column
-			x = i * sliceWidth;
+			x = i * (float) sliceWidth;
 			// vertical displacement using randomized list of slice indices
 			float offsetY = h * (1 + sliceIndex.get(i) / (float) sliceIndex.size);
 
 			switch (direction) {
 				case UP:
-					y = -offsetY + offsetY * alpha;
+					y = -offsetY + offsetY * newAlpha;
 					break;
 				case DOWN:
-					y = offsetY - offsetY * alpha;
+					y = offsetY - offsetY * newAlpha;
 					break;
 				case UP_DOWN:
-					if (i % 2 == 0) {
-						y = -offsetY + offsetY * alpha;
-					} else {
-						y = offsetY - offsetY * alpha;
-					}
+					if (i % 2 == 0)
+						y = -offsetY + offsetY * newAlpha;
+					else
+						y = offsetY - offsetY * newAlpha;
+					break;
+				default:
 					break;
 			}
 

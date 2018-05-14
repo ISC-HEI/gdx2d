@@ -5,6 +5,7 @@ import ch.hevs.gdx2d.lib.utils.Utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /**
  * A class to play <em>short</em> samples within gdx2d. The music sample
@@ -27,22 +28,21 @@ public class SoundSample implements Disposable {
 	protected float pitch = 1.0f;
 
 	/**
-	 * Constructor
+	 * Create a sound sample from a file. Gdx must be loaded.
 	 *
 	 * @param file the file to be loaded, using internal path representation
+	 * @throws GdxRuntimeException if Gdx is not loaded
 	 */
 	public SoundSample(String file) {
+		Utils.assertGdxLoaded(SoundSample.class);
 		s = Gdx.audio.newSound(Gdx.files.internal(file));
-
-		Utils.assertGdxLoaded("A sound sample can only be created in the onInit "
-				+ "method of a class extending PortableApplication "
-				+ "(or must be called from within this method)");
 	}
 
 	/**
-	 * Changes volume of the song played
+	 * Change volume of the player.
 	 *
-	 * @param v Should be between 0 and 1
+	 * @param v the new volume (should be between 0 and 1 inclusive)
+	 * @throws UnsupportedOperationException if the new volume value is out of range
 	 */
 	public void setVolume(float v) {
 		if (v > 1.0f || v < 0.0f) {
@@ -54,9 +54,10 @@ public class SoundSample implements Disposable {
 
 	/**
 	 * Changes the speed (pitch) at which the sound is played.
-	 * Valid values are between 0.5 (twice slower) and 2 (twice faster)
+	 * Valid values are between 0.5 (twice slower) and 2 (twice faster) (inslusive).
 	 *
-	 * @param p Speed (pitch) of the sound
+	 * @param p the speed (pitch) of the sound
+	 * @throws UnsupportedOperationException if the new volume value is out of range
 	 */
 	public void setPitch(float p) {
 		if (p > 2.0f || p < 0.5f) {

@@ -1,33 +1,42 @@
 package ch.hevs.gdx2d.desktop;
 
-import ch.hevs.gdx2d.lib.interfaces.*;
+import java.awt.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
-import java.awt.*;
+import ch.hevs.gdx2d.lib.interfaces.*;
 
 /**
- * The base class that should be sub-classed by all {@code gdx2d} applications.
- * To get the functionality required you simply have to overload the required methods.
+ * The base class that should be sub-classed by all {@code gdx2d} applications. To get the functionality required you
+ * simply have to overload the required methods.
  *
- * @author Pierre-André Mudry (mui)
- * @author Christopher Metrailler (mei)
- * @version 1.1
  * @see TouchInterface
  * @see KeyboardInterface
  * @see GameInterface
+ * @see GestureInterface
+ * @see ControllersInterface
+ *
+ * @author Pierre-André Mudry (mui)
+ * @author Christopher Metrailler (mei)
+ * @version 1.2
  */
-public abstract class PortableApplication implements TouchInterface, KeyboardInterface, GameInterface, GestureInterface {
+public abstract class PortableApplication
+		implements TouchInterface, KeyboardInterface, GameInterface, GestureInterface, ControllersInterface {
+
 	// Default window dimensions
 	private static final int DEFAULT_HEIGHT = 500;
 	private static final int DEFAULT_WIDTH = 500;
 
 	@Deprecated
 	protected final boolean onAndroid = onAndroid();
-	
+
 	/**
 	 * {@code true} if the application is running on Android or {@code false} if running on desktop.
 	 */
@@ -35,21 +44,20 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 
 	/**
 	 * Detect android
-	 * 
+	 *
 	 * @return true when running on Android.
 	 */
 	public boolean onAndroid() {
-	    try {
-	        Class.forName("android.app.Activity");
-	        return true;
-	    } catch(ClassNotFoundException e) {
-	        return false;
-	    }
+		try {
+			Class.forName("android.app.Activity");
+			return true;
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
 	}
-	
+
 	/**
-	 * Creates an application using {@code gdx2d}.
-	 * Use a default windows size.
+	 * Creates an application using {@code gdx2d}. Use a default windows size.
 	 *
 	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
 	 */
@@ -59,33 +67,29 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	}
 
 	/**
-	 * Creates an application using {@code gdx2d}.
-	 * Use a default windows size.
+	 * Creates an application using {@code gdx2d}. Use a default windows size.
 	 */
 	public PortableApplication() {
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 
-	
 	/**
-	 * Creates an application using {@code gdx2d}.
-	 * Screen dimension are ignored when running on Android.
+	 * Creates an application using {@code gdx2d}. Screen dimension are ignored when running on Android.
 	 *
 	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
-	 * @param width     The width of the screen (only for desktop)
-	 * @param height    The height of the screen (only for desktop)
+	 * @param width The width of the screen (only for desktop)
+	 * @param height The height of the screen (only for desktop)
 	 */
 	@Deprecated
 	public PortableApplication(boolean onAndroid, int width, int height) {
 		this(onAndroid, width, height, false);
 	}
-	
+
 	/**
-	 * Creates an application using {@code gdx2d}.
-	 * Screen dimension are ignored when running on Android.
+	 * Creates an application using {@code gdx2d}. Screen dimension are ignored when running on Android.
 	 *
-	 * @param width     The width of the screen (only for desktop)
-	 * @param height    The height of the screen (only for desktop)
+	 * @param width The width of the screen (only for desktop)
+	 * @param height The height of the screen (only for desktop)
 	 */
 	public PortableApplication(int width, int height) {
 		this(width, height, false);
@@ -94,10 +98,9 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	/**
 	 * Create a full-screen {@code gdx2d} application.
 	 *
-	 * @param width      The width of the screen
-	 * @param height     The height of the screen
-	 * @param fullScreen Indicates if the application should be launched full
-	 *                   screen on desktop, or in default resolution
+	 * @param width The width of the screen
+	 * @param height The height of the screen
+	 * @param fullScreen Indicates if the application should be launched full screen on desktop, or in default resolution
 	 */
 	public PortableApplication(int width, int height, boolean fullScreen) {
 		if (onAndroid()) {
@@ -116,12 +119,12 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	}
 
 	/**
-	 * Creates an application using {@code gdx2d}, running full screen or not on desktop.
-	 * Screen dimension are ignored when running on Android.
+	 * Creates an application using {@code gdx2d}, running full screen or not on desktop. Screen dimension are ignored
+	 * when running on Android.
 	 *
-	 * @param onAndroid  {@code true} if running on Android, {@code false} otherwise
-	 * @param width      The width of the screen (only for desktop)
-	 * @param height     The height of the screen (only for desktop)
+	 * @param onAndroid {@code true} if running on Android, {@code false} otherwise
+	 * @param width The width of the screen (only for desktop)
+	 * @param height The height of the screen (only for desktop)
 	 * @param fullScreen {@code true} to create a fullscreen application (only for desktop)
 	 */
 	@Deprecated
@@ -144,11 +147,11 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 		return false;
 	}
 
-    /* TouchInterface callbacks */
+	/* TouchInterface callbacks */
 
 	/**
-	 * Change the title of the application window (works only on desktop).
-	 * This method has no effect (ignored) when running on Android.
+	 * Change the title of the application window (works only on desktop). This method has no effect (ignored) when
+	 * running on Android.
 	 *
 	 * @param title the application title
 	 */
@@ -175,141 +178,142 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	}
 
 	/**
-	 * Schedule an exit from the application.
-	 * On android, this will cause a call to {@link #onPause()} and {@link #onDispose()} some time in the future,
-	 * it will not immediately finish your application.
+	 * Schedule an exit from the application. On android, this will cause a call to {@link #onPause()} and
+	 * {@link #onDispose()} some time in the future, it will not immediately finish your application.
 	 */
 	public void exit() {
 		Gdx.app.exit();
 	}
 
+	/* KeyboardInterface callbacks */
 
-    /* KeyboardInterface callbacks */
-
-	/**
-	 * @see TouchInterface#onClick(int, int, int)
-	 */
 	@Override
 	public void onClick(int x, int y, int button) {
 	}
 
-	/**
-	 * @see TouchInterface#onDrag(int, int)
-	 */
 	@Override
 	public void onDrag(int x, int y) {
 	}
 
-
-    /* GameInterface callbacks */
+	/* GameInterface callbacks */
 
 	// Must be implemented in every subclasses:
 	// void onInit();
 	// void onGraphicRender(GdxGraphics g);
 
-	/**
-	 * @see TouchInterface#onRelease(int, int, int)
-	 */
 	@Override
 	public void onRelease(int x, int y, int button) {
 	}
 
-	/**
-	 * @see TouchInterface#onScroll(int)
-	 */
 	@Override
 	public void onScroll(int amount) {
 	}
 
-	/**
-	 * @see KeyboardInterface#onKeyDown(int)
-	 */
 	@Override
 	public void onKeyDown(int keycode) {
 		if (keycode == Input.Keys.MENU) {
 			Gdx.input.vibrate(300);
 		}
+
+		// Exit when the {@code ESCAPE} key is pressed
+		if (keycode == Input.Keys.ESCAPE) {
+			Gdx.app.exit();
+		}
 	}
 
-	/**
-	 * @see KeyboardInterface#onKeyUp(int)
-	 */
 	@Override
 	public void onKeyUp(int keycode) {
 	}
 
-    /* GestureInterface callbacks */
+	/* GestureInterface callbacks */
 
-	/**
-	 * @see GameInterface#onDispose()
-	 */
 	@Override
 	public void onDispose() {
 	}
 
-	/**
-	 * @see GameInterface#onPause()
-	 */
 	@Override
 	public void onPause() {
 		// Android only
 	}
 
-	/**
-	 * @see GameInterface#onGameLogicUpdate()
-	 */
 	@Override
 	public void onGameLogicUpdate() {
 	}
 
-	/**
-	 * @see GameInterface#onResume()
-	 */
 	@Override
 	public void onResume() {
 		// Android only
 	}
 
-	/**
-	 * @see GestureInterface#onZoom(float, float)
-	 */
 	@Override
 	public void onZoom(float initialDistance, float distance) {
 	}
 
-	/**
-	 * @see GestureInterface#onTap(float, float, int, int)
-	 */
 	@Override
 	public void onTap(float x, float y, int count, int button) {
 	}
 
-	/**
-	 * @see GestureInterface#onPinch(Vector2, Vector2, Vector2, Vector2)
-	 */
 	@Override
 	public void onPinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
 	}
 
-	/**
-	 * @see GestureInterface#onPan(float, float, float, float)
-	 */
 	@Override
 	public void onPan(float x, float y, float deltaX, float deltaY) {
 	}
 
-	/**
-	 * @see GestureInterface#onLongPress(float, float)
-	 */
 	@Override
 	public void onLongPress(float x, float y) {
 	}
 
-	/**
-	 * @see GestureInterface#onFling(float, float, int)
-	 */
 	@Override
 	public void onFling(float velocityX, float velocityY, int button) {
+	}
+
+	/* ControllersInterface callbacks */
+
+	@Override
+	public void onControllerConnected(Controller controller) {
+		// FIXME: not called on Windows with XBox One game-pad
+	}
+
+	@Override
+	public void onControllerDisconnected(Controller controller) {
+
+	}
+
+	@Override
+	public void onControllerKeyDown(Controller controller, int buttonCode) {
+
+	}
+
+	@Override
+	public void onControllerKeyUp(Controller controller, int buttonCode) {
+
+	}
+
+	@Override
+	public void onControllerAxisMoved(Controller controller, int axisCode, float value) {
+
+	}
+
+	@Override
+	public void onControllerPovMoved(Controller controller, int povCode, PovDirection value) {
+
+	}
+
+	@Override
+	public void onControllerXSliderMoved(Controller controller, int sliderCode, boolean value) {
+		// FIXME: not called on Windows with XBox One game-pad
+	}
+
+	@Override
+	public void onControllerYSliderMoved(Controller controller, int sliderCode, boolean value) {
+		// FIXME: not called on Windows with XBox One game-pad
+	}
+
+	@Override
+	public void onControllerAccelerometerMoved(Controller controller, int accelerometerCode, Vector3 value) {
+		// FIXME: not called on Windows with XBox One game-pad
 	}
 
 	/**
@@ -323,9 +327,8 @@ public abstract class PortableApplication implements TouchInterface, KeyboardInt
 	}
 
 	/**
-	 * Set the {@link AndroidResolver} when the application is created on
-	 * Android. The resolver must be create in an Android Activity with its
-	 * Context
+	 * Set the {@link AndroidResolver} when the application is created on Android. The resolver must be create in an
+	 * Android Activity with its Context
 	 *
 	 * @param resolver the Android resolver
 	 * @since 1.1

@@ -22,7 +22,7 @@ public class DemoBackbuffer extends PortableApplication {
 	FrameBuffer fbo;
 	Texture t;
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoBackbuffer();
 	}
 

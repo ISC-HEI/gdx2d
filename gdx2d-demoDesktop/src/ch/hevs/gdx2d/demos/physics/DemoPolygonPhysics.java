@@ -29,14 +29,14 @@ public class DemoPolygonPhysics extends PortableApplication {
 	@Override
 	public void onInit() {
 		// A triangle
-		Vector2 obj1[] = {
+		Vector2[] obj1 = {
 				new Vector2(100, 100),
 				new Vector2(200, 100),
 				new Vector2(150, 200)
 		};
 
 		// A special polygon
-		Vector2 obj2[] = {
+		Vector2[] obj2 = {
 				new Vector2(0, 0),
 				new Vector2(4, 0),
 				new Vector2(5, 3),

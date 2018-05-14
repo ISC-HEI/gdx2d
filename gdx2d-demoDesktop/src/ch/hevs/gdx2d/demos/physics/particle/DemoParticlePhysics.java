@@ -39,7 +39,7 @@ public class DemoParticlePhysics extends PortableApplication {
 		super(x, y);
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new DemoParticlePhysics(1000, 600);
 	}
 

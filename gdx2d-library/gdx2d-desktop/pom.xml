@@ -18,16 +18,23 @@
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>gdx2d desktop library</description>
-  <version>1.2.1</version>
+  <version>1.2.2</version>
 
   <dependencies>
     <dependency>
       <groupId>ch.hevs.gdx2d</groupId>
       <artifactId>gdx2d-core</artifactId>
-      <version>1.2.1</version>
+      <version>1.2.2</version>
     </dependency>
 
-    <!-- Libgdx / Box2d desktop natives -->
+    <dependency>
+      <!-- Add the sources of the core for the students -->
+      <groupId>ch.hevs.gdx2d</groupId>
+      <artifactId>gdx2d-core</artifactId>
+      <version>1.2.2</version>
+      <classifier>sources</classifier>
+    </dependency>
+
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-backend-lwjgl</artifactId>
@@ -39,16 +46,31 @@
       <version>${libgdx.version}</version>
       <classifier>natives-desktop</classifier>
     </dependency>
+
     <dependency>
+      <!-- Box2D extension -->
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-box2d-platform</artifactId>
       <classifier>natives-desktop</classifier>
       <version>${libgdx.version}</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
+      <!-- Box2DLights extension -->
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-freetype-platform</artifactId>
+      <version>${libgdx.version}</version>
+      <classifier>natives-desktop</classifier>
+    </dependency>
+    <dependency>
+      <!-- Controllers extension -->
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-controllers-desktop</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+    <dependency>
+      <!-- Controllers extension -->
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-controllers-platform</artifactId>
       <version>${libgdx.version}</version>
       <classifier>natives-desktop</classifier>
     </dependency>
@@ -56,55 +78,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack-sources</id>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <!-- Include the 'gdx2d-core' and 'gdx2d-desktop' source files for the students -->
-              <outputDirectory>${project.build.directory}/sources</outputDirectory>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>ch.hevs.gdx2d</groupId>
-                  <artifactId>gdx2d-core</artifactId>
-                  <version>1.2.1</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>ch.hevs.gdx2d</groupId>
-                  <artifactId>gdx2d-desktop</artifactId>
-                  <version>1.2.1</version>
-                  <classifier>sources</classifier>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
-        <executions>
-          <execution>
-            <id>source-assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>src/assembly/src.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -115,6 +88,7 @@
           <dependencySourceIncludes>
             <dependencySourceInclude>ch.hevs.*</dependencySourceInclude>
           </dependencySourceIncludes>
+          <show>package</show>
         </configuration>
       </plugin>
     </plugins>

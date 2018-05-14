@@ -20,27 +20,27 @@ public class MusicPlayer implements Disposable {
 	protected float volume = 1.0f;
 
 	/**
-	 * Constructor
+	 * Create a music player from a sound file. Gdx must be loaded.
 	 *
-	 * @param file The file to be played, using internal path representation
+	 * @param file the sound file to be played, using internal path representation
+	 * @throws GdxRuntimeException if Gdx is not loaded
 	 */
 	public MusicPlayer(String file) {
+    Utils.assertGdxLoaded(MusicPlayer.class);
+
 		try {
 			s = Gdx.audio.newMusic(Gdx.files.internal(file));
-			Utils.assertGdxLoaded("MusicPlayers can only be created in the onInit "
-					+ "method of a class extending PortableApplication "
-					+ "(or must be called from within this method)");
-
 		} catch (GdxRuntimeException e) {
-			Logger.error("Unable to load the music" + file);
-			Gdx.app.exit();
+			Logger.error("Unable to load the music file '" + file + "'");
+			throw e;
 		}
 	}
 
 	/**
-	 * Changes volume of the song played
+	 * Change volume of the player.
 	 *
-	 * @param v Should be between 0 and 1
+	 * @param v the new volume (should be between 0 and 1 inclusive)
+	 * @throws UnsupportedOperationException if the new volume value is out of range
 	 */
 	public void setVolume(float v) {
 		if (v > 1.0f || v < 0.0f) {
@@ -51,35 +51,35 @@ public class MusicPlayer implements Disposable {
 	}
 
 	/**
-	 * Starts playing the song
+	 * Start playing the song.
 	 */
 	public void play() {
 		s.play();
 	}
 
 	/**
-	 * Stops playing the song
+	 * Stop playing the song.
 	 */
 	public void stop() {
 		s.stop();
 	}
 
 	/**
-	 * @return True if the music is playing
+	 * @return {@code true} if the music is playing
 	 */
 	public boolean isPlaying() {
 		return s.isPlaying();
 	}
 
 	/**
-	 * @return True if the music is currently looping (aka playing repeatedly)
+	 * @return {@code true} if the music is currently looping (aka playing repeatedly)
 	 */
 	public boolean isLooping() {
 		return s.isLooping();
 	}
 
 	/**
-	 * Plays the song in loop, repeating forever
+	 * Play the song in loop, repeating forever.
 	 */
 	public void loop() {
 		s.play();

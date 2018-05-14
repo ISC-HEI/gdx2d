@@ -27,41 +27,38 @@
     <module>gdx2d-desktop</module>
   </modules>
 
-  <!-- Shared dependencies used in every gdx2d modules -->
   <dependencies>
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx</artifactId>
       <version>${libgdx.version}</version>
     </dependency>
+
     <dependency>
+      <!-- FreeTypeFont extension -->
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-freetype</artifactId>
       <version>${libgdx.version}</version>
     </dependency>
     <dependency>
+      <!-- Box2D extension -->
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-box2d</artifactId>
       <version>${libgdx.version}</version>
     </dependency>
     <dependency>
+      <!-- Box2DLights extension -->
       <groupId>com.badlogicgames.box2dlights</groupId>
       <artifactId>box2dlights</artifactId>
-      <version>1.3</version>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <!-- Controllers extension -->
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-controllers</artifactId>
+      <version>${libgdx.version}</version>
     </dependency>
   </dependencies>
-
-  <profiles>
-    <profile>
-      <id>doclint-java8-disable</id>
-      <activation>
-        <jdk>[1.8,)</jdk>
-      </activation>
-      <properties>
-        <javadoc.opts>-Xdoclint:none</javadoc.opts>
-      </properties>
-    </profile>
-  </profiles>
 
   <build>
     <plugins>
