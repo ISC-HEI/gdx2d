@@ -61,11 +61,11 @@ public class DemoRotateMotor extends PortableApplication {
 
 		new PhysicsScreenBoundaries(getWindowWidth(), getWindowHeight());
 
-		clockBitmap = new BitmapImage("data/images/clock.png");
+		clockBitmap = new BitmapImage("images/clock.png");
 
-		secondBitmap = new BitmapImage("data/images/clock_second.png");
-		minuteBitmap = new BitmapImage("data/images/clock_minute.png");
-		hourBitmap = new BitmapImage("data/images/clock_hour.png");
+		secondBitmap = new BitmapImage("images/clock_second.png");
+		minuteBitmap = new BitmapImage("images/clock_minute.png");
+		hourBitmap = new BitmapImage("images/clock_hour.png");
 
 		minuteDrawAngle = 0;
 

@@ -58,7 +58,7 @@ public class DemoMusicPlay extends PortableApplication {
 		setTitle("Music player, mui 2013");
 
 		// Load the MP3 sound file
-		f = new MusicPlayer("data/music/Blues-Loop.mp3");
+		f = new MusicPlayer("music/Blues-Loop.mp3");
 	}
 
 	@Override

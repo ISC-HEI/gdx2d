@@ -70,7 +70,7 @@ public class DemoControllers extends PortableApplication {
 		if (Controllers.getControllers().size > 0)
 			ctrl = Controllers.getControllers().first();
 
-		background = new BitmapImage("data/images/noun_45114_cc.png");
+		background = new BitmapImage("images/noun_45114_cc.png");
 
 		center = new Vector2(getWindowWidth(), getWindowHeight()).scl(0.5f);
 		leftStickPos = new Vector2(-105, 97).add(center);

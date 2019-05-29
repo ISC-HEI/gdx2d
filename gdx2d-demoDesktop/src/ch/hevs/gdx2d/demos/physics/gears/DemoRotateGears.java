@@ -117,10 +117,10 @@ public class DemoRotateGears extends PortableApplication {
 		debugRenderer = new DebugRenderer();
 
 		/* Load images */
-		bitmapClock = new BitmapImage("data/images/clock.png");
-		bitmapSecond = new BitmapImage("data/images/clock_second.png");
-		bitmapMinute = new BitmapImage("data/images/clock_minute.png");
-		bitmapHour = new BitmapImage("data/images/clock_hour.png");
+		bitmapClock = new BitmapImage("images/clock.png");
+		bitmapSecond = new BitmapImage("images/clock_second.png");
+		bitmapMinute = new BitmapImage("images/clock_minute.png");
+		bitmapHour = new BitmapImage("images/clock_hour.png");
 
 		/* Create the frame, the motors will be attached to it */
 		PhysicsStaticBox frame = new PhysicsStaticBox("frame", CLOCK_CENTER,

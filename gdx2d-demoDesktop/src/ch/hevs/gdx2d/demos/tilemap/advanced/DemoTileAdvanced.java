@@ -48,7 +48,7 @@ public class DemoTileAdvanced extends PortableApplication {
 		keyStatus.put(Input.Keys.RIGHT, false);
 
 		// create map
-		tiledMap = new TmxMapLoader().load("data/maps/desert.tmx");
+		tiledMap = new TmxMapLoader().load("maps/desert.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 		tiledLayer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
 	}

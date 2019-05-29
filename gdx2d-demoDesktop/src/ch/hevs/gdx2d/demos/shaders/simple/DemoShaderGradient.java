@@ -23,7 +23,7 @@ public class DemoShaderGradient extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.getShaderRenderer() == null)
-			g.setShader("data/shader/gradient.fp");
+			g.setShader("shader/gradient.fp");
 
 		g.clear();
 		g.drawFPS();

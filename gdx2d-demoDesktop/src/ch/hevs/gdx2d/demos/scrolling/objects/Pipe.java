@@ -12,7 +12,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
 
 public class Pipe implements DrawableObject {
 
-	final BitmapImage img = new BitmapImage("data/images/pipe.png");
+	final BitmapImage img = new BitmapImage("images/pipe.png");
 	int posx, posy;
 
 	public Pipe(int x, int y) {

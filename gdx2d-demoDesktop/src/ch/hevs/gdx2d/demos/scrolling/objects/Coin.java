@@ -11,7 +11,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
  */
 public class Coin implements DrawableObject {
 
-	final BitmapImage img = new BitmapImage("data/images/retro-coin.png");
+	final BitmapImage img = new BitmapImage("images/retro-coin.png");
 	int posx, posy;
 	float scale = 0.4f, direction = 0.01f;
 

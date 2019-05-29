@@ -45,10 +45,10 @@ public class DemoBlendingFunctions extends PortableApplication {
 		setTitle("Blending functions for images, mui 2013");
 
 		// Loads the image that will be displayed in the middle of the screen
-		imgBitmap = new BitmapImage("data/images/texture.png");
+		imgBitmap = new BitmapImage("images/texture.png");
 
 		// Load the background image
-		backgroundBitmap = new BitmapImage("data/images/back1_512.png");
+		backgroundBitmap = new BitmapImage("images/back1_512.png");
 
 		// Dimensions of the image
 		w = imgBitmap.getImage().getWidth();

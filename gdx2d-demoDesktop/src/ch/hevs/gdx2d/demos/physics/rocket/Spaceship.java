@@ -34,8 +34,8 @@ public class Spaceship implements DrawableObject {
 		box.setBodyLinearDamping(0.2f);
 
 		// The spaceship image
-		shipImage = new BitmapImage("data/images/rocket_128.png");
-		flameImage = new BitmapImage("data/images/flame.png");
+		shipImage = new BitmapImage("images/rocket_128.png");
+		flameImage = new BitmapImage("images/flame.png");
 	}
 
 	@Override

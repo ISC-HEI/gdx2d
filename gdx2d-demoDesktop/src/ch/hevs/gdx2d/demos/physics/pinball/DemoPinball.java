@@ -120,7 +120,7 @@ public class DemoPinball extends PortableApplication {
 
 	@Override
 	public void onInit() {
-		ballSprite = new Spritesheet("data/images/pinball/sprites.png", 20, 20);
+		ballSprite = new Spritesheet("images/pinball/sprites.png", 20, 20);
 		decorations = new LinkedList<TemporaryDrawable>();
 		float h = Gdx.graphics.getHeight();
 		float w = Gdx.graphics.getWidth();

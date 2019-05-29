@@ -40,7 +40,7 @@ public class DemoGUI extends PortableApplication {
 		Gdx.input.setInputProcessor(stage);// Make the stage consume events
 
 		// Load the default skin (which can be configured in the JSON file)
-		skin = new Skin(Gdx.files.internal("data/ui/uiskin.json"));
+		skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
 
 		newGameButton = new TextButton("Click me", skin); // Use the initialized skin
 		newGameButton.setWidth(buttonWidth);

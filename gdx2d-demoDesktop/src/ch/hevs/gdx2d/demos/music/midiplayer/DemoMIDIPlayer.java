@@ -22,8 +22,8 @@ import java.util.Collections;
 public class DemoMIDIPlayer extends PortableApplication {
 	// Where the music and samples are stored
 	protected final int nSamples = 104;
-	protected final String DATADIR = "data/music/midiplayer/pianonotes/";
-	protected final String FILEPATH = "data/music/midiplayer/brahms_lullaby.mid";
+	protected final String DATADIR = "music/midiplayer/pianonotes/";
+	protected final String FILEPATH = "music/midiplayer/brahms_lullaby.mid";
 
 	// Storage for the loaded sound samples
 	protected ArrayList<SoundSample> notesSamples;

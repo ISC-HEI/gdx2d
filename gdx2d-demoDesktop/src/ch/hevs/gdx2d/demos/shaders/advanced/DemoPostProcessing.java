@@ -31,8 +31,8 @@ public class DemoPostProcessing extends PortableApplication {
 	@Override
 	public void onInit() {
 		this.setTitle("Postprocessing with a shader, mui 2013");
-		imageAndroid = new BitmapImage("data/images/Android_PI_48x48.png");
-		imageBackground = new BitmapImage("data/images/back1_512.png");
+		imageAndroid = new BitmapImage("images/Android_PI_48x48.png");
+		imageBackground = new BitmapImage("images/back1_512.png");
 		fbo = new FrameBuffer(Format.RGBA8888, this.getWindowWidth(), this.getWindowHeight(), false);
 		Logger.log("Click to enable/disable shader");
 	}
@@ -40,7 +40,7 @@ public class DemoPostProcessing extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.getShaderRenderer() == null) {
-			g.setShader("data/shader/advanced/postprocessing.fp");
+			g.setShader("shader/advanced/postprocessing.fp");
 		}
 
 		// Draws some stuff to an offscreen buffer, using normal

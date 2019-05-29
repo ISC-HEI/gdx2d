@@ -32,7 +32,7 @@ public class DemoTile extends PortableApplication {
 
 		Gdx.app.log("[TileDemo]", "Demonstrates loading a generated map");
 
-		tiledMap = new TmxMapLoader().load("data/maps/desert.tmx");
+		tiledMap = new TmxMapLoader().load("maps/desert.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 	}
 

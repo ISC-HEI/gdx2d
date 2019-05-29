@@ -33,10 +33,10 @@ public class DemoFontGeneration extends PortableApplication {
 		this.setTitle("Font generation demo, mui 2013");
 
 		// Load some font files
-		FileHandle optimusF = Gdx.files.internal("data/font/OptimusPrinceps.ttf");
-		FileHandle timelessF = Gdx.files.internal("data/font/Timeless.ttf");
-		FileHandle starjediF = Gdx.files.internal("data/font/Starjedi.ttf");
-		FileHandle icePixelF = Gdx.files.internal("data/font/ice_pixel-7.ttf");
+		FileHandle optimusF = Gdx.files.internal("font/OptimusPrinceps.ttf");
+		FileHandle timelessF = Gdx.files.internal("font/Timeless.ttf");
+		FileHandle starjediF = Gdx.files.internal("font/Starjedi.ttf");
+		FileHandle icePixelF = Gdx.files.internal("font/ice_pixel-7.ttf");
 
 		// See all parameters available in the FreeTypeFontParameter
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();

@@ -39,7 +39,7 @@ public class DemoShaderCircleAntiAlias extends PortableApplication {
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
 		if (g.getShaderRenderer() == null) {
-			g.setShader("data/shader/circles/circle_aa.fp");
+			g.setShader("shader/circles/circle_aa.fp");
 			g.getShaderRenderer().setUniform("color", new Vector3(Color.PINK.r, Color.PINK.g, Color.PINK.b));
 		}
 

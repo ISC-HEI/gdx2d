@@ -42,7 +42,7 @@ public class Hero implements DrawableObject {
     Vector2 newPosition;
     Vector2 position;
 
-    final BitmapImage img = new BitmapImage("data/images/pipe.png");
+    final BitmapImage img = new BitmapImage("images/pipe.png");
 
 
     private boolean move = false;
@@ -73,7 +73,7 @@ public class Hero implements DrawableObject {
         newPosition = new Vector2(initialPosition);
         position = new Vector2(initialPosition);
 
-        ss = new Spritesheet("data/images/lumberjack_sheet32.png", SPRITE_WIDTH, SPRITE_HEIGHT);
+        ss = new Spritesheet("images/lumberjack_sheet32.png", SPRITE_WIDTH, SPRITE_HEIGHT);
     }
 
     /**

@@ -27,10 +27,10 @@ public class DemoAlphaImage extends PortableApplication {
 		setTitle("Alpha transparency modification for images, mui 2013");
 
 		// Loads the image that will be displayed in the middle of the screen
-		imgBitmap = new BitmapImage("data/images/Android_PI_48x48.png");
+		imgBitmap = new BitmapImage("images/Android_PI_48x48.png");
 
 		// Load the background image
-		backgroundBitmap = new BitmapImage("data/images/back1_512.png");
+		backgroundBitmap = new BitmapImage("images/back1_512.png");
 	}
 
 	@Override

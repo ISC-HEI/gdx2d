@@ -88,7 +88,7 @@ public class DemoComplexShapes extends PortableApplication {
 		screenHeight = getWindowHeight();
 		maxRadius = Math.min(getWindowHeight() / 2, getWindowWidth() / 2) - 10;
 
-		imageBmp = new BitmapImage("data/images/Android_PI_48x48.png");
+		imageBmp = new BitmapImage("images/Android_PI_48x48.png");
 		generateObjects(N_SHAPES);
 	}
 

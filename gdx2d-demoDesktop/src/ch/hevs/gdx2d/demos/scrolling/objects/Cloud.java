@@ -11,7 +11,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
  */
 public class Cloud implements DrawableObject {
 
-	final BitmapImage cloudImage = new BitmapImage("data/images/cloud_1.png");
+	final BitmapImage cloudImage = new BitmapImage("images/cloud_1.png");
 	public int x, y;
 
 	public Cloud(int x, int y) {

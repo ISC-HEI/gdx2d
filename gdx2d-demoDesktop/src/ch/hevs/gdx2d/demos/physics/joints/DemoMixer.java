@@ -30,7 +30,7 @@ import java.util.Random;
  * @version 1.0
  */
 class Rotor extends PhysicsBox implements DrawableObject {
-	static final BitmapImage screw = new BitmapImage("data/images/screw.png");
+	static final BitmapImage screw = new BitmapImage("images/screw.png");
 	private final float w, h;
 
 	public Rotor(String name, Vector2 position, float width, float height) {

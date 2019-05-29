@@ -55,10 +55,10 @@ public class DemoBabyPiano extends PortableApplication {
 		setTitle("Sound samples player, mui 2014");
 
 		// Load the MP3 sound file
-		s1 = new SoundSample("data/music/babypianosamples/Honky_C1.wav");
-		s2 = new SoundSample("data/music/babypianosamples/Honky_C2.wav");
-		s3 = new SoundSample("data/music/babypianosamples/Honky_C3.wav");
-		s4 = new SoundSample("data/music/babypianosamples/Honky_C4.wav");
+		s1 = new SoundSample("music/babypianosamples/Honky_C1.wav");
+		s2 = new SoundSample("music/babypianosamples/Honky_C2.wav");
+		s3 = new SoundSample("music/babypianosamples/Honky_C3.wav");
+		s4 = new SoundSample("music/babypianosamples/Honky_C4.wav");
 	}
 
 	@Override

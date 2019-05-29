@@ -26,7 +26,7 @@ public class DemoSimpleImage extends PortableApplication {
 		setTitle("Simple image drawing, mui 2013");
 
 		// Loads the image that will be displayed in the middle of the screen
-		imgBitmap = new BitmapImage("data/images/compass_150.png");
+		imgBitmap = new BitmapImage("images/compass_150.png");
 	}
 
 	@Override

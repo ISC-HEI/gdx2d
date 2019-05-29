@@ -41,13 +41,13 @@ public class DemoAllShaders extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.getShaderRenderer() == null) {
-			g.setShader("data/shader/" + shaders[currentShaderID]);
-			g.getShaderRenderer().addTexture("data/images/lena.png", "texture0");
+			g.setShader("shader/" + shaders[currentShaderID]);
+			g.getShaderRenderer().addTexture("images/lena.png", "texture0");
 		}
 
 		if (currentShaderID != previousShaderID) {
-			g.setShader("data/shader/" + shaders[currentShaderID]);
-			g.getShaderRenderer().addTexture("data/images/lena.png", "texture0");
+			g.setShader("shader/" + shaders[currentShaderID]);
+			g.getShaderRenderer().addTexture("images/lena.png", "texture0");
 			Logger.log("Current shader set to " + shaders[currentShaderID]);
 			previousShaderID = currentShaderID;
 		}

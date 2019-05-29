@@ -33,7 +33,7 @@ public class DemoGetImageColor extends PortableApplication {
 		Logger.log("Move the mouse on the image to get their color");
 
 		// Loads the image that will be displayed in the middle of the screen
-		imgBitmap = new BitmapImage("data/images/color_pattern.png");
+		imgBitmap = new BitmapImage("images/color_pattern.png");
 	}
 
 	@Override

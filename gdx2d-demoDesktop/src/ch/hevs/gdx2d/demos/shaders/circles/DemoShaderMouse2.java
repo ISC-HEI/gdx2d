@@ -29,7 +29,7 @@ public class DemoShaderMouse2 extends PortableApplication {
 	public void onGraphicRender(GdxGraphics g) {
 		// Sets some values, once
 		if (g.getShaderRenderer() == null) {
-			g.setShader("data/shader/circles/circle2.fp");
+			g.setShader("shader/circles/circle2.fp");
 			g.getShaderRenderer().setUniform("radius", 30.0f);
 		}
 
