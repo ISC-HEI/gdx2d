@@ -10,8 +10,6 @@ import ch.hevs.gdx2d.desktop.Xbox;
 import ch.hevs.gdx2d.lib.GdxGraphics;
 import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashMap;

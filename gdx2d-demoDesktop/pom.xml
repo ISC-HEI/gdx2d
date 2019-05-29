@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!--
+    Maven build script for the gdx2d core library.
+
+    @author Christopher Métrailler (mei@hevs.ch)
+    @version 1.1
+  -->
+  <parent>
+    <groupId>ch.hevs.gdx2d</groupId>
+    <artifactId>gdx2d-parent</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <artifactId>gdx2d-demoDesktop</artifactId>
+  <packaging>jar</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>gdx2d demo desktop </description>
+  <version>1.2.2</version>
+  <dependencies>
+    <dependency>
+      <groupId>ch.hevs.gdx2d</groupId>
+      <artifactId>gdx2d-desktop</artifactId>
+      <version>1.2.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.javaswingcomponents</groupId>
+      <artifactId>accordion</artifactId>
+      <version>1.2.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libs/accordion-1.2.0-jar-with-dependencies.jar</systemPath>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>data</directory>
+      </resource>
+    </resources>
+  </build>
+
+</project>

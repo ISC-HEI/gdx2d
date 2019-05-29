@@ -74,6 +74,8 @@
   <modules>
     <!-- The gdx2d core library as sub-module -->
     <module>gdx2d-library</module>
+    <module>gdx2d-helloDesktop</module>
+    <module>gdx2d-demoDesktop</module>
   </modules>
 
   <profiles>

@@ -22,7 +22,7 @@ public class HelloWorld extends PortableApplication {
 		setTitle("Hello World - mei, mui 2016");
 
 		// Load a custom image (or from the lib "res/lib/icon64.png")
-		imgBitmap = new BitmapImage("data/images/hei-pi.png");
+		imgBitmap = new BitmapImage("images/hei-pi.png");
 	}
 
 	/**
