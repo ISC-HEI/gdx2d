@@ -1,58 +1,56 @@
-package ch.hevs.gdx2d.demos.simple.mistify;
+package ch.hevs.gdx2d.demos.simple.mistify
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
 
 /**
- * A classical Mistify screen saver clone.<br>
- * <p/>
- * Code adapted from <a href="http://r3dux.org/2010/11/mystify-2-0/"> http://r3dux.org/2010/11/mystify-2-0</a>
+ * A classical Mistify screen saver clone.<br></br>
+ *
+ *
+ * Code adapted from [ http://r3dux.org/2010/11/mystify-2-0](http://r3dux.org/2010/11/mystify-2-0/)
  *
  * @author Pierre-André Mudry
  * @version 1.0
- * @see <a href="http://r3dux.org/2010/11/mystify-2-0/"> http://r3dux.org/2010/11/mystify-2-0</a> for the original source code
+ * @see [ http://r3dux.org/2010/11/mystify-2-0](http://r3dux.org/2010/11/mystify-2-0/) for the original source code
  */
-public class DemoLines extends PortableApplication {
-	final int N_SHAPES = 3;
-	BounceShape[] s;
-	int frame = 0;
+class DemoLines : PortableApplication() {
+    internal val N_SHAPES = 3
+    internal lateinit var s: Array<BounceShape>
+    internal var frame = 0
 
-	public static void main(String[] args) {
-		new DemoLines();
-	}
+    override fun onInit() {
+        // Sets the window title
+        setTitle("Mistfy screensaver clone, mui 2013")
 
-	@Override
-	public void onInit() {
-		// Sets the window title
-		setTitle("Mistfy screensaver clone, mui 2013");
+        // Allocate size for the shapes
+        s = Array(N_SHAPES){BounceShape(this.windowWidth, this.windowHeight)}
+    }
 
-		// Allocate size for the shapes
-		s = new BounceShape[N_SHAPES];
+    override fun onGraphicRender(g: GdxGraphics) {
 
-		// Initialize them
-		for (int i = 0; i < N_SHAPES; i++) {
-			s[i] = new BounceShape(this.getWindowWidth(), this.getWindowHeight());
-		}
-	}
+        // Clears the screen
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
+        // Draws and moves the shapes
+        for (shape in s) {
+            shape.drawShape(g)
+            shape.moveShape(g.screenWidth, g.screenHeight)
+            shape.shiftShapeColour(frame++)
+        }
 
-		// Clears the screen
-		g.clear();
+        /**
+         * TODO it would be nice to have something like an accumulation buffer that fades here
+         */
+        g.drawFPS()
+        g.drawSchoolLogo()
+    }
 
-		// Draws and moves the shapes
-		for (BounceShape shape : s) {
-			shape.drawShape(g);
-			shape.moveShape(g.getScreenWidth(), g.getScreenHeight());
-			shape.shiftShapeColour(frame++);
-		}
+    companion object {
 
-		/**
-		 *  TODO it would be nice to have something like an accumulation buffer that fades here
-		 */
-		g.drawFPS();
-		g.drawSchoolLogo();
-	}
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoLines()
+        }
+    }
 
 }

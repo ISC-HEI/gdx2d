@@ -1,9 +1,9 @@
-package ch.hevs.gdx2d.demos.shaders.advanced;
+package ch.hevs.gdx2d.demos.shaders.advanced
 
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.utils.Logger;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.utils.Logger
 
 /**
  * Demonstrates how to program a convolution using a shader
@@ -12,39 +12,40 @@ import ch.hevs.gdx2d.lib.utils.Logger;
  * @author Pierre-André Mudry (mui)
  * @version 0.1
  */
-public class DemoConvolution extends PortableApplication {
+class DemoConvolution : PortableApplication() {
 
-	int currentMatrix = 0;
+    internal var currentMatrix = 0
 
-	public static void main(String[] args) {
-		new DemoConvolution();
-	}
+    override fun onInit() {
+        this.setTitle("Texture convolution - mui 2013")
+        Logger.log("Click to change shader")
+    }
 
-	@Override
-	public void onInit() {
-		this.setTitle("Texture convolution - mui 2013");
-		Logger.log("Click to change shader");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        if (g.shaderRenderer == null) {
+            g.setShader("shader/advanced/convolution.fp")
+            g.shaderRenderer.addTexture("images/lena.png", "texture0")
+        }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		if (g.getShaderRenderer() == null) {
-			g.setShader("shader/advanced/convolution.fp");
-			g.getShaderRenderer().addTexture("images/lena.png", "texture0");
-		}
+        // TODO Improve this, pass the matrix directly
+        g.shaderRenderer.setUniform("matrix", currentMatrix)
 
-		// TODO Improve this, pass the matrix directly
-		g.getShaderRenderer().setUniform("matrix", currentMatrix);
+        g.clear()
+        g.drawShader()
+        g.drawFPS()
+        g.drawSchoolLogo()
+    }
 
-		g.clear();
-		g.drawShader();
-		g.drawFPS();
-		g.drawSchoolLogo();
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        super.onClick(x, y, button)
+        currentMatrix = (currentMatrix + 1) % 5
+    }
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);
-		currentMatrix = (currentMatrix + 1) % 5;
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoConvolution()
+        }
+    }
 }

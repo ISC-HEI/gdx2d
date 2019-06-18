@@ -1,22 +1,20 @@
-package ch.hevs.gdx2d.demos.physics;
+package ch.hevs.gdx2d.demos.physics
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle;
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Orientation;
-import com.badlogic.gdx.Input.Peripheral;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-
-import java.util.Iterator;
-import java.util.LinkedList;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import ch.hevs.gdx2d.lib.utils.Logger
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.Input.Orientation
+import com.badlogic.gdx.Input.Peripheral
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
+import java.util.LinkedList
 
 /**
  * A demo for physics, based on box2d
@@ -24,104 +22,106 @@ import java.util.LinkedList;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoPhysicsBalls extends PortableApplication {
+class DemoPhysicsBalls : PortableApplication() {
 
-	private final double SMOOTHING = 30; // This value changes the dampening effect of the low-pass
-	LinkedList<PhysicsCircle> list = new LinkedList<PhysicsCircle>();
-	// A world with gravity, pointing down
-	World world = PhysicsWorld.getInstance();
-	DebugRenderer debugRenderer;
-	BitmapImage img;
-	boolean hasAccelerometers;
-	// For low-pass filtering accelerometer
-	private double smoothedValue = 0;
+    private val SMOOTHING = 30.0 // This value changes the dampening effect of the low-pass
+    internal var list = LinkedList<PhysicsCircle>()
+    // A world with gravity, pointing down
+    internal var world = PhysicsWorld.getInstance()
+    internal lateinit var debugRenderer: DebugRenderer
+    internal lateinit var img: BitmapImage
+    internal var hasAccelerometers: Boolean = false
+    // For low-pass filtering accelerometer
+    private var smoothedValue = 0.0
 
-	public static void main(String[] args) {
-		new DemoPhysicsBalls();
-	}
+    override fun onInit() {
 
-	@Override
-	public void onInit() {
+        setTitle("Physics demo with box2d, mui 2013")
+        Logger.log("Click to create a ball")
 
-		setTitle("Physics demo with box2d, mui 2013");
-		Logger.log("Click to create a ball");
+        hasAccelerometers = Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer)
 
-		hasAccelerometers = Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
+        world.gravity = Vector2(0f, -10f)
 
-		world.setGravity(new Vector2(0, -10));
+        // The walls
+        PhysicsScreenBoundaries(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
 
-		// The walls
-		new PhysicsScreenBoundaries(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        // Used to display debug information about the physics
+        debugRenderer = DebugRenderer()
+        img = BitmapImage("images/soccer.png")
 
-		// Used to display debug information about the physics
-		debugRenderer = new DebugRenderer();
-		img = new BitmapImage("images/soccer.png");
+        addBall(windowWidth / 2, windowHeight / 2)
+    }
 
-		addBall(getWindowWidth()/2, getWindowHeight()/2);
-	}
+    /**
+     * Adds a ball at a given location
+     *
+     * @param x x location to put the ball to
+     * @param y y location to put the ball to
+     */
+    fun addBall(x: Int, y: Int) {
+        // If there exists enough ball already, remove the oldest one
+        if (list.size > 50) {
+            val b = list.poll()
+            b.destroy()
+        }
 
-	/**
-	 * Adds a ball at a given location
-	 *
-	 * @param x x location to put the ball to
-	 * @param y y location to put the ball to
-	 */
-	public void addBall(int x, int y) {
-		// If there exists enough ball already, remove the oldest one
-		if (list.size() > 50) {
-			PhysicsCircle b = list.poll();
-			b.destroy();
-		}
+        val size = (Math.random() * 15.0f).toFloat() + 15f
+        val b = PhysicsCircle(null, Vector2(x.toFloat(), y.toFloat()), size)
 
-		float size = (float) ((Math.random() * 15.0f)) + 15f;
-		PhysicsCircle b = new PhysicsCircle(null, new Vector2(x, y), size);
+        // Add the ball to the list of existing balls
+        list.add(b)
+    }
 
-		// Add the ball to the list of existing balls
-		list.add(b);
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        super.onClick(x, y, button)
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);
+        if (button == Input.Buttons.LEFT)
+            addBall(x, y)
+    }
 
-		if (button == Input.Buttons.LEFT)
-			addBall(x, y);
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        //		debugRenderer.render(world, g.getCamera().combined);
 
-//		debugRenderer.render(world, g.getCamera().combined);
+        // For every body in the world
+        val it = list.iterator()
+        while (it.hasNext()) {
+            val c = it.next()
+            val radius = c.bodyRadius
+            val pos = c.bodyPosition
+            g.drawTransformedPicture(pos.x, pos.y, c.bodyAngleDeg, radius, radius, img)
+            c.isBodyAwake = true
+        }
 
-		// For every body in the world
-		for (Iterator<PhysicsCircle> it = list.iterator(); it.hasNext(); ) {
-			PhysicsCircle c = it.next();
-			Float radius = c.getBodyRadius();
-			Vector2 pos = c.getBodyPosition();
-			g.drawTransformedPicture(pos.x, pos.y, c.getBodyAngleDeg(), radius, radius, img);
-			c.setBodyAwake(true);
-		}
+        if (hasAccelerometers) {
+            // On tablet, orientation is different than on phone
+            val nativeOrientation = Gdx.input.nativeOrientation
 
-		if (hasAccelerometers) {
-			// On tablet, orientation is different than on phone
-			Orientation nativeOrientation = Gdx.input.getNativeOrientation();
+            val accel: Float
 
-			float accel;
+            if (nativeOrientation == Orientation.Landscape)
+                accel = -Gdx.input.accelerometerY
+            else
+                accel = Gdx.input.accelerometerX
 
-			if (nativeOrientation == Orientation.Landscape)
-				accel = -Gdx.input.getAccelerometerY();
-			else
-				accel = Gdx.input.getAccelerometerX();
+            // Low pass filtering of the value
+            smoothedValue += (accel - smoothedValue) / SMOOTHING
+            world.gravity = Vector2(-smoothedValue.toFloat(), -10f)
+        }
 
-			// Low pass filtering of the value
-			smoothedValue += (accel - smoothedValue) / SMOOTHING;
-			world.setGravity(new Vector2(-(float) (smoothedValue), -10));
-		}
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
 
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+        g.drawSchoolLogoUpperRight()
+        g.drawFPS()
+    }
 
-		g.drawSchoolLogoUpperRight();
-		g.drawFPS();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoPhysicsBalls()
+        }
+    }
 }

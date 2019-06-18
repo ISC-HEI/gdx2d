@@ -1,10 +1,10 @@
-package ch.hevs.gdx2d.demos.simple;
+package ch.hevs.gdx2d.demos.simple
 
-import ch.hevs.gdx2d.components.graphics.Polygon;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
+import ch.hevs.gdx2d.components.graphics.Polygon
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector2
 
 /**
  * A very simple demonstration on how to
@@ -13,40 +13,38 @@ import com.badlogic.gdx.math.Vector2;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoSimpleShapes extends PortableApplication {
+class DemoSimpleShapes : PortableApplication() {
 
-	public static void main(String[] args) {
-		new DemoSimpleShapes();
-	}
+    override fun onInit() {
+        this.setTitle("Simple shapes, mui 2013")
+    }
 
-	@Override
-	public void onInit() {
-		this.setTitle("Simple shapes, mui 2013");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        // Draws a yellow circle
+        g.setColor(Color.YELLOW)
+        g.drawCircle(250f, 400f, 20f)
 
-		// Draws a yellow circle
-		g.setColor(Color.YELLOW);
-		g.drawCircle(250, 400, 20);
+        // Draws a green rectangle
+        g.setColor(Color.GREEN)
+        g.drawRectangle(20f, 250f, 40f, 40f, 0f)
 
-		// Draws a green rectangle
-		g.setColor(Color.GREEN);
-		g.drawRectangle(20, 250, 40, 40, 0);
+        g.drawFilledCircle(50f, 50f, 20f, Color.PINK)
+        g.drawFilledRectangle(80f, 30f, 20f, 20f, 0f, Color(0.5f, 0.5f, 0.5f, 0.5f))
 
-		g.drawFilledCircle(50, 50, 20, Color.PINK);
-		g.drawFilledRectangle(80, 30, 20, 20, 0, new Color(0.5f, 0.5f, 0.5f, 0.5f));
+        // Draws a blue polygon
+        val points = arrayOf(Vector2(200f, 200f), Vector2(250f, 250f), Vector2(300f, 200f))
 
-		// Draws a blue polygon
-		Vector2 points[] = {
-				new Vector2(200, 200),
-				new Vector2(250, 250),
-				new Vector2(300, 200)
-		};
+        val p = Polygon(points)
+        g.drawFilledPolygon(p, Color.BLUE)
+    }
 
-		Polygon p = new Polygon(points);
-		g.drawFilledPolygon(p, Color.BLUE);
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoSimpleShapes()
+        }
+    }
 }

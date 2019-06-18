@@ -1,35 +1,26 @@
-package ch.hevs.gdx2d.demos.physics.pinball;
+package ch.hevs.gdx2d.demos.physics.pinball
 
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.utils.Align;
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.utils.Align
 
-public class ScoreAnimation implements TemporaryDrawable {
+class ScoreAnimation(private val msg: String, private val x: Float, private val y: Float) : TemporaryDrawable {
 
-	private float duration;
-	private String msg;
-	private float x;
-	private float y;
-	private float start_duration;
+    private var duration: Float = 0.toFloat()
+    private val start_duration: Float
 
-	public ScoreAnimation(String msg, float x, float y) {
-		this.start_duration = 1.0f;
-		this.duration = 1.0f;
-		this.msg = msg;
-		this.x = x;
-		this.y = y;
-	}
+    override val isDone: Boolean
+        get() = duration < 0
 
-	@Override
-	public void draw(GdxGraphics g) {
-		duration -= Gdx.graphics.getDeltaTime();
-		g.setColor(new Color(Color.BLACK).mul(duration/start_duration));
-		g.drawString(x, y, msg, Align.center);
-	}
+    init {
+        this.start_duration = 1.0f
+        this.duration = 1.0f
+    }
 
-	@Override
-	public boolean isDone() {
-		return duration < 0;
-	}
+    override fun draw(g: GdxGraphics) {
+        duration -= Gdx.graphics.deltaTime
+        g.setColor(Color(Color.BLACK).mul(duration / start_duration))
+        g.drawString(x, y, msg, Align.center)
+    }
 }

@@ -1,7 +1,7 @@
-package ch.hevs.gdx2d.demos.shaders.advanced;
+package ch.hevs.gdx2d.demos.shaders.advanced
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
 
 /**
  * Shows how to interwind shaders and normal GDX operations
@@ -9,29 +9,31 @@ import ch.hevs.gdx2d.lib.GdxGraphics;
  * @author Pierre-André Mudry (mui)
  * @version 0.1
  */
-public class DemoShaderPartialTextureRendering extends PortableApplication {
+class DemoShaderPartialTextureRendering : PortableApplication() {
 
-	double t = 0;
+    internal var t = 0.0
 
-	public static void main(String[] args) {
-		new DemoShaderPartialTextureRendering();
-	}
+    override fun onInit() {
+        this.setTitle("Partial screen shader demo, mui 2013")
+    }
 
-	@Override
-	public void onInit() {
-		this.setTitle("Partial screen shader demo, mui 2013");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        if (g.shaderRenderer == null)
+            g.setShader("shader/bicolor.fp", 200, 200)
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		if (g.getShaderRenderer() == null)
-			g.setShader("shader/bicolor.fp", 200, 200);
+        g.clear()
+        g.drawFPS()
+        g.drawShader(256, (256 + 128.0 * Math.sin(t)).toInt(), 0f)
+        g.drawSchoolLogo()
 
-		g.clear();
-		g.drawFPS();
-		g.drawShader(256, (int) (256 + 128.0 * Math.sin(t)), 0);
-		g.drawSchoolLogo();
+        t += 0.05
+    }
 
-		t += 0.05;
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoShaderPartialTextureRendering()
+        }
+    }
 }

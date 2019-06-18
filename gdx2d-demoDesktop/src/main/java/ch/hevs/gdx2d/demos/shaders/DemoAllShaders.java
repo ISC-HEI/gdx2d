@@ -1,11 +1,11 @@
-package ch.hevs.gdx2d.demos.shaders;
+package ch.hevs.gdx2d.demos.shaders
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.math.Vector2;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.utils.Logger
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input.Buttons
+import com.badlogic.gdx.math.Vector2
 
 /**
  * A demo that shows many shaders, some of them from
@@ -15,76 +15,73 @@ import com.badlogic.gdx.math.Vector2;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoAllShaders extends PortableApplication {
+class DemoAllShaders : PortableApplication() {
 
-	public final String[] shaders = {"underwater.fp", "galaxy.fp",
-			"joyDivision.fp", "stars.fp", "colorRect.fp", "plasma.fp", "gradient.fp",
-			"particles.fp", "pulse.fp", "circles/circle3.fp",
-			"advanced/vignette.fp"};
-	private float time = 0;
-	private int currentShaderID = 0;
-	private int previousShaderID = currentShaderID;
-	private Vector2 mouse = new Vector2();
+    val shaders = arrayOf("underwater.fp", "galaxy.fp", "joyDivision.fp", "stars.fp", "colorRect.fp", "plasma.fp", "gradient.fp", "particles.fp", "pulse.fp", "circles/circle3.fp", "advanced/vignette.fp")
+    private var time = 0f
+    private var currentShaderID = 0
+    private var previousShaderID = currentShaderID
+    private val mouse = Vector2()
 
-	public static void main(String[] args) {
-		new DemoAllShaders();
-	}
+    override fun onInit() {
+        this.setTitle("Shaders demos (some from Heroku), right click to change, mui 2014")
+        Logger.log("Right click to change the shader")
+        mouse.x = (this.windowWidth / 2).toFloat()
+        mouse.y = (this.windowHeight / 2).toFloat()
+    }
 
-	@Override
-	public void onInit() {
-		this.setTitle("Shaders demos (some from Heroku), right click to change, mui 2014");
-		Logger.log("Right click to change the shader");
-		mouse.x = this.getWindowWidth() / 2;
-		mouse.y = this.getWindowHeight() / 2;
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        if (g.shaderRenderer == null) {
+            g.setShader("shader/" + shaders[currentShaderID])
+            g.shaderRenderer.addTexture("images/lena.png", "texture0")
+        }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		if (g.getShaderRenderer() == null) {
-			g.setShader("shader/" + shaders[currentShaderID]);
-			g.getShaderRenderer().addTexture("images/lena.png", "texture0");
-		}
+        if (currentShaderID != previousShaderID) {
+            g.setShader("shader/" + shaders[currentShaderID])
+            g.shaderRenderer.addTexture("images/lena.png", "texture0")
+            Logger.log("Current shader set to " + shaders[currentShaderID])
+            previousShaderID = currentShaderID
+        }
 
-		if (currentShaderID != previousShaderID) {
-			g.setShader("shader/" + shaders[currentShaderID]);
-			g.getShaderRenderer().addTexture("images/lena.png", "texture0");
-			Logger.log("Current shader set to " + shaders[currentShaderID]);
-			previousShaderID = currentShaderID;
-		}
+        // Clears the screen
+        g.clear()
 
-		// Clears the screen
-		g.clear();
+        // Draws the shader
+        g.shaderRenderer.setUniform("mouse", mouse)
+        g.drawShader(time)
 
-		// Draws the shader
-		g.getShaderRenderer().setUniform("mouse", mouse);
-		g.drawShader(time);
+        // Update time
+        time += Gdx.graphics.deltaTime
 
-		// Update time
-		time += Gdx.graphics.getDeltaTime();
+        // Draws the rest of the stuff
+        g.drawFPS()
+        g.drawStringCentered((0.98 * g.screenHeight).toInt().toFloat(),
+                "Shader demo \"" + shaders[currentShaderID] + "\" " + (currentShaderID + 1)
+                        + "/" + shaders.size)
+        g.drawSchoolLogo()
+    }
 
-		// Draws the rest of the stuff
-		g.drawFPS();
-		g.drawStringCentered((int) (0.98 * g.getScreenHeight()),
-				"Shader demo \"" + shaders[currentShaderID] + "\" " + (currentShaderID + 1)
-						+ "/" + (shaders.length));
-		g.drawSchoolLogo();
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        super.onClick(x, y, button)
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);
+        if (button == Buttons.RIGHT || onAndroid())
+            currentShaderID = (currentShaderID + 1) % shaders.size
 
-		if (button == Buttons.RIGHT || onAndroid())
-			currentShaderID = (currentShaderID + 1) % shaders.length;
+        mouse.x = x.toFloat()
+        mouse.y = y.toFloat()
+    }
 
-		mouse.x = x;
-		mouse.y = y;
-	}
+    override fun onDrag(x: Int, y: Int) {
+        super.onDrag(x, y)
+        mouse.x = x.toFloat()
+        mouse.y = y.toFloat()
+    }
 
-	@Override
-	public void onDrag(int x, int y) {
-		super.onDrag(x, y);
-		mouse.x = x;
-		mouse.y = y;
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoAllShaders()
+        }
+    }
 }

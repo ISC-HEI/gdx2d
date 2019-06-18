@@ -1,8 +1,8 @@
-package ch.hevs.gdx2d.demos.tween;
+package ch.hevs.gdx2d.demos.tween
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 
 /**
  * A simple ball object
@@ -11,21 +11,14 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
  * @author Christopher Metrailler (mei)
  * @version 1.2
  */
-public class Ball implements DrawableObject {
-	final BitmapImage img = new BitmapImage("images/soccer.png");
-	public float posx, posy;
+class Ball(var posx: Float, var posy: Float) : DrawableObject {
+    internal val img = BitmapImage("images/soccer.png")
 
-	public Ball(float x, float y) {
-		posx = x;
-		posy = y;
-	}
+    override fun draw(g: GdxGraphics) {
+        draw(g, 1.0f)
+    }
 
-	@Override
-	public void draw(GdxGraphics g) {
-		draw(g, 1.0f);
-	}
-
-	public void draw(GdxGraphics g, float scale) {
-		g.drawTransformedPicture(posx, posy, 0, scale, img);
-	}
+    fun draw(g: GdxGraphics, scale: Float) {
+        g.drawTransformedPicture(posx, posy, 0f, scale, img)
+    }
 }

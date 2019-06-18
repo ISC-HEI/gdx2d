@@ -1,13 +1,13 @@
-package ch.hevs.gdx2d.demos.physics.car.components;
+package ch.hevs.gdx2d.demos.physics.car.components
 
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
-import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox
+import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef
 
 /**
  * A wheel of the car, adapted from
@@ -16,88 +16,87 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
  * @author Pierre-André Mudry
  * @version 1.2
  */
-public class Wheel {
-	public Car car;//car this wheel belongs to
-	public boolean revolving; // does this wheel revolve when steering?
-	public boolean powered; // is this wheel powered?
-	public Body body;
+class Wheel(var car: Car//car this wheel belongs to
+            , wheelPos: Vector2, width: Float, length: Float, var revolving: Boolean // does this wheel revolve when steering?
+            , var powered: Boolean // is this wheel powered?
+) {
+    var body: Body
 
-	public Wheel(Car car, Vector2 wheelPos, float width, float length, boolean revolving, boolean powered) {
-		this.car = car;
-		this.revolving = revolving;
-		this.powered = powered;
+    /**
+     * @return The velocity vector, relative to the car
+     */
+    val localVelocity: Vector2
+        get() = car.carbox.body.getLocalVector(car.carbox.body.getLinearVelocityFromLocalPoint(body.position))
 
-		World world = PhysicsWorld.getInstance();
+    /**
+     * @return A world, unit vector pointing in the direction this wheel is currently moving
+     */
+    val directionVector: Vector2
+        get() {
+            val directionVector: Vector2
 
-		Vector2 x = PhysicsConstants.coordPixelsToMeters(wheelPos);
+            if (this.localVelocity.y > 0)
+                directionVector = Vector2(0f, 1f)
+            else
+                directionVector = Vector2(0f, -1f)
 
-		// Convert car position to pixels
-		Vector2 pos = car.carbox.getBody().getWorldPoint(x);
+            return directionVector.rotate(Math.toDegrees(this.body.angle.toDouble()).toFloat())
+        }
 
-		// Create the wheel
-		PhysicsBox wheel = new PhysicsBox("wheel", PhysicsConstants.coordMetersToPixels(pos), width, length / 2, car.carbox.getBodyAngle());
-		this.body = wheel.getBody();
+    /**
+     * Subtracts sideways velocity from this wheel's velocity vector
+     *
+     * @return The remaining front-facing velocity vector
+     */
+    val killVelocityVector: Vector2
+        get() {
+            val velocity = body.linearVelocity
+            val sidewaysAxis = directionVector
+            val dotprod = velocity.dot(sidewaysAxis)
+            return Vector2(sidewaysAxis.x * dotprod, sidewaysAxis.y * dotprod)
+        }
 
-		// Create a revoluting joint to connect wheel to body
-		if (this.revolving) {
-			RevoluteJointDef jointdef = new RevoluteJointDef();
-			jointdef.initialize(car.carbox.getBody(), this.body, this.body.getWorldCenter());
-			jointdef.enableMotor = false; //we'll be controlling the wheel's angle manually
-			world.createJoint(jointdef);
-		} else {
-			PrismaticJointDef jointdef = new PrismaticJointDef();
-			jointdef.initialize(car.carbox.getBody(), this.body, this.body.getWorldCenter(), new Vector2(1, 0));
-			jointdef.enableLimit = true;
-			jointdef.lowerTranslation = jointdef.upperTranslation = 0;
-			world.createJoint(jointdef);
-		}
-	}
+    init {
 
-	/**
-	 * @param angle The wheel angle (in degrees), relative to the car
-	 */
-	public void setAngle(float angle) {
-		body.setTransform(body.getPosition(), car.carbox.getBodyAngle() + (float) Math.toRadians(angle));
-	}
+        val world = PhysicsWorld.getInstance()
 
-	/**
-	 * @return The velocity vector, relative to the car
-	 */
-	public Vector2 getLocalVelocity() {
-		return car.carbox.getBody().getLocalVector(car.carbox.getBody().getLinearVelocityFromLocalPoint(body.getPosition()));
-	}
+        val x = PhysicsConstants.coordPixelsToMeters(wheelPos)
 
-	/**
-	 * @return A world, unit vector pointing in the direction this wheel is currently moving
-	 */
-	public Vector2 getDirectionVector() {
-		Vector2 directionVector;
+        // Convert car position to pixels
+        val pos = car.carbox.body.getWorldPoint(x)
 
-		if (this.getLocalVelocity().y > 0)
-			directionVector = new Vector2(0, 1);
-		else
-			directionVector = new Vector2(0, -1);
+        // Create the wheel
+        val wheel = PhysicsBox("wheel", PhysicsConstants.coordMetersToPixels(pos), width, length / 2, car.carbox.bodyAngle)
+        this.body = wheel.body
 
-		return directionVector.rotate((float) Math.toDegrees(this.body.getAngle()));
-	}
+        // Create a revoluting joint to connect wheel to body
+        if (this.revolving) {
+            val jointdef = RevoluteJointDef()
+            jointdef.initialize(car.carbox.body, this.body, this.body.worldCenter)
+            jointdef.enableMotor = false //we'll be controlling the wheel's angle manually
+            world.createJoint(jointdef)
+        } else {
+            val jointdef = PrismaticJointDef()
+            jointdef.initialize(car.carbox.body, this.body, this.body.worldCenter, Vector2(1f, 0f))
+            jointdef.enableLimit = true
+            jointdef.upperTranslation = 0f
+            jointdef.lowerTranslation = jointdef.upperTranslation
+            world.createJoint(jointdef)
+        }
+    }
 
-	/**
-	 * Subtracts sideways velocity from this wheel's velocity vector
-	 *
-	 * @return The remaining front-facing velocity vector
-	 */
-	public Vector2 getKillVelocityVector() {
-		Vector2 velocity = body.getLinearVelocity();
-		Vector2 sidewaysAxis = getDirectionVector();
-		float dotprod = velocity.dot(sidewaysAxis);
-		return new Vector2(sidewaysAxis.x * dotprod, sidewaysAxis.y * dotprod);
-	}
+    /**
+     * @param angle The wheel angle (in degrees), relative to the car
+     */
+    fun setAngle(angle: Float) {
+        body.setTransform(body.position, car.carbox.bodyAngle + Math.toRadians(angle.toDouble()).toFloat())
+    }
 
-	/**
-	 * Removes sideways velocity from this wheel
-	 */
-	public void killSidewaysVelocity() {
-		Vector2 v = getKillVelocityVector();
-		body.setLinearVelocity(v);
-	}
+    /**
+     * Removes sideways velocity from this wheel
+     */
+    fun killSidewaysVelocity() {
+        val v = killVelocityVector
+        body.linearVelocity = v
+    }
 }

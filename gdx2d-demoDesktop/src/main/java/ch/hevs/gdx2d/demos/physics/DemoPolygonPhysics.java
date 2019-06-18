@@ -1,15 +1,15 @@
-package ch.hevs.gdx2d.demos.physics;
+package ch.hevs.gdx2d.demos.physics
 
-import ch.hevs.gdx2d.components.graphics.GeomUtils;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsPolygon;
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
+import ch.hevs.gdx2d.components.graphics.GeomUtils
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsPolygon
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector2
 
 /**
  * Demonstrates how to use general polygons as physics objects
@@ -17,60 +17,53 @@ import com.badlogic.gdx.math.Vector2;
  * @author Pierre-André Mudry
  * @version 1.0
  */
-public class DemoPolygonPhysics extends PortableApplication {
+class DemoPolygonPhysics : PortableApplication() {
 
-	PhysicsPolygon p1, p2;
-	DebugRenderer debugRenderer;
+    internal lateinit var p1: PhysicsPolygon
+    internal lateinit var p2: PhysicsPolygon
+    internal lateinit var debugRenderer: DebugRenderer
 
-	public static void main(String[] args) {
-		new DemoPolygonPhysics();
-	}
+    override fun onInit() {
+        // A triangle
+        val obj1 = arrayOf(Vector2(100f, 100f), Vector2(200f, 100f), Vector2(150f, 200f))
 
-	@Override
-	public void onInit() {
-		// A triangle
-		Vector2[] obj1 = {
-				new Vector2(100, 100),
-				new Vector2(200, 100),
-				new Vector2(150, 200)
-		};
+        // A special polygon
+        val obj2 = arrayOf(Vector2(0f, 0f), Vector2(4f, 0f), Vector2(5f, 3f), Vector2(2f, 8f), Vector2(-1f, 3f))
 
-		// A special polygon
-		Vector2[] obj2 = {
-				new Vector2(0, 0),
-				new Vector2(4, 0),
-				new Vector2(5, 3),
-				new Vector2(2, 8),
-				new Vector2(-1, 3)
-		};
+        GeomUtils.translate(obj1, Vector2(250f, 100f))
+        GeomUtils.rotate(obj1, 12f)
 
-		GeomUtils.translate(obj1, new Vector2(250, 100));
-		GeomUtils.rotate(obj1, 12);
+        GeomUtils.scale(obj2, 20f)
+        GeomUtils.rotate(obj2, 14f)
+        GeomUtils.translate(obj2, Vector2(100f, 100f))
 
-		GeomUtils.scale(obj2, 20);
-		GeomUtils.rotate(obj2, 14);
-		GeomUtils.translate(obj2, new Vector2(100, 100));
+        p1 = PhysicsPolygon("poly1", obj1, true)
+        p2 = PhysicsPolygon("poly2", obj2, true)
 
-		p1 = new PhysicsPolygon("poly1", obj1, true);
-		p2 = new PhysicsPolygon("poly2", obj2, true);
+        PhysicsScreenBoundaries(this.windowWidth.toFloat(), this.windowHeight.toFloat())
 
-		new PhysicsScreenBoundaries(this.getWindowWidth(), this.getWindowHeight());
+        debugRenderer = DebugRenderer()
+    }
 
-		debugRenderer = new DebugRenderer();
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        PhysicsWorld.updatePhysics(Gdx.graphics.rawDeltaTime)
+        debugRenderer.render(PhysicsWorld.getInstance(), g.camera.combined)
 
-		PhysicsWorld.updatePhysics(Gdx.graphics.getRawDeltaTime());
-		debugRenderer.render(PhysicsWorld.getInstance(), g.getCamera().combined);
+        g.drawFilledPolygon(p1.polygon, Color.YELLOW)
+        g.drawFilledPolygon(p2.polygon, Color.RED)
 
-		g.drawFilledPolygon(p1.getPolygon(), Color.YELLOW);
-		g.drawFilledPolygon(p2.getPolygon(), Color.RED);
+        g.drawSchoolLogo()
+        g.drawFPS()
+    }
 
-		g.drawSchoolLogo();
-		g.drawFPS();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoPolygonPhysics()
+        }
+    }
 
 }

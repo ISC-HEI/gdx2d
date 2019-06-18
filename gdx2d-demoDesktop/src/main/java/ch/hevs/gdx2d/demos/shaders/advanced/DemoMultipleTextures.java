@@ -1,8 +1,8 @@
-package ch.hevs.gdx2d.demos.shaders.advanced;
+package ch.hevs.gdx2d.demos.shaders.advanced
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.Gdx;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.Gdx
 
 /**
  * Demonstrates the use of multiple textures in a shader
@@ -10,40 +10,41 @@ import com.badlogic.gdx.Gdx;
  * @author Pierre-André Mudry (mui)
  * @version 0.5
  */
-public class DemoMultipleTextures extends PortableApplication {
+class DemoMultipleTextures : PortableApplication() {
 
-	float time = 0;
-	int i = 0;
+    internal var time = 0f
+    internal var i = 0
 
-	public static void main(String[] args) {
-		new DemoMultipleTextures();
-	}
+    override fun onInit() {
+        this.setTitle("Multiple textures passing to shader, mui 2013")
+    }
 
-	@Override
-	public void onInit() {
-		this.setTitle("Multiple textures passing to shader, mui 2013");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        if (g.shaderRenderer == null) {
+            g.setShader("shader/advanced/multiple_textures.fp")
+            g.shaderRenderer.addTexture("images/lena.png", "texture0")
+            g.shaderRenderer.addTexture("images/mandrill.jpg", "texture1")
+        }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		if (g.getShaderRenderer() == null) {
-			g.setShader("shader/advanced/multiple_textures.fp");
-			g.getShaderRenderer().addTexture("images/lena.png", "texture0");
-			g.getShaderRenderer().addTexture("images/mandrill.jpg", "texture1");
-		}
+        g.shaderRenderer.setUniform("textureChosen", i)
 
-		g.getShaderRenderer().setUniform("textureChosen", i);
+        g.clear()
+        time += Gdx.graphics.deltaTime
+        g.drawShader(time)
+        g.drawFPS()
+        g.drawSchoolLogo()
+    }
 
-		g.clear();
-		time += Gdx.graphics.getDeltaTime();
-		g.drawShader(time);
-		g.drawFPS();
-		g.drawSchoolLogo();
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        super.onClick(x, y, button)
+        i = (i + 1) % 2
+    }
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);
-		i = (i + 1) % 2;
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoMultipleTextures()
+        }
+    }
 }

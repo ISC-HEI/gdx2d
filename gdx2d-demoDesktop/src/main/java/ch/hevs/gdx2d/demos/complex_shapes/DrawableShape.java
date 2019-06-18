@@ -1,30 +1,24 @@
-package ch.hevs.gdx2d.demos.complex_shapes;
+package ch.hevs.gdx2d.demos.complex_shapes
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Color
 
-import java.util.Random;
+import java.util.Random
 
 /**
- * A drawable shape class for the {@link DemoComplexShapes} demonstration
+ * A drawable shape class for the [DemoComplexShapes] demonstration
  *
  * @author Pierre-Andre Mudry (mui)
  * @version 1.0
  */
-public class DrawableShape {
+class DrawableShape internal constructor(internal var width: Int, internal var height: Int, internal var x: Int, internal var y: Int, internal var c: Color) {
+    internal var offset: Float = 0.toFloat()
 
-	private static Random rnd = new Random();
+    init {
+        this.offset = rnd.nextFloat() * 45
+    }
 
-	int width, height;
-	int x, y;
-	float offset;
-	Color c;
+    companion object {
 
-	DrawableShape(int w, int h, int x, int y, Color c) {
-		this.width = w;
-		this.height = h;
-		this.x = x;
-		this.y = y;
-		this.c = c;
-		this.offset = rnd.nextFloat() * 45;
-	}
+        private val rnd = Random()
+    }
 }

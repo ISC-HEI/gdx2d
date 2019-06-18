@@ -1,17 +1,17 @@
-package ch.hevs.gdx2d.demos.physics.joints;
+package ch.hevs.gdx2d.demos.physics.joints
 
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
-import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox
+import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef
 
 /**
  * A demo on how to build chains with rope joints with box2d
@@ -21,72 +21,75 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
  * @version 1.2
  * @date 2014
  */
-public class DemoRopeJoint extends PortableApplication {
-	World world = PhysicsWorld.getInstance();
+class DemoRopeJoint : PortableApplication() {
+    internal var world = PhysicsWorld.getInstance()
 
-	// Contains all the objects that will be simulated
-	DebugRenderer debugRenderer;
+    // Contains all the objects that will be simulated
+    internal lateinit var debugRenderer: DebugRenderer
 
-	public static void main(String[] args) {
-		new DemoRopeJoint();
-	}
+    override fun onInit() {
+        setTitle("Rope joints simulation, hit/mui 2014")
+        val w = windowWidth
+        val h = windowHeight
 
-	@Override
-	public void onInit() {
-		setTitle("Rope joints simulation, hit/mui 2014");
-		final int w = getWindowWidth(), h = getWindowHeight();
+        debugRenderer = DebugRenderer()
 
-		debugRenderer = new DebugRenderer();
+        // The amount of rope segments
+        val nSegments = 10
 
-		// The amount of rope segments
-		int nSegments = 10;
+        /**
+         * The circle in the middle of the screen for the origin
+         */
+        val p = PhysicsStaticBox("", Vector2(w / 2.0f, h / 1.4f), 20f, 20f)
 
-		/**
-		 * The circle in the middle of the screen for the origin
-		 */
-		PhysicsStaticBox p = new PhysicsStaticBox("", new Vector2(w / 2.0f, h / 1.4f), 20, 20);
+        // The first object in the chain is the static circle
+        var prevBody = p.body
 
-		// The first object in the chain is the static circle
-		Body prevBody = p.getBody();
+        val segmentLength = 20
+        val spaceBetweenSegments = 10
 
-		final int segmentLength = 20;
-		final int spaceBetweenSegments = 10;
+        // Build the body and the RevoluteJointDef for the chain elements.
+        for (i in 0 until nSegments) {
+            // Create a rope segment element
+            val box = PhysicsBox("", Vector2((w / 2 + i * (segmentLength + spaceBetweenSegments)).toFloat(), h / 1.4f),
+                    segmentLength.toFloat(),
+                    4f)
 
-		// Build the body and the RevoluteJointDef for the chain elements.
-		for (int i = 0; i < nSegments; i++) {
-			// Create a rope segment element
-			PhysicsBox box = new PhysicsBox("", new Vector2(w / 2 + i * (segmentLength + spaceBetweenSegments), h / 1.4f),
-					segmentLength,
-					4);
+            // Connect each element with the element before
+            val anchorA = prevBody.localCenter.add(0f, 0f)
 
-			// Connect each element with the element before
-			Vector2 anchorA = prevBody.getLocalCenter().add(0, 0);
+            // The anchor point should be outside the object here to make it nice
+            val anchorB = box.bodyLocalCenter.add((-(segmentLength + spaceBetweenSegments)).toFloat(), 0f)
 
-			// The anchor point should be outside the object here to make it nice
-			Vector2 anchorB = box.getBodyLocalCenter().add(-(segmentLength + spaceBetweenSegments), 0);
+            // Create a joint between the previous and current object
+            val revoluteJointDefRope = RevoluteJointDef()
+            revoluteJointDefRope.bodyA = prevBody
+            revoluteJointDefRope.bodyB = box.body
+            revoluteJointDefRope.collideConnected = false
+            revoluteJointDefRope.localAnchorA.set(PhysicsConstants.coordPixelsToMeters(anchorA))
+            revoluteJointDefRope.localAnchorB.set(PhysicsConstants.coordPixelsToMeters(anchorB))
+            world.createJoint(revoluteJointDefRope)
 
-			// Create a joint between the previous and current object
-			RevoluteJointDef revoluteJointDefRope = new RevoluteJointDef();
-			revoluteJointDefRope.bodyA = prevBody;
-			revoluteJointDefRope.bodyB = box.getBody();
-			revoluteJointDefRope.collideConnected = false;
-			revoluteJointDefRope.localAnchorA.set(PhysicsConstants.coordPixelsToMeters(anchorA));
-			revoluteJointDefRope.localAnchorB.set(PhysicsConstants.coordPixelsToMeters(anchorB));
-			world.createJoint(revoluteJointDefRope);
+            // Create the joint and set the previous body to the created one
+            prevBody = box.body
+        }
+    }
 
-			// Create the joint and set the previous body to the created one
-			prevBody = box.getBody();
-		}
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
+        debugRenderer.render(world, g.camera.combined)
 
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
-		debugRenderer.render(world, g.getCamera().combined);
+        g.drawSchoolLogoUpperRight()
+        g.drawFPS()
+    }
 
-		g.drawSchoolLogoUpperRight();
-		g.drawFPS();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoRopeJoint()
+        }
+    }
 }

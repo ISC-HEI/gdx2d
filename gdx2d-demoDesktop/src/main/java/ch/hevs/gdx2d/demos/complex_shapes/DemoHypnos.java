@@ -1,10 +1,10 @@
-package ch.hevs.gdx2d.demos.complex_shapes;
+package ch.hevs.gdx2d.demos.complex_shapes
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.graphics.Color;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.graphics.Color
 
-import java.util.ArrayList;
+import java.util.ArrayList
 
 /**
  * First try at reproducing http://lab.hakim.se/hypnos/
@@ -14,84 +14,83 @@ import java.util.ArrayList;
  * @version 1.0, April 2015
  */
 
-class Coord {
-	float x, y, r;
+internal class Coord(var x: Float, var y: Float, var r: Float)
 
-	Coord(float x, float y, float r) {
-		this.x = x;
-		this.y = y;
-		this.r = r;
-	}
-}
+class DemoHypnos : PortableApplication() {
 
-public class DemoHypnos extends PortableApplication {
+    internal val points = ArrayList<Coord>()
+    private val quality = 100f
+    private var layerSize: Float = 0.toFloat()
+    private var radius: Float = 0.toFloat()
+    private var screenWidth: Int = 0
+    private var screenHeight: Int = 0
+    private var angle = 0f
 
-	final ArrayList<Coord> points = new ArrayList<Coord>();
-	private float quality = 100;
-	private float layerSize;
-	private float radius;
-	private int screenWidth, screenHeight;
-	private float angle = 0;
+    protected fun generateObjects() {
+        var i = 0
+        while (i < quality) {
+            val x = screenWidth / 2 + Math.sin((i / quality).toDouble() * 2.0 * Math.PI).toFloat() * radius - layerSize
+            val y = screenHeight / 2 + Math.cos((i / quality).toDouble() * 2.0 * Math.PI).toFloat() * radius - layerSize
+            val r = (i / quality * Math.PI).toFloat()
+            val c = Coord(x, y, r)
+            points.add(c)
+            i++
+        }
+    }
 
-	public static void main(String[] args) {
-		new DemoHypnos();
-	}
+    override fun onInit() {
+        this.setTitle("Demo shapes, mui 2013")
+        screenWidth = windowWidth
+        screenHeight = windowHeight
+        radius = Math.min(screenWidth, screenHeight) * 0.2f
+        layerSize = radius * 0.25f
+        generateObjects()
+    }
 
-	protected void generateObjects() {
-		for (int i = 0; i < quality; i++) {
-			float x = screenWidth / 2 + (float) Math.sin(i / quality * 2 * Math.PI) * radius - layerSize;
-			float y = screenHeight / 2 + (float) Math.cos(i / quality * 2 * Math.PI) * radius - layerSize;
-			float r = (float) ((i / quality) * Math.PI);
-			Coord c = new Coord(x, y, r);
-			points.add(c);
-		}
-	}
+    private fun update() {
+        for (c in points) {
+            c.r += 0.3f
+        }
+    }
 
-	@Override
-	public void onInit() {
-		this.setTitle("Demo shapes, mui 2013");
-		screenWidth = getWindowWidth();
-		screenHeight = getWindowHeight();
-		radius = Math.min(screenWidth, screenHeight) * 0.2f;
-		layerSize = radius * 0.25f;
-		generateObjects();
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        angle = if (angle >= 360) 0f else angle + 0.2f
+        g.clear(Color.WHITE)
+        update()
 
-	private void update() {
-		for (Coord c : points) {
-			c.r += 0.3f;
-		}
-	}
+        for (c in points) {
+            g.setColor(Color.WHITE)
+            g.drawFilledRectangle(c.x, c.y, 50f, 50f, c.r)
+            g.setColor(Color.BLACK)
+            g.drawRectangle(c.x, c.y, 50f, 50f, c.r)
+        }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		angle = angle >= 360 ? 0 : angle + 0.2f;
-		g.clear(Color.WHITE);
-		update();
-
-		for (Coord c : points) {
-			g.setColor(Color.WHITE);
-			g.drawFilledRectangle(c.x, c.y, 50, 50, c.r);
-			g.setColor(Color.BLACK);
-			g.drawRectangle(c.x, c.y, 50, 50, c.r);
-		}
-
-		Coord beg = points.get(0);
-		g.setColor(Color.WHITE);
-		g.drawFilledRectangle(beg.x, beg.y, 50, 50, beg.r);
-		g.setColor(Color.BLACK);
-		g.drawRectangle(beg.x, beg.y, 50, 50, beg.r);
+        val beg = points[0]
+        g.setColor(Color.WHITE)
+        g.drawFilledRectangle(beg.x, beg.y, 50f, 50f, beg.r)
+        g.setColor(Color.BLACK)
+        g.drawRectangle(beg.x, beg.y, 50f, 50f, beg.r)
 
 
-		for (int i = (int) (quality - 30); i < quality; i++) {
-			Coord c = points.get(i);
-			g.setColor(Color.WHITE);
-			g.drawFilledRectangle(c.x, c.y, 50, 50, c.r);
-			g.setColor(Color.BLACK);
-			g.drawRectangle(c.x, c.y, 50, 50, c.r);
-		}
+        var i = (quality - 30).toInt()
+        while (i < quality) {
+            val c = points[i]
+            g.setColor(Color.WHITE)
+            g.drawFilledRectangle(c.x, c.y, 50f, 50f, c.r)
+            g.setColor(Color.BLACK)
+            g.drawRectangle(c.x, c.y, 50f, 50f, c.r)
+            i++
+        }
 
-		g.drawSchoolLogo();
-		g.drawFPS();
-	}
+        g.drawSchoolLogo()
+        g.drawFPS()
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoHypnos()
+        }
+    }
 }

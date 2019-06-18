@@ -21,6 +21,7 @@ If you do so, you will have to refresh intellij by :
 Note that in case you have a broken build script, the intellij maven error reporting isn't very useful.
 It is better to just run some maven commands in the shell to get a better insight (ex : mvn clean compile).
 
+fix 28
 
 # Welcome to gdx2d [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.hevs.gdx2d/gdx2d-core/badge.svg)](http://search.maven.org/#search%7Cga%7C1%7Cch.hevs.gdx2d)
 

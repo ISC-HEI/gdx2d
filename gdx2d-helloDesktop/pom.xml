@@ -19,11 +19,6 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <description>gdx2d hello desktop </description>
 
-  <properties>
-    <kotlin.version>1.3.31</kotlin.version>
-  </properties>
-
-
   <version>${gdx2d.version}</version>
 
   <dependencies>

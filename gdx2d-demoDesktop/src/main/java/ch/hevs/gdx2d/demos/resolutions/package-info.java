@@ -4,4 +4,4 @@
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-package ch.hevs.gdx2d.demos.resolutions;
+package ch.hevs.gdx2d.demos.resolutions

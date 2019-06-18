@@ -1,9 +1,9 @@
-package ch.hevs.gdx2d.demos.simple;
+package ch.hevs.gdx2d.demos.simple
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 
 /**
  * A very simple demonstration on how to display something animated with the
@@ -12,51 +12,54 @@ import com.badlogic.gdx.graphics.Color;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoSimpleAnimation extends PortableApplication {
-	int radius = 5, speed = 1;
-	int screenHeight, screenWidth;
+class DemoSimpleAnimation : PortableApplication() {
+    internal var radius = 5
+    internal var speed = 1
+    internal var screenHeight: Int = 0
+    internal var screenWidth: Int = 0
 
-	public static void main(String[] args) {
-		/**
-		 * Note that the constructor parameter is used to determine if running
-		 * on Android or not. As we are in main there, it means we are on
-		 * desktop computer.
-		 */
-		new DemoSimpleAnimation();
-	}
+    override fun onInit() {
+        // Sets the window title
+        setTitle("Simple demo, mui 2013")
 
-	@Override
-	public void onInit() {
-		// Sets the window title
-		setTitle("Simple demo, mui 2013");
+        screenHeight = Gdx.graphics.height
+        screenWidth = Gdx.graphics.width
+    }
 
-		screenHeight = Gdx.graphics.getHeight();
-		screenWidth = Gdx.graphics.getWidth();
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
+        // Clears the screen
+        g.clear()
+        g.drawAntiAliasedCircle((screenWidth / 2).toFloat(), (screenHeight / 2).toFloat(), radius.toFloat(), Color.BLUE)
 
-		// Clears the screen
-		g.clear();
-		g.drawAntiAliasedCircle(screenWidth / 2, screenHeight / 2, radius, Color.BLUE);
+        // If reaching max or min size, invert the growing direction
+        if (radius >= 100 || radius <= 3) {
+            speed *= -1
+        }
 
-		// If reaching max or min size, invert the growing direction
-		if (radius >= 100 || radius <= 3) {
-			speed *= -1;
-		}
+        // Modify the radius
+        radius += speed
 
-		// Modify the radius
-		radius += speed;
+        g.drawSchoolLogo()
+        g.drawFPS()
+    }
 
-		g.drawSchoolLogo();
-		g.drawFPS();
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        if (onAndroid())
+            androidResolver.showAboutBox()
+    }
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		if (onAndroid())
-			getAndroidResolver().showAboutBox();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            /**
+             * Note that the constructor parameter is used to determine if running
+             * on Android or not. As we are in main there, it means we are on
+             * desktop computer.
+             */
+            DemoSimpleAnimation()
+        }
+    }
 
 }

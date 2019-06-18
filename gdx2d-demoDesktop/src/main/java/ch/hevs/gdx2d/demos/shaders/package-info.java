@@ -5,4 +5,4 @@
  *
  * @author Pierre-André Mudry
  */
-package ch.hevs.gdx2d.demos.shaders;
+package ch.hevs.gdx2d.demos.shaders

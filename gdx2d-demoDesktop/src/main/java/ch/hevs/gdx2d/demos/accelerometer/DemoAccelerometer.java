@@ -1,10 +1,10 @@
-package ch.hevs.gdx2d.demos.accelerometer;
+package ch.hevs.gdx2d.demos.accelerometer
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Peripheral;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input.Peripheral
 
 /**
  * A demonstration program for the accelerometers
@@ -13,44 +13,46 @@ import com.badlogic.gdx.Input.Peripheral;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoAccelerometer extends PortableApplication {
-	private final double SMOOTHING = 30; // This value changes the dampening effect of the low-pass
-	private BitmapImage compassBitmap;
-	// For low-pass filtering
-	private float smoothedValue = 0;
+class DemoAccelerometer : PortableApplication() {
+    private val SMOOTHING = 30.0 // This value changes the dampening effect of the low-pass
+    private var compassBitmap: BitmapImage? = null
+    // For low-pass filtering
+    private var smoothedValue = 0f
 
-	public static void main(String[] args) {
-		new DemoAccelerometer();
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        // Read the accelerometers
+        val accelX = Gdx.input.accelerometerX
+        val accelY = Gdx.input.accelerometerY
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		// Read the accelerometers
-		float accelX = Gdx.input.getAccelerometerX();
-		float accelY = Gdx.input.getAccelerometerY();
+        // Low pass filtering of the value
+        smoothedValue += ((accelX - smoothedValue) / SMOOTHING).toFloat()
 
-		// Low pass filtering of the value
-		smoothedValue += (accelX - smoothedValue) / SMOOTHING;
+        // Draws
+        g.clear()
+        g.drawTransformedPicture((windowWidth / 2).toFloat(), (windowHeight / 2).toFloat(), smoothedValue * 20, 1f, compassBitmap)
+        g.drawSchoolLogo()
 
-		// Draws
-		g.clear();
-		g.drawTransformedPicture(getWindowWidth() / 2, getWindowHeight() / 2, smoothedValue * 20, 1, compassBitmap);
-		g.drawSchoolLogo();
+        g.drawString(10f, 60f, "Non filtered values:")
+        g.drawString(15f, 20f, "X $accelX")
+        g.drawString(15f, 40f, "Y $accelY")
+    }
 
-		g.drawString(10, 60, "Non filtered values:");
-		g.drawString(15, 20, "X " + accelX);
-		g.drawString(15, 40, "Y " + accelY);
-	}
+    override fun onInit() {
+        val available = Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer)
 
-	@Override
-	public void onInit() {
-		boolean available = Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
+        if (!available) {
+            Gdx.app.error("Libgdx error", "Accelerometers are not available ! Exiting")
+            Gdx.app.exit()
+        }
 
-		if (!available) {
-			Gdx.app.error("Libgdx error", "Accelerometers are not available ! Exiting");
-			Gdx.app.exit();
-		}
+        compassBitmap = BitmapImage("images/compass_150.png")
+    }
 
-		compassBitmap = new BitmapImage("images/compass_150.png");
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoAccelerometer()
+        }
+    }
 }

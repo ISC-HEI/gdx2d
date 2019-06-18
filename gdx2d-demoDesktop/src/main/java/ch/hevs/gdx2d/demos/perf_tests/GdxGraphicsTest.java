@@ -1,8 +1,8 @@
-package ch.hevs.gdx2d.demos.perf_tests;
+package ch.hevs.gdx2d.demos.perf_tests
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.graphics.Color;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.graphics.Color
 
 /**
  * Torture test for graphics primitives. *
@@ -10,64 +10,58 @@ import com.badlogic.gdx.graphics.Color;
  *
  * @author Marc Pignat (pim)
  */
-public class GdxGraphicsTest extends PortableApplication {
+class GdxGraphicsTest : PortableApplication() {
 
-  public static void main(String[] args) {
-    new GdxGraphicsTest();
-  }
+    internal var zoom = 1.0f
+    internal var zoom_up = true
 
-  float zoom = 1.0f;
-  boolean zoom_up = true;
-
-  @Override
-  public void onInit() {
-    setTitle(this.getClass().getSimpleName());
-  }
-
-  void manage_zoom()
-  {
-    if (zoom_up)
-    {
-      zoom *= 1.01;
-      if (zoom > 1.2)
-      {
-        zoom_up = false;
-      }
-    }
-    else
-    {
-      zoom *= 0.99;
-      if (zoom < 0.8)
-      {
-        zoom_up = true;
-      }
-    }
-  }
-
-  @Override
-  public void onGraphicRender(GdxGraphics g) {
-
-    manage_zoom();
-
-    g.clear();
-    g.zoom(zoom);
-
-    for (int i = 0 ; i < 20 ; i++)
-    {
-      g.setPixel(40+i, 0+i, Color.BLUE);
-    }
-    g.drawCircle(10, 10, 10);
-    g.drawFilledCircle(30, 10, 10, Color.RED);
-
-    for (int i = 0 ; i < 20 ; i++)
-    {
-      g.setPixel(60-i, 0+i, Color.BLUE);
+    override fun onInit() {
+        setTitle(this.javaClass.getSimpleName())
     }
 
-    g.drawRectangle(70, 10, 10, 10, 30);
-    g.drawFilledRectangle(90, 10, 10, 10, 60, Color.CYAN);
-    g.drawSchoolLogoUpperRight();
-    g.drawFPS();
-  }
+    internal fun manage_zoom() {
+        if (zoom_up) {
+            zoom *= 1.01f
+            if (zoom > 1.2) {
+                zoom_up = false
+            }
+        } else {
+            zoom *= 0.99f
+            if (zoom < 0.8) {
+                zoom_up = true
+            }
+        }
+    }
+
+    override fun onGraphicRender(g: GdxGraphics) {
+
+        manage_zoom()
+
+        g.clear()
+        g.zoom(zoom)
+
+        for (i in 0..19) {
+            g.setPixel((40 + i).toFloat(), (0 + i).toFloat(), Color.BLUE)
+        }
+        g.drawCircle(10f, 10f, 10f)
+        g.drawFilledCircle(30f, 10f, 10f, Color.RED)
+
+        for (i in 0..19) {
+            g.setPixel((60 - i).toFloat(), (0 + i).toFloat(), Color.BLUE)
+        }
+
+        g.drawRectangle(70f, 10f, 10f, 10f, 30f)
+        g.drawFilledRectangle(90f, 10f, 10f, 10f, 60f, Color.CYAN)
+        g.drawSchoolLogoUpperRight()
+        g.drawFPS()
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            GdxGraphicsTest()
+        }
+    }
 
 }

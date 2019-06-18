@@ -1,16 +1,16 @@
-package ch.hevs.gdx2d.demos.complex_shapes;
+package ch.hevs.gdx2d.demos.complex_shapes
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.components.colors.PaletteGenerator;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.components.colors.PaletteGenerator
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.Color
 
 
-import java.util.Random;
-import java.util.Vector;
+import java.util.Random
+import java.util.Vector
 
 /**
  * Performance demo animation rendering multiple circles at the same scale. This
@@ -19,155 +19,157 @@ import java.util.Vector;
  * @author Pierre-André Mudry, mui
  * @version 1.0, April 2013
  */
-public class DemoComplexShapes extends PortableApplication {
+class DemoComplexShapes : PortableApplication() {
 
-	final Random rrand = new Random(12345);
-	final Vector<Color> colors = new Vector<Color>();
-	final Vector<DrawableShape> shapes = new Vector<DrawableShape>();
-	final Vector<Integer> directions = new Vector<Integer>();
-	private final int N_SHAPES = 500;
+    internal val rrand = Random(12345)
+    internal val colors = Vector<Color>()
+    internal val shapes = Vector<DrawableShape>()
+    internal val directions = Vector<Int>()
+    private val N_SHAPES = 500
 
-	private int screenWidth, screenHeight;
-	private int maxRadius;
-	private float angle = 0;
-	private type_shape shape_type = type_shape.CIRCLE;
-	// For the movement of objects
-	private double counter = 10, dir = 1.34;
-	// The image which will be displayed
-	private BitmapImage imageBmp;
+    private var screenWidth: Int = 0
+    private var screenHeight: Int = 0
+    private var maxRadius: Int = 0
+    private var angle = 0f
+    private var shape_type = type_shape.CIRCLE
+    // For the movement of objects
+    private var counter = 10.0
+    private var dir = 1.34
+    // The image which will be displayed
+    private var imageBmp: BitmapImage? = null
 
-	public static void main(String[] args) {
-		new DemoComplexShapes();
-	}
+    /**
+     * Create a nice color palette in the blue tones
+     */
+    fun fillPalette() {
+        val a = Color(0.4f, 0f, 0.8f, 0f)
+        val b = Color(0f, 0.2f, 0.97f, 0f)
+        val c = Color(0f, 0.6f, 0.85f, 0f)
 
-	/**
-	 * Create a nice color palette in the blue tones
-	 */
-	public void fillPalette() {
-		Color a = new Color(0.4f, 0, 0.8f, 0);
-		Color b = new Color(0, 0.2f, 0.97f, 0);
-		Color c = new Color(0, 0.6f, 0.85f, 0);
+        for (i in 0..49) {
+            colors.add(PaletteGenerator.RandomMix(a, b, c, 0.01f))
+        }
+    }
 
-		for (int i = 0; i < 50; i++) {
-			colors.add(PaletteGenerator.RandomMix(a, b, c, 0.01f));
-		}
-	}
+    protected fun destroyObjects(nObjects: Int) {
+        for (i in 0 until nObjects)
+            shapes.removeAt(0)
+    }
 
-	protected void destroyObjects(int nObjects) {
-		for (int i = 0; i < nObjects; i++)
-			shapes.remove(0);
-	}
+    protected fun generateObjects(nObjects: Int) {
+        /**
+         * Generate some objects to be drawn randomly
+         */
+        for (i in 0 until nObjects) {
+            val width = 10 + rrand.nextInt(40)
 
-	protected void generateObjects(int nObjects) {
-		/**
-		 * Generate some objects to be drawn randomly
-		 */
-		for (int i = 0; i < nObjects; i++) {
-			int width = 10 + rrand.nextInt(40);
+            val s = DrawableShape(width, width,
+                    rrand.nextInt(screenWidth),
+                    rrand.nextInt(screenHeight),
+                    colors[rrand.nextInt(colors.size)])
 
-			DrawableShape s = new DrawableShape(width, width,
-					rrand.nextInt(screenWidth),
-					rrand.nextInt(screenHeight),
-					colors.get(rrand.nextInt(colors.size())));
+            shapes.add(s)
 
-			shapes.add(s);
+            var dir = rrand.nextInt(10) + 1
+            dir = if (rrand.nextBoolean()) dir else -dir
 
-			int dir = rrand.nextInt(10) + 1;
-			dir = rrand.nextBoolean() ? dir : -dir;
+            directions.add(dir)
+        }
+    }
 
-			directions.add(dir);
-		}
-	}
+    override fun onInit() {
+        fillPalette()
 
-	@Override
-	public void onInit() {
-		fillPalette();
+        this.setTitle("Demo shapes, mui 2013")
+        screenWidth = windowWidth
+        screenHeight = windowHeight
+        maxRadius = Math.min(windowHeight / 2, windowWidth / 2) - 10
 
-		this.setTitle("Demo shapes, mui 2013");
-		screenWidth = getWindowWidth();
-		screenHeight = getWindowHeight();
-		maxRadius = Math.min(getWindowHeight() / 2, getWindowWidth() / 2) - 10;
+        imageBmp = BitmapImage("images/Android_PI_48x48.png")
+        generateObjects(N_SHAPES)
+    }
 
-		imageBmp = new BitmapImage("images/Android_PI_48x48.png");
-		generateObjects(N_SHAPES);
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        // Updates the counter for the position on screen
+        dir = if (counter > maxRadius || counter <= 5) dir * -1.0 else dir
+        counter += dir
+        angle = if (angle >= 360) 0f else angle + 0.2f
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		// Updates the counter for the position on screen
-		dir = counter > maxRadius || counter <= 5 ? dir *= -1 : dir;
-		counter += dir;
-		angle = angle >= 360 ? 0 : angle + 0.2f;
+        // Move the shapes on the screen
+        for (i in shapes.indices) {
+            val r = shapes[i]
 
-		// Move the shapes on the screen
-		for (int i = 0; i < shapes.size(); i++) {
-			final DrawableShape r = shapes.get(i);
+            if (r.x > screenWidth + imageBmp!!.image.width / 2 || r.x < 0) {
+                val `val` = directions[i]
+                directions.setElementAt(-`val`, i)
+            }
 
-			if (r.x > screenWidth + imageBmp.getImage().getWidth() / 2 || r.x < 0) {
-				int val = directions.get(i);
-				directions.setElementAt(-val, i);
-			}
+            r.x += directions[i]
+        }
 
-			r.x += directions.get(i);
-		}
+        // Do the drawing
+        when (shape_type) {
+            DemoComplexShapes.type_shape.CIRCLE -> {
+                g.clear(Color.BLACK)
+                for (i in shapes) {
+                    g.drawFilledCircle(i.x.toFloat(), i.y.toFloat(), i.width.toFloat(), i.c)
+                }
+            }
+            DemoComplexShapes.type_shape.IMAGE -> {
+                g.clear(Color(0.9f, 0.9f, 0.9f, 1f))
+                for (i in shapes)
+                    g.drawTransformedPicture(i.x.toFloat(), i.y.toFloat(), angle + i.offset, 1f, imageBmp)
+            }
+            DemoComplexShapes.type_shape.RECT -> {
+                g.clear(Color.BLACK)
+                for (i in shapes)
+                // FIXME Did not work well for old Linux driver
+                    g.drawFilledRectangle(i.x.toFloat(), i.y.toFloat(), i.width.toFloat(), i.width.toFloat(), 0f, i.c)
+            }
+            else -> {
+            }
+        }
 
-		// Do the drawing
-		switch (shape_type) {
-			case CIRCLE:
-				g.clear(Color.BLACK);
-				for (DrawableShape i : shapes) {
-					g.drawFilledCircle(i.x, i.y, i.width, i.c);
-				}
-				break;
-			case IMAGE:
-				g.clear(new Color(0.9f, 0.9f, 0.9f, 1));
-				for (DrawableShape i : shapes)
-					g.drawTransformedPicture(i.x, i.y, angle + i.offset, 1, imageBmp);
-				break;
-			case RECT:
-				g.clear(Color.BLACK);
-				for (DrawableShape i : shapes)
-					// FIXME Did not work well for old Linux driver
-					g.drawFilledRectangle(i.x, i.y, i.width, i.width, 0, i.c);
-			default:
-				break;
-		}
+        g.drawSchoolLogo()
+        g.drawFPS()
+    }
 
-		g.drawSchoolLogo();
-		g.drawFPS();
-	}
+    override fun onKeyDown(keycode: Int) {
+        when (keycode) {
+            Input.Keys.PLUS -> {
+                generateObjects(100)
+                Gdx.app.log("[DemoComplexShapes]", "N shapes " + shapes.size)
+            }
 
-	@Override
-	public void onKeyDown(int keycode) {
-		switch (keycode) {
-			case Input.Keys.PLUS:
-				generateObjects(100);
-				Gdx.app.log("[DemoComplexShapes]", "N shapes " + shapes.size());
-				break;
+            Input.Keys.MINUS -> if (shapes.size > 100) {
+                Gdx.app.log("[DemoComplexShapes]", "N shapes " + shapes.size)
+                destroyObjects(100)
+            }
+        }
+    }
 
-			case Input.Keys.MINUS:
-				if (shapes.size() > 100) {
-					Gdx.app.log("[DemoComplexShapes]", "N shapes " + shapes.size());
-					destroyObjects(100);
-				}
-				break;
-		}
-	}
+    override
+            /**
+             * Change shape on click
+             */
+    fun onClick(x: Int, y: Int, button: Int) {
+        if (shape_type == type_shape.CIRCLE)
+            shape_type = type_shape.RECT
+        else if (shape_type == type_shape.RECT)
+            shape_type = type_shape.IMAGE
+        else if (shape_type == type_shape.IMAGE)
+            shape_type = type_shape.CIRCLE
+    }
 
-	@Override
-	/**
-	 * Change shape on click
-	 */
-	public void onClick(int x, int y, int button) {
-		if (shape_type == type_shape.CIRCLE)
-			shape_type = type_shape.RECT;
-		else if (shape_type == type_shape.RECT)
-			shape_type = type_shape.IMAGE;
-		else if (shape_type == type_shape.IMAGE)
-			shape_type = type_shape.CIRCLE;
-	}
+    private enum class type_shape {
+        CIRCLE, IMAGE, RECT
+    }
 
-	private enum type_shape {
-		CIRCLE, IMAGE, RECT
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoComplexShapes()
+        }
+    }
 }

@@ -1,13 +1,13 @@
-package ch.hevs.gdx2d.demos.physics.collisions;
+package ch.hevs.gdx2d.demos.physics.collisions
 
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
 
 
 /**
@@ -16,46 +16,49 @@ import com.badlogic.gdx.physics.box2d.World;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoSlowCollisions extends PortableApplication {
-	World world = PhysicsWorld.getInstance();
-	DebugRenderer dbgRenderer;
+class DemoSlowCollisions : PortableApplication() {
+    internal var world = PhysicsWorld.getInstance()
+    internal lateinit var dbgRenderer: DebugRenderer
 
-	BumpyBall b1, b2;
+    internal lateinit var b1: BumpyBall
+    internal lateinit var b2: BumpyBall
 
-	public static void main(String[] args) {
-		new DemoSlowCollisions();
-	}
+    override fun onInit() {
+        dbgRenderer = DebugRenderer()
+        setTitle("Slow collisions for box2d, mui 2013")
 
-	@Override
-	public void onInit() {
-		dbgRenderer = new DebugRenderer();
-		setTitle("Slow collisions for box2d, mui 2013");
+        PhysicsScreenBoundaries(windowWidth.toFloat(), windowHeight.toFloat())
 
-		new PhysicsScreenBoundaries(getWindowWidth(), getWindowHeight());
+        // A BumpyBall has redefined its collision method.
+        b1 = BumpyBall("ball 1", Vector2(150f, 250f), 30)
+        b2 = BumpyBall("ball 2", Vector2(350f, 250f), 30)
 
-		// A BumpyBall has redefined its collision method.
-		b1 = new BumpyBall("ball 1", new Vector2(150, 250), 30);
-		b2 = new BumpyBall("ball 2", new Vector2(350, 250), 30);
+        // Indicate that the ball should be informed for collisions
+        b1.enableCollisionListener()
+        b2.enableCollisionListener()
+        b1.setBodyLinearVelocity(1f, 0f)
+        b2.setBodyLinearVelocity(-1f, 0f)
 
-		// Indicate that the ball should be informed for collisions
-		b1.enableCollisionListener();
-		b2.enableCollisionListener();
-		b1.setBodyLinearVelocity(1, 0);
-		b2.setBodyLinearVelocity(-1, 0);
+        world.gravity = Vector2.Zero
+    }
 
-		world.setGravity(Vector2.Zero);
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        b1.draw(g)
+        b2.draw(g)
 
-		b1.draw(g);
-		b2.draw(g);
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
 
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+        g.drawSchoolLogoUpperRight()
+        g.drawFPS()
+    }
 
-		g.drawSchoolLogoUpperRight();
-		g.drawFPS();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoSlowCollisions()
+        }
+    }
 }

@@ -1,6 +1,7 @@
 /**
- * A demo on how to use {@link PhysicsMotor} and GearJointDef.
- * <p/>
+ * A demo on how to use [PhysicsMotor] and GearJointDef.
+ *
+ *
  * Based on DemoRotateMotor, simulate the famous Swiss railway clock (@see
  * http://en.wikipedia.org/wiki/Swiss_railway_clock). The second hand runs too
  * fast then wait for the synchronization at zero. The minute hand goes by step,
@@ -12,269 +13,259 @@
  * This software uses 2 motors, one for the second hand and another for the
  * minute hand. The hour hand is driven by a gear, connected to the minute
  * motor.
- * <p/>
- * The clock image source is from <a
- * href="http://dribbble.com/shots/408344-SBB-CFF-FFS">here<a/>.
+ *
+ *
+ * The clock image source is from [here<a></a>.
  *
  * @author Marc Pignat (pim)
- */
+](http://dribbble.com/shots/408344-SBB-CFF-FFS) */
 
-package ch.hevs.gdx2d.demos.physics.gears;
+package ch.hevs.gdx2d.demos.physics.gears
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.components.physics.PhysicsMotor;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.physics.box2d.joints.GearJointDef;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.components.physics.PhysicsMotor
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.physics.box2d.joints.GearJointDef
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.Date
 
-public class DemoRotateGears extends PortableApplication {
+class DemoRotateGears : PortableApplication(512, 256) {
 
-	/**
-	 * A simple class for reading time
-	 *
-	 */
-	class TimeFloat {
-		float hour;
-		float second;
-		float minute;
+    private val world = PhysicsWorld.getInstance()
 
-		TimeFloat() {
-			String[] t = new SimpleDateFormat("HH:mm:ss").format(new Date())
-					.split(":");
-			hour = Float.parseFloat(t[0]);
-			minute = Float.parseFloat(t[1]);
-			second = Float.parseFloat(t[2]);
-		}
+    /* Bitmaps */
+    private var bitmapClock: BitmapImage? = null
+    private var bitmapSecond: BitmapImage? = null
+    private var bitmapMinute: BitmapImage? = null
+    private var bitmapHour: BitmapImage? = null
 
-		float getSecondAngle() {
-			return (float) -(2 * Math.PI * second) / 60;
-		}
+    /* Hands */
+    private var hand_second: PhysicsBox? = null
+    private var hand_minute: PhysicsBox? = null
+    private var hand_hour: PhysicsBox? = null
 
-		float getMinuteAngle() {
-			return (float) -(2 * Math.PI * minute) / 60;
-		}
+    /* Motors */
+    internal lateinit var motor_seconds: PhysicsMotor
+    internal lateinit var motor_minutes: PhysicsMotor
 
-		float getHourAngle() {
-			return (float) -(2 * Math.PI * ((hour % 12) * 60 + minute))
-					/ (12 * 60);
-		}
-	}
+    private val CLOCK_CENTER = Vector2(136.0f, 128.0f)
 
-	private World world = PhysicsWorld.getInstance();
+    /* Hand speed */
+    private val MOTOR_SPEED_SECOND = (-Math.PI / 58.5).toFloat()
+    private val MOTOR_SPEED_MINUTE = (-Math.PI / 60).toFloat()
 
-	/* Bitmaps */
-	private BitmapImage bitmapClock;
-	private BitmapImage bitmapSecond;
-	private BitmapImage bitmapMinute;
-	private BitmapImage bitmapHour;
+    private var debugRenderer: DebugRenderer? = null
+    private var debug_rendering = false
 
-	/* Hands */
-	private PhysicsBox hand_second;
-	private PhysicsBox hand_minute;
-	private PhysicsBox hand_hour;
+    /**
+     * A simple class for reading time
+     *
+     */
+    internal inner class TimeFloat {
+        var hour: Float = 0.toFloat()
+        var second: Float = 0.toFloat()
+        var minute: Float = 0.toFloat()
 
-	/* Motors */
-	PhysicsMotor motor_seconds;
-	PhysicsMotor motor_minutes;
+        val secondAngle: Float
+            get() = (-(2.0 * Math.PI * second.toDouble())).toFloat() / 60
 
-	private Vector2 CLOCK_CENTER = new Vector2(136.0f, 128.0f);
+        val minuteAngle: Float
+            get() = (-(2.0 * Math.PI * minute.toDouble())).toFloat() / 60
 
-	/* Hand speed */
-	private float MOTOR_SPEED_SECOND = (float) (-Math.PI / 58.5);
-	private float MOTOR_SPEED_MINUTE = (float) (-Math.PI / 60);
+        val hourAngle: Float
+            get() = (-(2.0 * Math.PI * (hour % 12 * 60 + minute).toDouble())).toFloat() / (12 * 60)
 
-	private DebugRenderer debugRenderer;
-	private boolean debug_rendering = false;
+        init {
+            val t = SimpleDateFormat("HH:mm:ss").format(Date())
+                    .split(":".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+            hour = java.lang.Float.parseFloat(t[0])
+            minute = java.lang.Float.parseFloat(t[1])
+            second = java.lang.Float.parseFloat(t[2])
+        }
+    }
 
-	public DemoRotateGears() {
-		super(512, 256);
-	}
+    override fun onInit() {
+        /* Get time */
+        val time = TimeFloat()
 
-	public static void main(String[] args) {
-		new DemoRotateGears();
-	}
+        /* Set title */
+        setTitle("Simple rotate gears demo, pim 2015")
 
-	@Override
-	public void onInit() {
-		/* Get time */
-		TimeFloat time = new TimeFloat();
+        /* Create a debug renderer */
+        debugRenderer = DebugRenderer()
 
-		/* Set title */
-		setTitle("Simple rotate gears demo, pim 2015");
+        /* Load images */
+        bitmapClock = BitmapImage("images/clock.png")
+        bitmapSecond = BitmapImage("images/clock_second.png")
+        bitmapMinute = BitmapImage("images/clock_minute.png")
+        bitmapHour = BitmapImage("images/clock_hour.png")
 
-		/* Create a debug renderer */
-		debugRenderer = new DebugRenderer();
+        /* Create the frame, the motors will be attached to it */
+        val frame = PhysicsStaticBox("frame", CLOCK_CENTER,
+                10f, 10f)
 
-		/* Load images */
-		bitmapClock = new BitmapImage("images/clock.png");
-		bitmapSecond = new BitmapImage("images/clock_second.png");
-		bitmapMinute = new BitmapImage("images/clock_minute.png");
-		bitmapHour = new BitmapImage("images/clock_hour.png");
+        /* Create the hands, at the current system time */
+        hand_second = PhysicsBox("seconds", CLOCK_CENTER, 10f, 50f,
+                time.secondAngle)
+        hand_minute = PhysicsBox("minutes", CLOCK_CENTER, 10f, 40f,
+                time.minuteAngle)
+        hand_hour = PhysicsBox("hours", CLOCK_CENTER, 10f, 30f,
+                time.hourAngle)
 
-		/* Create the frame, the motors will be attached to it */
-		PhysicsStaticBox frame = new PhysicsStaticBox("frame", CLOCK_CENTER,
-				10, 10);
+        /* Prevent collision between hands */
+        hand_second!!.setCollisionGroup(-2)
+        hand_minute!!.setCollisionGroup(-2)
+        hand_hour!!.setCollisionGroup(-2)
 
-		/* Create the hands, at the current system time */
-		hand_second = new PhysicsBox("seconds", CLOCK_CENTER, 10, 50,
-				time.getSecondAngle());
-		hand_minute = new PhysicsBox("minutes", CLOCK_CENTER, 10, 40,
-				time.getMinuteAngle());
-		hand_hour = new PhysicsBox("hours", CLOCK_CENTER, 10, 30,
-				time.getHourAngle());
+        /* Create the motors */
+        motor_seconds = PhysicsMotor(frame.body,
+                hand_second!!.body, frame.body.worldCenter)
 
-		/* Prevent collision between hands */
-		hand_second.setCollisionGroup(-2);
-		hand_minute.setCollisionGroup(-2);
-		hand_hour.setCollisionGroup(-2);
+        motor_minutes = PhysicsMotor(frame.body,
+                hand_minute!!.body, frame.body.worldCenter)
 
-		/* Create the motors */
-		motor_seconds = new PhysicsMotor(frame.getBody(),
-				hand_second.getBody(), frame.getBody().getWorldCenter());
-
-		motor_minutes = new PhysicsMotor(frame.getBody(),
-				hand_minute.getBody(), frame.getBody().getWorldCenter());
-
-		/*
+        /*
 		 * This motor will only be used as a skeleton for the gear.
 		 */
-		PhysicsMotor motor_m2h = new PhysicsMotor(frame.getBody(),
-				hand_hour.getBody(), frame.getBody().getWorldCenter());
+        val motor_m2h = PhysicsMotor(frame.body,
+                hand_hour!!.body, frame.body.worldCenter)
 
-		/*
+        /*
 		 * Create the gear between the minute hand and the hour hand
 		 */
-		GearJointDef gear_m2h = new GearJointDef();
+        val gear_m2h = GearJointDef()
 
-		/* Do the connections */
-		gear_m2h.bodyA = hand_minute.getBody();
-		gear_m2h.bodyB = hand_hour.getBody();
-		gear_m2h.joint1 = motor_minutes.getJoint();
-		gear_m2h.joint2 = motor_m2h.getJoint();
+        /* Do the connections */
+        gear_m2h.bodyA = hand_minute!!.body
+        gear_m2h.bodyB = hand_hour!!.body
+        gear_m2h.joint1 = motor_minutes.joint
+        gear_m2h.joint2 = motor_m2h.joint
 
-		/*
+        /*
 		 * Negative ratio because the minute and hour hand rotates the same
 		 * direction
 		 */
-		gear_m2h.ratio = -60;
-		world.createJoint(gear_m2h);
+        gear_m2h.ratio = -60f
+        world.createJoint(gear_m2h)
 
-		/*
+        /*
 		 * Start the clock, the second hand is running and the minute hand is
 		 * stopped
 		 */
-		motor_seconds.initializeMotor(MOTOR_SPEED_SECOND, 1.0f, true);
-		motor_minutes.initializeMotor(0.0f, 1.0f, true);
+        motor_seconds.initializeMotor(MOTOR_SPEED_SECOND, 1.0f, true)
+        motor_minutes.initializeMotor(0.0f, 1.0f, true)
 
-		System.out.println("click to switch debug/rendering mode");
-	}
+        println("click to switch debug/rendering mode")
+    }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
+    override fun onGraphicRender(g: GdxGraphics) {
 
-		/* Update the world physics */
-		PhysicsWorld.updatePhysics();
+        /* Update the world physics */
+        PhysicsWorld.updatePhysics()
 
-		/* Sync signal emulation using system time */
-		boolean sync_signal = new TimeFloat().second % 60.0 == 0.0;
+        /* Sync signal emulation using system time */
+        val sync_signal = TimeFloat().second % 60.0 == 0.0
 
-		/*
+        /*
 		 * Second hand logic
 		 *
 		 * Stop when vertical, start when sync_sygnal
 		 */
-		if (sync_signal) {
-			motor_seconds.setMotorSpeed(MOTOR_SPEED_SECOND);
-		} else {
-			double angle = -hand_second.getBody().getAngle() % (2 * Math.PI);
+        if (sync_signal) {
+            motor_seconds.motorSpeed = MOTOR_SPEED_SECOND
+        } else {
+            val angle = -hand_second!!.body.angle % (2 * Math.PI)
 
-			if (angle > 2 * Math.PI * 0.995 && motor_seconds.getSpeed() != 0.0) {
-				motor_seconds.setMotorSpeed(0.0f);
-			}
-		}
+            if (angle > 2.0 * Math.PI * 0.995 && motor_seconds.speed.toDouble() != 0.0) {
+                motor_seconds.motorSpeed = 0.0f
+            }
+        }
 
-		/*
+        /*
 		 * Minute hand logic
 		 *
 		 * Move from 1 minute when sync_signal
 		 */
-		if (sync_signal) {
-			motor_minutes.setMotorSpeed(MOTOR_SPEED_MINUTE);
-		} else {
-			motor_minutes.setMotorSpeed(0.0f);
-		}
+        if (sync_signal) {
+            motor_minutes.motorSpeed = MOTOR_SPEED_MINUTE
+        } else {
+            motor_minutes.motorSpeed = 0.0f
+        }
 
-		/* Get the size of the window */
-		final int w = getWindowWidth();
-		final int h = getWindowHeight();
+        /* Get the size of the window */
+        val w = windowWidth
+        val h = windowHeight
 
-		/* Clear the graphic to draw the new image */
-		g.clear();
+        /* Clear the graphic to draw the new image */
+        g.clear()
 
-		if (debug_rendering)
-		{
-			debugRenderer.render(world, g.getCamera().combined);
-			g.setColor(Color.WHITE);
-		}
-		else
-		{
-			/* Create a nice grey gradient for the background */
-			for (int i = 0; i <= h; i++) {
-				float c = 255 - i * 0.3f;
-				g.setColor(new Color(c / 255, c / 255, c / 255, 1.0f));
-				g.drawLine(0, h - i, w, h - i);
-			}
+        if (debug_rendering) {
+            debugRenderer!!.render(world, g.camera.combined)
+            g.setColor(Color.WHITE)
+        } else {
+            /* Create a nice grey gradient for the background */
+            for (i in 0..h) {
+                val c = 255 - i * 0.3f
+                g.setColor(Color(c / 255, c / 255, c / 255, 1.0f))
+                g.drawLine(0f, (h - i).toFloat(), w.toFloat(), (h - i).toFloat())
+            }
 
-			/* Draw the clock frame */
-			g.drawPicture(CLOCK_CENTER.x, CLOCK_CENTER.y, bitmapClock);
+            /* Draw the clock frame */
+            g.drawPicture(CLOCK_CENTER.x, CLOCK_CENTER.y, bitmapClock)
 
-			/* Draw the hands */
-			g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-					(float) (Math.toDegrees(hand_hour.getBody().getAngle())), 1.0f,
-					bitmapHour);
+            /* Draw the hands */
+            g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
+                    Math.toDegrees(hand_hour!!.body.angle.toDouble()).toFloat(), 1.0f,
+                    bitmapHour)
 
-			g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-					(float) (Math.toDegrees(hand_minute.getBody().getAngle())),
-					1.0f, bitmapMinute);
+            g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
+                    Math.toDegrees(hand_minute!!.body.angle.toDouble()).toFloat(),
+                    1.0f, bitmapMinute)
 
-			g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-					(float) (Math.toDegrees(hand_second.getBody().getAngle())),
-					1.0f, bitmapSecond);
-			g.setColor(Color.BLACK);
-		}
+            g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
+                    Math.toDegrees(hand_second!!.body.angle.toDouble()).toFloat(),
+                    1.0f, bitmapSecond)
+            g.setColor(Color.BLACK)
+        }
 
-		/* Display time in text */
-		g.drawString(w - 200, h - 10, "Famous clock from\r\n"
-				+ "the Swiss Railways.");
+        /* Display time in text */
+        g.drawString((w - 200).toFloat(), (h - 10).toFloat(), "Famous clock from\r\n" + "the Swiss Railways.")
 
-		g.drawString(w - 200, h - 80, displayTime());
+        g.drawString((w - 200).toFloat(), (h - 80).toFloat(), displayTime())
 
-		g.drawSchoolLogo();
-	}
+        g.drawSchoolLogo()
+    }
 
-	@Override
-	/**
-	 * Change shape on click
-	 */
-	public void onClick(int x, int y, int button) {
-		debug_rendering  = !debug_rendering;
-	}
+    override
+            /**
+             * Change shape on click
+             */
+    fun onClick(x: Int, y: Int, button: Int) {
+        debug_rendering = !debug_rendering
+    }
 
-	private String displayTime() {
-		// Return the current time as a String (hours:minutes:seconds)
-		DateFormat df = new SimpleDateFormat("HH:mm:ss");
-		return "Current time: " + df.format(new Date());
-	}
+    private fun displayTime(): String {
+        // Return the current time as a String (hours:minutes:seconds)
+        val df = SimpleDateFormat("HH:mm:ss")
+        return "Current time: " + df.format(Date())
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoRotateGears()
+        }
+    }
 
 }

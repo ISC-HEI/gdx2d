@@ -1,66 +1,49 @@
-package ch.hevs.gdx2d.demos.physics.pinball;
+package ch.hevs.gdx2d.demos.physics.pinball
 
-import ch.hevs.gdx2d.components.physics.PhysicsMotor;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import ch.hevs.gdx2d.components.physics.PhysicsMotor
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
 
 
-public class Flipper {
+class Flipper(name: String, position: Vector2, width: Float, height: Float, angle: Float, angle_var: Float, protected var sprites: Array<TextureRegion>) {
+    protected var flipper: PhysicsBox
+    protected var motor: PhysicsMotor
 
-	class Sub extends PhysicsBox implements DrawableObject {
+    internal inner class Sub(name: String, position: Vector2, private val width: Float, private val height: Float, angle: Float, density: Float, restitution: Float, friction: Float) : PhysicsBox("name" + "_flipper", position, width, height, 4.0f, 0.3f, 0.6f, angle), DrawableObject {
 
-		private float width;
-		private float height;
+        override fun draw(g: GdxGraphics) {
+            val currentLFFrame = Math.abs(bodyAngleDeg).toInt() % sprites.size
+            val w = sprites[currentLFFrame].regionWidth.toFloat()
+            val h = sprites[currentLFFrame].regionHeight.toFloat()
+            g.draw(sprites[currentLFFrame], bodyPosition.x - w / 2, bodyPosition.y - h / 2, w / 2, h / 2, w, h, width / w, height / h, bodyAngleDeg)
+        }
+    }
 
-		Sub(String name, Vector2 position, float width, float height, float angle, float density, float restitution, float friction)
-		{
-			super("name"+"_flipper", position, width, height, 4.0f, 0.3f, 0.6f, angle);
-			this.width = width;
-			this.height = height;
-		}
+    init {
 
-		@Override
-		public void draw(GdxGraphics g) {
-			int currentLFFrame = ((int) Math.abs(getBodyAngleDeg()))%sprites.length;
-			float w = sprites[currentLFFrame].getRegionWidth();
-			float h = sprites[currentLFFrame].getRegionHeight();
-			g.draw(sprites[currentLFFrame], getBodyPosition().x-w/2, getBodyPosition().y-h/2, w/2, h/2, w, h, width/w, height/h, getBodyAngleDeg());
-		}
-	}
+        val frame = PhysicsStaticBox(name + "_frame", position, .1f, .1f)
+        val flipper_pos = Vector2(position).add(Vector2(width / 2, 0f).rotate(angle))
 
-	protected TextureRegion[] sprites;
-	protected PhysicsBox flipper;
-	protected PhysicsMotor motor;
+        flipper = Sub("name" + "_flipper", flipper_pos, width, height, Math.toRadians(angle.toDouble()).toFloat(), 4.0f, 0.3f, 0.6f)
+        motor = PhysicsMotor(frame.body, flipper.body, frame.body.worldCenter)
 
-	public Flipper(String name, Vector2 position, float width, float height, float angle, float angle_var, TextureRegion sprites[]) {
+        if (angle_var > 0) {
+            motor.setLimits(motor.angle, motor.angle + Math.toRadians(angle_var.toDouble()).toFloat())
+            println("limist = " + Math.toDegrees(motor.angle.toDouble()) + " , " + angle_var)
+            motor.initializeMotor(50f, 50f, false)
+        } else {
+            println("limist = " + Math.toDegrees(motor.angle.toDouble()) + " , " + angle_var)
+            motor.setLimits(motor.angle + Math.toRadians(angle_var.toDouble()).toFloat(), motor.angle)
+            motor.initializeMotor(-50f, 50f, false)
+        }
+        motor.enableLimit(true)
+    }
 
-		PhysicsStaticBox frame = new PhysicsStaticBox(name +"_frame", position, .1f, .1f);
-		Vector2 flipper_pos = new Vector2(position).add(new Vector2(width/2, 0).rotate(angle));
-
-		flipper = new Sub("name"+"_flipper", flipper_pos, width, height, (float)Math.toRadians(angle), 4.0f, 0.3f, 0.6f);
-		motor = new PhysicsMotor(frame.getBody(), flipper.getBody(), frame.getBody().getWorldCenter());
-		this.sprites = sprites;
-
-		if (angle_var > 0)
-		{
-			motor.setLimits(motor.getAngle(), motor.getAngle()+ (float)Math.toRadians(angle_var));
-			System.out.println("limist = " + Math.toDegrees(motor.getAngle()) + " , "+ angle_var);
-			motor.initializeMotor(50f, 50f, false);
-		}
-		else
-		{
-			System.out.println("limist = " + Math.toDegrees(motor.getAngle()) + " , "+ angle_var);
-			motor.setLimits(motor.getAngle()+ (float)Math.toRadians(angle_var), motor.getAngle());
-			motor.initializeMotor(-50f, 50f, false);
-		}
-		motor.enableLimit(true);
-	}
-
-	public void power(boolean on) {
-		motor.enableMotor(on);
-	}
+    fun power(on: Boolean) {
+        motor.enableMotor(on)
+    }
 }

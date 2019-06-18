@@ -1,17 +1,17 @@
-package ch.hevs.gdx2d.demos.physics.car;
+package ch.hevs.gdx2d.demos.physics.car
 
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import ch.hevs.gdx2d.lib.utils.Logger
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
 
-import ch.hevs.gdx2d.demos.physics.car.components.Car;
+import ch.hevs.gdx2d.demos.physics.car.components.Car
 
 
 /**
@@ -21,72 +21,74 @@ import ch.hevs.gdx2d.demos.physics.car.components.Car;
  * @author Pierre-André Mudry
  * @version 1.1
  */
-public class DemoCarDriving extends PortableApplication {
+class DemoCarDriving : PortableApplication() {
 
-	DebugRenderer dbgRenderer;
-	World world = PhysicsWorld.getInstance();
-	Car c1;
+    internal lateinit var dbgRenderer: DebugRenderer
+    internal var world = PhysicsWorld.getInstance()
+    internal lateinit var c1: Car
 
-	public static void main(String[] args) {
-		new DemoCarDriving();
-	}
+    override fun onInit() {
+        setTitle("Car driving")
+        Logger.log("Use the arrows to move the car")
 
-	@Override
-	public void onInit() {
-		setTitle("Car driving");
-		Logger.log("Use the arrows to move the car");
+        // No gravity in this world
+        world.gravity = Vector2(0f, 0f)
 
-		// No gravity in this world
-		world.setGravity(new Vector2(0, 0));
+        dbgRenderer = DebugRenderer()
 
-		dbgRenderer = new DebugRenderer();
+        // Create the obstacles in the scene
+        PhysicsScreenBoundaries(windowWidth.toFloat(), windowHeight.toFloat())
 
-		// Create the obstacles in the scene
-		new PhysicsScreenBoundaries(getWindowWidth(), getWindowHeight());
+        // Our car
+        c1 = Car(30f, 70f, Vector2(200f, 200f), Math.PI.toFloat(), 10f, 30f, 15f)
+    }
 
-		// Our car
-		c1 = new Car(30, 70, new Vector2(200, 200), (float) Math.PI, 10, 30, 15);
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        // Physics update
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
 
-		// Physics update
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+        /**
+         * Move the car according to key presses
+         */
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
+            c1.accelerate = true
+        else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
+            c1.brake = true
+        else {
+            c1.accelerate = false
+            c1.brake = false
+        }
 
-		/**
-		 * Move the car according to key presses
-		 */
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-			c1.accelerate = true;
-		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-			c1.brake = true;
-		else {
-			c1.accelerate = false;
-			c1.brake = false;
-		}
+        /**
+         * Turn the car according to key presses
+         */
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
+            c1.steer_left = true
+            c1.steer_right = false
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
+            c1.steer_right = true
+            c1.steer_left = false
+        } else {
+            c1.steer_left = false
+            c1.steer_right = false
+        }
 
-		/**
-		 * Turn the car according to key presses
-		 */
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
-			c1.steer_left = true;
-			c1.steer_right = false;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
-			c1.steer_right = true;
-			c1.steer_left = false;
-		} else {
-			c1.steer_left = false;
-			c1.steer_right = false;
-		}
+        c1.update(Gdx.graphics.deltaTime)
+        c1.draw(g)
 
-		c1.update(Gdx.graphics.getDeltaTime());
-		c1.draw(g);
+        dbgRenderer.render(world, g.camera.combined)
 
-		dbgRenderer.render(world, g.getCamera().combined);
+        g.drawFPS()
+        g.drawSchoolLogo()
+    }
 
-		g.drawFPS();
-		g.drawSchoolLogo();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoCarDriving()
+        }
+    }
 }

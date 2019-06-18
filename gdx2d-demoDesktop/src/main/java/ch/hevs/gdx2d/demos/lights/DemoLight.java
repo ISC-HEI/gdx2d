@@ -1,25 +1,25 @@
-package ch.hevs.gdx2d.demos.lights;
+package ch.hevs.gdx2d.demos.lights
 
-import box2dLight.ConeLight;
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle;
-import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants;
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import box2dLight.ConeLight
+import box2dLight.PointLight
+import box2dLight.RayHandler
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle
+import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.math.Matrix4
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.ArrayList
+import java.util.Random
 
 /**
  * Demonstrates the usage of shadows and lights in GDX2D
@@ -27,143 +27,145 @@ import java.util.Random;
  * @author Pierre-André Mudry (mui)
  * @version 1.05
  */
-public class DemoLight extends PortableApplication {
+class DemoLight : PortableApplication() {
 
-	// Physics-related attributes
-	RayHandler rayHandler;
-	World world;
-	DebugRenderer debugRenderer;
-	ArrayList<PhysicsCircle> list = new ArrayList<PhysicsCircle>();
+    // Physics-related attributes
+    internal lateinit var rayHandler: RayHandler
+    internal lateinit var world: World
+    internal lateinit var debugRenderer: DebugRenderer
+    internal var list = ArrayList<PhysicsCircle>()
 
-	// Light related attributes
-	PointLight p;
-	ConeLight c1, c2;
-	int width, height;
-	private boolean firstRun = true;
+    // Light related attributes
+    internal lateinit var p: PointLight
+    internal lateinit var c1: ConeLight
+    internal lateinit var c2: ConeLight
+    internal var width: Int = 0
+    internal var height: Int = 0
+    private var firstRun = true
 
-	public static void main(String[] args) {
-		new DemoLight();
-	}
+    override fun onInit() {
+        width = Gdx.graphics.width
+        height = Gdx.graphics.height
+        setTitle("Shadows and lights, mui 2013")
 
-	@Override
-	public void onInit() {
-		width = Gdx.graphics.getWidth();
-		height = Gdx.graphics.getHeight();
-		setTitle("Shadows and lights, mui 2013");
+        Gdx.app.log("[DemoLights]", "Left click to create a new light")
+        Gdx.app.log("[DemoLights]", "Right click disables normal light")
 
-		Gdx.app.log("[DemoLights]", "Left click to create a new light");
-		Gdx.app.log("[DemoLights]", "Right click disables normal light");
+        world = PhysicsWorld.getInstance()
+        world.gravity = Vector2(0f, 0f)
 
-		world = PhysicsWorld.getInstance();
-		world.setGravity(new Vector2(0, 0));
+        // The light manager
+        rayHandler = RayHandler(world)
 
-		// The light manager
-		rayHandler = new RayHandler(world);
+        // This is the light controlled by the mouse click and drag
+        p = PointLight(rayHandler, 200, Color.YELLOW, 10f,
+                (width / 2 - 50).toFloat(),
+                (height / 2 + 150).toFloat())
 
-		// This is the light controlled by the mouse click and drag
-		p = new PointLight(rayHandler, 200, Color.YELLOW, 10,
-				width / 2 - 50,
-				height / 2 + 150);
+        p.distance = 10f
+        p.color = Color(0.9f, 0f, 0.9f, 0.9f)
+        p.isActive = false
 
-		p.setDistance(10);
-		p.setColor(new Color(0.9f, 0f, 0.9f, 0.9f));
-		p.setActive(false);
+        p.isSoft = true
 
-		p.setSoft(true);
+        // The two light cones that are always present
+        c1 = ConeLight(rayHandler, 300, Color(1f, 1f, 1f, 0.92f), 14f,
+                0.2f * width.toFloat() * PhysicsConstants.PIXEL_TO_METERS,
+                0.9f * height.toFloat() * PhysicsConstants.PIXEL_TO_METERS,
+                270f, 40f)
+        c2 = ConeLight(rayHandler, 300, Color(0.1f, 0.1f, 1f, 0.92f), 14f,
+                0.8f * width.toFloat() * PhysicsConstants.PIXEL_TO_METERS,
+                0.9f * height.toFloat() * PhysicsConstants.PIXEL_TO_METERS,
+                270f, 40f)
 
-		// The two light cones that are always present
-		c1 = new ConeLight(rayHandler, 300, new Color(1, 1, 1, 0.92f), 14,
-				0.2f * width * PhysicsConstants.PIXEL_TO_METERS,
-				0.9f * height * PhysicsConstants.PIXEL_TO_METERS,
-				270, 40);
-		c2 = new ConeLight(rayHandler, 300, new Color(0.1f, 0.1f, 1, 0.92f), 14,
-				0.8f * width * PhysicsConstants.PIXEL_TO_METERS,
-				0.9f * height * PhysicsConstants.PIXEL_TO_METERS,
-				270, 40);
+        rayHandler.setCulling(true)
+        rayHandler.setShadows(true)
+        rayHandler.setBlur(true)
+        rayHandler.setAmbientLight(0.4f)
 
-		rayHandler.setCulling(true);
-		rayHandler.setShadows(true);
-		rayHandler.setBlur(true);
-		rayHandler.setAmbientLight(0.4f);
+        PhysicsScreenBoundaries(width.toFloat(), height.toFloat())
+        createRandomCircles(10)
 
-		new PhysicsScreenBoundaries(width, height);
-		createRandomCircles(10);
+        debugRenderer = DebugRenderer()
+    }
 
-		debugRenderer = new DebugRenderer();
-	}
+    /**
+     * Creates n physics objects that will then cast shadows
+     *
+     * @param n The number of physics object to create
+     */
+    protected fun createRandomCircles(n: Int) {
+        var n = n
 
-	/**
-	 * Creates n physics objects that will then cast shadows
-	 *
-	 * @param n The number of physics object to create
-	 */
-	protected void createRandomCircles(int n) {
+        val r = Random()
 
-		Random r = new Random();
+        while (n > 0) {
+            val position = Vector2((width * Math.random()).toFloat(), (height * Math.random()).toFloat())
+            val circle = PhysicsCircle("circle", position, 10f, 1.2f, 1f, 0.01f)
+            circle.setBodyLinearVelocity(r.nextFloat() * 3, r.nextFloat() * 3)
+            n--
 
-		while (n > 0) {
-			Vector2 position = new Vector2((float) (width * Math.random()), (float) (height * Math.random()));
-			PhysicsCircle circle = new PhysicsCircle("circle", position, 10, 1.2f, 1, 0.01f);
-			circle.setBodyLinearVelocity(r.nextFloat() * 3, r.nextFloat() * 3);
-			n--;
+            // Only add the body, the rest is useless
+            list.add(circle)
+        }
+    }
 
-			// Only add the body, the rest is useless
-			list.add(circle);
-		}
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        if (firstRun) {
+            val other = OrthographicCamera()
+            other.setToOrtho(false)
+            val cmb = other.combined.scl(PhysicsConstants.METERS_TO_PIXELS)
+            rayHandler.setCombinedMatrix(cmb)
+            firstRun = false
+        }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		if (firstRun) {
-			OrthographicCamera other = new OrthographicCamera();
-			other.setToOrtho(false);
-			Matrix4 cmb = other.combined.scl(PhysicsConstants.METERS_TO_PIXELS);
-			rayHandler.setCombinedMatrix(cmb);
-			firstRun = false;
-		}
+        g.clear()
 
-		g.clear();
+        // Render the blue spheres
+        for (b in list) {
+            val pos = b.bodyPosition
+            g.drawFilledCircle(pos.x, pos.y, 12f, Color.MAGENTA)
+        }
 
-		// Render the blue spheres
-		for (PhysicsCircle b : list) {
-			final Vector2 pos = b.getBodyPosition();
-			g.drawFilledCircle(pos.x, pos.y, 12, Color.MAGENTA);
-		}
+        // Render the lights
+        g.beginCustomRendering()
+        rayHandler.updateAndRender()
+        g.endCustomRendering()
 
-		// Render the lights
-		g.beginCustomRendering();
-		rayHandler.updateAndRender();
-		g.endCustomRendering();
+        // Update the physics
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
 
-		// Update the physics
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+        g.drawSchoolLogo()
+        g.drawFPS()
+    }
 
-		g.drawSchoolLogo();
-		g.drawFPS();
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        if (button == Input.Buttons.RIGHT) {
+            c1.isActive = !c1.isActive
+            c2.isActive = !c2.isActive
+        }
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		if (button == Input.Buttons.RIGHT) {
-			c1.setActive(!c1.isActive());
-			c2.setActive(!c2.isActive());
-		}
+        // Turn on the light when pushing button
+        if (button == Input.Buttons.LEFT) {
+            p.isActive = true
+            p.setPosition(x * PhysicsConstants.PIXEL_TO_METERS, y * PhysicsConstants.PIXEL_TO_METERS)
+        }
+    }
 
-		// Turn on the light when pushing button
-		if (button == Input.Buttons.LEFT) {
-			p.setActive(true);
-			p.setPosition(x * PhysicsConstants.PIXEL_TO_METERS, y * PhysicsConstants.PIXEL_TO_METERS);
-		}
-	}
+    override fun onDrag(x: Int, y: Int) {
+        p.setPosition(x * PhysicsConstants.PIXEL_TO_METERS, y * PhysicsConstants.PIXEL_TO_METERS)
+    }
 
-	@Override
-	public void onDrag(int x, int y) {
-		p.setPosition(x * PhysicsConstants.PIXEL_TO_METERS, y * PhysicsConstants.PIXEL_TO_METERS);
-	}
+    override fun onRelease(x: Int, y: Int, button: Int) {
+        // Turn off the light when releasing button
+        p.isActive = false
+    }
 
-	@Override
-	public void onRelease(int x, int y, int button) {
-		// Turn off the light when releasing button
-		p.setActive(false);
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoLight()
+        }
+    }
 }

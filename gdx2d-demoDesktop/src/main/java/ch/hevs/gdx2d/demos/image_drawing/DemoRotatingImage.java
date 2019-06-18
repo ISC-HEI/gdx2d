@@ -1,6 +1,6 @@
-package ch.hevs.gdx2d.demos.image_drawing;
+package ch.hevs.gdx2d.demos.image_drawing
 
-import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.lib.GdxGraphics
 
 /**
  * Demo application to demonstrate how to rotate an image
@@ -8,42 +8,44 @@ import ch.hevs.gdx2d.lib.GdxGraphics;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoRotatingImage extends DemoSimpleImage {
+class DemoRotatingImage : DemoSimpleImage() {
 
-	public static void main(String[] args) {
-		new DemoRotatingImage();
-	}
+    override fun onInit() {
+        super.onInit()
+        this.setTitle("Rotating image, mui 2013")
+    }
 
-	@Override
-	public void onInit() {
-		super.onInit();
-		this.setTitle("Rotating image, mui 2013");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        /**
+         * Rendering
+         */
+        // Clear the screen
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		/**
-		 * Rendering
-		 */
-		// Clear the screen
-		g.clear();
+        // Render an image which turns with scale
+        g.drawTransformedPicture((windowWidth / 2).toFloat(), (windowHeight / 2).toFloat(),
+                counter,
+                1f,
+                imgBitmap)
 
-		// Render an image which turns with scale
-		g.drawTransformedPicture(getWindowWidth() / 2, getWindowHeight() / 2,
-				counter,
-				1,
-				imgBitmap);
+        g.drawFPS()        // Draws the number of frame per second
+        g.drawSchoolLogo() // Draws the school logo
 
-		g.drawFPS();        // Draws the number of frame per second
-		g.drawSchoolLogo(); // Draws the school logo
+        /**
+         * Logic update
+         */
+        if (counter >= 360)
+            counter = 0f
 
-		/**
-		 * Logic update
-		 */
-		if (counter >= 360)
-			counter = 0;
+        // Make the angle bigger
+        counter += 1f
+    }
 
-		// Make the angle bigger
-		counter += 1;
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoRotatingImage()
+        }
+    }
 }

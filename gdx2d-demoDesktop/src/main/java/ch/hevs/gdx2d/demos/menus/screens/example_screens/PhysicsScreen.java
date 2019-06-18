@@ -1,66 +1,64 @@
-package ch.hevs.gdx2d.demos.menus.screens.example_screens;
+package ch.hevs.gdx2d.demos.menus.screens.example_screens
 
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.components.screen_management.RenderingScreen;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsCircle
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.components.screen_management.RenderingScreen
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
 
 /**
  * A screen to check that physics work in screens
  */
-public class PhysicsScreen extends RenderingScreen {
-	// Contains all the objects that will be simulated
-	World world = PhysicsWorld.getInstance();
-	PhysicsCircle ball;
-	DebugRenderer debugRenderer;
+class PhysicsScreen : RenderingScreen() {
+    // Contains all the objects that will be simulated
+    internal var world = PhysicsWorld.getInstance()
+    internal lateinit var ball: PhysicsCircle
+    internal lateinit var debugRenderer: DebugRenderer
 
-	@Override
-	public void onInit() {
-		int w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
+    override fun onInit() {
+        val w = Gdx.graphics.width
+        val h = Gdx.graphics.height
 
-		// Build the walls around the screen
-		new PhysicsScreenBoundaries(w, h);
+        // Build the walls around the screen
+        PhysicsScreenBoundaries(w.toFloat(), h.toFloat())
 
-		// The slope on which the objects roll
-		new PhysicsStaticBox("slope", new Vector2(w / 2, h / 2), w / 3 * 2, 16, (float) Math.PI / 12.0f);
+        // The slope on which the objects roll
+        PhysicsStaticBox("slope", Vector2((w / 2).toFloat(), (h / 2).toFloat()), (w / 3 * 2).toFloat(), 16f, Math.PI.toFloat() / 12.0f)
 
-		// Build the falling object
-		ball = new PhysicsCircle("none", new Vector2(w * 0.7f, h - 0.1f * h), 12, 0.5f, 0.3f, 0.3f);
-		ball.setBodyLinearVelocity(-1f, 1);
+        // Build the falling object
+        ball = PhysicsCircle("none", Vector2(w * 0.7f, h - 0.1f * h), 12f, 0.5f, 0.3f, 0.3f)
+        ball.setBodyLinearVelocity(-1f, 1f)
 
-		// Build the dominoes
-		int nDominoes = 20;
-		int dominoSpace = (w - 60) / nDominoes;
+        // Build the dominoes
+        val nDominoes = 20
+        val dominoSpace = (w - 60) / nDominoes
 
-		for (int i = 0; i < nDominoes; i++) {
-			new PhysicsBox("box" + i, new Vector2(60 + i * dominoSpace, 120), 6, 60, 0.1f, 0.1f, 0.3f);
-		}
+        for (i in 0 until nDominoes) {
+            PhysicsBox("box$i", Vector2((60 + i * dominoSpace).toFloat(), 120f), 6f, 60f, 0.1f, 0.1f, 0.3f)
+        }
 
-		debugRenderer = new DebugRenderer();
-	}
+        debugRenderer = DebugRenderer()
+    }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+    public override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-		debugRenderer.render(world, g.getCamera().combined);
-		PhysicsWorld.updatePhysics(Gdx.graphics.getRawDeltaTime());
-		g.drawStringCentered(g.getScreenHeight() / 2, "2 - Main game screen");
+        debugRenderer.render(world, g.camera.combined)
+        PhysicsWorld.updatePhysics(Gdx.graphics.rawDeltaTime)
+        g.drawStringCentered((g.screenHeight / 2).toFloat(), "2 - Main game screen")
 
-		g.drawSchoolLogoUpperRight();
-		g.drawFPS();
-	}
+        g.drawSchoolLogoUpperRight()
+        g.drawFPS()
+    }
 
-	@Override
-	public void dispose() {
-		super.dispose();
-		PhysicsWorld.getInstance().dispose();
-	}
+    override fun dispose() {
+        super.dispose()
+        PhysicsWorld.getInstance().dispose()
+    }
 }

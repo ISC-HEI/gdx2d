@@ -1,10 +1,10 @@
-package ch.hevs.gdx2d.demos.gestures;
+package ch.hevs.gdx2d.demos.gestures
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.utils.Logger
+import com.badlogic.gdx.graphics.OrthographicCamera
 
 /**
  * Simple demo for gestures on Android.
@@ -12,57 +12,56 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
  * @author Pierre-André Mudry (mui)
  * @version 1.01
  */
-public class DemoGesture extends PortableApplication {
+class DemoGesture : PortableApplication() {
 
-	BitmapImage image;
+    internal lateinit var image: BitmapImage
 
-	OrthographicCamera cam = null;
-	float initialScale = 1.0f;
+    internal var cam: OrthographicCamera? = null
+    internal var initialScale = 1.0f
 
-	public DemoGesture() {
-		if (!onAndroid()) {
-			Logger.error("This demo only works on Android! Exiting");
-			exit();
-		}
-	}
+    init {
+        if (!onAndroid()) {
+            Logger.error("This demo only works on Android! Exiting")
+            exit()
+        }
+    }
 
-	public static void main(String[] args) {
-		new DemoGesture();
-	}
+    override fun onZoom(initialDistance: Float, distance: Float) {
+        val ratio = initialDistance / distance
+        cam!!.zoom = initialScale * ratio
+        cam!!.update()
+    }
 
-	@Override
-	public void onZoom(float initialDistance, float distance) {
-		float ratio = initialDistance / distance;
-		cam.zoom = initialScale * ratio;
-		cam.update();
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        initialScale = cam!!.zoom
+    }
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		initialScale = cam.zoom;
-	}
+    override fun onPan(x: Float, y: Float, deltaX: Float, deltaY: Float) {
+        cam!!.position.add(-deltaX * cam!!.zoom, deltaY * cam!!.zoom, 0f)
+        cam!!.update()
+    }
 
-	@Override
-	public void onPan(float x, float y, float deltaX, float deltaY) {
-		cam.position.add(-deltaX * cam.zoom, deltaY * cam.zoom, 0);
-		cam.update();
-	}
+    override fun onInit() {
+        image = BitmapImage("images/Android_PI_48x48.png")
+    }
 
-	@Override
-	public void onInit() {
-		image = new BitmapImage("images/Android_PI_48x48.png");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        if (cam == null)
+            cam = g.camera
 
-		if (cam == null)
-			cam = g.getCamera();
+        g.drawPicture((windowWidth / 2).toFloat(), (windowHeight / 2).toFloat(), image)
+        g.drawSchoolLogoUpperRight()
+        g.drawFPS()
+    }
 
-		g.drawPicture(getWindowWidth() / 2, getWindowHeight() / 2, image);
-		g.drawSchoolLogoUpperRight();
-		g.drawFPS();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoGesture()
+        }
+    }
 
 }

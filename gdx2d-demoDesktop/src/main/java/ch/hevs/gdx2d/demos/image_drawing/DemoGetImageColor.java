@@ -1,80 +1,87 @@
-package ch.hevs.gdx2d.demos.image_drawing;
+package ch.hevs.gdx2d.demos.image_drawing
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.utils.Logger
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector2
 
 /**
- * Demonstrates the use of the {@link BitmapImage#getColor(int, int)} function on
+ * Demonstrates the use of the [BitmapImage.getColor] function on
  * a real case.
  *
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoGetImageColor extends PortableApplication {
-	BitmapImage imgBitmap;
+class DemoGetImageColor : PortableApplication() {
+    internal lateinit var imgBitmap: BitmapImage
 
-	float alpha1 = 0.06f, alpha2 = 0.3f, alpha3 = 0.6f, alpha4 = 0.94f;
-	int dir1 = 1, dir2 = 1, dir3 = 1, dir4 = 1;
+    internal var alpha1 = 0.06f
+    internal var alpha2 = 0.3f
+    internal var alpha3 = 0.6f
+    internal var alpha4 = 0.94f
+    internal var dir1 = 1
+    internal var dir2 = 1
+    internal var dir3 = 1
+    internal var dir4 = 1
 
-	public static void main(String[] args) {
-		new DemoGetImageColor();
-	}
+    override fun onInit() {
+        // Sets the window title
+        setTitle("Get image color, mui 2014")
 
-	@Override
-	public void onInit() {
-		// Sets the window title
-		setTitle("Get image color, mui 2014");
+        Logger.log("Move the mouse on the image to get their color")
 
-		Logger.log("Move the mouse on the image to get their color");
+        // Loads the image that will be displayed in the middle of the screen
+        imgBitmap = BitmapImage("images/color_pattern.png")
+    }
 
-		// Loads the image that will be displayed in the middle of the screen
-		imgBitmap = new BitmapImage("images/color_pattern.png");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        // Clear the screen
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		// Clear the screen
-		g.clear();
+        /**
+         * Position of the image on the screen
+         */
+        val imagePosition = Vector2(100f, 100f)
 
-		/**
-		 * Position of the image on the screen
-		 */
-		Vector2 imagePosition = new Vector2(100, 100);
+        /**
+         * Position we want to read the color of
+         */
+        val sampledPixel = Vector2(Gdx.input.x.toFloat(), (Gdx.graphics.height - Gdx.input.y).toFloat())
 
-		/**
-		 * Position we want to read the color of
-		 */
-		Vector2 sampledPixel = new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+        g.drawPicture(imagePosition.x, imagePosition.y, imgBitmap)
 
-		g.drawPicture(imagePosition.x, imagePosition.y, imgBitmap);
+        /**
+         * To get the color of a pixel in an image, we
+         * must get translate screen coordinates to image coordinates
+         * This is the role of the following function
+         */
+        val imgPixel = imgBitmap.pixelInScreenSpace(sampledPixel, imagePosition)
 
-		/**
-		 * To get the color of a pixel in an image, we
-		 * must get translate screen coordinates to image coordinates
-		 * This is the role of the following function
-		 */
-		Vector2 imgPixel = imgBitmap.pixelInScreenSpace(sampledPixel, imagePosition);
+        if (imgBitmap.isContained(imgPixel)) {
+            val c = imgBitmap.getColor(imgPixel.x.toInt(), imgPixel.y.toInt())
 
-		if (imgBitmap.isContained(imgPixel)) {
-			Color c = imgBitmap.getColor((int) imgPixel.x, (int) imgPixel.y);
+            // Draw a circle corresponding to the read color
+            g.drawStringCentered(300f, "Color read from the image")
+            g.drawFilledCircle(250f, 250f, 20f, c)
+        }
 
-			// Draw a circle corresponding to the read color
-			g.drawStringCentered(300, "Color read from the image");
-			g.drawFilledCircle(250, 250, 20, c);
-		}
+        g.drawFPS()        // Draws the number of frame per second
+        g.drawSchoolLogo() // Draws the school logo
+    }
 
-		g.drawFPS();        // Draws the number of frame per second
-		g.drawSchoolLogo(); // Draws the school logo
-	}
+    override fun onDispose() {
+        super.onDispose()
+        imgBitmap.dispose()
+    }
 
-	@Override
-	public void onDispose() {
-		super.onDispose();
-		imgBitmap.dispose();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoGetImageColor()
+        }
+    }
 }

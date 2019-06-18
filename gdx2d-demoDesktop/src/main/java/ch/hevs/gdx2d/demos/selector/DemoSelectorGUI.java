@@ -1,24 +1,22 @@
-package ch.hevs.gdx2d.demos.selector;
+package ch.hevs.gdx2d.demos.selector
 
-import ch.hevs.gdx2d.demos.simple.DemoCircles;
-import ch.hevs.gdx2d.desktop.Game2D;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.Version;
-import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.javaswingcomponents.accordion.JSCAccordion;
-import com.javaswingcomponents.accordion.TabOrientation;
-import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI;
+import ch.hevs.gdx2d.demos.simple.DemoCircles
+import ch.hevs.gdx2d.desktop.Game2D
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.Version
+import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas
+import com.javaswingcomponents.accordion.JSCAccordion
+import com.javaswingcomponents.accordion.TabOrientation
+import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import javax.swing.*
+import javax.swing.border.EmptyBorder
+import javax.swing.event.ListSelectionEvent
+import javax.swing.event.ListSelectionListener
+import java.awt.*
+import java.awt.event.*
+import java.util.ArrayList
+import java.util.LinkedHashMap
 
 /**
  * A demo selector class, most of the code taken from Libgdx own demo selector.
@@ -27,264 +25,239 @@ import java.util.Map;
  * @author Christopher Métrailler (mei)
  * @version 2.1
  */
-@SuppressWarnings({"serial"})
-public class DemoSelectorGUI extends JFrame {
+class DemoSelectorGUI @Throws(Exception::class)
+constructor() : JFrame("Demos gdx2d " + Version.VERSION) {
 
-	private List<LwjglAWTCanvas> canvasList = new ArrayList<LwjglAWTCanvas>();
+    private val canvasList = ArrayList<LwjglAWTCanvas>()
 
-	private JPanel container = new JPanel();
+    private val container = JPanel()
 
-	public DemoSelectorGUI() throws Exception {
-		super("Demos gdx2d " + Version.VERSION);
+    init {
 
-		// TODO: configuration this way is ugly...
-		PortableApplication.CreateLwjglApplication = false;
+        // TODO: configuration this way is ugly...
+        PortableApplication.CreateLwjglApplication = false
 
-		setResizable(false);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout());
-		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        isResizable = false
+        defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+        contentPane.layout = BorderLayout()
+        componentOrientation = ComponentOrientation.LEFT_TO_RIGHT
 
-		// Populate the window
-		getContentPane().add(new TestList(), BorderLayout.WEST);
+        // Populate the window
+        contentPane.add(TestList(), BorderLayout.WEST)
 
-		// Add the starting demo
-		LwjglAWTCanvas canvas = new LwjglAWTCanvas(new Game2D(new DemoCircles()).withoutController());
-		canvas.getCanvas().setSize(500, 500);
-		container.add(canvas.getCanvas());
-		canvasList.add(canvas);
-		getContentPane().add(container, BorderLayout.EAST);
+        // Add the starting demo
+        val canvas = LwjglAWTCanvas(Game2D(DemoCircles()).withoutController())
+        canvas.canvas.setSize(500, 500)
+        container.add(canvas.canvas)
+        canvasList.add(canvas)
+        contentPane.add(container, BorderLayout.EAST)
 
-		pack();
-		setLocationRelativeTo(null);
-		setVisible(true);
-	}
+        pack()
+        setLocationRelativeTo(null)
+        isVisible = true
+    }
 
-	/**
-	 * Display all available demos classed in categories.
-	 */
-	private class TestList extends JPanel {
+    /**
+     * Display all available demos classed in categories.
+     */
+    private inner class TestList internal constructor() : JPanel() {
 
-		private Map<String, SelectedDemos.DemoDescriptor> demosMap;
+        private lateinit var demosMap: MutableMap<String, SelectedDemos.DemoDescriptor>
 
-		/* GUI components */
-		private JSCAccordion accordion = new JSCAccordion();
-		private RunButton btRun = new RunButton();
-		private JTextPane paneComments = new JTextPane();
+        /* GUI components */
+        private val accordion = JSCAccordion()
+        private val btRun = RunButton()
+        private val paneComments = JTextPane()
 
-		/* GUI preferences */
-		private String selectedDemoName = null;
+        /* GUI preferences */
+        private var selectedDemoName : String? = null
 
-		TestList() {
-			setLayout(new BorderLayout());
-			setIcon();
-			createMenus();
-			setupAccordeon();
-			setPreferredSize(new Dimension(500, 500));
-			setBorder(new EmptyBorder(5, 5, 5, 5));
+        init {
+            layout = BorderLayout()
+            setIcon()
+            createMenus()
+            setupAccordeon()
+            preferredSize = Dimension(500, 500)
+            border = EmptyBorder(5, 5, 5, 5)
 
-			add(accordion, BorderLayout.CENTER);
+            add(accordion, BorderLayout.CENTER)
 
-			JPanel p = new JPanel();
-			p.setBackground(new Color(0xffffff));
-			p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
+            val p = JPanel()
+            p.background = Color(0xffffff)
+            p.layout = BoxLayout(p, BoxLayout.X_AXIS)
 
-			p.add(Box.createRigidArea(new Dimension(10, 0)));
-			p.add(btRun);
-			p.add(Box.createRigidArea(new Dimension(10, 0)));
-			p.add(paneComments);
-			add(p, BorderLayout.SOUTH);
-		}
+            p.add(Box.createRigidArea(Dimension(10, 0)))
+            p.add(btRun)
+            p.add(Box.createRigidArea(Dimension(10, 0)))
+            p.add(paneComments)
+            add(p, BorderLayout.SOUTH)
+        }
 
-		private void setIcon() {
-			List<Image> icons = new ArrayList<Image>();
-			icons.add(new ImageIcon(getClass().getResource("/selector/icon16.png")).getImage());
-      icons.add(new ImageIcon(getClass().getResource("/selector/icon32.png")).getImage());
-      icons.add(new ImageIcon(getClass().getResource("/selector/icon64.png")).getImage());
-			setIconImages(icons);
-		}
+        private fun setIcon() {
+            val icons = ArrayList<Image>()
+            icons.add(ImageIcon(javaClass.getResource("/selector/icon16.png")).getImage())
+            icons.add(ImageIcon(javaClass.getResource("/selector/icon32.png")).getImage())
+            icons.add(ImageIcon(javaClass.getResource("/selector/icon64.png")).getImage())
+            setIconImages(icons)
+        }
 
-		private void createMenus() {
-			JMenuBar bar = new JMenuBar();
-			JMenu about = new JMenu("Help");
-			JMenuItem it = new JMenuItem("About");
-			it.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_MASK));
-			it.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					new AboutDialog(DemoSelectorGUI.this).setVisible();
-				}
-			});
-			about.add(it);
+        private fun createMenus() {
+            val bar = JMenuBar()
+            val about = JMenu("Help")
+            val it = JMenuItem("About")
+            it.accelerator = KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_MASK)
+            it.addActionListener { AboutDialog(this@DemoSelectorGUI).setVisible() }
+            about.add(it)
 
-			JMenu file = new JMenu("File");
-			file.setMnemonic(KeyEvent.VK_F);
-			JMenuItem q = new JMenuItem("Quit");
-			q.setMnemonic(KeyEvent.VK_C);
-			q.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK));
-			q.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.exit(0);
-				}
-			});
-			file.add(q);
+            val file = JMenu("File")
+            file.mnemonic = KeyEvent.VK_F
+            val q = JMenuItem("Quit")
+            q.mnemonic = KeyEvent.VK_C
+            q.accelerator = KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK)
+            q.addActionListener { System.exit(0) }
+            file.add(q)
 
-			bar.add(file);
-			bar.add(Box.createHorizontalGlue());
-			bar.add(about);
-			setJMenuBar(bar);
-		}
+            bar.add(file)
+            bar.add(Box.createHorizontalGlue())
+            bar.add(about)
+            jMenuBar = bar
+        }
 
-		private void setupAccordeon() {
-			accordion.setTabOrientation(TabOrientation.VERTICAL);
-			accordion.setTabHeight(25);
-			accordion.setDrawShadow(false);
-			accordion.setFocusable(false);
+        private fun setupAccordeon() {
+            accordion.tabOrientation = TabOrientation.VERTICAL
+            accordion.tabHeight = 25
+            accordion.isDrawShadow = false
+            accordion.isFocusable = false
 
-			// Remove padding
-			SteelAccordionUI steelAccordionUI = (SteelAccordionUI) accordion.getUI();
-			steelAccordionUI.setHorizontalBackgroundPadding(0);
-			steelAccordionUI.setVerticalBackgroundPadding(0);
-			steelAccordionUI.setHorizontalTabPadding(0);
-			steelAccordionUI.setVerticalTabPadding(0);
-			steelAccordionUI.setTabPadding(0);
+            // Remove padding
+            val steelAccordionUI = accordion.ui as SteelAccordionUI
+            steelAccordionUI.horizontalBackgroundPadding = 0
+            steelAccordionUI.verticalBackgroundPadding = 0
+            steelAccordionUI.horizontalTabPadding = 0
+            steelAccordionUI.verticalTabPadding = 0
+            steelAccordionUI.tabPadding = 0
 
-			accordion.setVerticalAccordionTabRenderer(new TabRenderer());
+            accordion.verticalAccordionTabRenderer = TabRenderer()
 
-			registerDemos(); // Load tabs
+            registerDemos() // Load tabs
 
-			// Open the last selected tab (if any) or the first one
-			accordion.setSelectedIndex(0);
-		}
+            // Open the last selected tab (if any) or the first one
+            accordion.selectedIndex = 0
+        }
 
-		private void registerDemos() {
-			demosMap = new LinkedHashMap<String, SelectedDemos.DemoDescriptor>();
+        private fun registerDemos() {
+            demosMap = LinkedHashMap()
 
-			int demoCounter = 1;
+            var demoCounter = 1
 
-			// Read all categories
-			for (SelectedDemos.DemoCategory catDemos : SelectedDemos.list) {
-				String catName = catDemos.name;
+            // Read all categories
+            for (catDemos in SelectedDemos.list) {
+                val catName = catDemos.name
 
-				List<String> l = new ArrayList<String>();
-				// Read all demos in the category
-				for (SelectedDemos.DemoDescriptor currentDemo : catDemos.descs) {
-					final String name = String.format("%02d. %s", demoCounter, currentDemo.name);
-					final Class<?> clazz = currentDemo.clazz;
-					final String descText = currentDemo.desc;
-					SelectedDemos.DemoDescriptor d = new SelectedDemos.DemoDescriptor(name, clazz, descText);
-					demosMap.put(name, d);
-					l.add(name);
-					demoCounter++;
-				}
+                val l = ArrayList<String>()
+                // Read all demos in the category
+                for (currentDemo in catDemos.descs) {
+                    val name = String.format("%02d. %s", demoCounter, currentDemo.name)
+                    val clazz = currentDemo.clazz
+                    val descText = currentDemo.desc
+                    val d = SelectedDemos.DemoDescriptor(name, clazz, descText)
+                    demosMap!![name] = d
+                    l.add(name)
+                    demoCounter++
+                }
 
-				// Add the current tab with demo list
-				DemoList dl = new DemoList(l.toArray(new String[l.size()]));
-				ToolTipManager.sharedInstance().registerComponent(dl);
-				accordion.addTab(catName, dl);
-			}
-		}
+                // Add the current tab with demo list
+                val dl = DemoList(l.toTypedArray<String>())
+                ToolTipManager.sharedInstance().registerComponent(dl)
+                accordion.addTab(catName, dl)
+            }
+        }
 
-		class RunButton extends JButton implements ActionListener {
+        internal inner class RunButton : JButton("Run!"), ActionListener {
+            init {
+                addActionListener(this)
+            }
 
-			RunButton() {
-				super("Run!");
-				addActionListener(this);
-			}
+            override fun actionPerformed(e: ActionEvent) {
+                // Stop the running canvas
+                canvasList[0].stop()
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// Stop the running canvas
-				canvasList.get(0).stop();
+                SwingUtilities.invokeLater {
+                    try {
+                        val g = Game2D(demosMap!!.get(selectedDemoName)!!.clazz.newInstance() as PortableApplication).withoutController()
+                        // Create a new one
+                        val canvas = LwjglAWTCanvas(g)
+                        canvas.canvas.setSize(500, 500)
 
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						try
-						{
-							Game2D g = new Game2D((PortableApplication) demosMap.get(selectedDemoName).clazz.newInstance()).withoutController();
-							// Create a new one
-							LwjglAWTCanvas canvas = new LwjglAWTCanvas(g);
-							canvas.getCanvas().setSize(500, 500);
+                        // Remove the old canvas from the list
+                        canvasList.clear()
+                        canvasList.add(0, canvas)
+                        container.add(canvas.canvas)
+                        container.remove(0)
+                        pack()
 
-							// Remove the old canvas from the list
-							canvasList.clear();
-							canvasList.add(0, canvas);
-							container.add(canvas.getCanvas());
-							container.remove(0);
-							pack();
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
 
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-		}
+        internal inner class DemoList(demos: Array<String>) : JList<String>(demos) {
 
-		class DemoList extends JList {
+            init {
 
-			DemoList(String[] demos) {
-				super(demos);
+                val commentDimension = Dimension(400, 55)
+                paneComments.minimumSize = commentDimension
+                paneComments.maximumSize = commentDimension
+                paneComments.preferredSize = commentDimension
+                paneComments.text = "Welcome to gdx2d.\nRunning " + Version.print()
+                paneComments.background = Color(0xF5F5F5)
+                paneComments.isEditable = false
 
-				final Dimension commentDimension = new Dimension(400, 55);
-				paneComments.setMinimumSize(commentDimension);
-				paneComments.setMaximumSize(commentDimension);
-				paneComments.setPreferredSize(commentDimension);
-				paneComments.setText("Welcome to gdx2d.\nRunning " + Version.print());
-				paneComments.setBackground(new Color(0xF5F5F5));
-				paneComments.setEditable(false);
+                val m = DefaultListSelectionModel()
+                m.selectionMode = ListSelectionModel.SINGLE_SELECTION
+                m.isLeadAnchorNotificationEnabled = false
+                selectionModel = m
 
-				DefaultListSelectionModel m = new DefaultListSelectionModel();
-				m.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				m.setLeadAnchorNotificationEnabled(false);
-				setSelectionModel(m);
+                setSelectedValue(selectedDemoName, true)
+                isFocusable = true
+                requestFocus()
 
-				setSelectedValue(selectedDemoName, true);
-				setFocusable(true);
-				requestFocus();
+                addListSelectionListener {
+                    selectedDemoName = selectedValue as String
+                    paneComments.text = demosMap[selectedDemoName!!]!!.desc
+                }
 
-				addListSelectionListener(new ListSelectionListener() {
-					@Override
-					public void valueChanged(ListSelectionEvent e) {
-						selectedDemoName = (String) getSelectedValue();
-						paneComments.setText(demosMap.get(selectedDemoName).desc);
-					}
-				});
+                addMouseListener(object : MouseAdapter() {
+                    override fun mouseClicked(event: MouseEvent?) {
+                        if (event!!.clickCount == 2)
+                            btRun.doClick()
+                    }
+                })
 
-				addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent event) {
-						if (event.getClickCount() == 2)
-							btRun.doClick();
-					}
-				});
+                // Add a Mouse Motion adapter to display a tooltip on list elements
+                addMouseMotionListener(object : MouseMotionAdapter() {
+                    override fun mouseMoved(e: MouseEvent?) {
+                        val model = model
+                        val index = locationToIndex(e!!.point)
+                        if (index >= 0) {
+                            // Display the demo description as tooltip
+                            val desc = demosMap.get(model.getElementAt(index))!!.desc
+                            toolTipText = null
+                            toolTipText = desc
+                            paneComments.text = desc
+                        }
+                    }
+                })
 
-				// Add a Mouse Motion adapter to display a tooltip on list elements
-				addMouseMotionListener(new MouseMotionAdapter() {
-					@Override
-					public void mouseMoved(MouseEvent e) {
-						ListModel model = getModel();
-						int index = locationToIndex(e.getPoint());
-						if (index >= 0) {
-							// Display the demo description as tooltip
-							final String desc = demosMap.get(model.getElementAt(index)).desc;
-							setToolTipText(null);
-							setToolTipText(desc);
-							paneComments.setText(desc);
-						}
-					}
-				});
-
-				addKeyListener(new KeyAdapter() {
-					@Override
-					public void keyPressed(KeyEvent e) {
-						if (e.getKeyCode() == KeyEvent.VK_ENTER)
-							btRun.doClick();
-					}
-				});
-			}
-		}
-	}
+                addKeyListener(object : KeyAdapter() {
+                    override fun keyPressed(e: KeyEvent?) {
+                        if (e!!.keyCode == KeyEvent.VK_ENTER)
+                            btRun.doClick()
+                    }
+                })
+            }
+        }
+    }
 }

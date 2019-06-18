@@ -1,18 +1,16 @@
-package ch.hevs.gdx2d.demos.physics.particle;
+package ch.hevs.gdx2d.demos.physics.particle
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-
-import java.util.Iterator;
-import java.util.Random;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.utils.Array
+import java.util.Random
 
 /**
  * Demo for particle physics. There are no collisions in the physics and
@@ -21,113 +19,107 @@ import java.util.Random;
  * @author Pierre-Andre Mudry (mui)
  * @version 1.2
  */
-public class DemoParticlePhysics extends PortableApplication {
-	static final Random rand = new Random();
-	public final int MAX_AGE = 35;
-	public int CREATION_RATE = 3;
-	DebugRenderer dbgRenderer;
-	World world = PhysicsWorld.getInstance();
-	// Particle creation related
-	boolean mouseActive = false;
-	Vector2 position;
+class DemoParticlePhysics : PortableApplication {
+    val MAX_AGE = 35
+    var CREATION_RATE = 3
+    internal lateinit var dbgRenderer: DebugRenderer
+    internal var world = PhysicsWorld.getInstance()
+    // Particle creation related
+    internal var mouseActive = false
+    internal lateinit var position: Vector2
 
-	public DemoParticlePhysics() {
-		super();
-	}
+    constructor() : super() {}
 
-	public DemoParticlePhysics(int x, int y) {
-		super(x, y);
-	}
+    constructor(x: Int, y: Int) : super(x, y) {}
 
-	public static void main(String[] args) {
-		new DemoParticlePhysics(1000, 600);
-	}
+    override fun onInit() {
+        setTitle("Particle physics, mui 2013")
+        dbgRenderer = DebugRenderer()
+        world.gravity = Vector2(0f, -0.6f)
+        Gdx.app.log("[DemoParticlePhysics]", "Click on screen to create particles")
+        Gdx.app.log("[DemoParticlePhysics]", "a/s change the creation rate of particles")
+    }
 
-	@Override
-	public void onInit() {
-		setTitle("Particle physics, mui 2013");
-		dbgRenderer = new DebugRenderer();
-		world.setGravity(new Vector2(0, -0.6f));
-		Gdx.app.log("[DemoParticlePhysics]", "Click on screen to create particles");
-		Gdx.app.log("[DemoParticlePhysics]", "a/s change the creation rate of particles");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        val bodies = Array<Body>()
+        world.getBodies(bodies)
 
-		Array<Body> bodies = new Array<Body>();
-		world.getBodies(bodies);
-
-		Iterator<Body> it = bodies.iterator();
+        val it = bodies.iterator()
 
 
-		while (it.hasNext()) {
-			Body p = it.next();
+        while (it.hasNext()) {
+            val p = it.next()
 
-			if (p.getUserData() instanceof Particle) {
-				Particle particle = (Particle) p.getUserData();
-				particle.step();
-				particle.render(g);
+            if (p.userData is Particle) {
+                val particle = p.userData as Particle
+                particle.step()
+                particle.render(g)
 
-				if (particle.shouldbeDestroyed()) {
-					particle.destroy();
-				}
-			}
-		}
+                if (particle.shouldbeDestroyed()) {
+                    particle.destroy()
+                }
+            }
+        }
 
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
 
-		if (mouseActive)
-			createParticles();
+        if (mouseActive)
+            createParticles()
 
-		g.drawSchoolLogo();
-		g.drawFPS();
-	}
+        g.drawSchoolLogo()
+        g.drawFPS()
+    }
 
-	void createParticles() {
-		for (int i = 0; i < CREATION_RATE; i++) {
-			Particle c = new Particle(position, 10, MAX_AGE + rand.nextInt(MAX_AGE / 2));
+    internal fun createParticles() {
+        for (i in 0 until CREATION_RATE) {
+            val c = Particle(position, 10, MAX_AGE + rand.nextInt(MAX_AGE / 2))
 
-			// Apply a vertical force with some random horizontal component
-			Vector2 force = new Vector2();
-			force.x = rand.nextFloat() * 0.00095f * (rand.nextBoolean() == true ? -1 : 1);
-			force.y = rand.nextFloat() * 0.00095f * (rand.nextBoolean() == true ? -1 : 1);
-			c.applyBodyLinearImpulse(force, position, true);
-		}
-	}
+            // Apply a vertical force with some random horizontal component
+            val force = Vector2()
+            force.x = rand.nextFloat() * 0.00095f * (if (rand.nextBoolean() == true) -1 else 1).toFloat()
+            force.y = rand.nextFloat() * 0.00095f * (if (rand.nextBoolean() == true) -1 else 1).toFloat()
+            c.applyBodyLinearImpulse(force, position, true)
+        }
+    }
 
-	@Override
-	public void onDrag(int x, int y) {
-		super.onDrag(x, y);
-		position.x = x;
-		position.y = y;
-	}
+    override fun onDrag(x: Int, y: Int) {
+        super.onDrag(x, y)
+        position.x = x.toFloat()
+        position.y = y.toFloat()
+    }
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);
-		mouseActive = true;
-		position = new Vector2(x, y);
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        super.onClick(x, y, button)
+        mouseActive = true
+        position = Vector2(x.toFloat(), y.toFloat())
+    }
 
-	@Override
-	public void onRelease(int x, int y, int button) {
-		super.onRelease(x, y, button);
-		position.x = x;
-		position.y = y;
-		mouseActive = false;
-	}
+    override fun onRelease(x: Int, y: Int, button: Int) {
+        super.onRelease(x, y, button)
+        position.x = x.toFloat()
+        position.y = y.toFloat()
+        mouseActive = false
+    }
 
-	@Override
-	public void onKeyDown(int keycode) {
-		super.onKeyDown(keycode);
-		if (keycode == Input.Keys.A) {
-			CREATION_RATE++;
-		}
-		if (keycode == Input.Keys.S) {
-			CREATION_RATE = CREATION_RATE > 1 ? CREATION_RATE - 1 : CREATION_RATE;
-		}
-		Gdx.app.log("[DemoParticlePhysics]", "Creation rate is now " + CREATION_RATE);
-	}
+    override fun onKeyDown(keycode: Int) {
+        super.onKeyDown(keycode)
+        if (keycode == Input.Keys.A) {
+            CREATION_RATE++
+        }
+        if (keycode == Input.Keys.S) {
+            CREATION_RATE = if (CREATION_RATE > 1) CREATION_RATE - 1 else CREATION_RATE
+        }
+        Gdx.app.log("[DemoParticlePhysics]", "Creation rate is now $CREATION_RATE")
+    }
+
+    companion object {
+        internal val rand = Random()
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoParticlePhysics(1000, 600)
+        }
+    }
 }

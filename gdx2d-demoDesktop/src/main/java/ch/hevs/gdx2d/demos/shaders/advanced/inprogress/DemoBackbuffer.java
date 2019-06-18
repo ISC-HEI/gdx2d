@@ -1,71 +1,72 @@
-package ch.hevs.gdx2d.demos.shaders.advanced.inprogress;
+package ch.hevs.gdx2d.demos.shaders.advanced.inprogress
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.math.Vector2;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.Pixmap.Format
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.glutils.FrameBuffer
+import com.badlogic.gdx.math.Vector2
 
 /**
  * @author Pierre-André Mudry (mui)
  * @version 0.1
  */
-public class DemoBackbuffer extends PortableApplication {
+class DemoBackbuffer : PortableApplication() {
 
-	Vector2 mouse;
-	int currentMatrix = 0;
-	float time = 0;
-	// Used for off screen rendering
-	FrameBuffer fbo;
-	Texture t;
+    internal lateinit var mouse: Vector2
+    internal var currentMatrix = 0
+    internal var time = 0f
+    // Used for off screen rendering
+    internal lateinit var fbo: FrameBuffer
+    internal lateinit var t: Texture
 
-	public static void main(String[] args) {
-		new DemoBackbuffer();
-	}
+    override fun onInit() {
+        this.setTitle("Backbuffer - mui 2013")
+        fbo = FrameBuffer(Format.RGBA8888, this.windowWidth, this.windowHeight, false)
+        mouse = Vector2(0f, 0f)
+    }
 
-	@Override
-	public void onInit() {
-		this.setTitle("Backbuffer - mui 2013");
-		fbo = new FrameBuffer(Format.RGBA8888, this.getWindowWidth(), this.getWindowHeight(), false);
-		mouse = new Vector2(0, 0);
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        if (g.shaderRenderer == null) {
+            g.setShader("shader/advanced/tbd/test.fp")
+            t = Texture(512, 512, Format.RGB888)
+            g.shaderRenderer.addTexture(t, "backbuffer")
+        }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		if (g.getShaderRenderer() == null) {
-			g.setShader("shader/advanced/tbd/test.fp");
-			t = new Texture(512, 512, Format.RGB888);
-			g.getShaderRenderer().addTexture(t, "backbuffer");
-		}
+        fbo.begin()
+        g.clear()
+        //			g.drawFilledCircle(256, 256, 20, Color.RED);
+        //			g.drawFilledCircle(0, 0, 20, Color.GREEN);
+        g.drawFilledCircle(400f, 400f, 20f, Color.YELLOW)
+        //			g.drawSchoolLogo();
+        g.sbFlush()
+        fbo.end()
 
-		fbo.begin();
-		g.clear();
-//			g.drawFilledCircle(256, 256, 20, Color.RED);
-//			g.drawFilledCircle(0, 0, 20, Color.GREEN);
-		g.drawFilledCircle(400, 400, 20, Color.YELLOW);
-//			g.drawSchoolLogo();
-		g.sbFlush();
-		fbo.end();
+        // Copy the offscreen buffer to the displayed bufer
+        t = fbo.colorBufferTexture
+        t.bind(1)
+        //g.shaderRenderer.setTexture(t, 1);
 
-		// Copy the offscreen buffer to the displayed bufer
-		t = fbo.getColorBufferTexture();
-		t.bind(1);
-		//g.shaderRenderer.setTexture(t, 1);
+        //		g.clear();
+        //		g.spriteBatch.draw(t, 0, 0);
 
-//		g.clear();
-//		g.spriteBatch.draw(t, 0, 0);
+        time += Gdx.graphics.deltaTime
+        g.drawShader(time)
+    }
 
-		time += Gdx.graphics.getDeltaTime();
-		g.drawShader(time);
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        super.onClick(x, y, button)
+        mouse.x = x.toFloat()
+        mouse.y = y.toFloat()
+    }
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);
-		mouse.x = x;
-		mouse.y = y;
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoBackbuffer()
+        }
+    }
 }

@@ -1,19 +1,20 @@
-package ch.hevs.gdx2d.demos.physics.rocket;
+package ch.hevs.gdx2d.demos.physics.rocket
 
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import ch.hevs.gdx2d.lib.utils.Logger
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
 
 /**
  * Control a spaceship with your keyboard.
- * <p/>
+ *
+ *
  * Demonstrate how to apply forces to physics objects and how to draw images
  * (textures) for them.
  *
@@ -21,85 +22,73 @@ import com.badlogic.gdx.physics.box2d.World;
  * @author Christopher Métrailler (mei)
  * @version 1.1
  */
-public class DemoPhysicsRocket extends PortableApplication {
+class DemoPhysicsRocket : PortableApplication() {
 
-	// Physics related
-	DebugRenderer dbgRenderer;
-	World world = PhysicsWorld.getInstance();
+    // Physics related
+    internal lateinit var dbgRenderer: DebugRenderer
+    internal var world = PhysicsWorld.getInstance()
 
-	// Drawing related
-	Spaceship ship;
+    // Drawing related
+    internal lateinit var ship: Spaceship
 
-	public static void main(String[] args) {
-		new DemoPhysicsRocket();
-	}
+    override fun onInit() {
+        setTitle("Rocket with physics")
+        Logger.log("Use the arrows keys to move the spaceship.")
 
-	@Override
-	public void onInit() {
-		setTitle("Rocket with physics");
-		Logger.log("Use the arrows keys to move the spaceship.");
+        // No gravity in this world
+        world.gravity = Vector2(0f, 0f)
 
-		// No gravity in this world
-		world.setGravity(new Vector2(0, 0));
+        dbgRenderer = DebugRenderer()
 
-		dbgRenderer = new DebugRenderer();
+        // Create the obstacles in the scene
+        PhysicsScreenBoundaries(windowWidth.toFloat(), windowHeight.toFloat())
 
-		// Create the obstacles in the scene
-		new PhysicsScreenBoundaries(getWindowWidth(), getWindowHeight());
+        // Our spaceship
+        ship = Spaceship(Vector2((windowWidth / 2).toFloat(),
+                (windowHeight / 2).toFloat()))
 
-		// Our spaceship
-		ship = new Spaceship(new Vector2(getWindowWidth() / 2,
-				getWindowHeight() / 2));
+    }
 
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+        // Draw the DebugRenderer as helper
+        dbgRenderer.render(world, g.camera.combined)
 
-		// Draw the DebugRenderer as helper
-		dbgRenderer.render(world, g.getCamera().combined);
+        ship.draw(g) // Draw the spaceship image
 
-		ship.draw(g); // Draw the spaceship image
+        g.drawStringCentered(400f, "Use the keys to control the rocket")
+        g.drawFPS()
+        g.drawSchoolLogo()
+    }
 
-		g.drawStringCentered(400, "Use the keys to control the rocket");
-		g.drawFPS();
-		g.drawSchoolLogo();
-	}
+    override fun onKeyUp(keycode: Int) {
+        when (keycode) {
+            Input.Keys.LEFT -> ship.thrustLeft = false
+            Input.Keys.RIGHT -> ship.thrustRight = false
+            Input.Keys.UP -> ship.thrustUp = 0f
+            else -> {
+            }
+        }
 
-	@Override
-	public void onKeyUp(int keycode) {
-		switch (keycode) {
-			case Input.Keys.LEFT:
-				ship.thrustLeft = false;
-				break;
-			case Input.Keys.RIGHT:
-				ship.thrustRight = false;
-				break;
-			case Input.Keys.UP:
-				ship.thrustUp = 0;
-				break;
-			default:
-				break;
-		}
+    }
 
-	}
+    override fun onKeyDown(keycode: Int) {
+        when (keycode) {
+            Input.Keys.LEFT -> ship.thrustLeft = true
+            Input.Keys.RIGHT -> ship.thrustRight = true
+            Input.Keys.UP -> ship.thrustUp = Spaceship.MAX_THRUST
+            else -> {
+            }
+        }
+    }
 
-	@Override
-	public void onKeyDown(int keycode) {
-		switch (keycode) {
-			case Input.Keys.LEFT:
-				ship.thrustLeft = true;
-				break;
-			case Input.Keys.RIGHT:
-				ship.thrustRight = true;
-				break;
-			case Input.Keys.UP:
-				ship.thrustUp = Spaceship.MAX_THRUST;
-				break;
-			default:
-				break;
-		}
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoPhysicsRocket()
+        }
+    }
 }

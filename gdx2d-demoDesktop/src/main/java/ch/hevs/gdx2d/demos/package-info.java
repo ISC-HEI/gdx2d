@@ -4,4 +4,4 @@
  *
  * @author Pierre-André Mudry
  */
-package ch.hevs.gdx2d.demos;
+package ch.hevs.gdx2d.demos

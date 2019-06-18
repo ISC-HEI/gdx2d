@@ -1,8 +1,8 @@
-package ch.hevs.gdx2d.demos.scrolling.objects;
+package ch.hevs.gdx2d.demos.scrolling.objects
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 
 /**
  * A simple pipe that does nothing special
@@ -10,19 +10,12 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
  * @author Pierre-Andre Mudry (mui)
  */
 
-public class Pipe implements DrawableObject {
+class Pipe(internal var posx: Int, internal var posy: Int) : DrawableObject {
 
-	final BitmapImage img = new BitmapImage("images/pipe.png");
-	int posx, posy;
+    internal val img = BitmapImage("images/pipe.png")
 
-	public Pipe(int x, int y) {
-		posx = x;
-		posy = y;
-	}
-
-	@Override
-	public void draw(GdxGraphics g) {
-		g.drawPicture(posx, posy, img);
-	}
+    override fun draw(g: GdxGraphics) {
+        g.drawPicture(posx.toFloat(), posy.toFloat(), img)
+    }
 
 }

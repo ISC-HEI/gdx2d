@@ -1,17 +1,17 @@
-package ch.hevs.gdx2d.demos.music.midiplayer;
+package ch.hevs.gdx2d.demos.music.midiplayer
 
-import ch.hevs.gdx2d.components.audio.SoundSample;
-import ch.hevs.gdx2d.components.colors.ColorUtils;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.graphics.Color;
-import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIListener;
-import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIMessage;
-import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIPLayer;
+import ch.hevs.gdx2d.components.audio.SoundSample
+import ch.hevs.gdx2d.components.colors.ColorUtils
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.utils.Logger
+import com.badlogic.gdx.graphics.Color
+import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIListener
+import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIMessage
+import ch.hevs.gdx2d.demos.music.midiplayer.MIDIPlayer.MIDIPLayer
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.ArrayList
+import java.util.Collections
 
 /**
  * A MIDI sampler demo
@@ -19,105 +19,105 @@ import java.util.Collections;
  * @author Mikael Follonier (fom)
  * @version 1.2
  */
-public class DemoMIDIPlayer extends PortableApplication {
-	// Where the music and samples are stored
-	protected final int nSamples = 104;
-	protected final String DATADIR = "music/midiplayer/pianonotes/";
-	protected final String FILEPATH = "music/midiplayer/brahms_lullaby.mid";
+class DemoMIDIPlayer : PortableApplication() {
+    // Where the music and samples are stored
+    protected val nSamples = 104
+    protected val DATADIR = "music/midiplayer/pianonotes/"
+    protected val FILEPATH = "music/midiplayer/brahms_lullaby.mid"
 
-	// Storage for the loaded sound samples
-	protected ArrayList<SoundSample> notesSamples;
+    // Storage for the loaded sound samples
+    protected lateinit var notesSamples: ArrayList<SoundSample>
 
-	// Contains the notes that are currently playing
-	protected ArrayList<Integer> currentlyPlayingNotes = new ArrayList<Integer>();
+    // Contains the notes that are currently playing
+    protected var currentlyPlayingNotes = ArrayList<Int>()
 
-	// This is the class that handles the player inputs
-	protected MIDIPLayer player;
+    // This is the class that handles the player inputs
+    protected lateinit var player: MIDIPLayer
 
-	// The object that will receive the note messages
-	MIDIListener midiListener;
+    // The object that will receive the note messages
+    internal lateinit var midiListener: MIDIListener
 
-	@Override
-	public void onInit() {
-		setTitle("MIDI demo, fom 2015");
-		notesSamples = new ArrayList<SoundSample>();
+    override fun onInit() {
+        setTitle("MIDI demo, fom 2015")
+        notesSamples = ArrayList()
 
-		// Read all the piano samples that are in the directory
-		for (int i = 0; i < nSamples; i++) {
-			notesSamples.add(new SoundSample(DATADIR + String.format("%03d", i) + ".mp3"));
-		}
+        // Read all the piano samples that are in the directory
+        for (i in 0 until nSamples) {
+            notesSamples.add(SoundSample(DATADIR + String.format("%03d", i) + ".mp3"))
+        }
 
-		midiListener = new MIDIListener() {
-			/**
-			 * Handles the received MIDI message and plays the corresponding sample
-			 * @param msg msg Message list for a given MIDI tick
-			 */
-			@Override
-			public void onMIDIMessage(ArrayList<MIDIMessage> msg) {
-				// Play the notes from the MIDI player
-				for (MIDIMessage message : msg) {
-					synchronized (currentlyPlayingNotes) {
-						if (message.cmd == MIDIPLayer.NOTE_ON) {
-							notesSamples.get(message.key).play(); //MIDI notes start at octave -2
-							currentlyPlayingNotes.add(message.note);
-						}
+        midiListener = object : MIDIListener {
+            /**
+             * Handles the received MIDI message and plays the corresponding sample
+             * @param msg msg Message list for a given MIDI tick
+             */
+            override fun onMIDIMessage(msg: ArrayList<MIDIMessage>) {
+                // Play the notes from the MIDI player
+                for (message in msg) {
+                    synchronized(currentlyPlayingNotes) {
+                        if (message.cmd == MIDIPLayer.NOTE_ON) {
+                            notesSamples[message.key].play() //MIDI notes start at octave -2
+                            currentlyPlayingNotes.add(message.note)
+                        }
 
-						if (message.cmd == MIDIPLayer.NOTE_OFF) {
-							currentlyPlayingNotes.remove((Integer) message.note);
-						}
+                        if (message.cmd == MIDIPLayer.NOTE_OFF) {
+                            currentlyPlayingNotes.remove(message.note)
+                        }
 
-						// Sort the list
-						Collections.sort(currentlyPlayingNotes);
-					}
-				}
-			}
+                        // Sort the list
+                        Collections.sort(currentlyPlayingNotes)
+                    }
+                }
+            }
 
-			@Override
-			public void onTrackFinished() {
-				Logger.log("Track is over");
-			}
-		};
+            override fun onTrackFinished() {
+                Logger.log("Track is over")
+            }
+        }
 
-		try {
-			player = new MIDIPLayer(FILEPATH);
-			player.addMIDIListener(midiListener);
-			player.startReader();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        try {
+            player = MIDIPLayer(FILEPATH)
+            player.addMIDIListener(midiListener)
+            player.startReader()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
-	@Override
-	public void onGraphicRender(final GdxGraphics g) {
-		g.clear();
-		g.drawSchoolLogoUpperRight();
+    }
+
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
+        g.drawSchoolLogoUpperRight()
 
 
-		/**
-		 * Each message corresponds to a MIDI event, so let's get them
-		 * and display something everytime there is a NOTE_ON message
-		 */
-		synchronized (currentlyPlayingNotes) {
-			for (Integer note : currentlyPlayingNotes) {
-				Color noteColor = ColorUtils.hsvToColor(0.4f, 1f - (1 * note / 10.0f), 1);
+        /**
+         * Each message corresponds to a MIDI event, so let's get them
+         * and display something everytime there is a NOTE_ON message
+         */
+        synchronized(currentlyPlayingNotes) {
+            for (note in currentlyPlayingNotes) {
+                val noteColor = ColorUtils.hsvToColor(0.4f, 1f - 1 * note / 10.0f, 1f)
 
-				g.drawFilledCircle(250, 250, 10 + 120 - (note * 10f), noteColor);
-			}
-		}
-	}
+                g.drawFilledCircle(250f, 250f, 10 + 120 - note * 10f, noteColor)
+            }
+        }
+    }
 
-	@Override
-	public void onDispose() {
-		for (SoundSample s : notesSamples) {
-			s.stop();
-			s.dispose();
-		}
+    override fun onDispose() {
+        for (s in notesSamples) {
+            s.stop()
+            s.dispose()
+        }
 
-		player.terminate();
-		super.onDispose();
-	}
+        player.terminate()
+        super.onDispose()
+    }
 
-	public static void main(String[] args) {
-		new DemoMIDIPlayer();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoMIDIPlayer()
+        }
+    }
 }

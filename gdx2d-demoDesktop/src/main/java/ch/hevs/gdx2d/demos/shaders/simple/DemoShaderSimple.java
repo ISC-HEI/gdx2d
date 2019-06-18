@@ -1,7 +1,7 @@
-package ch.hevs.gdx2d.demos.shaders.simple;
+package ch.hevs.gdx2d.demos.shaders.simple
 
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
 
 /**
  * Shows how to interwind shaders and normal GDX operations
@@ -9,31 +9,33 @@ import ch.hevs.gdx2d.lib.GdxGraphics;
  * @author Pierre-André Mudry (mui)
  * @version 0.1
  */
-public class DemoShaderSimple extends PortableApplication {
+class DemoShaderSimple : PortableApplication() {
 
-	private float time = 0;
+    private val time = 0f
 
-	public static void main(String[] args) {
-		new DemoShaderSimple();
-	}
+    override fun onInit() {
+        this.setTitle("Simple shader demo, mui 2013")
+    }
 
-	@Override
-	public void onInit() {
-		this.setTitle("Simple shader demo, mui 2013");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        if (g.shaderRenderer == null) {
+            g.setShader("shader/bicolor.fp")
+        }
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		if (g.getShaderRenderer() == null) {
-			g.setShader("shader/bicolor.fp");
-		}
+        g.clear()
 
-		g.clear();
+        // Draws the shader
+        g.drawShader()
 
-		// Draws the shader
-		g.drawShader();
+        g.drawFPS()
+        g.drawSchoolLogo()
+    }
 
-		g.drawFPS();
-		g.drawSchoolLogo();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoShaderSimple()
+        }
+    }
 }

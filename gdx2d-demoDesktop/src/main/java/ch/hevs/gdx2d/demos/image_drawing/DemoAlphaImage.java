@@ -1,72 +1,80 @@
-package ch.hevs.gdx2d.demos.image_drawing;
+package ch.hevs.gdx2d.demos.image_drawing
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.lib.GdxGraphics;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
 
 /**
- * This demo is similar to {@link DemoSimpleImage} but demonstrates
+ * This demo is similar to [DemoSimpleImage] but demonstrates
  * how to use the alpha parameter to draw images
  *
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoAlphaImage extends PortableApplication {
-	BitmapImage imgBitmap, backgroundBitmap;
+class DemoAlphaImage : PortableApplication() {
+    internal lateinit var imgBitmap: BitmapImage
+    internal lateinit var backgroundBitmap: BitmapImage
 
-	float alpha1 = 0.06f, alpha2 = 0.3f, alpha3 = 0.6f, alpha4 = 0.94f;
-	int dir1 = 1, dir2 = 1, dir3 = 1, dir4 = 1;
+    internal var alpha1 = 0.06f
+    internal var alpha2 = 0.3f
+    internal var alpha3 = 0.6f
+    internal var alpha4 = 0.94f
+    internal var dir1 = 1
+    internal var dir2 = 1
+    internal var dir3 = 1
+    internal var dir4 = 1
 
-	public static void main(String[] args) {
-		new DemoAlphaImage();
-	}
+    override fun onInit() {
+        // Sets the window title
+        setTitle("Alpha transparency modification for images, mui 2013")
 
-	@Override
-	public void onInit() {
-		// Sets the window title
-		setTitle("Alpha transparency modification for images, mui 2013");
+        // Loads the image that will be displayed in the middle of the screen
+        imgBitmap = BitmapImage("images/Android_PI_48x48.png")
 
-		// Loads the image that will be displayed in the middle of the screen
-		imgBitmap = new BitmapImage("images/Android_PI_48x48.png");
+        // Load the background image
+        backgroundBitmap = BitmapImage("images/back1_512.png")
+    }
 
-		// Load the background image
-		backgroundBitmap = new BitmapImage("images/back1_512.png");
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        /**
+         * Rendering
+         */
+        // Clear the screen
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		/**
-		 * Rendering
-		 */
-		// Clear the screen
-		g.clear();
+        // Render an with mirror
+        g.drawBackground(backgroundBitmap, 0f, 0f)
 
-		// Render an with mirror
-		g.drawBackground(backgroundBitmap, 0, 0);
+        if (alpha1 <= 0.05f || alpha1 >= 0.95f) dir1 *= -1
+        if (alpha2 <= 0.05f || alpha2 >= 0.95f) dir2 *= -1
+        if (alpha3 <= 0.05f || alpha3 >= 0.95f) dir3 *= -1
+        if (alpha4 <= 0.05f || alpha4 >= 0.95f) dir4 *= -1
 
-		if (alpha1 <= 0.05f || alpha1 >= 0.95f) dir1 *= -1;
-		if (alpha2 <= 0.05f || alpha2 >= 0.95f) dir2 *= -1;
-		if (alpha3 <= 0.05f || alpha3 >= 0.95f) dir3 *= -1;
-		if (alpha4 <= 0.05f || alpha4 >= 0.95f) dir4 *= -1;
+        alpha1 += if (dir1 > 0) 0.01f else -0.01f
+        alpha2 += if (dir2 > 0) 0.01f else -0.01f
+        alpha3 += if (dir3 > 0) 0.01f else -0.01f
+        alpha4 += if (dir4 > 0) 0.01f else -0.01f
 
-		alpha1 += dir1 > 0 ? 0.01f : -0.01f;
-		alpha2 += dir2 > 0 ? 0.01f : -0.01f;
-		alpha3 += dir3 > 0 ? 0.01f : -0.01f;
-		alpha4 += dir4 > 0 ? 0.01f : -0.01f;
+        g.drawAlphaPicture(windowWidth / 3.0f, windowHeight / 3.0f, alpha1, imgBitmap)
+        g.drawAlphaPicture(windowWidth * 2.0f / 3.0f, windowHeight / 3.0f, alpha2, imgBitmap)
+        g.drawAlphaPicture(windowWidth / 3.0f, windowHeight * 2.0f / 3.0f, alpha3, imgBitmap)
+        g.drawAlphaPicture(windowWidth * 2.0f / 3.0f, windowHeight * 2.0f / 3.0f, alpha4, imgBitmap)
 
-		g.drawAlphaPicture(getWindowWidth() / 3.0f, getWindowHeight() / 3.0f, alpha1, imgBitmap);
-		g.drawAlphaPicture(getWindowWidth() * 2.0f / 3.0f, getWindowHeight() / 3.0f, alpha2, imgBitmap);
-		g.drawAlphaPicture(getWindowWidth() / 3.0f, getWindowHeight() * 2.0f / 3.0f, alpha3, imgBitmap);
-		g.drawAlphaPicture(getWindowWidth() * 2.0f / 3.0f, getWindowHeight() * 2.0f / 3.0f, alpha4, imgBitmap);
+        g.drawFPS()        // Draws the number of frame per second
+        g.drawSchoolLogo() // Draws the school logo
+    }
 
-		g.drawFPS();        // Draws the number of frame per second
-		g.drawSchoolLogo(); // Draws the school logo
-	}
+    override fun onDispose() {
+        super.onDispose()
+        imgBitmap.dispose()
+        backgroundBitmap.dispose()
+    }
 
-	@Override
-	public void onDispose() {
-		super.onDispose();
-		imgBitmap.dispose();
-		backgroundBitmap.dispose();
-	}
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoAlphaImage()
+        }
+    }
 }

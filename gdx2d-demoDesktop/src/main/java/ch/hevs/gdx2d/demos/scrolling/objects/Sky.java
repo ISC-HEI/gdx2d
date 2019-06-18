@@ -1,12 +1,12 @@
-package ch.hevs.gdx2d.demos.scrolling.objects;
+package ch.hevs.gdx2d.demos.scrolling.objects
 
-import ch.hevs.gdx2d.components.colors.ColorUtils;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
+import ch.hevs.gdx2d.components.colors.ColorUtils
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Pixmap
+import com.badlogic.gdx.graphics.Pixmap.Format
+import com.badlogic.gdx.graphics.Texture
 
 /**
  * A quite complex background image that is linked to the camera.
@@ -16,40 +16,40 @@ import com.badlogic.gdx.graphics.Texture;
  * @author Pierre-Andre Mudry (mui)
  * @version 1.2
  */
-public class Sky implements DrawableObject {
-	Pixmap p;
-	Texture t;
-	int width, height;
+class Sky : DrawableObject {
+    internal var p: Pixmap
+    internal var t: Texture
+    internal var width: Int = 0
+    internal var height: Int = 0
 
-	public Sky() {
-		width = Gdx.graphics.getWidth();
-		height = Gdx.graphics.getHeight();
+    init {
+        width = Gdx.graphics.width
+        height = Gdx.graphics.height
 
-		/**
-		 *  For the sky we need to draw directy onto an image.
-		 *  An image is first of all a pixmap.
-		 */
+        /**
+         * For the sky we need to draw directy onto an image.
+         * An image is first of all a pixmap.
+         */
 
-		p = new Pixmap(width, height, Format.RGB888);
+        p = Pixmap(width, height, Format.RGB888)
 
-		// Fill the sky with a nice color
-		for (int i = 0; i < height; i++) {
-			int col = ColorUtils.hsvToRgb(0.55f, (float) i / height, 1.0f);
-			p.setColor(ColorUtils.intToColor(col));
-			p.drawLine(0, i, width, i);
-		}
+        // Fill the sky with a nice color
+        for (i in 0 until height) {
+            val col = ColorUtils.hsvToRgb(0.55f, i.toFloat() / height, 1.0f)
+            p.setColor(ColorUtils.intToColor(col))
+            p.drawLine(0, i, width, i)
+        }
 
-		// For the pixmap, we need to create a texture
-		t = new Texture(p);
-	}
+        // For the pixmap, we need to create a texture
+        t = Texture(p)
+    }
 
-	@Override
-	public void draw(GdxGraphics g) {
-		/**
-		 *  Using this method is faster than drawing an image and
-		 *  also makes sure that the image is not moved with the camera (fixed
-		 *  position).
-		 */
-		g.drawBackground(t, 0, 0);
-	}
+    override fun draw(g: GdxGraphics) {
+        /**
+         * Using this method is faster than drawing an image and
+         * also makes sure that the image is not moved with the camera (fixed
+         * position).
+         */
+        g.drawBackground(t, 0f, 0f)
+    }
 }

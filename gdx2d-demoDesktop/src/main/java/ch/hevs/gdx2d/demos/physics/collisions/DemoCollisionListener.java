@@ -1,16 +1,16 @@
-package ch.hevs.gdx2d.demos.physics.collisions;
+package ch.hevs.gdx2d.demos.physics.collisions
 
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
 
-import java.util.LinkedList;
+import java.util.LinkedList
 
 /**
  * Simple collision handling in box2d
@@ -18,82 +18,80 @@ import java.util.LinkedList;
  * @author Pierre-André Mudry (mui)
  * @version 1.1
  */
-public class DemoCollisionListener extends PortableApplication {
-	final LinkedList<BumpyBall> otherBalls = new LinkedList<BumpyBall>();
-	World world = PhysicsWorld.getInstance();
-	DebugRenderer dbgRenderer;
-	int time = 0;
-	boolean generate = false;
-	BumpyBall b1, b2, b3, b4;
+class DemoCollisionListener : PortableApplication() {
+    internal val otherBalls = LinkedList<BumpyBall>()
+    internal var world = PhysicsWorld.getInstance()
+    internal lateinit  var dbgRenderer: DebugRenderer
+    internal var time = 0
+    internal var generate = false
+    internal lateinit var b1: BumpyBall
+    internal var b2: BumpyBall? = null
+    internal var b3: BumpyBall? = null
+    internal var b4: BumpyBall? = null
 
-	public static void main(String[] args) {
-		new DemoCollisionListener();
-	}
+    override fun onInit() {
+        dbgRenderer = DebugRenderer()
+        setTitle("Collision demo for box2d, mui 2013")
 
-	@Override
-	public void onInit() {
-		dbgRenderer = new DebugRenderer();
-		setTitle("Collision demo for box2d, mui 2013");
+        PhysicsScreenBoundaries(windowWidth.toFloat(), windowHeight.toFloat())
 
-		new PhysicsScreenBoundaries(getWindowWidth(), getWindowHeight());
+        // A BumpyBall has redefined its collision method.
+        b1 = BumpyBall("ball 1", Vector2(100f, 250f), 30)
 
-		// A BumpyBall has redefined its collision method.
-		b1 = new BumpyBall("ball 1", new Vector2(100, 250), 30);
+        // Indicate that the ball should be informed for collisions
+        b1.enableCollisionListener()
+    }
 
-		// Indicate that the ball should be informed for collisions
-		b1.enableCollisionListener();
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        b1.draw(g)
+        b2?.draw(g)
+        b3?.draw(g)
+        b4?.draw(g)
 
-		b1.draw(g);
+        // Draw all the manually added balls
+        for (b in otherBalls) {
+            b.draw(g)
+        }
 
-		if (b2 != null)
-			b2.draw(g);
+        // Add balls from time to time
+        if (time == 100) {
+            b2 = BumpyBall("ball 2", Vector2(105f, 300f), 40)
+            b2!!.enableCollisionListener()
+        }
 
-		if (b3 != null)
-			b3.draw(g);
+        if (time == 150) {
+            b3 = BumpyBall("ball 3", Vector2(120f, 300f), 20)
+            b3!!.enableCollisionListener()
+        }
 
-		if (b4 != null)
-			b4.draw(g);
+        if (time == 200) {
+            b4 = BumpyBall("ball 4", Vector2(130f, 310f), 30)
+            b4!!.enableCollisionListener()
+        }
 
-		// Draw all the manually added balls
-		for (BumpyBall b : otherBalls) {
-			b.draw(g);
-		}
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
 
-		// Add balls from time to time
-		if (time == 100) {
-			b2 = new BumpyBall("ball 2", new Vector2(105, 300), 40);
-			b2.enableCollisionListener();
-		}
+        g.drawSchoolLogoUpperRight()
+        g.drawFPS()
+        time++
+    }
 
-		if (time == 150) {
-			b3 = new BumpyBall("ball 3", new Vector2(120, 300), 20);
-			b3.enableCollisionListener();
-		}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        super.onClick(x, y, button)
+        if (button == Input.Buttons.LEFT) {
+            val newBall = BumpyBall("a ball", Vector2(x.toFloat(), y.toFloat()), 50)
+            newBall.enableCollisionListener()
+            otherBalls.add(newBall)
+        }
+    }
 
-		if (time == 200) {
-			b4 = new BumpyBall("ball 4", new Vector2(130, 310), 30);
-			b4.enableCollisionListener();
-		}
+    companion object {
 
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
-
-		g.drawSchoolLogoUpperRight();
-		g.drawFPS();
-		time++;
-	}
-
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);
-		if (button == Input.Buttons.LEFT) {
-			BumpyBall newBall = new BumpyBall("a ball", new Vector2(x, y), 50);
-			newBall.enableCollisionListener();
-			otherBalls.add(newBall);
-		}
-	}
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoCollisionListener()
+        }
+    }
 }

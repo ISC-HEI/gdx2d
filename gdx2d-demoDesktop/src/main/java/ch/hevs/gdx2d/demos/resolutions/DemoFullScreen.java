@@ -1,15 +1,16 @@
-package ch.hevs.gdx2d.demos.resolutions;
+package ch.hevs.gdx2d.demos.resolutions
 
-import ch.hevs.gdx2d.demos.scrolling.DemoScrolling;
+import ch.hevs.gdx2d.demos.scrolling.DemoScrolling
 
-public class DemoFullScreen {
+object DemoFullScreen {
 
-	/**
-	 * Simply launches a demo in full screen mode
-	 *
-	 * @param args Nothing
-	 */
-	public static void main(String[] args) {
-		new DemoScrolling();
-	}
+    /**
+     * Simply launches a demo in full screen mode
+     *
+     * @param args Nothing
+     */
+    @JvmStatic
+    fun main(args: Array<String>) {
+        DemoScrolling()
+    }
 }

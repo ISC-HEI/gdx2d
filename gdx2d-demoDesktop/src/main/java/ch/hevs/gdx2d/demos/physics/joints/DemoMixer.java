@@ -1,27 +1,27 @@
-package ch.hevs.gdx2d.demos.physics.joints;
+package ch.hevs.gdx2d.demos.physics.joints
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage;
-import ch.hevs.gdx2d.components.colors.Palette;
-import ch.hevs.gdx2d.components.physics.PhysicsMotor;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox;
-import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox;
-import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries;
-import ch.hevs.gdx2d.desktop.PortableApplication;
-import ch.hevs.gdx2d.desktop.physics.DebugRenderer;
-import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.interfaces.DrawableObject;
-import ch.hevs.gdx2d.lib.physics.PhysicsWorld;
-import ch.hevs.gdx2d.lib.utils.Logger;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Align;
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import ch.hevs.gdx2d.components.colors.Palette
+import ch.hevs.gdx2d.components.physics.PhysicsMotor
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsBox
+import ch.hevs.gdx2d.components.physics.primitives.PhysicsStaticBox
+import ch.hevs.gdx2d.components.physics.utils.PhysicsScreenBoundaries
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.physics.DebugRenderer
+import ch.hevs.gdx2d.lib.GdxGraphics
+import ch.hevs.gdx2d.lib.interfaces.DrawableObject
+import ch.hevs.gdx2d.lib.physics.PhysicsWorld
+import ch.hevs.gdx2d.lib.utils.Logger
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.utils.Align
 
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.LinkedList
+import java.util.Random
 
 /**
  * A box that will be used as a rotor for the demo
@@ -29,27 +29,22 @@ import java.util.Random;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-class Rotor extends PhysicsBox implements DrawableObject {
-	static final BitmapImage screw = new BitmapImage("images/screw.png");
-	private final float w, h;
+internal class Rotor(name: String, position: Vector2, private val w: Float, private val h: Float) : PhysicsBox(name, position, w, h), DrawableObject {
 
-	public Rotor(String name, Vector2 position, float width, float height) {
-		super(name, position, width, height);
-		w = width;
-		h = height;
-	}
+    /**
+     * Used for drawing the rotor
+     */
+    override fun draw(g: GdxGraphics) {
+        val x = bodyPosition.x
+        val y = bodyPosition.y
+        val angle = bodyAngleDeg
+        g.drawFilledRectangle(x, y, w, h, angle, Palette.pastel1[1])
+        g.drawTransformedPicture(x, y, angle, 0.2f, screw)
+    }
 
-	/**
-	 * Used for drawing the rotor
-	 */
-	@Override
-	public void draw(GdxGraphics g) {
-		float x = getBodyPosition().x;
-		float y = getBodyPosition().y;
-		float angle = getBodyAngleDeg();
-		g.drawFilledRectangle(x, y, w, h, angle, Palette.pastel1[1]);
-		g.drawTransformedPicture(x, y, angle, 0.2f, screw);
-	}
+    companion object {
+        val screw = BitmapImage("images/screw.png")
+    }
 }
 
 /**
@@ -58,109 +53,113 @@ class Rotor extends PhysicsBox implements DrawableObject {
  * @author Pierre-André Mudry, mui
  * @version 1.3
  */
-public class DemoMixer extends PortableApplication {
-	final static Random rnd = new Random();
-	// The number of balls generated
-	final int N_PARTICLES = 100;
-	World world = PhysicsWorld.getInstance();
-	DebugRenderer debugRenderer;
-	Body box1;
-	Body box2;
-	PhysicsMotor physicMotor;
-	// Linked List to store all particles
-	LinkedList<CircleParticle> particles = new LinkedList<CircleParticle>();
-	Random random;
-	float width, height;
-	Rotor rotor;
+class DemoMixer : PortableApplication() {
+    // The number of balls generated
+    internal val N_PARTICLES = 100
+    internal var world = PhysicsWorld.getInstance()
+    internal lateinit var debugRenderer: DebugRenderer
+    internal lateinit var box1: Body
+    internal lateinit var box2: Body
+    internal lateinit var physicMotor: PhysicsMotor
+    // Linked List to store all particles
+    internal var particles = LinkedList<CircleParticle>()
+    internal lateinit var random: Random
+    internal var width: Float = 0.toFloat()
+    internal var height: Float = 0.toFloat()
+    internal lateinit var rotor: Rotor
 
-	public static void main(String[] args) {
-		new DemoMixer();
-	}
+    override fun onInit() {
+        setTitle("Particle mixer, mui 2014")
+        Logger.log("Press left mouse button to enable/disable the motor.")
 
-	@Override
-	public void onInit() {
-		setTitle("Particle mixer, mui 2014");
-		Logger.log("Press left mouse button to enable/disable the motor.");
+        // A renderer that displays physics objects things simply
+        debugRenderer = DebugRenderer()
+        random = Random()
 
-		// A renderer that displays physics objects things simply
-		debugRenderer = new DebugRenderer();
-		random = new Random();
+        width = windowWidth.toFloat()
+        height = windowHeight.toFloat()
 
-		width = getWindowWidth();
-		height = getWindowHeight();
+        // Create fixed boundaries at each side of the screen
+        PhysicsScreenBoundaries(width, height)
 
-		// Create fixed boundaries at each side of the screen
-		new PhysicsScreenBoundaries(width, height);
+        val stator = PhysicsStaticBox("stator",
+                Vector2(width / 2, height / 2), 5f, 5f)
+        box1 = stator.body
 
-		final PhysicsStaticBox stator = new PhysicsStaticBox("stator",
-				new Vector2(width / 2, height / 2), 5, 5);
-		box1 = stator.getBody();
+        /**
+         * Create the stator (moving) part. It is also located in the center of
+         * the frame. It is not static, as it can rotate
+         */
+        rotor = Rotor("rotor", Vector2(width / 2, height / 2), width * 0.85f, height * 0.02f)
+        box2 = rotor.body
 
-		/**
-		 * Create the stator (moving) part. It is also located in the center of
-		 * the frame. It is not static, as it can rotate
-		 */
-		rotor = new Rotor("rotor", new Vector2(width / 2, height / 2), width * 0.85f, height * 0.02f);
-		box2 = rotor.getBody();
+        /**
+         * Create a motor that will make the moving box move and rotate around
+         * the anchor point (which is the center of the first box)
+         */
+        physicMotor = PhysicsMotor(box1, box2, box1.worldCenter)
 
-		/**
-		 * Create a motor that will make the moving box move and rotate around
-		 * the anchor point (which is the center of the first box)
-		 */
-		physicMotor = new PhysicsMotor(box1, box2, box1.getWorldCenter());
+        // Initialize the motor with a speed and torque
+        physicMotor.initializeMotor(1.0f, 8000.0f, false)
 
-		// Initialize the motor with a speed and torque
-		physicMotor.initializeMotor(1.0f, 8000.0f, false);
+        createParticles()
+    }
 
-		createParticles();
-	}
+    /**
+     * Generate random particles to fill the screen
+     */
+    private fun createParticles() {
+        for (i in 0 until N_PARTICLES) {
+            val x = width / 5 + random.nextFloat() * (width - 2 * width / 5)
+            val y = random.nextFloat() * height
+            val position = Vector2(x, y)
+            val c = if (rnd.nextBoolean() == true)
+                Color.DARK_GRAY
+            else
+                Color.LIGHT_GRAY
+            val p = CircleParticle(position,
+                    10 + rnd.nextInt(5), c, 0.002f, 1f)
+            particles.add(p)
+        }
+    }
 
-	/**
-	 * Generate random particles to fill the screen
-	 */
-	private void createParticles() {
-		for (int i = 0; i < N_PARTICLES; i++) {
-			float x = width / 5 + random.nextFloat() * (width - 2 * width / 5);
-			float y = random.nextFloat() * height;
-			final Vector2 position = new Vector2(x, y);
-			Color c = rnd.nextBoolean() == true ? Color.DARK_GRAY
-					: Color.LIGHT_GRAY;
-			final CircleParticle p = new CircleParticle(position,
-					10 + rnd.nextInt(5), c, 0.002f, 1f);
-			particles.add(p);
-		}
-	}
+    override fun onGraphicRender(g: GdxGraphics) {
+        g.clear()
 
-	@Override
-	public void onGraphicRender(GdxGraphics g) {
-		g.clear();
+        // Draws the particles
+        for (particle in particles) {
+            particle.draw(g)
+        }
 
-		// Draws the particles
-		for (CircleParticle particle : particles) {
-			particle.draw(g);
-		}
+        rotor.draw(g)
 
-		rotor.draw(g);
+        // Render the scene using the debug renderer
+        // debugRenderer.render(world, g.getCamera().combined);
+        PhysicsWorld.updatePhysics(Gdx.graphics.deltaTime)
 
-		// Render the scene using the debug renderer
-		// debugRenderer.render(world, g.getCamera().combined);
-		PhysicsWorld.updatePhysics(Gdx.graphics.getDeltaTime());
+        g.drawString(5f, height - 20, "Left Mouse button: Motor ON/OFF",
+                Align.left)
+        g.drawString(5f, height - 40,
+                "Motor is " + if (physicMotor.isMotorEnabled) "ON" else "OFF",
+                Align.left)
 
-		g.drawString(5, height - 20, "Left Mouse button: Motor ON/OFF",
-				Align.left);
-		g.drawString(5, height - 40,
-				"Motor is " + (physicMotor.isMotorEnabled() ? "ON" : "OFF"),
-				Align.left);
+        g.drawSchoolLogoUpperRight()
+        g.drawFPS(Color.CYAN)
+    }
 
-		g.drawSchoolLogoUpperRight();
-		g.drawFPS(Color.CYAN);
-	}
+    override fun onClick(x: Int, y: Int, button: Int) {
+        super.onClick(x, y, button)
+        if (button == Input.Buttons.LEFT) {
+            physicMotor.enableMotor(!physicMotor.isMotorEnabled)
+        }
+    }
 
-	@Override
-	public void onClick(int x, int y, int button) {
-		super.onClick(x, y, button);
-		if (button == Input.Buttons.LEFT) {
-			physicMotor.enableMotor(!physicMotor.isMotorEnabled());
-		}
-	}
+    companion object {
+        internal val rnd = Random()
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            DemoMixer()
+        }
+    }
 }
