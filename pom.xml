@@ -20,6 +20,10 @@
     <url>http://www.hevs.ch/isi</url>
   </organization>
 
+  <properties>
+    <gdx2d.version>1.2.2</gdx2d.version>
+  </properties>
+
   <issueManagement>
     <system>GitHub</system>
     <url>https://github.com/hevs-isi/gdx2d/issues</url>
@@ -151,11 +155,11 @@
         <configuration>
           <groupId>ch.hevs.gdx2d</groupId>
           <artifactId>gdx2d-desktop</artifactId>
-          <version>1.2.2</version>
+          <version>${gdx2d.version}</version>
           <packaging>jar</packaging>
-          <file>${maven.multiModuleProjectDirectory}/lib/gdx2d-desktop-1.2.2.jar</file>
-          <sources>${maven.multiModuleProjectDirectory}/lib/gdx2d-desktop-1.2.2-sources.jar</sources>
-          <javadoc>${maven.multiModuleProjectDirectory}/lib/gdx2d-desktop-1.2.2-javadoc.jar</javadoc>
+          <file>${maven.multiModuleProjectDirectory}/lib/gdx2d-desktop-${gdx2d.version}.jar</file>
+          <sources>${maven.multiModuleProjectDirectory}/lib/gdx2d-desktop-${gdx2d.version}-sources.jar</sources>
+          <javadoc>${maven.multiModuleProjectDirectory}/lib/gdx2d-desktop-${gdx2d.version}-javadoc.jar</javadoc>
           <generatePom>true</generatePom>
         </configuration>
         <executions>

@@ -24,18 +24,13 @@
   </properties>
 
 
-  <version>1.2.2</version>
+  <version>${gdx2d.version}</version>
 
   <dependencies>
     <dependency>
       <groupId>ch.hevs.gdx2d</groupId>
-      <artifactId>gdx2d-desktop</artifactId>
-      <version>1.2.2</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.hevs.gdx2d</groupId>
       <artifactId>gdx2d-demoDesktop</artifactId>
-      <version>1.2.2</version>
+      <version>${gdx2d.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
