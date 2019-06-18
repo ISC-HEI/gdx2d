@@ -19,7 +19,7 @@ import com.badlogic.gdx.math.Vector3
  * @version 0.4
  */
 class DemoShaderCircleAntiAlias : PortableApplication() {
-    internal lateinit var c: Circle
+    lateinit var c: Circle
     private var time = 0f
     private var radius = 100f
 

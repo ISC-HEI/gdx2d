@@ -9,11 +9,11 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
  *
  * @author Pierre-Andre Mudry (mui)
  */
-class Coin(internal var posx: Int, internal var posy: Int) : DrawableObject {
+class Coin(var posx: Int, var posy: Int) : DrawableObject {
 
     internal val img = BitmapImage("images/retro-coin.png")
-    internal var scale = 0.4f
-    internal var direction = 0.01f
+    var scale = 0.4f
+    var direction = 0.01f
 
     override fun draw(g: GdxGraphics) {
         g.drawTransformedPicture(posx.toFloat(), posy.toFloat(), 0f, scale, img)

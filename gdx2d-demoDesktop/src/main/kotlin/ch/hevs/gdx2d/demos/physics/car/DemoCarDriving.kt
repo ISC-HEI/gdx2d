@@ -23,9 +23,9 @@ import ch.hevs.gdx2d.demos.physics.car.components.Car
  */
 class DemoCarDriving : PortableApplication() {
 
-    internal lateinit var dbgRenderer: DebugRenderer
-    internal var world = PhysicsWorld.getInstance()
-    internal lateinit var c1: Car
+    lateinit var dbgRenderer: DebugRenderer
+    var world = PhysicsWorld.getInstance()
+    lateinit var c1: Car
 
     override fun onInit() {
         setTitle("Car driving")

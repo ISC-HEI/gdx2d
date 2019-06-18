@@ -23,19 +23,19 @@ class DemoSpriteSheet : PortableApplication() {
     internal val SPRITE_WIDTH = 64
     internal val SPRITE_HEIGHT = 64
     internal val FRAME_TIME = 0.15 // Duration of each frame
-    internal lateinit var ss: Spritesheet
+    lateinit var ss: Spritesheet
     /**
      * The currently selected sprite for animation
      */
-    internal var textureX = 0
-    internal var textureY = 1
+    var textureX = 0
+    var textureY = 1
 
     /**
      * Animation related parameters
      */
-    internal var dt = 0f
-    internal var currentFrame = 0
-    internal var nFrames = 4
+    var dt = 0f
+    var currentFrame = 0
+    var nFrames = 4
 
     override fun onInit() {
         setTitle("SpriteSheet demo")

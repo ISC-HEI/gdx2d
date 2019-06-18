@@ -13,10 +13,10 @@ import com.badlogic.gdx.graphics.Color
  * @version 1.0
  */
 class DemoSimpleAnimation : PortableApplication() {
-    internal var radius = 5
-    internal var speed = 1
-    internal var screenHeight: Int = 0
-    internal var screenWidth: Int = 0
+    var radius = 5
+    var speed = 1
+    var screenHeight: Int = 0
+    var screenWidth: Int = 0
 
     override fun onInit() {
         // Sets the window title

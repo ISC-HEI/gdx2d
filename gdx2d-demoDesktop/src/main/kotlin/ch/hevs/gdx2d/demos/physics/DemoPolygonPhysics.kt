@@ -19,9 +19,9 @@ import com.badlogic.gdx.math.Vector2
  */
 class DemoPolygonPhysics : PortableApplication() {
 
-    internal lateinit var p1: PhysicsPolygon
-    internal lateinit var p2: PhysicsPolygon
-    internal lateinit var debugRenderer: DebugRenderer
+    lateinit var p1: PhysicsPolygon
+    lateinit var p2: PhysicsPolygon
+    lateinit var debugRenderer: DebugRenderer
 
     override fun onInit() {
         // A triangle

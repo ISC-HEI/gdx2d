@@ -14,7 +14,7 @@ import ch.hevs.gdx2d.lib.utils.Logger
  */
 class DemoConvolution : PortableApplication() {
 
-    internal var currentMatrix = 0
+    var currentMatrix = 0
 
     override fun onInit() {
         this.setTitle("Texture convolution - mui 2013")

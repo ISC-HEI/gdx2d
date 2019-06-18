@@ -15,12 +15,12 @@ import com.badlogic.gdx.math.Vector2
  */
 class DemoBackbuffer : PortableApplication() {
 
-    internal lateinit var mouse: Vector2
-    internal var currentMatrix = 0
-    internal var time = 0f
+    lateinit var mouse: Vector2
+    var currentMatrix = 0
+    var time = 0f
     // Used for off screen rendering
-    internal lateinit var fbo: FrameBuffer
-    internal lateinit var t: Texture
+    lateinit var fbo: FrameBuffer
+    lateinit var t: Texture
 
     override fun onInit() {
         this.setTitle("Backbuffer - mui 2013")

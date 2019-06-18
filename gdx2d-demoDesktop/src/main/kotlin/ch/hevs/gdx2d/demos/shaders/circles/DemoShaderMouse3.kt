@@ -14,8 +14,8 @@ import com.badlogic.gdx.Gdx
  */
 class DemoShaderMouse3 : PortableApplication() {
 
-    internal lateinit var c: Circle
-    internal var time = 0f
+    lateinit var c: Circle
+    var time = 0f
 
     override fun onInit() {
         this.setTitle("Mouse shader interactions #2, mui 2013")

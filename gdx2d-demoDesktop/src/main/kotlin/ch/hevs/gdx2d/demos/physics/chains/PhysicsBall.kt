@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector2
  * @version 1.1
  */
 class PhysicsBall : PhysicsCircle, DrawableObject {
-    internal var c: Color
+    var c: Color
 
     constructor(position: Vector2, radius: Int, c: Color) : this("ball", position, radius, c) {}
 
@@ -42,7 +42,7 @@ class PhysicsBall : PhysicsCircle, DrawableObject {
     }
 
     companion object {
-        internal var transparentRendering = false
+        var transparentRendering = false
 
         fun change_rendering() {
             transparentRendering = !transparentRendering

@@ -11,7 +11,7 @@ import ch.hevs.gdx2d.lib.GdxGraphics
  */
 class DemoShaderPartialTextureRendering : PortableApplication() {
 
-    internal var t = 0.0
+    var t = 0.0
 
     override fun onInit() {
         this.setTitle("Partial screen shader demo, mui 2013")

@@ -176,8 +176,8 @@ class Benchmarker : PortableApplication() {
         }
     }
 
-    private abstract inner class Tester internal constructor(internal var name: String) {
-        internal var speed: Float = 0.toFloat()
+    private abstract inner class Tester internal constructor(var name: String) {
+        var speed: Float = 0.toFloat()
 
         internal abstract fun draw(g: GdxGraphics, n: Long)
     }

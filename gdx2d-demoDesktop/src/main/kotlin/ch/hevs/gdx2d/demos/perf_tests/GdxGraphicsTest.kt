@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.Color
  */
 class GdxGraphicsTest : PortableApplication() {
 
-    internal var zoom = 1.0f
-    internal var zoom_up = true
+    var zoom = 1.0f
+    var zoom_up = true
 
     override fun onInit() {
         setTitle(this.javaClass.getSimpleName())

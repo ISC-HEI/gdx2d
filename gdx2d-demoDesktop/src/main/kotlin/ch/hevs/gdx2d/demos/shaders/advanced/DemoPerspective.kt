@@ -20,20 +20,20 @@ import com.badlogic.gdx.math.Vector3
  * @version 1.0
  */
 class DemoPerspective : PortableApplication() {
-    internal var time = 0f
-    internal var shaderEnabled = true
+    var time = 0f
+    var shaderEnabled = true
 
     // Used for off screen rendering
-    internal lateinit var fbo: FrameBuffer
+    lateinit var fbo: FrameBuffer
 
     // Standard images used for drawing
-    internal lateinit var imageAndroid: BitmapImage
-    internal lateinit var imageBackground: BitmapImage
+    lateinit var imageAndroid: BitmapImage
+    lateinit var imageBackground: BitmapImage
 
-    internal var cameraFov = (Math.PI / 6.0f).toFloat()  //Horizontal field of vision
-    internal var cameraAngle = (Math.PI / 10.0f).toFloat()  //Horizontal field of vision
-    internal var cameraPosition = Vector3(0.0f, -1.0f, 0.02f)
-    internal var cameraAxis = Vector3(1.0f, 0.0f, 0.0f)
+    var cameraFov = (Math.PI / 6.0f).toFloat()  //Horizontal field of vision
+    var cameraAngle = (Math.PI / 10.0f).toFloat()  //Horizontal field of vision
+    var cameraPosition = Vector3(0.0f, -1.0f, 0.02f)
+    var cameraAxis = Vector3(1.0f, 0.0f, 0.0f)
 
     override fun onInit() {
         this.setTitle("Postprocessing with a shader, mui 2013")

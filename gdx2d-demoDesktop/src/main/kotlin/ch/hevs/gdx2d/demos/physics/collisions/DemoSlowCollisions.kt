@@ -17,11 +17,11 @@ import com.badlogic.gdx.physics.box2d.World
  * @version 1.0
  */
 class DemoSlowCollisions : PortableApplication() {
-    internal var world = PhysicsWorld.getInstance()
-    internal lateinit var dbgRenderer: DebugRenderer
+    var world = PhysicsWorld.getInstance()
+    lateinit var dbgRenderer: DebugRenderer
 
-    internal lateinit var b1: BumpyBall
-    internal lateinit var b2: BumpyBall
+    lateinit var b1: BumpyBall
+    lateinit var b2: BumpyBall
 
     override fun onInit() {
         dbgRenderer = DebugRenderer()

@@ -14,10 +14,10 @@ import ch.hevs.gdx2d.lib.GdxGraphics
  * @version 1.0
  */
 class DemoTurtle : PortableApplication() {
-    internal var t: Turtle? = null
+    var t: Turtle? = null
 
-    internal var flakeSize = 2
-    internal var animDirection = 1
+    var flakeSize = 2
+    var animDirection = 1
 
     /**
      * Draws the snowflake

@@ -12,7 +12,7 @@ import ch.hevs.gdx2d.lib.GdxGraphics
  */
 class DemoShaderMouse1 : PortableApplication() {
 
-    internal lateinit var c: Circle
+    lateinit var c: Circle
 
     override fun onInit() {
         this.setTitle("Simple circle shader, mui 2013")

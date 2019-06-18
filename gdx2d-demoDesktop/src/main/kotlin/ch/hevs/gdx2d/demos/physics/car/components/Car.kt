@@ -47,7 +47,7 @@ class Car
      * accelerating. 0 would not brake the car at all
      * and 1 will make it stop very quickly.
      */
-    internal var slowingFactor = 0.5f
+    var slowingFactor = 0.5f
 
     /**
      * @return car's velocity vector relative to the car

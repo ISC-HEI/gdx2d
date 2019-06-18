@@ -155,7 +155,7 @@ class DemoTileAdvanced : PortableApplication() {
             // Is the move valid ?
             if (isWalkable(nextCell)) {
                 // Go
-                hero.setSpeed(getSpeed(nextCell!!))
+                hero.speed = getSpeed(nextCell!!)
                 hero.go(goalDirection)
             } else {
                 // Face the wall

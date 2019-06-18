@@ -25,11 +25,11 @@ import com.badlogic.gdx.physics.box2d.World
 class DemoPhysicsRocket : PortableApplication() {
 
     // Physics related
-    internal lateinit var dbgRenderer: DebugRenderer
-    internal var world = PhysicsWorld.getInstance()
+    lateinit var dbgRenderer: DebugRenderer
+    var world = PhysicsWorld.getInstance()
 
     // Drawing related
-    internal lateinit var ship: Spaceship
+    lateinit var ship: Spaceship
 
     override fun onInit() {
         setTitle("Rocket with physics")

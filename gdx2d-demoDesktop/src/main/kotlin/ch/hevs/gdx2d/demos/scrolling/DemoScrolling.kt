@@ -26,12 +26,12 @@ import java.util.Vector
 // Displays the demo in full-screen using the display's native resolution
 class DemoScrolling : PortableApplication(0, 0, true) {
 
-    internal var toDraw = Vector<DrawableObject>()
+    var toDraw = Vector<DrawableObject>()
 
     // Default zoom factor
-    internal var zoom = 1.0
-    internal var travelSpeed = 2f
-    internal var scrolling = true
+    var zoom = 1.0
+    var travelSpeed = 2f
+    var scrolling = true
 
     override fun onInit() {
         setTitle("Scrolling demo, mui 2013")

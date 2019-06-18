@@ -13,8 +13,8 @@ import ch.hevs.gdx2d.lib.GdxGraphics
  * @version 1.0
  */
 class DemoMirrorImage : PortableApplication() {
-    internal var counter = 0f
-    internal lateinit var imgBitmap: BitmapImage
+    var counter = 0f
+    lateinit var imgBitmap: BitmapImage
 
     override fun onInit() {
         // Sets the window title

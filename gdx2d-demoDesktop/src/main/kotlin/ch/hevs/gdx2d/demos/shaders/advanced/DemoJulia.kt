@@ -13,13 +13,13 @@ import com.badlogic.gdx.math.Vector2
  */
 class DemoJulia : PortableApplication() {
 
-    internal var t = 0f
-    internal var clicked = false
-    internal var image1 = true
-    internal var direction = 1
-    internal var juliaPrm = 0.35f
-    internal var scale = 1.10f
-    internal var offset = Vector2(0f, 0f)
+    var t = 0f
+    var clicked = false
+    var image1 = true
+    var direction = 1
+    var juliaPrm = 0.35f
+    var scale = 1.10f
+    var offset = Vector2(0f, 0f)
 
     override fun onInit() {
         this.setTitle("Julia set shader, mui 2013")

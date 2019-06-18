@@ -14,14 +14,14 @@ import com.badlogic.gdx.graphics.GL20
  * @version 1.0
  */
 class DemoBlendingFunctions : PortableApplication() {
-    internal lateinit var imgBitmap: BitmapImage
-    internal lateinit var backgroundBitmap: BitmapImage
+    lateinit var imgBitmap: BitmapImage
+    lateinit var backgroundBitmap: BitmapImage
 
-    internal var w: Float = 0.toFloat()
-    internal var h: Float = 0.toFloat()
-    internal var src_functions = intArrayOf(GL20.GL_ZERO, GL20.GL_ONE, GL20.GL_SRC_COLOR, GL20.GL_ONE_MINUS_SRC_COLOR, GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+    var w: Float = 0.toFloat()
+    var h: Float = 0.toFloat()
+    var src_functions = intArrayOf(GL20.GL_ZERO, GL20.GL_ONE, GL20.GL_SRC_COLOR, GL20.GL_ONE_MINUS_SRC_COLOR, GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
 
-    internal var dst_functions = intArrayOf(GL20.GL_ZERO, GL20.GL_ONE, GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_DST_COLOR, GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+    var dst_functions = intArrayOf(GL20.GL_ZERO, GL20.GL_ONE, GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_DST_COLOR, GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
 
     override fun onInit() {
         // Sets the window title

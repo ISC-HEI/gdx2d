@@ -31,17 +31,17 @@ class DemoRotateLight : PortableApplication() {
     protected var clicked = false
     protected var rotationCenter = Vector2()
     // The physics world (because light uses physics for positions)
-    internal lateinit var world: World
+    lateinit var world: World
     // This object manages the different lights of the scene
-    internal lateinit var rayHandler: RayHandler
+    lateinit var rayHandler: RayHandler
     // A single light
-    internal lateinit var p: PointLight
-    internal var hue = 0.3f
-    internal var direction = 0.001f
+    lateinit var p: PointLight
+    var hue = 0.3f
+    var direction = 0.001f
     // The objects located in the middle of the screen that will cast shadows
-    internal lateinit var circle1: PhysicsCircle
-    internal lateinit var circle2: PhysicsCircle
-    internal lateinit var circle3: PhysicsCircle
+    lateinit var circle1: PhysicsCircle
+    lateinit var circle2: PhysicsCircle
+    lateinit var circle3: PhysicsCircle
 
     override fun onInit() {
         this.setTitle("Rotate light demo, mui 2013")

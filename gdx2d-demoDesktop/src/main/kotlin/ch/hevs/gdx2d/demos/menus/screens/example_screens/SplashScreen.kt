@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Color
  * A simple @SplashScreen to demonstrate transition between screens
  */
 class SplashScreen : RenderingScreen() {
-    internal lateinit var imgBitmap: BitmapImage
+    lateinit var imgBitmap: BitmapImage
 
     override fun onInit() {
         // Loads the image that will be displayed in the middle of the screen

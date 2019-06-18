@@ -10,8 +10,8 @@ import java.util.Random
  * @author Pierre-Andre Mudry (mui)
  * @version 1.0
  */
-class DrawableShape internal constructor(internal var width: Int, internal var height: Int, internal var x: Int, internal var y: Int, internal var c: Color) {
-    internal var offset: Float = 0.toFloat()
+class DrawableShape internal constructor(var width: Int, var height: Int, var x: Int, var y: Int, var c: Color) {
+    var offset: Float = 0.toFloat()
 
     init {
         this.offset = rnd.nextFloat() * 45

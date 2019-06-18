@@ -22,11 +22,11 @@ import java.util.Random
 class DemoParticlePhysics : PortableApplication {
     val MAX_AGE = 35
     var CREATION_RATE = 3
-    internal lateinit var dbgRenderer: DebugRenderer
-    internal var world = PhysicsWorld.getInstance()
+    lateinit var dbgRenderer: DebugRenderer
+    var world = PhysicsWorld.getInstance()
     // Particle creation related
-    internal var mouseActive = false
-    internal lateinit var position: Vector2
+    var mouseActive = false
+    lateinit var position: Vector2
 
     constructor() : super() {}
 

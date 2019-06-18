@@ -29,7 +29,7 @@ import java.util.Random
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-internal class Rotor(name: String, position: Vector2, private val w: Float, private val h: Float) : PhysicsBox(name, position, w, h), DrawableObject {
+class Rotor(name: String, position: Vector2, private val w: Float, private val h: Float) : PhysicsBox(name, position, w, h), DrawableObject {
 
     /**
      * Used for drawing the rotor
@@ -56,17 +56,17 @@ internal class Rotor(name: String, position: Vector2, private val w: Float, priv
 class DemoMixer : PortableApplication() {
     // The number of balls generated
     internal val N_PARTICLES = 100
-    internal var world = PhysicsWorld.getInstance()
-    internal lateinit var debugRenderer: DebugRenderer
-    internal lateinit var box1: Body
-    internal lateinit var box2: Body
-    internal lateinit var physicMotor: PhysicsMotor
+    var world = PhysicsWorld.getInstance()
+    lateinit var debugRenderer: DebugRenderer
+    lateinit var box1: Body
+    lateinit var box2: Body
+    lateinit var physicMotor: PhysicsMotor
     // Linked List to store all particles
-    internal var particles = LinkedList<CircleParticle>()
-    internal lateinit var random: Random
-    internal var width: Float = 0.toFloat()
-    internal var height: Float = 0.toFloat()
-    internal lateinit var rotor: Rotor
+    var particles = LinkedList<CircleParticle>()
+    lateinit var random: Random
+    var width: Float = 0.toFloat()
+    var height: Float = 0.toFloat()
+    lateinit var rotor: Rotor
 
     override fun onInit() {
         setTitle("Particle mixer, mui 2014")

@@ -9,7 +9,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
  *
  * @author Pierre-Andre Mudry (mui)
  */
-class Brick(internal var posx: Int, internal var posy: Int) : DrawableObject {
+class Brick(var posx: Int, var posy: Int) : DrawableObject {
 
     internal val img = BitmapImage("images/brick.png")
 

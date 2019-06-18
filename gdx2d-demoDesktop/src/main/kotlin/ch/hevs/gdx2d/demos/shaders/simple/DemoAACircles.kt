@@ -13,13 +13,13 @@ import java.util.Random
  * @version 1.0
  */
 class DemoAACircles : PortableApplication() {
-    internal var r = Random()
+    var r = Random()
     // To store the various circles informations
-    internal var x = IntArray(Q)
-    internal var y = IntArray(Q)
-    internal var rad = IntArray(Q)
-    internal var p = IntArray(Q)
-    internal var done = false
+    var x = IntArray(Q)
+    var y = IntArray(Q)
+    var rad = IntArray(Q)
+    var p = IntArray(Q)
+    var done = false
 
     override fun onInit() {
         /**

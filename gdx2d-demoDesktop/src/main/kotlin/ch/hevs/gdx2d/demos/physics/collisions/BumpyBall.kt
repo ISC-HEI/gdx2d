@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector2
  * @version 1.1
  */
 class BumpyBall(name: String, position: Vector2, radius: Int) : PhysicsCircle(name, position, radius.toFloat()), DrawableObject {
-    internal var lastCollision = 0.5f
+    var lastCollision = 0.5f
 
     /**
      * Called for every collision

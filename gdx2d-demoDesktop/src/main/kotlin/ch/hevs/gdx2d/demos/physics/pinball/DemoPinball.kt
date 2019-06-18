@@ -27,7 +27,7 @@ import com.badlogic.gdx.physics.box2d.World
  */
 class DemoPinball : PortableApplication() {
 
-    internal var world = PhysicsWorld.getInstance()
+    var world = PhysicsWorld.getInstance()
     private var debugRenderer: DebugRenderer? = null
 
     private var draw_mode = draw_mode_e.DEBUG_STD

@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2
  * @author Pierre-André Mudry
  */
 class CircleParticle : PhysicsCircle, DrawableObject {
-    internal var c = Color.WHITE
+    var c = Color.WHITE
 
     constructor(name: String, position: Vector2, radius: Int) : super(name, position, radius.toFloat(), 1f, 0.001f, 60.2f) {}
 

@@ -13,9 +13,9 @@ import com.badlogic.gdx.Gdx
  */
 class DemoTexture : PortableApplication() {
 
-    internal var t = 0f
-    internal var clicked = false
-    internal var image1 = true
+    var t = 0f
+    var clicked = false
+    var image1 = true
 
     override fun onInit() {
         this.setTitle("Texture shader / simple animation, mui 2013")

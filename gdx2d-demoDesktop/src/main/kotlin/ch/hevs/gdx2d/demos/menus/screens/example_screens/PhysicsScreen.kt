@@ -17,9 +17,9 @@ import com.badlogic.gdx.physics.box2d.World
  */
 class PhysicsScreen : RenderingScreen() {
     // Contains all the objects that will be simulated
-    internal var world = PhysicsWorld.getInstance()
-    internal lateinit var ball: PhysicsCircle
-    internal lateinit var debugRenderer: DebugRenderer
+    var world = PhysicsWorld.getInstance()
+    lateinit var ball: PhysicsCircle
+    lateinit var debugRenderer: DebugRenderer
 
     override fun onInit() {
         val w = Gdx.graphics.width

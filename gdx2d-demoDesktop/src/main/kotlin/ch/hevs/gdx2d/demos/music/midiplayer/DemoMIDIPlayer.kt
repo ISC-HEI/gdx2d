@@ -35,7 +35,7 @@ class DemoMIDIPlayer : PortableApplication() {
     protected lateinit var player: MIDIPLayer
 
     // The object that will receive the note messages
-    internal lateinit var midiListener: MIDIListener
+    lateinit var midiListener: MIDIListener
 
     override fun onInit() {
         setTitle("MIDI demo, fom 2015")

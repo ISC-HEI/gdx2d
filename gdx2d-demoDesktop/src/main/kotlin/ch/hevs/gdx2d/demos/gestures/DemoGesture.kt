@@ -14,10 +14,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera
  */
 class DemoGesture : PortableApplication() {
 
-    internal lateinit var image: BitmapImage
+    lateinit var image: BitmapImage
 
-    internal var cam: OrthographicCamera? = null
-    internal var initialScale = 1.0f
+    var cam: OrthographicCamera? = null
+    var initialScale = 1.0f
 
     init {
         if (!onAndroid()) {

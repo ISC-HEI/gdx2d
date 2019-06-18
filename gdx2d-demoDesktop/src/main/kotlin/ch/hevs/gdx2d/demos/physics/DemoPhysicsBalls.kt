@@ -25,12 +25,12 @@ import java.util.LinkedList
 class DemoPhysicsBalls : PortableApplication() {
 
     private val SMOOTHING = 30.0 // This value changes the dampening effect of the low-pass
-    internal var list = LinkedList<PhysicsCircle>()
+    var list = LinkedList<PhysicsCircle>()
     // A world with gravity, pointing down
-    internal var world = PhysicsWorld.getInstance()
-    internal lateinit var debugRenderer: DebugRenderer
-    internal lateinit var img: BitmapImage
-    internal var hasAccelerometers: Boolean = false
+    var world = PhysicsWorld.getInstance()
+    lateinit var debugRenderer: DebugRenderer
+    lateinit var img: BitmapImage
+    var hasAccelerometers: Boolean = false
     // For low-pass filtering accelerometer
     private var smoothedValue = 0.0
 

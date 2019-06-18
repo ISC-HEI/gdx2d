@@ -16,16 +16,16 @@ import com.badlogic.gdx.math.Vector2
  * @version 1.0
  */
 class DemoGetImageColor : PortableApplication() {
-    internal lateinit var imgBitmap: BitmapImage
+    lateinit var imgBitmap: BitmapImage
 
-    internal var alpha1 = 0.06f
-    internal var alpha2 = 0.3f
-    internal var alpha3 = 0.6f
-    internal var alpha4 = 0.94f
-    internal var dir1 = 1
-    internal var dir2 = 1
-    internal var dir3 = 1
-    internal var dir4 = 1
+    var alpha1 = 0.06f
+    var alpha2 = 0.3f
+    var alpha3 = 0.6f
+    var alpha4 = 0.94f
+    var dir1 = 1
+    var dir2 = 1
+    var dir3 = 1
+    var dir4 = 1
 
     override fun onInit() {
         // Sets the window title

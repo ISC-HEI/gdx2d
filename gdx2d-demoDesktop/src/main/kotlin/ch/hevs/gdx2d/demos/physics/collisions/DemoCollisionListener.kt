@@ -34,7 +34,7 @@ class DemoCollisionListener : PortableApplication() {
         setTitle("Collision demo for box2d, mui 2013")
 
         PhysicsScreenBoundaries(windowWidth.toFloat(), windowHeight.toFloat())
-      
+
         // A BumpyBall has redefined its collision method.
         b1 = BumpyBall("ball 1", Vector2(100f, 250f), 30)
 

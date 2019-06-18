@@ -19,15 +19,15 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer
  * @version 1.0
  */
 class DemoPostProcessing : PortableApplication() {
-    internal var time = 0f
-    internal var shaderEnabled = true
+    var time = 0f
+    var shaderEnabled = true
 
     // Used for off screen rendering
-    internal lateinit var fbo: FrameBuffer
+    lateinit var fbo: FrameBuffer
 
     // Standard images used for drawing
-    internal lateinit var imageAndroid: BitmapImage
-    internal lateinit var imageBackground: BitmapImage
+    lateinit var imageAndroid: BitmapImage
+    lateinit var imageBackground: BitmapImage
 
     override fun onInit() {
         this.setTitle("Postprocessing with a shader, mui 2013")

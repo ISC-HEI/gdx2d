@@ -12,8 +12,8 @@ import com.badlogic.gdx.Gdx
  */
 class DemoMultipleTextures : PortableApplication() {
 
-    internal var time = 0f
-    internal var i = 0
+    var time = 0f
+    var i = 0
 
     override fun onInit() {
         this.setTitle("Multiple textures passing to shader, mui 2013")

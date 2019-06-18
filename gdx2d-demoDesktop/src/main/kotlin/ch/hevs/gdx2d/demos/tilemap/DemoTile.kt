@@ -19,12 +19,12 @@ import com.badlogic.gdx.math.Vector2
  */
 class DemoTile : PortableApplication() {
 
-    internal lateinit var tiledMap: TiledMap
-    internal lateinit var tiledMapRenderer: TiledMapRenderer
+    lateinit var tiledMap: TiledMap
+    lateinit var tiledMapRenderer: TiledMapRenderer
 
-    internal var zoom = 1f
+    var zoom = 1f
 
-    internal var position = Vector2(0f, 0f)
+    var position = Vector2(0f, 0f)
 
     override fun onInit() {
         setTitle("Tile maps loader, mui 2015")

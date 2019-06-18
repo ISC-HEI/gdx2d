@@ -30,22 +30,22 @@ import java.util.Random
  * nature of code example](http://natureofcode.com/book/chapter-5-physics-libraries/)
  */
 class DemoWindmill : PortableApplication() {
-    internal var world = PhysicsWorld.getInstance()
-    internal lateinit var debugRenderer: DebugRenderer
-    internal lateinit var physicMotor: PhysicsMotor
+    var world = PhysicsWorld.getInstance()
+    lateinit var debugRenderer: DebugRenderer
+    lateinit var physicMotor: PhysicsMotor
 
     // Linked List to store all particles
-    internal var particles = LinkedList<CircleParticle>()
-    internal lateinit var random: Random
+    var particles = LinkedList<CircleParticle>()
+    lateinit var random: Random
 
-    internal var width: Float = 0.toFloat()
-    internal var height: Float = 0.toFloat()
+    var width: Float = 0.toFloat()
+    var height: Float = 0.toFloat()
 
-    internal var time = 0
+    var time = 0
 
     // The rate at which the balls are generated
-    internal var GENERATION_RATE = 2
-    internal var generate = false
+    var GENERATION_RATE = 2
+    var generate = false
 
     override fun onInit() {
         setTitle("Windmill simulation, hit 2014")

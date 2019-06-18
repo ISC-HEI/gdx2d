@@ -23,18 +23,18 @@ class Hero
     /**
      * The currently selected sprite for animation
      */
-    internal var textureX = 0
-    internal var textureY = 1
-    internal var speed = 1f
+    var textureX = 0
+    var textureY = 1
+    var speed = 1f
 
-    internal var dt = 0f
-    internal var currentFrame = 0
-    internal var nFrames = 4
+    var dt = 0f
+    var currentFrame = 0
+    var nFrames = 4
     internal val FRAME_TIME = 0.1f // Duration of each frime
-    internal var ss: Spritesheet
+    var ss: Spritesheet
 
-    internal var lastPosition: Vector2
-    internal var newPosition: Vector2
+    var lastPosition: Vector2
+    var newPosition: Vector2
     /**
      * @return the current position of the hero on the map.
      */
@@ -101,13 +101,6 @@ class Hero
                 position = Vector2(newPosition)
             }
         }
-    }
-
-    /**
-     * @param speed The new speed of the hero.
-     */
-    fun setSpeed(speed: Float) {
-        this.speed = speed
     }
 
     /**

@@ -17,10 +17,10 @@ import com.badlogic.gdx.graphics.Texture
  * @version 1.2
  */
 class Sky : DrawableObject {
-    internal var p: Pixmap
-    internal var t: Texture
-    internal var width: Int = 0
-    internal var height: Int = 0
+    var p: Pixmap
+    var t: Texture
+    var width: Int = 0
+    var height: Int = 0
 
     init {
         width = Gdx.graphics.width

@@ -30,15 +30,15 @@ class DemoChainPhysics : PortableApplication {
     internal val balls = LinkedList<PhysicsBall>()
     internal val r = Random()
 
-    internal lateinit var w: World
-    internal lateinit var chain: PhysicsChain
+    lateinit var w: World
+    lateinit var chain: PhysicsChain
 
     // The rate at which the balls are generated
-    internal var GENERATION_RATE = 7
+    var GENERATION_RATE = 7
 
-    internal var width: Float = 0.toFloat()
-    internal var height: Float = 0.toFloat()
-    internal var generate = false
+    var width: Float = 0.toFloat()
+    var height: Float = 0.toFloat()
+    var generate = false
 
     constructor() : super() {
 

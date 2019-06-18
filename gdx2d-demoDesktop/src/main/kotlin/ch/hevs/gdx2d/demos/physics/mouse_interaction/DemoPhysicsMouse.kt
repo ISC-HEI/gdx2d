@@ -30,18 +30,18 @@ class DemoPhysicsMouse : PortableApplication {
     protected lateinit var groundBody: Body // Ground body to connect the mouse joint to
     protected var mouseJoint: MouseJoint? = null // Our mouse joint
 
-    internal var world = PhysicsWorld.getInstance()
+    var world = PhysicsWorld.getInstance()
 
-    internal lateinit var debugRenderer: DebugRenderer // Contains all the objects that will be simulated
+    lateinit var debugRenderer: DebugRenderer // Contains all the objects that will be simulated
     /**
      * we instantiate this vector and the callback here so we don't irritate the
      * GC
      */
-    internal var testPoint = Vector2()
-    internal var target = Vector2()
+    var testPoint = Vector2()
+    var target = Vector2()
 
     // Called for AABB lookup
-    internal var callback: QueryCallback = QueryCallback { fixture ->
+    var callback: QueryCallback = QueryCallback { fixture ->
         // if the hit point is inside the fixture of the body we report it
         if (fixture.testPoint(testPoint.x, testPoint.y)) {
             hitBody = fixture.body

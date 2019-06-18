@@ -15,9 +15,9 @@ import java.util.ArrayList
 
 class DemoSwingIntegration : JFrame() {
 
-    internal var current = 0
+    var current = 0
 
-    internal var canvasList = ArrayList<LwjglAWTCanvas>()
+    var canvasList = ArrayList<LwjglAWTCanvas>()
 
     init {
         defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE

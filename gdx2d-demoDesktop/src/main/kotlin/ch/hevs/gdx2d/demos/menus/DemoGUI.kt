@@ -20,11 +20,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
  * @version 1.1
  */
 class DemoGUI : PortableApplication() {
-    internal lateinit var skin: Skin
-    internal lateinit var stage: Stage
-    internal lateinit var newGameButton: TextButton
-    internal lateinit var quitGameButton: TextButton
-    internal lateinit var textArea: TextField
+    lateinit var skin: Skin
+    lateinit var stage: Stage
+    lateinit var newGameButton: TextButton
+    lateinit var quitGameButton: TextButton
+    lateinit var textArea: TextField
 
     override fun onInit() {
         val buttonWidth = 180

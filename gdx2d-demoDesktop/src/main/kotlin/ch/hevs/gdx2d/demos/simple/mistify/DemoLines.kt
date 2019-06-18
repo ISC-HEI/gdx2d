@@ -15,8 +15,8 @@ import ch.hevs.gdx2d.lib.GdxGraphics
  */
 class DemoLines : PortableApplication() {
     internal val N_SHAPES = 3
-    internal lateinit var s: Array<BounceShape>
-    internal var frame = 0
+    lateinit var s: Array<BounceShape>
+    var frame = 0
 
     override fun onInit() {
         // Sets the window title

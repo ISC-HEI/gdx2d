@@ -22,10 +22,10 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef
  * @date 2014
  */
 class DemoRopeJoint : PortableApplication() {
-    internal var world = PhysicsWorld.getInstance()
+    var world = PhysicsWorld.getInstance()
 
     // Contains all the objects that will be simulated
-    internal lateinit var debugRenderer: DebugRenderer
+    lateinit var debugRenderer: DebugRenderer
 
     override fun onInit() {
         setTitle("Rope joints simulation, hit/mui 2014")

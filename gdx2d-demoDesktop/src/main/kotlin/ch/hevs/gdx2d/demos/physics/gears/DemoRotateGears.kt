@@ -55,8 +55,8 @@ class DemoRotateGears : PortableApplication(512, 256) {
     private var hand_hour: PhysicsBox? = null
 
     /* Motors */
-    internal lateinit var motor_seconds: PhysicsMotor
-    internal lateinit var motor_minutes: PhysicsMotor
+    lateinit var motor_seconds: PhysicsMotor
+    lateinit var motor_minutes: PhysicsMotor
 
     private val CLOCK_CENTER = Vector2(136.0f, 128.0f)
 

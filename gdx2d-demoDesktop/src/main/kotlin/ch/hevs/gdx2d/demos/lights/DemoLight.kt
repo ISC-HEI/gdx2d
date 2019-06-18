@@ -30,17 +30,17 @@ import java.util.Random
 class DemoLight : PortableApplication() {
 
     // Physics-related attributes
-    internal lateinit var rayHandler: RayHandler
-    internal lateinit var world: World
-    internal lateinit var debugRenderer: DebugRenderer
-    internal var list = ArrayList<PhysicsCircle>()
+    lateinit var rayHandler: RayHandler
+    lateinit var world: World
+    lateinit var debugRenderer: DebugRenderer
+    var list = ArrayList<PhysicsCircle>()
 
     // Light related attributes
-    internal lateinit var p: PointLight
-    internal lateinit var c1: ConeLight
-    internal lateinit var c2: ConeLight
-    internal var width: Int = 0
-    internal var height: Int = 0
+    lateinit var p: PointLight
+    lateinit var c1: ConeLight
+    lateinit var c2: ConeLight
+    var width: Int = 0
+    var height: Int = 0
     private var firstRun = true
 
     override fun onInit() {
