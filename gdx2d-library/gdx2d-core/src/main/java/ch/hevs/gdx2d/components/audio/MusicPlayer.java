@@ -89,7 +89,6 @@ public class MusicPlayer implements Disposable {
 	/**
 	 * Release resources when done working with them
 	 */
-	@Override
 	public void dispose() {
 		s.dispose();
 	}

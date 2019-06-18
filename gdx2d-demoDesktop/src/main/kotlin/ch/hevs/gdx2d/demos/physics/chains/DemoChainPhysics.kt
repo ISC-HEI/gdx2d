@@ -27,8 +27,8 @@ import java.util.Random
  * @see [The nature of code example](http://natureofcode.com/book/chapter-5-physics-libraries/)
  */
 class DemoChainPhysics : PortableApplication {
-    internal val balls = LinkedList<PhysicsBall>()
-    internal val r = Random()
+    val balls = LinkedList<PhysicsBall>()
+    val r = Random()
 
     lateinit var w: World
     lateinit var chain: PhysicsChain

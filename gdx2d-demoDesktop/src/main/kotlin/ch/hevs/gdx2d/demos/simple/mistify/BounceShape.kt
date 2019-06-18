@@ -25,7 +25,7 @@ class BounceShape(width: Int, height: Int) {
     private val xSpeed = DoubleArray(4)
     private val ySpeed = DoubleArray(4)
     private val c: Color
-    private var targetC: Color? = null
+    private var targetC: Color
 
     init {
         // Initialise the x/y and xSpeeds/ySpeeds

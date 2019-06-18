@@ -11,7 +11,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
  */
 class Cloud(var x: Int, var y: Int) : DrawableObject {
 
-    internal val cloudImage = BitmapImage("images/cloud_1.png")
+    val cloudImage = BitmapImage("images/cloud_1.png")
 
     override fun draw(g: GdxGraphics) {
         g.drawPicture(x.toFloat(), y.toFloat(), cloudImage)

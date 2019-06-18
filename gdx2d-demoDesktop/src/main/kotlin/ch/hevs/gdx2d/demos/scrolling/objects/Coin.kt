@@ -11,7 +11,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
  */
 class Coin(var posx: Int, var posy: Int) : DrawableObject {
 
-    internal val img = BitmapImage("images/retro-coin.png")
+    val img = BitmapImage("images/retro-coin.png")
     var scale = 0.4f
     var direction = 0.01f
 

@@ -30,7 +30,7 @@ class Hero
     var dt = 0f
     var currentFrame = 0
     var nFrames = 4
-    internal val FRAME_TIME = 0.1f // Duration of each frime
+    val FRAME_TIME = 0.1f // Duration of each frime
     var ss: Spritesheet
 
     var lastPosition: Vector2
@@ -41,7 +41,7 @@ class Hero
     var position: Vector2
         internal set
 
-    internal val img = BitmapImage("images/pipe.png")
+    val img = BitmapImage("images/pipe.png")
 
 
     /**

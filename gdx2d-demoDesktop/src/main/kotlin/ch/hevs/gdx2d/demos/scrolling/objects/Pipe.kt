@@ -12,7 +12,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 
 class Pipe(var posx: Int, var posy: Int) : DrawableObject {
 
-    internal val img = BitmapImage("images/pipe.png")
+    val img = BitmapImage("images/pipe.png")
 
     override fun draw(g: GdxGraphics) {
         g.drawPicture(posx.toFloat(), posy.toFloat(), img)

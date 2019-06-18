@@ -20,11 +20,11 @@ import com.badlogic.gdx.utils.Align
  * @version 1.2
  */
 class DemoFontGeneration : PortableApplication() {
-    private var optimus60: BitmapFont? = null
-    private var optimus40: BitmapFont? = null
-    private var timeless40: BitmapFont? = null
-    private var starjedi40: BitmapFont? = null
-    private var icepixel40: BitmapFont? = null
+    private lateinit var optimus60: BitmapFont
+    private lateinit var optimus40: BitmapFont
+    private lateinit var timeless40: BitmapFont
+    private lateinit var starjedi40: BitmapFont
+    private lateinit var icepixel40: BitmapFont
 
     override fun onInit() {
         this.setTitle("Font generation demo, mui 2013")

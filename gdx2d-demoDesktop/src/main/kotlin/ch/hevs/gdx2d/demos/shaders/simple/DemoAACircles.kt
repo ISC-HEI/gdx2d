@@ -57,7 +57,7 @@ class DemoAACircles : PortableApplication() {
     companion object {
 
         // The number of circles to generate
-        internal val Q = 5
+        val Q = 5
 
         @JvmStatic
         fun main(args: Array<String>) {

@@ -32,14 +32,14 @@ class DemoPinball : PortableApplication() {
 
     private var draw_mode = draw_mode_e.DEBUG_STD
 
-    private var leftFlipper: Flipper? = null
-    private var rightFlipper: Flipper? = null
-    private var ball: Ball? = null
-    private val ball_position = Vector2(51f, 150f)
-    private var bumperLeft: PhysicsStaticLine? = null
-    private var bumperRight: PhysicsStaticLine? = null
-    private var ballSprite: Spritesheet? = null
     private var displayHelp = 500
+    private val ball_position = Vector2(51f, 150f)
+    private lateinit var leftFlipper: Flipper
+    private lateinit var rightFlipper: Flipper
+    private lateinit var ball: Ball
+    private lateinit var bumperLeft: PhysicsStaticLine
+    private lateinit var bumperRight: PhysicsStaticLine
+    private lateinit var ballSprite: Spritesheet
     private lateinit var renderer: Renderer
     private lateinit var decorations: LinkedList<TemporaryDrawable>
 

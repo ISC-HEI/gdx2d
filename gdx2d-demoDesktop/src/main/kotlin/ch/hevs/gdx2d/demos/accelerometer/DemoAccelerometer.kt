@@ -15,7 +15,7 @@ import com.badlogic.gdx.Input.Peripheral
  */
 class DemoAccelerometer : PortableApplication() {
     private val SMOOTHING = 30.0 // This value changes the dampening effect of the low-pass
-    private var compassBitmap: BitmapImage? = null
+    private lateinit var compassBitmap: BitmapImage
     // For low-pass filtering
     private var smoothedValue = 0f
 

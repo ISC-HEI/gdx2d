@@ -38,18 +38,18 @@ import java.util.Date
 class DemoRotateMotor : PortableApplication(512, 256) {
     private val world = PhysicsWorld.getInstance()
 
-    private var physicMotorSeconds: PhysicsMotor? = null
-    private var physicMotorMinutes: PhysicsMotor? = null
-    private var physicMotorHours: PhysicsMotor? = null
+    private lateinit var physicMotorSeconds: PhysicsMotor
+    private lateinit var physicMotorMinutes: PhysicsMotor
+    private lateinit var physicMotorHours: PhysicsMotor
 
-    private var clockBitmap: BitmapImage? = null
-    private var secondBitmap: BitmapImage? = null
-    private var minuteBitmap: BitmapImage? = null
-    private var hourBitmap: BitmapImage? = null
-    private var body: Body? = null
-    private var body2: Body? = null
-    private var body3: Body? = null
-    private var body4: Body? = null
+    private lateinit var clockBitmap: BitmapImage
+    private lateinit var secondBitmap: BitmapImage
+    private lateinit var minuteBitmap: BitmapImage
+    private lateinit var hourBitmap: BitmapImage
+    private lateinit var body: Body
+    private lateinit var body2: Body
+    private lateinit var body3: Body
+    private lateinit var body4: Body
 
     private val CLOCK_CENTER = Vector2(136.0f, 128.0f)
 

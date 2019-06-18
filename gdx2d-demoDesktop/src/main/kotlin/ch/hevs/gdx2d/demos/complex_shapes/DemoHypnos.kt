@@ -14,11 +14,11 @@ import java.util.ArrayList
  * @version 1.0, April 2015
  */
 
-internal class Coord(var x: Float, var y: Float, var r: Float)
+class Coord(var x: Float, var y: Float, var r: Float)
 
 class DemoHypnos : PortableApplication() {
 
-    internal val points = ArrayList<Coord>()
+    val points = ArrayList<Coord>()
     private val quality = 100f
     private var layerSize: Float = 0.toFloat()
     private var radius: Float = 0.toFloat()

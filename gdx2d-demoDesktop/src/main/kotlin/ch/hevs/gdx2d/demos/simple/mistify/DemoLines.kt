@@ -14,7 +14,7 @@ import ch.hevs.gdx2d.lib.GdxGraphics
  * @see [ http://r3dux.org/2010/11/mystify-2-0](http://r3dux.org/2010/11/mystify-2-0/) for the original source code
  */
 class DemoLines : PortableApplication() {
-    internal val N_SHAPES = 3
+    val N_SHAPES = 3
     lateinit var s: Array<BounceShape>
     var frame = 0
 

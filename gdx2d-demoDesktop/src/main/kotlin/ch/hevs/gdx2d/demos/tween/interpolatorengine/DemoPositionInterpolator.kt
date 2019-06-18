@@ -17,7 +17,7 @@ import com.badlogic.gdx.math.Interpolation
  */
 class DemoPositionInterpolator : PortableApplication() {
 
-    internal val ANIMATION_LENGTH = 1.3f // Animation length (in seconds)
+    val ANIMATION_LENGTH = 1.3f // Animation length (in seconds)
     var currentTime = 0f // In seconds
     var direction = 1 // Direction of movement
     private lateinit var balls: Array<Ball>

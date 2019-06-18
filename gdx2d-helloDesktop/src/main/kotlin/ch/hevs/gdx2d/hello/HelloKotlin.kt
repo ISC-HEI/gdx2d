@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Interpolation
  */
 class HelloKotlin : PortableApplication() {
 
-    private var imgBitmap: BitmapImage? = null
+    private lateinit var imgBitmap: BitmapImage
 
     /**
      * Animation related variables

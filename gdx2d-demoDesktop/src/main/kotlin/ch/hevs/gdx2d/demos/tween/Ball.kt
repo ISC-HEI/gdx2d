@@ -12,7 +12,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
  * @version 1.2
  */
 class Ball(var posx: Float, var posy: Float) : DrawableObject {
-    internal val img = BitmapImage("images/soccer.png")
+    val img = BitmapImage("images/soccer.png")
 
     override fun draw(g: GdxGraphics) {
         draw(g, 1.0f)

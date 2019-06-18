@@ -115,7 +115,7 @@ class DemoParticlePhysics : PortableApplication {
     }
 
     companion object {
-        internal val rand = Random()
+        val rand = Random()
 
         @JvmStatic
         fun main(args: Array<String>) {

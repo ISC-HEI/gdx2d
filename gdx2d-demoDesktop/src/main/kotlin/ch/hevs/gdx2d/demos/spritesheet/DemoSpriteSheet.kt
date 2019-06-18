@@ -20,9 +20,9 @@ class DemoSpriteSheet : PortableApplication() {
     /**
      * The size of each sprite in the sheet
      */
-    internal val SPRITE_WIDTH = 64
-    internal val SPRITE_HEIGHT = 64
-    internal val FRAME_TIME = 0.15 // Duration of each frame
+    val SPRITE_WIDTH = 64
+    val SPRITE_HEIGHT = 64
+    val FRAME_TIME = 0.15 // Duration of each frame
     lateinit var ss: Spritesheet
     /**
      * The currently selected sprite for animation

@@ -44,15 +44,15 @@ class DemoRotateGears : PortableApplication(512, 256) {
     private val world = PhysicsWorld.getInstance()
 
     /* Bitmaps */
-    private var bitmapClock: BitmapImage? = null
-    private var bitmapSecond: BitmapImage? = null
-    private var bitmapMinute: BitmapImage? = null
-    private var bitmapHour: BitmapImage? = null
+    private lateinit var bitmapClock: BitmapImage
+    private lateinit var bitmapSecond: BitmapImage
+    private lateinit var bitmapMinute: BitmapImage
+    private lateinit var bitmapHour: BitmapImage
 
     /* Hands */
-    private var hand_second: PhysicsBox? = null
-    private var hand_minute: PhysicsBox? = null
-    private var hand_hour: PhysicsBox? = null
+    private lateinit var hand_second: PhysicsBox
+    private lateinit var hand_minute: PhysicsBox
+    private lateinit var hand_hour: PhysicsBox
 
     /* Motors */
     lateinit var motor_seconds: PhysicsMotor

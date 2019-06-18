@@ -21,10 +21,10 @@ import java.util.Vector
  */
 class DemoComplexShapes : PortableApplication() {
 
-    internal val rrand = Random(12345)
-    internal val colors = Vector<Color>()
-    internal val shapes = Vector<DrawableShape>()
-    internal val directions = Vector<Int>()
+    val rrand = Random(12345)
+    val colors = Vector<Color>()
+    val shapes = Vector<DrawableShape>()
+    val directions = Vector<Int>()
     private val N_SHAPES = 500
 
     private var screenWidth: Int = 0
@@ -36,7 +36,7 @@ class DemoComplexShapes : PortableApplication() {
     private var counter = 10.0
     private var dir = 1.34
     // The image which will be displayed
-    private var imageBmp: BitmapImage? = null
+    private lateinit var imageBmp: BitmapImage
 
     /**
      * Create a nice color palette in the blue tones

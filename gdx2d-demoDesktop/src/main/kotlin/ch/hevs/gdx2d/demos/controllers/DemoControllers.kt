@@ -30,15 +30,15 @@ import java.util.HashMap
  */
 class DemoControllers private constructor() : PortableApplication(700, 700, false) {
 
-    private var background: BitmapImage? = null
+    private lateinit var background: BitmapImage
     private val leftSickVal = Vector2.Zero.cpy() // X,Y values of the left stick (POV)
     private val rightSickVal = Vector2.Zero.cpy() // X,Y values of the left stick (POV)
 
-    private var leftStickPos: Vector2? = null // Center coordinates of the left stick
-    private var rightStickPos: Vector2? = null // Center coordinates of the right stick
+    private lateinit var leftStickPos: Vector2 // Center coordinates of the left stick
+    private lateinit var rightStickPos: Vector2 // Center coordinates of the right stick
 
     private var endPos = Vector2()
-    private var center: Vector2? = null
+    private lateinit var center: Vector2
 
     private var ctrl: Controller? = null // The connected controller
 

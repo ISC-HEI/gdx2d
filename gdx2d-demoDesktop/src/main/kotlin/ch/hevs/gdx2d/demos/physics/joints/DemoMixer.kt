@@ -55,7 +55,7 @@ class Rotor(name: String, position: Vector2, private val w: Float, private val h
  */
 class DemoMixer : PortableApplication() {
     // The number of balls generated
-    internal val N_PARTICLES = 100
+    val N_PARTICLES = 100
     var world = PhysicsWorld.getInstance()
     lateinit var debugRenderer: DebugRenderer
     lateinit var box1: Body
@@ -155,7 +155,7 @@ class DemoMixer : PortableApplication() {
     }
 
     companion object {
-        internal val rnd = Random()
+        val rnd = Random()
 
         @JvmStatic
         fun main(args: Array<String>) {

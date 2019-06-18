@@ -66,8 +66,8 @@ class Spaceship(position: Vector2) : DrawableObject {
     }
 
     companion object {
-        internal val MAX_THRUST = 1f
-        internal val MAX_TORQUE = 0.04f
+        val MAX_THRUST = 1f
+        val MAX_TORQUE = 0.04f
         // Drawing related
         protected lateinit var shipImage: BitmapImage
         protected lateinit var flameImage: BitmapImage
