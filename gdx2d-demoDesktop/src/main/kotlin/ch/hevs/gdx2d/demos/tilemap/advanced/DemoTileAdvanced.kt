@@ -25,9 +25,9 @@ class DemoTileAdvanced : PortableApplication() {
     private lateinit var hero: Hero
 
     // tiles management
-    private var tiledMap: TiledMap? = null
-    private var tiledMapRenderer: TiledMapRenderer? = null
-    private var tiledLayer: TiledMapTileLayer? = null
+    private lateinit var tiledMap: TiledMap
+    private lateinit var tiledMapRenderer: TiledMapRenderer
+    private lateinit var tiledLayer: TiledMapTileLayer
     private var zoom: Float = 0.toFloat()
 
     override fun onInit() {
@@ -47,7 +47,7 @@ class DemoTileAdvanced : PortableApplication() {
         // create map
         tiledMap = TmxMapLoader().load("maps/desert.tmx")
         tiledMapRenderer = OrthogonalTiledMapRenderer(tiledMap)
-        tiledLayer = tiledMap!!.layers.get(0) as TiledMapTileLayer
+        tiledLayer = tiledMap.layers.get(0) as TiledMapTileLayer
     }
 
     override fun onGraphicRender(g: GdxGraphics) {
@@ -58,15 +58,15 @@ class DemoTileAdvanced : PortableApplication() {
 
         // Camera follows the hero
         g.zoom(zoom)
-        g.moveCamera(hero!!.position.x, hero!!.position.y, tiledLayer!!.width * tiledLayer!!.tileWidth, tiledLayer!!.height * tiledLayer!!.tileHeight)
+        g.moveCamera(hero.position.x, hero.position.y, tiledLayer.width * tiledLayer.tileWidth, tiledLayer.height * tiledLayer.tileHeight)
 
         // Render the tilemap
-        tiledMapRenderer!!.setView(g.camera)
-        tiledMapRenderer!!.render()
+        tiledMapRenderer.setView(g.camera)
+        tiledMapRenderer.render()
 
         // Draw the hero
-        hero!!.animate(Gdx.graphics.deltaTime.toDouble())
-        hero!!.draw(g)
+        hero.animate(Gdx.graphics.deltaTime.toDouble())
+        hero.draw(g)
 
         g.drawFPS()
         g.drawSchoolLogo()
@@ -85,10 +85,10 @@ class DemoTileAdvanced : PortableApplication() {
      */
     private fun getTile(position: Vector2, offsetX: Int, offsetY: Int): TiledMapTile? {
         try {
-            val x = (position.x / tiledLayer!!.tileWidth).toInt() + offsetX
-            val y = (position.y / tiledLayer!!.tileHeight).toInt() + offsetY
+            val x = (position.x / tiledLayer.tileWidth).toInt() + offsetX
+            val y = (position.y / tiledLayer.tileHeight).toInt() + offsetY
 
-            return tiledLayer!!.getCell(x, y).tile
+            return tiledLayer.getCell(x, y).tile
         } catch (e: Exception) {
 
             return null
@@ -132,7 +132,7 @@ class DemoTileAdvanced : PortableApplication() {
     private fun manageHero() {
 
         // Do nothing if hero is already moving
-        if (!hero!!.isMoving) {
+        if (!hero.isMoving) {
 
             // Compute direction and next cell
             var nextCell: TiledMapTile? = null
@@ -140,16 +140,16 @@ class DemoTileAdvanced : PortableApplication() {
 
             if (keyStatus[Input.Keys.RIGHT]!!) {
                 goalDirection = Hero.Direction.RIGHT
-                nextCell = getTile(hero!!.position, 1, 0)
+                nextCell = getTile(hero.position, 1, 0)
             } else if (keyStatus[Input.Keys.LEFT]!!) {
                 goalDirection = Hero.Direction.LEFT
-                nextCell = getTile(hero!!.position, -1, 0)
+                nextCell = getTile(hero.position, -1, 0)
             } else if (keyStatus[Input.Keys.UP]!!) {
                 goalDirection = Hero.Direction.UP
-                nextCell = getTile(hero!!.position, 0, 1)
+                nextCell = getTile(hero.position, 0, 1)
             } else if (keyStatus[Input.Keys.DOWN]!!) {
                 goalDirection = Hero.Direction.DOWN
-                nextCell = getTile(hero!!.position, 0, -1)
+                nextCell = getTile(hero.position, 0, -1)
             }
 
             // Is the move valid ?

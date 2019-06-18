@@ -161,7 +161,7 @@ constructor() : JFrame("Demos gdx2d " + Version.VERSION) {
                     val clazz = currentDemo.clazz
                     val descText = currentDemo.desc
                     val d = SelectedDemos.DemoDescriptor(name, clazz, descText)
-                    demosMap!![name] = d
+                    demosMap[name] = d
                     l.add(name)
                     demoCounter++
                 }
@@ -184,7 +184,7 @@ constructor() : JFrame("Demos gdx2d " + Version.VERSION) {
 
                 SwingUtilities.invokeLater {
                     try {
-                        val g = Game2D(demosMap!!.get(selectedDemoName)!!.clazz.newInstance() as PortableApplication).withoutController()
+                        val g = Game2D(demosMap.get(selectedDemoName)!!.clazz.newInstance() as PortableApplication).withoutController()
                         // Create a new one
                         val canvas = LwjglAWTCanvas(g)
                         canvas.canvas.setSize(500, 500)

@@ -141,7 +141,7 @@ class DemoControllers private constructor() : PortableApplication(700, 700, fals
 
     companion object {
 
-        private val TAG = DemoControllers::class.java!!.getSimpleName()
+        private val TAG = DemoControllers::class.java.getSimpleName()
 
         // Contain some button positions used to draw a circle when they are pressed
         private val buttonPos = HashMap<Int, Vector2>()

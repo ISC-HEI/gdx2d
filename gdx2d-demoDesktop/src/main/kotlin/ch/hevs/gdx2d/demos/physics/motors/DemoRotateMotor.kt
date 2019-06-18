@@ -1,3 +1,4 @@
+@file:Suppress("NAME_SHADOWING")
 package ch.hevs.gdx2d.demos.physics.motors
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage

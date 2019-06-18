@@ -95,15 +95,15 @@ class DemoLight : PortableApplication() {
      * @param n The number of physics object to create
      */
     protected fun createRandomCircles(n: Int) {
-        var n = n
+        var count = n
 
         val r = Random()
 
-        while (n > 0) {
+        while (count > 0) {
             val position = Vector2((width * Math.random()).toFloat(), (height * Math.random()).toFloat())
             val circle = PhysicsCircle("circle", position, 10f, 1.2f, 1f, 0.01f)
             circle.setBodyLinearVelocity(r.nextFloat() * 3, r.nextFloat() * 3)
-            n--
+          count--
 
             // Only add the body, the rest is useless
             list.add(circle)

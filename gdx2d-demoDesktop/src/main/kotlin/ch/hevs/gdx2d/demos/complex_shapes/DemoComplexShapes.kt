@@ -126,8 +126,6 @@ class DemoComplexShapes : PortableApplication() {
                 // FIXME Did not work well for old Linux driver
                     g.drawFilledRectangle(i.x.toFloat(), i.y.toFloat(), i.width.toFloat(), i.width.toFloat(), 0f, i.c)
             }
-            else -> {
-            }
         }
 
         g.drawSchoolLogo()

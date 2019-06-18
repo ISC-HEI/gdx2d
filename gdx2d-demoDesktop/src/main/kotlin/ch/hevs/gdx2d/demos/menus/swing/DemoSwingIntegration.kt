@@ -9,8 +9,6 @@ import ch.hevs.gdx2d.demos.simple.DemoCircles
 
 import javax.swing.*
 import java.awt.*
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 import java.util.ArrayList
 
 class DemoSwingIntegration : JFrame() {
@@ -43,20 +41,16 @@ class DemoSwingIntegration : JFrame() {
         jb1.addActionListener {
             canvasList[0].stop()
 
-            val canvas: LwjglAWTCanvas
-            if (current % 2 == 1)
-                canvas = LwjglAWTCanvas(Game2D(DemoSimplePhysics()))
-            else
-                canvas = LwjglAWTCanvas(Game2D(DemoCircles()))
+            val newCanvas = LwjglAWTCanvas(Game2D(if (current % 2 == 1) DemoSimplePhysics() else DemoCircles()))
 
             current++
 
             canvasList.clear()
-            canvasList.add(0, canvas)
+            canvasList.add(0, newCanvas)
 
             container.remove(1)
-            canvas.canvas.setSize(400, 400)
-            container.add(canvas.canvas)
+            newCanvas.canvas.setSize(400, 400)
+            container.add(newCanvas.canvas)
             pack()
         }
 

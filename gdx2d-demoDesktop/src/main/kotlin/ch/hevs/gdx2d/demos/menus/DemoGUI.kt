@@ -53,7 +53,7 @@ class DemoGUI : PortableApplication() {
         textArea.width = buttonWidth.toFloat()
         textArea.setPosition((Gdx.graphics.width / 2 - buttonWidth / 2).toFloat(), (Gdx.graphics.height * .4).toInt().toFloat())
 
-        textArea.setTextFieldListener { textField, key ->
+        textArea.setTextFieldListener { _, key ->
             textArea.setSelection(0, 0)
 
             // When you press 'enter', do something
