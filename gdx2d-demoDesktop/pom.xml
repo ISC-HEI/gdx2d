@@ -47,6 +47,8 @@
   </dependencies>
 
   <build>
+    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+
     <resources>
       <resource>
         <directory>data</directory>
