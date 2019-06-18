@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!--
+    Maven build script for the gdx2d core library.
+
+    @author Christopher Métrailler (mei@hevs.ch)
+    @version 1.1
+  -->
+  <parent>
+    <groupId>ch.hevs.gdx2d</groupId>
+    <artifactId>gdx2d-parent</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <artifactId>gdx2d-demoDesktop</artifactId>
+  <packaging>jar</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>gdx2d demo desktop </description>
+  <version>${gdx2d.version}</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>ch.hevs.gdx2d</groupId>
+      <artifactId>gdx2d-desktop</artifactId>
+      <version>${gdx2d.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.javaswingcomponents</groupId>
+      <artifactId>accordion</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>data</directory>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <!-- Build an executable JAR -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>ch.hevs.gdx2d.demos.DemoSelector</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <!--Flat jar-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
