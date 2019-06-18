@@ -226,7 +226,6 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 		}
 	}
 
-	@Override
 	public void beginContact(Contact contact) {
 		AbstractPhysicsObject ob1, ob2;
 		ob1 = (AbstractPhysicsObject) contact.getFixtureA().getBody()
@@ -240,16 +239,13 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 		lastCollideEnergy = -1;
 	}
 
-	@Override
 	public void endContact(Contact contact) {
 	}
 
-	@Override
 	public void postSolve(Contact contact, ContactImpulse impulse) {
 		lastCollideEnergy = impulse.getNormalImpulses()[0];
 	}
 
-	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {
 	}
 
@@ -259,7 +255,6 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	 *
 	 * @return The physics body position, in the pixel space
 	 */
-	@Override
 	public Vector2 getBodyPosition() {
 		return body.getPosition().scl(m2p);
 	}
@@ -267,7 +262,6 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	/**
 	 * @return The physics body central position, in the pixel space
 	 */
-	@Override
 	public Vector2 getBodyLocalCenter() {
 		return body.getLocalCenter().scl(m2p);
 	}
@@ -275,7 +269,6 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	/**
 	 * @return The current angle of the physics object, in radians
 	 */
-	@Override
 	public float getBodyAngle() {
 		return body.getAngle();
 	}
@@ -283,7 +276,6 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	/**
 	 * @return The current angle of the physics object, in degrees
 	 */
-	@Override
 	public float getBodyAngleDeg() {
 		return body.getAngle() * PhysicsConstants.RAD_TO_DEG;
 	}
@@ -293,7 +285,6 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 	 * throws an {@link UnsupportedOperationException}
 	 * @throws UnsupportedOperationException
 	 */
-	@Override
 	public float getBodyRadius() {
 		if (f.getShape().getType() == Type.Circle) {
 			return f.getShape().getRadius() * m2p;
@@ -303,37 +294,30 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 		}
 	}
 
-	@Override
 	public void applyBodyTorque(float torque, boolean wake) {
 		body.applyTorque(torque, wake);
 	}
 
-	@Override
 	public float getBodyAngularDamping() {
 		return body.getAngularDamping();
 	}
 
-	@Override
 	public void setBodyAngularDamping(float damping) {
 		body.setAngularDamping(damping);
 	}
 
-	@Override
 	public float getBodyLinearDamping() {
 		return body.getLinearDamping();
 	}
 
-	@Override
 	public void setBodyLinearDamping(float damping) {
 		body.setLinearDamping(damping);
 	}
 
-	@Override
 	public Vector2 getBodyLinearVelocity() {
 		return body.getLinearVelocity();
 	}
 
-	@Override
 	public void setBodyLinearVelocity(Vector2 v) {
 		body.setLinearVelocity(v);
 	}
@@ -342,154 +326,124 @@ public abstract class AbstractPhysicsObject implements ContactListener, BodyInte
 		return body.getLinearVelocity().scl(m2p);
 	}
 
-	@Override
 	public Vector2 getBodyLinearVelocityFromLocalPoint(Vector2 v) {
 		return body.getLinearVelocityFromLocalPoint(v.scl(p2m)).scl(m2p);
 	}
 
-	@Override
 	public Vector2 getBodyLinearVelocityFromWorldPoint(Vector2 v) {
 		return body.getLinearVelocityFromWorldPoint(v.scl(p2m)).scl(m2p);
 	}
 
-	@Override
 	public float getBodyAngularVelocity() {
 		return body.getAngularVelocity();
 	}
 
-	@Override
 	public Array<Fixture> getBodyFixtureList() {
 		return body.getFixtureList();
 	}
 
-	@Override
 	public float getBodyGravityScale() {
 		return body.getGravityScale();
 	}
 
-	@Override
 	public float getBodyInertia() {
 		return body.getInertia();
 	}
 
-	@Override
 	public Vector2 getBodyLocalPoint(Vector2 v) {
 		return body.getLocalPoint(v.scl(p2m)).scl(m2p);
 	}
 
-	@Override
 	public Vector2 getBodyLocalVector(Vector2 v) {
 		return body.getLocalVector(v.scl(p2m)).scl(m2p);
 	}
 
-	@Override
 	public float getBodyMass() {
 		return body.getMass();
 	}
 
-	@Override
 	public MassData getBodyMassData() {
 		return body.getMassData();
 	}
 
-	@Override
 	public Transform getBodyTransform() {
 		return body.getTransform();
 	}
 
-	@Override
 	public World getBodyWorld() {
 		return body.getWorld();
 	}
 
-	@Override
 	public Vector2 getBodyWorldCenter() {
 		return body.getWorldCenter().scl(m2p);
 	}
 
-	@Override
 	public Vector2 getBodyWorldPoint(Vector2 v) {
 		return body.getWorldPoint(v.scl(p2m)).cpy().scl(m2p);
 	}
 
-	@Override
 	public Vector2 getBodyWorldVector(Vector2 v) {
 		return body.getWorldVector(v.scl(p2m)).cpy().scl(m2p);
 	}
 
-	@Override
 	public boolean isBodyActive() {
 		return body.isActive();
 	}
 
-	@Override
 	public void setBodyActive(boolean active) {
 		body.setActive(active);
 	}
 
-	@Override
 	public boolean isBodyAwake() {
 		return body.isAwake();
 	}
 
-	@Override
 	public void setBodyAwake(boolean awake) {
 		body.setAwake(awake);
 	}
 
-	@Override
 	public boolean isBodyBullet() {
 		return body.isBullet();
 	}
 
-	@Override
 	public boolean isBodyFixedRotation() {
 		return body.isFixedRotation();
 	}
 
-	@Override
 	public boolean isBodySleepingAllowed() {
 		return body.isSleepingAllowed();
 	}
 
-	@Override
 	public void setBodyLinearVelocity(float vx, float vy) {
 		body.setLinearVelocity(vx, vy);
 	}
 
-	@Override
 	public void applyBodyAngularImpulse(float impulse, boolean wake) {
 		body.applyAngularImpulse(impulse, wake);
 	}
 
-	@Override
 	public void applyBodyForce(float forceX, float forceY, float pointX,
 							   float pointY, boolean wake) {
 		body.applyForce(forceX, forceY, pointX, pointY, wake);
 	}
 
-	@Override
 	public void applyBodyForce(Vector2 force, Vector2 point, boolean wake) {
 		body.applyForce(force, point, wake);
 	}
 
-	@Override
 	public void applyBodyForceToCenter(float forceX, float forceY, boolean wake) {
 		body.applyForceToCenter(forceX, forceY, wake);
 	}
 
-	@Override
 	public void applyBodyForceToCenter(Vector2 force, boolean wake) {
 		body.applyForceToCenter(force, wake);
 	}
 
-	@Override
 	public void applyBodyLinearImpulse(float impulseX, float impulseY,
 									   float pointX, float pointY, boolean wake) {
 		body.applyLinearImpulse(impulseX, impulseY, pointX, pointY, wake);
 	}
 
-	@Override
 	public void applyBodyLinearImpulse(Vector2 impulse, Vector2 point,
 									   boolean wake) {
 		body.applyLinearImpulse(impulse, point, wake);

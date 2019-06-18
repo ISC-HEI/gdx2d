@@ -19,22 +19,22 @@ import java.util.LinkedList
  * @version 1.1
  */
 class DemoCollisionListener : PortableApplication() {
-    internal val otherBalls = LinkedList<BumpyBall>()
-    internal var world = PhysicsWorld.getInstance()
-    internal lateinit  var dbgRenderer: DebugRenderer
-    internal var time = 0
-    internal var generate = false
-    internal lateinit var b1: BumpyBall
-    internal var b2: BumpyBall? = null
-    internal var b3: BumpyBall? = null
-    internal var b4: BumpyBall? = null
+    val otherBalls = LinkedList<BumpyBall>()
+    var world = PhysicsWorld.getInstance()
+    lateinit  var dbgRenderer: DebugRenderer
+    var time = 0
+    var generate = false
+    lateinit var b1 : BumpyBall
+    var b2: BumpyBall? = null
+    var b3: BumpyBall? = null
+    var b4: BumpyBall? = null
 
     override fun onInit() {
         dbgRenderer = DebugRenderer()
         setTitle("Collision demo for box2d, mui 2013")
 
         PhysicsScreenBoundaries(windowWidth.toFloat(), windowHeight.toFloat())
-
+      
         // A BumpyBall has redefined its collision method.
         b1 = BumpyBall("ball 1", Vector2(100f, 250f), 30)
 
