@@ -5,6 +5,9 @@ mvn package
 //To package the project for students
 student.sh
 
+//To change the version number
+Update the <gdx2d.version>x.y.z</gdx2d.version> properties in ./pom.xml and ./gdx2d-library/pom.xml
+
 
 # Welcome to gdx2d [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.hevs.gdx2d/gdx2d-core/badge.svg)](http://search.maven.org/#search%7Cga%7C1%7Cch.hevs.gdx2d)
 
