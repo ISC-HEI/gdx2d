@@ -15,11 +15,11 @@ import com.badlogic.gdx.math.Vector2
 class PhysicsBall : PhysicsCircle, DrawableObject {
     var c: Color
 
-    constructor(position: Vector2, radius: Int, c: Color) : this("ball", position, radius, c) {}
+    constructor(position: Vector2, radius: Int, c: Color) : this("ball", position, radius, c)
 
-    constructor(position: Vector2, radius: Int) : this("ball", position, radius) {}
+  constructor(position: Vector2, radius: Int) : this("ball", position, radius)
 
-    constructor(name: String, position: Vector2, radius: Int, c: Color) : super(name, position, radius.toFloat()) {
+  constructor(name: String, position: Vector2, radius: Int, c: Color) : super(name, position, radius.toFloat()) {
         this.c = c
     }
 

@@ -187,7 +187,7 @@ class Benchmarker : PortableApplication() {
         start = System.currentTimeMillis()
         fps = 0
 
-        setTitle(this.javaClass.getSimpleName())
+        setTitle(this.javaClass.simpleName)
     }
 
     override fun onGraphicRender(g: GdxGraphics) {

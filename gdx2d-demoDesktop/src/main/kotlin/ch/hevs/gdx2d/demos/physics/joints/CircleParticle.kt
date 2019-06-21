@@ -14,9 +14,9 @@ import com.badlogic.gdx.math.Vector2
 class CircleParticle : PhysicsCircle, DrawableObject {
     var c = Color.WHITE
 
-    constructor(name: String, position: Vector2, radius: Int) : super(name, position, radius.toFloat(), 1f, 0.001f, 60.2f) {}
+    constructor(name: String, position: Vector2, radius: Int) : super(name, position, radius.toFloat(), 1f, 0.001f, 60.2f)
 
-    constructor(position: Vector2, radius: Int, c: Color, restitution: Float, friction: Float) : super("", position, radius.toFloat(), 1f, restitution, friction) {
+  constructor(position: Vector2, radius: Int, c: Color, restitution: Float, friction: Float) : super("", position, radius.toFloat(), 1f, restitution, friction) {
         this.c = c
     }
 

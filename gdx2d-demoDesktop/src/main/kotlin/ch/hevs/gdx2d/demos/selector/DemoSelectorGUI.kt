@@ -95,10 +95,10 @@ constructor() : JFrame("Demos gdx2d " + Version.VERSION) {
 
         private fun setIcon() {
             val icons = ArrayList<Image>()
-            icons.add(ImageIcon(javaClass.getResource("/selector/icon16.png")).getImage())
-            icons.add(ImageIcon(javaClass.getResource("/selector/icon32.png")).getImage())
-            icons.add(ImageIcon(javaClass.getResource("/selector/icon64.png")).getImage())
-            setIconImages(icons)
+            icons.add(ImageIcon(javaClass.getResource("/selector/icon16.png")).image)
+            icons.add(ImageIcon(javaClass.getResource("/selector/icon32.png")).image)
+            icons.add(ImageIcon(javaClass.getResource("/selector/icon64.png")).image)
+          iconImages = icons
         }
 
         private fun createMenus() {

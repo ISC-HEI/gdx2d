@@ -40,7 +40,7 @@ internal class AboutDialog
 
         val version = String.format("<html><br><pre>gdx2d-core v%s, libgdx v%s<br>%s</pre></html>", Version.VERSION, com.badlogic.gdx.Version.VERSION, Version.COPY)
         val vLabel = JLabel(version)
-        vLabel.setBackground(Color.WHITE)
+      vLabel.background = Color.WHITE
         aboutPanel.add(vLabel)
     }
 

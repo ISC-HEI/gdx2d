@@ -90,21 +90,21 @@ class BounceShape(width: Int, height: Int) {
             targetC = pickColour()
 
         // Shift red component close to red target
-        if (c.r < targetC!!.r)
+        if (c.r < targetC.r)
             c.r += colourChangeSpeed.toFloat()
-        if (c.r > targetC!!.r)
+        if (c.r > targetC.r)
             c.r -= colourChangeSpeed.toFloat()
 
         // Shift green component closer to green target
-        if (c.g < targetC!!.g)
+        if (c.g < targetC.g)
             c.g += colourChangeSpeed.toFloat()
-        if (c.g > targetC!!.g)
+        if (c.g > targetC.g)
             c.g -= colourChangeSpeed.toFloat()
 
         // Shift blue component closer to blue target
-        if (c.b < targetC!!.b)
+        if (c.b < targetC.b)
             c.b += colourChangeSpeed.toFloat()
-        if (c.b > targetC!!.b)
+        if (c.b > targetC.b)
             c.b -= colourChangeSpeed.toFloat()
     }
 

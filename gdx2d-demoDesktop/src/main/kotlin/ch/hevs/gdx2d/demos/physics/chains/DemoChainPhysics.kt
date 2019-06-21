@@ -46,9 +46,9 @@ class DemoChainPhysics : PortableApplication {
             GENERATION_RATE = 3
     }
 
-    constructor(w: Int, h: Int) : super(w, h) {}
+    constructor(w: Int, h: Int) : super(w, h)
 
-    override fun onInit() {
+  override fun onInit() {
         this.setTitle("Physics objects in well demo, mui 2013")
 
         Gdx.app.log("[DemoChainPhysics]", "Left click to generate balls")

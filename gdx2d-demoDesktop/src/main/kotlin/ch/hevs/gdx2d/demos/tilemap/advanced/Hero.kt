@@ -63,9 +63,9 @@ class Hero
      * @param x Column
      * @param y Line
      */
-    constructor(x: Int, y: Int) : this(Vector2((SPRITE_WIDTH * x).toFloat(), (SPRITE_HEIGHT * y).toFloat())) {}
+    constructor(x: Int, y: Int) : this(Vector2((SPRITE_WIDTH * x).toFloat(), (SPRITE_HEIGHT * y).toFloat()))
 
-    init {
+  init {
 
         lastPosition = Vector2(initialPosition)
         newPosition = Vector2(initialPosition)

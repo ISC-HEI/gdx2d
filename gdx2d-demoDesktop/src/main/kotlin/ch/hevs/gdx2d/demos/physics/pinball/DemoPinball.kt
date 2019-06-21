@@ -58,15 +58,12 @@ class DemoPinball : PortableApplication() {
 
     private inner class DrawablePhysicsPolygon : PhysicsPolygon, DrawableObject {
 
-        constructor(name: String, vertices: Array<Vector2>, density: Float, restitution: Float, friction: Float, dynamic: Boolean) : super(name, vertices, density, restitution, friction, dynamic) {
+        constructor(name: String, vertices: Array<Vector2>, density: Float, restitution: Float, friction: Float, dynamic: Boolean) : super(name, vertices, density, restitution, friction, dynamic)
 
-        }
+      constructor(name: String, vertices: Array<Vector2>,
+                    dynamic: Boolean) : super(name, vertices, dynamic)
 
-        constructor(name: String, vertices: Array<Vector2>,
-                    dynamic: Boolean) : super(name, vertices, dynamic) {
-        }
-
-        override fun draw(g: GdxGraphics) {
+      override fun draw(g: GdxGraphics) {
             g.setColor(Color.GRAY)
             g.drawPolygon(this.polygon)
         }
@@ -114,10 +111,10 @@ class DemoPinball : PortableApplication() {
         val right_center = Vector2(170f, 50f)
 
         leftFlipper = Flipper("left_flipper", Vector2(left_center).add(
-                3f, -3f), 50f, 10f, -25f, 50f, ballSprite!!.sprites[1])
+                3f, -3f), 50f, 10f, -25f, 50f, ballSprite.sprites[1])
         rightFlipper = Flipper("right_flipper",
                 Vector2(right_center).add(-3f, -3f), 50f, 10f, (-180 + 25).toFloat(), -50f,
-                ballSprite!!.sprites[1])
+                ballSprite.sprites[1])
 
         DrawablePhysicsPolygon("out1", arrayOf(Vector2(0f, 0f), Vector2(0f, left_center.y * 2), Vector2(left_center), Vector2(left_center.x, 1f)), false)
         DrawablePhysicsPolygon("out2", arrayOf(Vector2(right_center.x, 0f), Vector2(right_center), Vector2(w, h / 2), Vector2(w, 0f)), false)
@@ -136,14 +133,14 @@ class DemoPinball : PortableApplication() {
         DrawablePhysicsPolygon("bumperRight_frame", arrayOf(Vector2(right_center).add(20f, 55f), Vector2(right_center).add(20f, 95f), Vector2(right_center).add(-5f, 55f)), false)
 
         SensorSpinner("toto", Vector2(0f, left_center.y).add(
-                12.5f, 55f), 25f, 25f, ballSprite!!.sprites[2])
+                12.5f, 55f), 25f, 25f, ballSprite.sprites[2])
 
         bumperRight = DrawablePhysicsStaticLine("bumperRight", Vector2(
                 right_center).add(19f, 96f),
                 Vector2(right_center).add(-4f, 56f), 4f, 2f, .6f)
 
-        ball = Ball("ball", ball_position, scale(PinballSettings.BALL_DIAMETER / 2), ballSprite!!.sprites[0])
-        ball!!.enableCollisionListener()
+        ball = Ball("ball", ball_position, scale(PinballSettings.BALL_DIAMETER / 2), ballSprite.sprites[0])
+        ball.enableCollisionListener()
 
         object : DrawablePhysicsStaticCircle("b1", Vector2(250f, 450f), 20f, 1f, 2f, .6f) {
             override fun collision(theOtherObject: AbstractPhysicsObject,
@@ -201,7 +198,7 @@ class DemoPinball : PortableApplication() {
 
         g.clear()
         PhysicsWorld.updatePhysics()
-        moveCamera(g, PhysicsConstants.coordMetersToPixels(ball!!.body
+        moveCamera(g, PhysicsConstants.coordMetersToPixels(ball.body
                 .position))
         //g.zoom(2f);
 
@@ -233,8 +230,8 @@ class DemoPinball : PortableApplication() {
     override fun onKeyDown(keycode: Int) {
         super.onKeyDown(keycode)
         when (keycode) {
-            Keys.CONTROL_LEFT -> leftFlipper!!.power(true)
-            Keys.CONTROL_RIGHT -> rightFlipper!!.power(true)
+            Keys.CONTROL_LEFT -> leftFlipper.power(true)
+            Keys.CONTROL_RIGHT -> rightFlipper.power(true)
 
             Keys.SPACE, Keys.D -> {
             }
@@ -246,9 +243,9 @@ class DemoPinball : PortableApplication() {
     override fun onKeyUp(keycode: Int) {
         super.onKeyUp(keycode)
         when (keycode) {
-            Keys.CONTROL_LEFT -> leftFlipper!!.power(false)
+            Keys.CONTROL_LEFT -> leftFlipper.power(false)
 
-            Keys.CONTROL_RIGHT -> rightFlipper!!.power(false)
+            Keys.CONTROL_RIGHT -> rightFlipper.power(false)
 
             Keys.D -> when (draw_mode) {
                 DemoPinball.draw_mode_e.DEBUG -> draw_mode = draw_mode_e.DEBUG_STD
@@ -261,11 +258,11 @@ class DemoPinball : PortableApplication() {
             Keys.SPACE -> {
                 val h = Gdx.graphics.height.toFloat()
                 val w = Gdx.graphics.width.toFloat()
-                ball!!.destroy()
+                ball.destroy()
                 // ball = new Ball("ball", ball_position, 10f,
                 // ballSprite.sprites[0]);
-                ball = Ball("ball", Vector2(0f, h), scale(PinballSettings.BALL_DIAMETER / 2), ballSprite!!.sprites[0])
-                ball!!.enableCollisionListener()
+                ball = Ball("ball", Vector2(0f, h), scale(PinballSettings.BALL_DIAMETER / 2), ballSprite.sprites[0])
+                ball.enableCollisionListener()
             }
 
             else -> displayHelp = 300

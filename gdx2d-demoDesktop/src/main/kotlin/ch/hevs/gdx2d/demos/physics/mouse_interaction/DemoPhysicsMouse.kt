@@ -51,11 +51,11 @@ class DemoPhysicsMouse : PortableApplication {
     }
 
     //Constructor used by DemoSelectorGui via reflection
-    constructor() : super() {}
+    constructor() : super()
 
-    constructor(w: Int, h: Int) : super(w, h) {}
+  constructor(w: Int, h: Int) : super(w, h)
 
-    override fun onInit() {
+  override fun onInit() {
         setTitle("Mouse interactions in box2d, mui 2013")
 
         // We also need an invisible zero size ground body to which we can connect the mouse joint

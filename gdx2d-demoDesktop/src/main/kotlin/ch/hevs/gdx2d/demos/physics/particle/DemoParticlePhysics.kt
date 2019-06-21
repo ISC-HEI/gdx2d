@@ -28,11 +28,11 @@ class DemoParticlePhysics : PortableApplication {
     var mouseActive = false
     lateinit var position: Vector2
 
-    constructor() : super() {}
+    constructor() : super()
 
-    constructor(x: Int, y: Int) : super(x, y) {}
+  constructor(x: Int, y: Int) : super(x, y)
 
-    override fun onInit() {
+  override fun onInit() {
         setTitle("Particle physics, mui 2013")
         dbgRenderer = DebugRenderer()
         world.gravity = Vector2(0f, -0.6f)

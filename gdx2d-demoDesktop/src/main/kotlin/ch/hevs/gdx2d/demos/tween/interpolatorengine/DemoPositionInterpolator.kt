@@ -44,14 +44,14 @@ class DemoPositionInterpolator : PortableApplication() {
         val start = margin.toFloat()
         val end = (width - margin).toFloat()
 
-        balls!![0].posx = Interpolation.linear.apply(start, end, animationPercentage)
-        balls!![1].posx = Interpolation.elastic.apply(start, end, animationPercentage)
-        balls!![2].posx = Interpolation.sine.apply(start, end, animationPercentage)
-        balls!![3].posx = Interpolation.bounce.apply(start, end, animationPercentage)
-        balls!![4].posx = Interpolation.circle.apply(start, end, animationPercentage)
-        balls!![5].posx = Interpolation.swing.apply(start, end, animationPercentage)
-        balls!![6].posx = Interpolation.pow2.apply(start, end, animationPercentage)
-        balls!![7].posx = Interpolation.exp10.apply(start, end, animationPercentage)
+        balls[0].posx = Interpolation.linear.apply(start, end, animationPercentage)
+        balls[1].posx = Interpolation.elastic.apply(start, end, animationPercentage)
+        balls[2].posx = Interpolation.sine.apply(start, end, animationPercentage)
+        balls[3].posx = Interpolation.bounce.apply(start, end, animationPercentage)
+        balls[4].posx = Interpolation.circle.apply(start, end, animationPercentage)
+        balls[5].posx = Interpolation.swing.apply(start, end, animationPercentage)
+        balls[6].posx = Interpolation.pow2.apply(start, end, animationPercentage)
+        balls[7].posx = Interpolation.exp10.apply(start, end, animationPercentage)
 
         // Do the drawing
         g.clear()
@@ -62,8 +62,8 @@ class DemoPositionInterpolator : PortableApplication() {
         g.drawLine((width - margin).toFloat(), height * 1 / 10f, (width - margin).toFloat(), height * 8 / 10f)
 
         // Draw the balls
-        for (i in balls!!.indices) {
-            balls!![i].draw(g, 0.5f)
+        for (i in balls.indices) {
+            balls[i].draw(g, 0.5f)
         }
 
         g.drawFPS()

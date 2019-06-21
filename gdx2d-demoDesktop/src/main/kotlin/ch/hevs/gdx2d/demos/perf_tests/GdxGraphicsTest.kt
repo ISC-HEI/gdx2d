@@ -16,7 +16,7 @@ class GdxGraphicsTest : PortableApplication() {
     var zoom_up = true
 
     override fun onInit() {
-        setTitle(this.javaClass.getSimpleName())
+        setTitle(this.javaClass.simpleName)
     }
 
     internal fun manage_zoom() {

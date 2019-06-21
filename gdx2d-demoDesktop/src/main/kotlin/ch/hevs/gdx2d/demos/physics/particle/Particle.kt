@@ -34,7 +34,7 @@ class Particle(position: Vector2, radius: Int, protected val maxAge: Int) : Phys
     }
 
     fun shouldbeDestroyed(): Boolean {
-        return if (age > maxAge) true else false
+        return age > maxAge
     }
 
     fun step() {

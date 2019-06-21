@@ -13,7 +13,7 @@ class Flipper(name: String, position: Vector2, width: Float, height: Float, angl
     protected var flipper: PhysicsBox
     protected var motor: PhysicsMotor
 
-    internal inner class Sub(name: String, position: Vector2, private val width: Float, private val height: Float, angle: Float, density: Float, restitution: Float, friction: Float) : PhysicsBox("name" + "_flipper", position, width, height, 4.0f, 0.3f, 0.6f, angle), DrawableObject {
+    inner class Sub(name: String, position: Vector2, private val width: Float, private val height: Float, angle: Float, density: Float, restitution: Float, friction: Float) : PhysicsBox("name" + "_flipper", position, width, height, 4.0f, 0.3f, 0.6f, angle), DrawableObject {
 
         override fun draw(g: GdxGraphics) {
             val currentLFFrame = Math.abs(bodyAngleDeg).toInt() % sprites.size

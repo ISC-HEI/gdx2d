@@ -91,7 +91,7 @@ class DemoRotateMotor : PortableApplication(512, 256) {
         fd1.shape = CircleShape()
         fd1.shape.radius = PhysicsConstants.PIXEL_TO_METERS * 120
 
-        body!!.createFixture(fd1)
+        body.createFixture(fd1)
         fd1.shape.dispose()
 
         // Create the dynamic Body which acts as needle controller
@@ -109,7 +109,7 @@ class DemoRotateMotor : PortableApplication(512, 256) {
         fd2.shape = CircleShape()
         fd2.shape.radius = PhysicsConstants.PIXEL_TO_METERS * 60
 
-        body2!!.createFixture(fd2)
+        body2.createFixture(fd2)
         fd2.shape.dispose()
 
         val bd3 = BodyDef()
@@ -126,7 +126,7 @@ class DemoRotateMotor : PortableApplication(512, 256) {
         fd3.shape = CircleShape()
         fd3.shape.radius = PhysicsConstants.PIXEL_TO_METERS * 60
 
-        body3!!.createFixture(fd3)
+        body3.createFixture(fd3)
         fd3.shape.dispose()
 
         // Initialize the minute needle that it points exactly on the minutes marks
@@ -146,7 +146,7 @@ class DemoRotateMotor : PortableApplication(512, 256) {
         fd4.shape = CircleShape()
         fd4.shape.radius = PhysicsConstants.PIXEL_TO_METERS * 60
 
-        body4!!.createFixture(fd4)
+        body4.createFixture(fd4)
         fd4.shape.dispose()
 
         /**
@@ -154,14 +154,14 @@ class DemoRotateMotor : PortableApplication(512, 256) {
          * the anchor point (which is the center of the clock) for each needle
          */
         world.gravity = Vector2(0f, 0f)
-        physicMotorSeconds = PhysicsMotor(body, body2, body!!.worldCenter)
-        physicMotorMinutes = PhysicsMotor(body, body3, body!!.worldCenter)
-        physicMotorHours = PhysicsMotor(body, body4, body!!.worldCenter)
+        physicMotorSeconds = PhysicsMotor(body, body2, body.worldCenter)
+        physicMotorMinutes = PhysicsMotor(body, body3, body.worldCenter)
+        physicMotorHours = PhysicsMotor(body, body4, body.worldCenter)
 
         // Initialize the motor with a speed and torque
-        physicMotorSeconds!!.initializeMotor((-(3 * Math.PI / 180.0f)).toFloat(), 360.0f, true)
-        physicMotorMinutes!!.initializeMotor((-(0.0475 * Math.PI / 180.0f)).toFloat(), 360.0f, true)
-        physicMotorHours!!.initializeMotor((-(0.003 * Math.PI / 180.0f)).toFloat(), 360.0f, true)
+        physicMotorSeconds.initializeMotor((-(3 * Math.PI / 180.0f)).toFloat(), 360.0f, true)
+        physicMotorMinutes.initializeMotor((-(0.0475 * Math.PI / 180.0f)).toFloat(), 360.0f, true)
+        physicMotorHours.initializeMotor((-(0.003 * Math.PI / 180.0f)).toFloat(), 360.0f, true)
     }
 
     override fun onGraphicRender(g: GdxGraphics) {
@@ -173,7 +173,7 @@ class DemoRotateMotor : PortableApplication(512, 256) {
         val seconds = java.lang.Float.parseFloat(timeList[2])
 
         if (seconds == 0f) {
-            minuteDrawAngle = (body3!!.angle * 180 / Math.PI).toFloat()
+            minuteDrawAngle = (body3.angle * 180 / Math.PI).toFloat()
         }
 
         // Get the size of the window
@@ -197,7 +197,7 @@ class DemoRotateMotor : PortableApplication(512, 256) {
 
         // Draw the hour needle
         g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-                (body4!!.angle * 180 / Math.PI).toFloat(), 1.0f, hourBitmap)
+                (body4.angle * 180 / Math.PI).toFloat(), 1.0f, hourBitmap)
 
         // Draw the minute needle
         // (the position of the image change every whole minute, the motor turns continuously)
@@ -206,7 +206,7 @@ class DemoRotateMotor : PortableApplication(512, 256) {
 
         // Draw the second needle
         g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-                (body2!!.angle * 180 / Math.PI).toFloat(), 1.0f, secondBitmap)
+                (body2.angle * 180 / Math.PI).toFloat(), 1.0f, secondBitmap)
 
         g.setColor(Color.BLACK)
         g.drawString((w - 200).toFloat(), (h - 10).toFloat(), "Famous clock from\r\n" + "the Swiss Railways.")
