@@ -40,12 +40,8 @@ class DemoConvolution : PortableApplication() {
         super.onClick(x, y, button)
         currentMatrix = (currentMatrix + 1) % 5
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoConvolution()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoConvolution()
 }

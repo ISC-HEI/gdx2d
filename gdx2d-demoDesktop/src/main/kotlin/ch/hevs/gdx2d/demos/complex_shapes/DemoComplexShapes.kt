@@ -99,7 +99,7 @@ class DemoComplexShapes : PortableApplication() {
         for (i in shapes.indices) {
             val r = shapes[i]
 
-            if (r.x > screenWidth + imageBmp!!.image.width / 2 || r.x < 0) {
+            if (r.x > screenWidth + imageBmp.image.width / 2 || r.x < 0) {
                 val `val` = directions[i]
                 directions.setElementAt(-`val`, i)
             }
@@ -162,12 +162,8 @@ class DemoComplexShapes : PortableApplication() {
     private enum class type_shape {
         CIRCLE, IMAGE, RECT
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoComplexShapes()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoComplexShapes()
 }

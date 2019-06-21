@@ -66,12 +66,8 @@ class DemoBlendingFunctions : PortableApplication() {
         imgBitmap.dispose()
         backgroundBitmap.dispose()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoBlendingFunctions()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoBlendingFunctions()
 }

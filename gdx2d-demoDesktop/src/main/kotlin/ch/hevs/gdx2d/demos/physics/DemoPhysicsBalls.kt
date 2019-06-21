@@ -116,12 +116,8 @@ class DemoPhysicsBalls : PortableApplication() {
         g.drawSchoolLogoUpperRight()
         g.drawFPS()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoPhysicsBalls()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoPhysicsBalls()
 }

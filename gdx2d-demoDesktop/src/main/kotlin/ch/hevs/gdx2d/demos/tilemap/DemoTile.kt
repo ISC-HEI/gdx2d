@@ -76,12 +76,8 @@ class DemoTile : PortableApplication() {
             }
         }
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoTile()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoTile()
 }

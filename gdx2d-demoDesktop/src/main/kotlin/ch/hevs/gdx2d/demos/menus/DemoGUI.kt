@@ -100,12 +100,8 @@ class DemoGUI : PortableApplication() {
         stage.dispose()
         skin.dispose()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoGUI()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoGUI()
 }

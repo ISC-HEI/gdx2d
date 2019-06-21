@@ -83,12 +83,8 @@ class DemoPhysicsRocket : PortableApplication() {
             }
         }
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoPhysicsRocket()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoPhysicsRocket()
 }

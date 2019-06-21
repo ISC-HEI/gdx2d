@@ -105,20 +105,17 @@ class DemoFontGeneration : PortableApplication() {
     override fun onDispose() {
         // Release what we've used
         super.onDispose()
-        optimus40!!.dispose()
-        optimus60!!.dispose()
-        timeless40!!.dispose()
-        starjedi40!!.dispose()
-        icepixel40!!.dispose()
+        optimus40.dispose()
+        optimus60.dispose()
+        timeless40.dispose()
+        starjedi40.dispose()
+        icepixel40.dispose()
     }
+}
 
-    companion object {
-        private val LOREM = ("Lorem ipsum dolor sit amet,\n" + "consectetur adipiscing elit.\n"
-                + "In laoreet libero sit amet\n" + "sollicitudin vestibulum.\n" + "The default font is Roboto size 15, white")
+private val LOREM = ("Lorem ipsum dolor sit amet,\n" + "consectetur adipiscing elit.\n"
+  + "In laoreet libero sit amet\n" + "sollicitudin vestibulum.\n" + "The default font is Roboto size 15, white")
 
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoFontGeneration()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoFontGeneration()
 }

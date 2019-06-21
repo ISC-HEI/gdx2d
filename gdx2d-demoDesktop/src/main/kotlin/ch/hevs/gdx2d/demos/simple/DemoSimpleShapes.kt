@@ -39,12 +39,8 @@ class DemoSimpleShapes : PortableApplication() {
         val p = Polygon(points)
         g.drawFilledPolygon(p, Color.BLUE)
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoSimpleShapes()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoSimpleShapes()
 }

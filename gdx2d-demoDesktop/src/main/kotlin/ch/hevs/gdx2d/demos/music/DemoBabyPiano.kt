@@ -76,13 +76,9 @@ class DemoBabyPiano : PortableApplication() {
             s4.setPitch(2f)
         }
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoBabyPiano()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoBabyPiano()
 }
 

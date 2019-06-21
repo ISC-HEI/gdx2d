@@ -55,13 +55,9 @@ class DemoGesture : PortableApplication() {
         g.drawSchoolLogoUpperRight()
         g.drawFPS()
     }
+}
 
-    companion object {
 
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoGesture()
-        }
-    }
-
+fun main(args: Array<String>) {
+  DemoGesture()
 }

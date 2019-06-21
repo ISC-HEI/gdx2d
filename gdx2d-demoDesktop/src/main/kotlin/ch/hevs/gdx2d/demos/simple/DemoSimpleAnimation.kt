@@ -48,18 +48,13 @@ class DemoSimpleAnimation : PortableApplication() {
         if (onAndroid())
             androidResolver.showAboutBox()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            /**
-             * Note that the constructor parameter is used to determine if running
-             * on Android or not. As we are in main there, it means we are on
-             * desktop computer.
-             */
-            DemoSimpleAnimation()
-        }
-    }
-
+fun main(args: Array<String>) {
+  /**
+   * Note that the constructor parameter is used to determine if running
+   * on Android or not. As we are in main there, it means we are on
+   * desktop computer.
+   */
+  DemoSimpleAnimation()
 }

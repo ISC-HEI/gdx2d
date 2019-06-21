@@ -86,12 +86,8 @@ class DemoCollisionListener : PortableApplication() {
             otherBalls.add(newBall)
         }
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoCollisionListener()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoCollisionListener()
 }

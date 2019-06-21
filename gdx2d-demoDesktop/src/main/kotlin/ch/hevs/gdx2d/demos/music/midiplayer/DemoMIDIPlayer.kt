@@ -112,12 +112,8 @@ class DemoMIDIPlayer : PortableApplication() {
         player.terminate()
         super.onDispose()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoMIDIPlayer()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoMIDIPlayer()
 }

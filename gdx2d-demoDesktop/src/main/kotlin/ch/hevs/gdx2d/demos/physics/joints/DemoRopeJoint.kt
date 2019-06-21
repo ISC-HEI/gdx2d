@@ -84,12 +84,8 @@ class DemoRopeJoint : PortableApplication() {
         g.drawSchoolLogoUpperRight()
         g.drawFPS()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoRopeJoint()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoRopeJoint()
 }

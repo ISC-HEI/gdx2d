@@ -123,22 +123,22 @@ class DemoRotateGears : PortableApplication(512, 256) {
                 time.hourAngle)
 
         /* Prevent collision between hands */
-        hand_second!!.setCollisionGroup(-2)
-        hand_minute!!.setCollisionGroup(-2)
-        hand_hour!!.setCollisionGroup(-2)
+        hand_second.setCollisionGroup(-2)
+        hand_minute.setCollisionGroup(-2)
+        hand_hour.setCollisionGroup(-2)
 
         /* Create the motors */
         motor_seconds = PhysicsMotor(frame.body,
-                hand_second!!.body, frame.body.worldCenter)
+                hand_second.body, frame.body.worldCenter)
 
         motor_minutes = PhysicsMotor(frame.body,
-                hand_minute!!.body, frame.body.worldCenter)
+                hand_minute.body, frame.body.worldCenter)
 
         /*
 		 * This motor will only be used as a skeleton for the gear.
 		 */
         val motor_m2h = PhysicsMotor(frame.body,
-                hand_hour!!.body, frame.body.worldCenter)
+                hand_hour.body, frame.body.worldCenter)
 
         /*
 		 * Create the gear between the minute hand and the hour hand
@@ -146,8 +146,8 @@ class DemoRotateGears : PortableApplication(512, 256) {
         val gear_m2h = GearJointDef()
 
         /* Do the connections */
-        gear_m2h.bodyA = hand_minute!!.body
-        gear_m2h.bodyB = hand_hour!!.body
+        gear_m2h.bodyA = hand_minute.body
+        gear_m2h.bodyB = hand_hour.body
         gear_m2h.joint1 = motor_minutes.joint
         gear_m2h.joint2 = motor_m2h.joint
 
@@ -184,7 +184,7 @@ class DemoRotateGears : PortableApplication(512, 256) {
         if (sync_signal) {
             motor_seconds.motorSpeed = MOTOR_SPEED_SECOND
         } else {
-            val angle = -hand_second!!.body.angle % (2 * Math.PI)
+            val angle = -hand_second.body.angle % (2 * Math.PI)
 
             if (angle > 2.0 * Math.PI * 0.995 && motor_seconds.speed.toDouble() != 0.0) {
                 motor_seconds.motorSpeed = 0.0f
@@ -225,15 +225,15 @@ class DemoRotateGears : PortableApplication(512, 256) {
 
             /* Draw the hands */
             g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-                    Math.toDegrees(hand_hour!!.body.angle.toDouble()).toFloat(), 1.0f,
+                    Math.toDegrees(hand_hour.body.angle.toDouble()).toFloat(), 1.0f,
                     bitmapHour)
 
             g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-                    Math.toDegrees(hand_minute!!.body.angle.toDouble()).toFloat(),
+                    Math.toDegrees(hand_minute.body.angle.toDouble()).toFloat(),
                     1.0f, bitmapMinute)
 
             g.drawTransformedPicture(CLOCK_CENTER.x, CLOCK_CENTER.y,
-                    Math.toDegrees(hand_second!!.body.angle.toDouble()).toFloat(),
+                    Math.toDegrees(hand_second.body.angle.toDouble()).toFloat(),
                     1.0f, bitmapSecond)
             g.setColor(Color.BLACK)
         }
@@ -259,13 +259,8 @@ class DemoRotateGears : PortableApplication(512, 256) {
         val df = SimpleDateFormat("HH:mm:ss")
         return "Current time: " + df.format(Date())
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoRotateGears()
-        }
-    }
-
+fun main(args: Array<String>) {
+  DemoRotateGears()
 }

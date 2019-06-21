@@ -44,13 +44,8 @@ class DemoLines : PortableApplication() {
         g.drawFPS()
         g.drawSchoolLogo()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoLines()
-        }
-    }
-
+fun main(args: Array<String>) {
+  DemoLines()
 }

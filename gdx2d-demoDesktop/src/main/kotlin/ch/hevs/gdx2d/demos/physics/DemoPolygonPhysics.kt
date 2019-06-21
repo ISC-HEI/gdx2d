@@ -57,13 +57,8 @@ class DemoPolygonPhysics : PortableApplication() {
         g.drawSchoolLogo()
         g.drawFPS()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoPolygonPhysics()
-        }
-    }
-
+fun main(args: Array<String>) {
+  DemoPolygonPhysics()
 }

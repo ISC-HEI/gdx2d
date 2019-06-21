@@ -140,13 +140,8 @@ class DemoChainPhysics : PortableApplication {
         super.onRelease(x, y, button)
         generate = false
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoChainPhysics(1000, 600)
-        }
-    }
-
+fun main(args: Array<String>) {
+  DemoChainPhysics(1000, 600)
 }

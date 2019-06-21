@@ -47,12 +47,8 @@ class DemoAccelerometer : PortableApplication() {
 
         compassBitmap = BitmapImage("images/compass_150.png")
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoAccelerometer()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoAccelerometer()
 }

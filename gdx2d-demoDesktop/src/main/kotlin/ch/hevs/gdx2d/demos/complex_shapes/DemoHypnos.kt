@@ -85,12 +85,8 @@ class DemoHypnos : PortableApplication() {
         g.drawSchoolLogo()
         g.drawFPS()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoHypnos()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoHypnos()
 }

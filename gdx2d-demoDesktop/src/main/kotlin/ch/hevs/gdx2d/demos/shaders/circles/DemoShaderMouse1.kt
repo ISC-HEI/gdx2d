@@ -32,12 +32,9 @@ class DemoShaderMouse1 : PortableApplication() {
         g.drawFPS()
         g.drawSchoolLogo()
     }
+}
 
-    companion object {
 
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoShaderMouse1()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoShaderMouse1()
 }

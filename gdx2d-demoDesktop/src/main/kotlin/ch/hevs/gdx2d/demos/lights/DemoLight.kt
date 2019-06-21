@@ -160,12 +160,8 @@ class DemoLight : PortableApplication() {
         // Turn off the light when releasing button
         p.isActive = false
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoLight()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoLight()
 }

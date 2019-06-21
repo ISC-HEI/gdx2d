@@ -76,12 +76,8 @@ class DemoAllShaders : PortableApplication() {
         mouse.x = x.toFloat()
         mouse.y = y.toFloat()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoAllShaders()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoAllShaders()
 }

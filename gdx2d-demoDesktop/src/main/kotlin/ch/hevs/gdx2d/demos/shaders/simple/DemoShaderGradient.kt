@@ -24,12 +24,8 @@ class DemoShaderGradient : PortableApplication() {
         g.drawShader()
         g.drawSchoolLogo()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoShaderGradient()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoShaderGradient()
 }

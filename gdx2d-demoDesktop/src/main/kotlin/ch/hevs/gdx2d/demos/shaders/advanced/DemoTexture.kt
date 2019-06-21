@@ -40,12 +40,8 @@ class DemoTexture : PortableApplication() {
         super.onClick(x, y, button)
         clicked = true
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoTexture()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoTexture()
 }

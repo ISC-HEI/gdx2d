@@ -28,7 +28,7 @@ import java.util.HashMap
  * @author Christopher Metrailler (mei)
  * @version 1.0
  */
-class DemoControllers private constructor() : PortableApplication(700, 700, false) {
+class DemoControllers : PortableApplication(700, 700, false) {
 
     private lateinit var background: BitmapImage
     private val leftSickVal = Vector2.Zero.cpy() // X,Y values of the left stick (POV)
@@ -56,8 +56,8 @@ class DemoControllers private constructor() : PortableApplication(700, 700, fals
         background = BitmapImage("images/noun_45114_cc.png")
 
         center = Vector2(windowWidth.toFloat(), windowHeight.toFloat()).scl(0.5f)
-        leftStickPos = Vector2(-105f, 97f).add(center!!)
-        rightStickPos = Vector2(58f, 33f).add(center!!)
+        leftStickPos = Vector2(-105f, 97f).add(center)
+        rightStickPos = Vector2(58f, 33f).add(center)
     }
 
     override fun onGraphicRender(g: GdxGraphics) {
@@ -75,18 +75,18 @@ class DemoControllers private constructor() : PortableApplication(700, 700, fals
         endPos.x = leftSickVal.x * 34
         endPos.y = leftSickVal.y * 34
         endPos = endPos.limit(34f) // Make a nice round
-        g.drawLine(leftStickPos!!.x, leftStickPos!!.y, leftStickPos!!.x + endPos.x, leftStickPos!!.y - endPos.y)
+        g.drawLine(leftStickPos.x, leftStickPos.y, leftStickPos.x + endPos.x, leftStickPos.y - endPos.y)
 
         // Right stick display
         endPos.x = rightSickVal.x * 34
         endPos.y = rightSickVal.y * 34
         endPos = endPos.limit(34f) // Make a nice round
-        g.drawLine(rightStickPos!!.x, rightStickPos!!.y, rightStickPos!!.x + endPos.x, rightStickPos!!.y - endPos.y)
+        g.drawLine(rightStickPos.x, rightStickPos.y, rightStickPos.x + endPos.x, rightStickPos.y - endPos.y)
 
         // Buttons clicked
         for (buttonCode in buttonPos.keys) {
             if (ctrl!!.getButton(buttonCode)) {
-                val pos = buttonPos[buttonCode]!!.cpy().add(center!!)
+                val pos = buttonPos[buttonCode]!!.cpy().add(center)
                 g.drawFilledCircle(pos.x, pos.y, 10f, Color.RED)
             }
         }
@@ -138,24 +138,18 @@ class DemoControllers private constructor() : PortableApplication(700, 700, fals
     override fun onControllerPovMoved(controller: Controller, povCode: Int, value: PovDirection) {
         Logger.log(TAG, "POV: $value")
     }
+}
 
-    companion object {
 
-        private val TAG = DemoControllers::class.java.getSimpleName()
+private val TAG = DemoControllers::class.java.getSimpleName()
 
-        // Contain some button positions used to draw a circle when they are pressed
-        private val buttonPos = HashMap<Int, Vector2>()
+// Contain some button positions used to draw a circle when they are pressed
+private val buttonPos = HashMap<Int, Vector2>()
 
-        init {
-            buttonPos[Xbox.X] = Vector2(85f, 97f)
-            buttonPos[Xbox.Y] = Vector2(113f, 123f)
-            buttonPos[Xbox.A] = Vector2(113f, 71f)
-            buttonPos[Xbox.B] = Vector2(141f, 97f)
-        }
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoControllers()
-        }
-    }
+fun main(args: Array<String>) {
+  buttonPos[Xbox.X] = Vector2(85f, 97f)
+  buttonPos[Xbox.Y] = Vector2(113f, 123f)
+  buttonPos[Xbox.A] = Vector2(113f, 71f)
+  buttonPos[Xbox.B] = Vector2(141f, 97f)
+  DemoControllers()
 }

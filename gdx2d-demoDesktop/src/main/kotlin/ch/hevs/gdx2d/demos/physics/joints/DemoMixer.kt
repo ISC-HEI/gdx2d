@@ -153,13 +153,9 @@ class DemoMixer : PortableApplication() {
             physicMotor.enableMotor(!physicMotor.isMotorEnabled)
         }
     }
+}
 
-    companion object {
-        val rnd = Random()
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoMixer()
-        }
-    }
+val rnd = Random()
+fun main(args: Array<String>) {
+  DemoMixer()
 }

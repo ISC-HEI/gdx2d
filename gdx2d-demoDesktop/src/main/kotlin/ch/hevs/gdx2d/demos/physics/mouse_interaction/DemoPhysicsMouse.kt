@@ -136,12 +136,8 @@ class DemoPhysicsMouse : PortableApplication {
         super.onDispose()
         debugRenderer.dispose()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoPhysicsMouse(800, 500)
-        }
-    }
+fun main(args: Array<String>) {
+  DemoPhysicsMouse(800, 500)
 }

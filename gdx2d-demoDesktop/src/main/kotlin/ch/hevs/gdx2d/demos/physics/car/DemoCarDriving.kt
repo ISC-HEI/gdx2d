@@ -83,12 +83,8 @@ class DemoCarDriving : PortableApplication() {
         g.drawFPS()
         g.drawSchoolLogo()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoCarDriving()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoCarDriving()
 }

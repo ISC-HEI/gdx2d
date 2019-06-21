@@ -76,12 +76,8 @@ class DemoGetImageColor : PortableApplication() {
         super.onDispose()
         imgBitmap.dispose()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoGetImageColor()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoGetImageColor()
 }

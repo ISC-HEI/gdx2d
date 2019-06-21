@@ -30,12 +30,8 @@ class DemoShaderSimple : PortableApplication() {
         g.drawFPS()
         g.drawSchoolLogo()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoShaderSimple()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoShaderSimple()
 }

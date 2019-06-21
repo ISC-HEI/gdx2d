@@ -59,13 +59,8 @@ class DemoSwingIntegration : JFrame() {
         isVisible = true
         pack()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            SwingUtilities.invokeLater { DemoSwingIntegration() }
-        }
-    }
-
+fun main(args: Array<String>) {
+  SwingUtilities.invokeLater { DemoSwingIntegration() }
 }

@@ -81,12 +81,8 @@ class DemoPositionInterpolator : PortableApplication() {
 
         return currentTime / ANIMATION_LENGTH
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoPositionInterpolator()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoPositionInterpolator()
 }

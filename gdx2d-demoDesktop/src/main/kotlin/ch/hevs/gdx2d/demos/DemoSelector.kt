@@ -12,21 +12,18 @@ import javax.swing.UIManager.LookAndFeelInfo
  * @author Christopher Métrailler (mei)
  * @version 2.0
  */
-object DemoSelector {
-    @Throws(Exception::class)
-    @JvmStatic
-    fun main(argv: Array<String>) {
-        try {
-            for (info in UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus" == info.name) {
-                    UIManager.setLookAndFeel(info.className)
-                    break
-                }
-            }
-        } catch (e: Exception) {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
-        }
 
-        DemoSelectorGUI()
+fun main(argv: Array<String>) {
+    try {
+        for (info in UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus" == info.name) {
+                UIManager.setLookAndFeel(info.className)
+                break
+            }
+        }
+    } catch (e: Exception) {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
     }
+
+    DemoSelectorGUI()
 }

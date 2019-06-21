@@ -88,12 +88,8 @@ class DemoTurtle : PortableApplication() {
         g.drawFPS()
         g.drawSchoolLogo()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoTurtle()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoTurtle()
 }

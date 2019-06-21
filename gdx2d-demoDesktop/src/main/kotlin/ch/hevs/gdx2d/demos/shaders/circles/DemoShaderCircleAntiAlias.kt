@@ -63,12 +63,8 @@ class DemoShaderCircleAntiAlias : PortableApplication() {
         super.onDrag(x, y)
         c = Circle(x, y)
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoShaderCircleAntiAlias()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoShaderCircleAntiAlias()
 }

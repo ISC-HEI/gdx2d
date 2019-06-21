@@ -113,13 +113,9 @@ class DemoParticlePhysics : PortableApplication {
         }
         Gdx.app.log("[DemoParticlePhysics]", "Creation rate is now $CREATION_RATE")
     }
+}
 
-    companion object {
-        val rand = Random()
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoParticlePhysics(1000, 600)
-        }
-    }
+val rand = Random()
+fun main(args: Array<String>) {
+  DemoParticlePhysics(1000, 600)
 }

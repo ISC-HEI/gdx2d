@@ -53,15 +53,11 @@ class DemoAACircles : PortableApplication() {
         }
 
     }
+}
 
-    companion object {
 
-        // The number of circles to generate
-        val Q = 5
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoAACircles()
-        }
-    }
+// The number of circles to generate
+val Q = 5
+fun main(args: Array<String>) {
+  DemoAACircles()
 }

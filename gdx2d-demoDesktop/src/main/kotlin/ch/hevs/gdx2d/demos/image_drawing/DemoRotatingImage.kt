@@ -40,12 +40,9 @@ class DemoRotatingImage : DemoSimpleImage() {
         // Make the angle bigger
         counter += 1f
     }
+}
 
-    companion object {
 
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoRotatingImage()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoRotatingImage()
 }

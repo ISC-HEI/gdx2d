@@ -233,17 +233,15 @@ class Benchmarker : PortableApplication() {
         }
 
     }
+}
 
-    companion object {
 
-        // FIXME: should not be included in the lib project. Requires native to be ran.
 
-        private val TIME_LOOP_MS = 2000
-        private val START_N = 100
+// FIXME: should not be included in the lib project. Requires native to be ran.
 
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Benchmarker()
-        }
-    }
+private val TIME_LOOP_MS = 2000
+private val START_N = 100
+
+fun main(args: Array<String>) {
+  Benchmarker()
 }

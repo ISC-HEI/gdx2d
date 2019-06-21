@@ -64,12 +64,8 @@ class DemoPostProcessing : PortableApplication() {
         super.onClick(x, y, button)
         shaderEnabled = !shaderEnabled
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoPostProcessing()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoPostProcessing()
 }

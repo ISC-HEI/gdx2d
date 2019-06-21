@@ -53,12 +53,8 @@ class DemoSlowCollisions : PortableApplication() {
         g.drawSchoolLogoUpperRight()
         g.drawFPS()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoSlowCollisions()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoSlowCollisions()
 }

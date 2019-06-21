@@ -78,14 +78,8 @@ class DemoSpriteSheet : PortableApplication() {
             }
         }
     }
-
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoSpriteSheet()
-        }
-    }
-
 }
 
+fun main(args: Array<String>) {
+  DemoSpriteSheet()
+}

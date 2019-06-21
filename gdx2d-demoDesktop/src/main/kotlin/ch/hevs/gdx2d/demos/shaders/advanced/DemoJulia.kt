@@ -56,12 +56,8 @@ class DemoJulia : PortableApplication() {
         offset.x -= (deltaX / 200.0).toFloat()
         offset.y -= (deltaY / 200.0).toFloat()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoJulia()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoJulia()
 }

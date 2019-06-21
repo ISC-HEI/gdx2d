@@ -55,13 +55,8 @@ class GdxGraphicsTest : PortableApplication() {
         g.drawSchoolLogoUpperRight()
         g.drawFPS()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            GdxGraphicsTest()
-        }
-    }
-
+fun main(args: Array<String>) {
+  GdxGraphicsTest()
 }

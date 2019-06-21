@@ -61,12 +61,8 @@ class DemoScreen : PortableApplication() {
         if (keycode == Input.Keys.NUM_3)
             s.transitionTo(2, ScreenManager.TransactionType.SMOOTH) // s.activateScreen(2);
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoScreen()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoScreen()
 }

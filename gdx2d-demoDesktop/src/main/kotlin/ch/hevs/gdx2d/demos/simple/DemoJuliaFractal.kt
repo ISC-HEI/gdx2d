@@ -77,54 +77,51 @@ class DemoJuliaFractal : PortableApplication() {
     override fun onDispose() {
         pixmap.dispose()
     }
+}
 
-    companion object {
 
-        /* Fractal parameters to be tuned */
-        private val IMAGE_SIZE = 512 // create a N-by-N image (power of two)
-        /* Used for pixels operations */
-        private val BCK_COLOR = Color(0.0f, 0f, 0.2f, 1.0f)
-        private val MAX_ITER = 115 // Stop after max iteration for a pixel
-        private val SCALE = 1 / 2f // Scale factor for the fractal
-        // Base fractal coefficients
-        private val C1_START = -0.55f
-        private val C2_START = 0.65f
-        private var C1 = C1_START
-        private val C2 = C2_START
+/* Fractal parameters to be tuned */
+private val IMAGE_SIZE = 512 // create a N-by-N image (power of two)
+/* Used for pixels operations */
+private val BCK_COLOR = Color(0.0f, 0f, 0.2f, 1.0f)
+private val MAX_ITER = 115 // Stop after max iteration for a pixel
+private val SCALE = 1 / 2f // Scale factor for the fractal
+// Base fractal coefficients
+private val C1_START = -0.55f
+private val C2_START = 0.65f
+private var C1 = C1_START
+private val C2 = C2_START
 
-        // Julia fractal on each pixels
-        private fun workPixel(i: Int, j: Int, pixmap: Pixmap) {
-            // Convert to mathematical coordinates with a custom scale
-            val x = i.toFloat() * SCALE * 2f / IMAGE_SIZE.toFloat() - 1 * SCALE
-            val y = j.toFloat() * SCALE * 2f / IMAGE_SIZE.toFloat() - 1 * SCALE
+// Julia fractal on each pixels
+private fun workPixel(i: Int, j: Int, pixmap: Pixmap) {
+  // Convert to mathematical coordinates with a custom scale
+  val x = i.toFloat() * SCALE * 2f / IMAGE_SIZE.toFloat() - 1 * SCALE
+  val y = j.toFloat() * SCALE * 2f / IMAGE_SIZE.toFloat() - 1 * SCALE
 
-            var k = 0
-            var a = x
-            var b = y
+  var k = 0
+  var a = x
+  var b = y
 
-            // Julia algorithm with a max upper bound
-            while (k < MAX_ITER && a * a + b * b < 4) {
-                val aCopy = a
-                a = a * a - b * b + C1
-                b = 2f * aCopy * b + C2
-                k++
-            }
+  // Julia algorithm with a max upper bound
+  while (k < MAX_ITER && a * a + b * b < 4) {
+    val aCopy = a
+    a = a * a - b * b + C1
+    b = 2f * aCopy * b + C2
+    k++
+  }
 
-            // Draw the current pixel
-            if (k == MAX_ITER)
-            // Draw red pixels when max iteration is reached
-                pixmap.drawPixel(i, j, Color.rgba8888(1.0f, 0f, 0f, 1.0f))
-            else {
-                // Use HSV to have a better color contrast
-                val color = ColorUtils.hsvToColor(k / MAX_ITER.toFloat(), 1.0f, 1.0f)
-                pixmap.drawPixel(i, j, color.toIntBits()) // Convert to ABGR to draw
-            }
-        }
+  // Draw the current pixel
+  if (k == MAX_ITER)
+  // Draw red pixels when max iteration is reached
+    pixmap.drawPixel(i, j, Color.rgba8888(1.0f, 0f, 0f, 1.0f))
+  else {
+    // Use HSV to have a better color contrast
+    val color = ColorUtils.hsvToColor(k / MAX_ITER.toFloat(), 1.0f, 1.0f)
+    pixmap.drawPixel(i, j, color.toIntBits()) // Convert to ABGR to draw
+  }
+}
 
-        // Java main for the desktop demonstration
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoJuliaFractal()
-        }
-    }
+// Java main for the desktop demonstration
+fun main(args: Array<String>) {
+  DemoJuliaFractal()
 }

@@ -271,12 +271,8 @@ class DemoPinball : PortableApplication() {
             else -> displayHelp = 300
         }
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoPinball()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoPinball()
 }

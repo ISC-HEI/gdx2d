@@ -191,12 +191,8 @@ class DemoTileAdvanced : PortableApplication() {
         }
         keyStatus[keycode] = true
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoTileAdvanced()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoTileAdvanced()
 }

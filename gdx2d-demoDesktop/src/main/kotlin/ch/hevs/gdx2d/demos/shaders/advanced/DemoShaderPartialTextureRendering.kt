@@ -28,12 +28,8 @@ class DemoShaderPartialTextureRendering : PortableApplication() {
 
         t += 0.05
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoShaderPartialTextureRendering()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoShaderPartialTextureRendering()
 }

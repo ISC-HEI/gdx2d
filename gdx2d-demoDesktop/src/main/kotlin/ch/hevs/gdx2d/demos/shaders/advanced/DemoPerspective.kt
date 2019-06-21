@@ -84,12 +84,8 @@ class DemoPerspective : PortableApplication() {
         super.onClick(x, y, button)
         shaderEnabled = !shaderEnabled
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoPerspective()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoPerspective()
 }

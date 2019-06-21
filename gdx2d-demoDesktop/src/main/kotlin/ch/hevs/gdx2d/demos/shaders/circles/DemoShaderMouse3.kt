@@ -50,12 +50,8 @@ class DemoShaderMouse3 : PortableApplication() {
         super.onDrag(x, y)
         c = Circle(x, y)
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoShaderMouse3()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoShaderMouse3()
 }

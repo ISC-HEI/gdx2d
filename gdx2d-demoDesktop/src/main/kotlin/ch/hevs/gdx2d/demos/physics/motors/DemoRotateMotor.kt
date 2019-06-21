@@ -240,12 +240,8 @@ class DemoRotateMotor : PortableApplication(512, 256) {
         val result = ((360 - (hours * 30 + minutes * 30 / 60)) * Math.PI / 180.0f).toFloat()
         return result
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoRotateMotor()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoRotateMotor()
 }

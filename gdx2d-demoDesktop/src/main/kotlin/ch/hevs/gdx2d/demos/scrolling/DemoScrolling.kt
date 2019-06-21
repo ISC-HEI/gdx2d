@@ -100,13 +100,8 @@ class DemoScrolling : PortableApplication(0, 0, true) {
         g.drawSchoolLogoUpperRight()
         g.drawFPS()
     }
+}
 
-    companion object {
-
-        // Create a default-sized application
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoScrolling()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoScrolling()
 }

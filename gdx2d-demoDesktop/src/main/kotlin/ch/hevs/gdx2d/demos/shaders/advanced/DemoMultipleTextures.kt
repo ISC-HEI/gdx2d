@@ -39,12 +39,8 @@ class DemoMultipleTextures : PortableApplication() {
         super.onClick(x, y, button)
         i = (i + 1) % 2
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoMultipleTextures()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoMultipleTextures()
 }

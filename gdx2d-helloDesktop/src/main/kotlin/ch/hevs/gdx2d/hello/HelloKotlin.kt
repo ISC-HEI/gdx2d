@@ -70,13 +70,6 @@ class HelloKotlin : PortableApplication() {
 
         return (currentTime / ANIMATION_LENGTH)
     }
-//
-//  companion object {
-//    @JvmStatic
-//    fun main(args: Array<String>) {
-//      HelloKotlin()
-//    }
-//  }
 }
 
 

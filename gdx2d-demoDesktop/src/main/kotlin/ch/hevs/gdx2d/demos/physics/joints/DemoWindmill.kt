@@ -155,12 +155,8 @@ class DemoWindmill : PortableApplication() {
         super.onRelease(x, y, button)
         generate = false
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoWindmill()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoWindmill()
 }

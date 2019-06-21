@@ -71,12 +71,8 @@ class DemoMusicPlay : PortableApplication() {
                     .showToast(sToast, AndroidResolver.LENGTH_SHORT)
         }
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoMusicPlay()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoMusicPlay()
 }

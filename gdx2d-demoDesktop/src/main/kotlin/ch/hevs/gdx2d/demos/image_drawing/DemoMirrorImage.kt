@@ -45,12 +45,8 @@ class DemoMirrorImage : PortableApplication() {
         g.drawFPS()        // Draws the number of frame per second
         g.drawSchoolLogo() // Draws the school logo
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoMirrorImage()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoMirrorImage()
 }

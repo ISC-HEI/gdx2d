@@ -69,12 +69,8 @@ class DemoAlphaImage : PortableApplication() {
         imgBitmap.dispose()
         backgroundBitmap.dispose()
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoAlphaImage()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoAlphaImage()
 }

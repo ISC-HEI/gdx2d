@@ -139,12 +139,8 @@ class DemoRotateLight : PortableApplication() {
             clicked = false
         }
     }
+}
 
-    companion object {
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            DemoRotateLight()
-        }
-    }
+fun main(args: Array<String>) {
+  DemoRotateLight()
 }
