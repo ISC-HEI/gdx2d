@@ -22,7 +22,6 @@ class DemoSimpleAnimation : PortableApplication() {
     }
 
     override fun onGraphicRender(g: GdxGraphics) {
-
         // Clears the screen
         g.clear()
         g.drawAntiAliasedCircle(g.screenWidth / 2f, g.screenHeight / 2f, radius, Color.BLUE)

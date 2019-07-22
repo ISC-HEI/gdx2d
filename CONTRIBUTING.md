@@ -6,7 +6,7 @@ This is an open source project. Contributions via [pull request](https://github.
 
 - Import project
 - Select the root of the gdx2d clone
-- Press next until the end of the wizard
+- Press next/finish until the end of the wizard
 
 ## Jars generation
 
@@ -47,9 +47,22 @@ Please do use tabs, no spaces! Encoding of files should be defaulted to UTF-8. A
 In intellij, you can right click on a java file and ask to translate it into Kotlin. It generally work well.
 
 Kotlin has a few noticeable characteristics : 
+
 - lateinit / null safety
 - No single line multiple declaration
-- No lateinit on non-nullable stuff (int, ...)
+- No lateinit on non-nullable stuff (int, ...), can't   var miaou : Int  without = X
 - No implicit conversions of numeric type (ex : no int to float), but you can do Float * Int
 - Code written outside a class (ex: main) will be stored as static elements of a 'FileName'Kt class
 - Things are public by default
+- The main constructor arguments are defined in the bracket after the class name, and can also be class attributes
+- The constructor body is in the 'init' body
+- Secondary constructor with additional arguments can be defined via the 'constructor' keyword
+- Support functions arguments default value 
+- Type inference
+
+## Scala -> Kotlin
+
+In addition of the Java -> Kotlin changes : 
+
+- The class body can only define attributes and functions
+- if are statement, not expressions
