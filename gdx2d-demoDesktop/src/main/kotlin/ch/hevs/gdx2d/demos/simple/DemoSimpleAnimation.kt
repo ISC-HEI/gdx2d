@@ -13,24 +13,19 @@ import com.badlogic.gdx.graphics.Color
  * @version 1.0
  */
 class DemoSimpleAnimation : PortableApplication() {
-    var radius = 5
-    var speed = 1
-    var screenHeight: Int = 0
-    var screenWidth: Int = 0
+    var radius = 5f
+    var speed = 1f
 
     override fun onInit() {
         // Sets the window title
         setTitle("Simple demo, mui 2013")
-
-        screenHeight = Gdx.graphics.height
-        screenWidth = Gdx.graphics.width
     }
 
     override fun onGraphicRender(g: GdxGraphics) {
 
         // Clears the screen
         g.clear()
-        g.drawAntiAliasedCircle((screenWidth / 2).toFloat(), (screenHeight / 2).toFloat(), radius.toFloat(), Color.BLUE)
+        g.drawAntiAliasedCircle(g.screenWidth / 2f, g.screenHeight / 2f, radius, Color.BLUE)
 
         // If reaching max or min size, invert the growing direction
         if (radius >= 100 || radius <= 3) {

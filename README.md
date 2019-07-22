@@ -1,28 +1,3 @@
-# DEV
-
-#### To generate the jar releases
-mvn package
-
-#### To package the project for students
-student.sh
-
-#### To change the version number
-Update the <gdx2d.version>x.y.z</gdx2d.version> properties in ./pom.xml and ./gdx2d-library/pom.xml
-
-#### Modifying the gdx2d library code
-You can do it, the demo and the hello app will use it. (No packaging required)
-
-#### Changing the maven scripts (pom.xml)
-If you do so, you will have to refresh intellij by : 
-
-- Opening the view/Tool Windows/Maven
-- Click on the 'Reimport All Maven Projects' button (the recycle icon)
-
-Note that in case you have a broken build script, the intellij maven error reporting isn't very useful.
-It is better to just run some maven commands in the shell to get a better insight (ex : mvn clean compile).
-
-fix 28
-
 # Welcome to gdx2d [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.hevs.gdx2d/gdx2d-core/badge.svg)](http://search.maven.org/#search%7Cga%7C1%7Cch.hevs.gdx2d)
 
 The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. 
@@ -32,6 +7,8 @@ The gdx2d project is a simple to use 2d game and graphics framework. It is multi
 </p>
 
 More information about gdx2d can be found on the [official project website](https://hevs-isi.github.io/gdx2d/).
+
+For informations about how to use this repository and develop things in it, see CONTRIBUTING.md
 
 ## What can it do?
 The library contains simple to use graphical primitives such as lines, circles, rectangles. In addition, there are methods to draw pictures, rotate them, scale them etc. Physics simulation is also supported (using Box2D) as well as music and sound playing.
@@ -54,12 +31,12 @@ It is multi-platform so that you can run your code on desktop computers (running
 Using the framework, the following code displays a shrinking/growing circle running smoothly:
 
 ```java
-package hevs.gdx2d.demos.simple;
+package ch.hevs.gdx2d.demos.simple
 
-import com.badlogic.gdx.Gdx;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import com.badlogic.gdx.graphics.Color;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 
 /**
  * A very simple demonstration on how to display something animated with the
@@ -68,40 +45,36 @@ import com.badlogic.gdx.graphics.Color;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoSimpleAnimation extends PortableApplication {
-    int radius = 5, speed = 1;
-    int screenHeight, screenWidth;
+class DemoSimpleAnimation : PortableApplication() {
+    var radius = 5f
+    var speed = 1f
 
-    @Override
-    public void onInit() {
+    override fun onInit() {
         // Sets the window title
-        setTitle("Simple demo, mui 2013");
-
-        screenHeight = Gdx.graphics.getHeight();
-        screenWidth = Gdx.graphics.getWidth();
+        setTitle("Simple demo, mui 2013")
     }
 
-    @Override
-    public void onGraphicRender(GdxGraphics g) {
+    override fun onGraphicRender(g: GdxGraphics) {
 
         // Clears the screen
-        g.clear();
-        g.drawAntiAliasedCircle(screenWidth / 2, screenHeight / 2, radius, Color.BLUE);
+        g.clear()
+        g.drawAntiAliasedCircle(g.screenWidth / 2f, g.screenHeight / 2f, radius, Color.BLUE)
 
         // If reaching max or min size, invert the growing direction
         if (radius >= 100 || radius <= 3) {
-            speed *= -1;
+            speed *= -1
         }
 
         // Modify the radius
-        radius += speed;
+        radius += speed
 
-        g.drawSchoolLogo();
+        g.drawSchoolLogo()
+        g.drawFPS()
     }
+}
 
-    public static void main(String[] args) {
-        new DemoSimpleAnimation();
-    }
+fun main(args: Array<String>) {
+  DemoSimpleAnimation()
 }
 ```
 
