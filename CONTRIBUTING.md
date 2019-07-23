@@ -48,7 +48,8 @@ In intellij, you can right click on a java file and ask to translate it into Kot
 
 Kotlin has a few noticeable characteristics : 
 
-- lateinit / null safety
+- null safety (? ?: !! as?)
+- lateinit
 - No single line multiple declaration
 - No lateinit on non-nullable stuff (int, ...), can't   var miaou : Int  without = X
 - No implicit conversions of numeric type (ex : no int to float), but you can do Float * Int
@@ -59,10 +60,13 @@ Kotlin has a few noticeable characteristics :
 - Secondary constructor with additional arguments can be defined via the 'constructor' keyword
 - Support functions arguments default value 
 - Type inference
+- inner body can be defined via run { ... }
+- == => value/equals
+- === => reference
 
 ## Scala -> Kotlin
 
 In addition of the Java -> Kotlin changes : 
 
-- The class body can only define attributes and functions
+- The class body can only contain attributes and functions
 - if are statement, not expressions
