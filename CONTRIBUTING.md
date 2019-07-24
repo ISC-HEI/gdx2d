@@ -55,6 +55,7 @@ Kotlin has a few noticeable characteristics :
 - No implicit conversions of numeric type (ex : no int to float), but you can do Float * Int
 - Code written outside a class (ex: main) will be stored as static elements of a 'FileName'Kt class
 - Things are public by default
+- Can restrict the visibility of something to the project via 'internal'
 - The main constructor arguments are defined in the bracket after the class name, and can also be class attributes
 - The constructor body is in the 'init' body
 - Secondary constructor with additional arguments can be defined via the 'constructor' keyword
@@ -63,10 +64,14 @@ Kotlin has a few noticeable characteristics :
 - inner body can be defined via run { ... }
 - == => value/equals
 - === => reference
+- Range operator '..', for (i in 1..5) { ... }
+- You can label loops to break from an inner loop to the outer one
 
 ## Scala -> Kotlin
 
 In addition of the Java -> Kotlin changes : 
 
 - The class body can only contain attributes and functions
-- if are statement, not expressions
+- Function return type should be explicitely defined
+- Function can't return a anonymous class type
+- You can use the return keyword in a lambda to return from the lambda by using label
