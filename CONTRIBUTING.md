@@ -51,8 +51,9 @@ Kotlin has a few noticeable characteristics :
 - null safety (? ?: !! as?)
 - lateinit
 - No single line multiple declaration
-- No lateinit on non-nullable stuff (int, ...), can't   var miaou : Int  without = X
-- No implicit conversions of numeric type (ex : no int to float), but you can do Float * Int
+- No lateinit on non-nullable stuff (int, ...)
+- can't define a class attribute  'var miaou : Int'  without ''= X'
+- No implicit conversions of numeric type (ex : no int to float, no Byte to Int), but you can do Float * Int
 - Code written outside a class (ex: main) will be stored as static elements of a 'FileName'Kt class
 - Things are public by default
 - Can restrict the visibility of something to the project via 'internal'
@@ -66,7 +67,16 @@ Kotlin has a few noticeable characteristics :
 - === => reference
 - Range operator '..', for (i in 1..5) { ... }
 - You can label loops to break from an inner loop to the outer one
+- Different bitwise operators (shl, shr, ushr, and, or, xor, inv)
+- static cast of basics numerical types is done via a function (x.toFloat, ...)
+- No more System.out.print
+- String interpolation "$x ${1}"
+- Each body of code return the value of its last statement (run { .. } if .. else ..
+- Pattern matching instead of switch case
+- Function arguments are immutable
 
+
+ 
 ## Scala -> Kotlin
 
 In addition of the Java -> Kotlin changes : 
