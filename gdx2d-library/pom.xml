@@ -16,6 +16,8 @@
     <libgdx.version>1.9.8</libgdx.version>
     <gdx2d.version>1.2.2</gdx2d.version>
     <gdx2d.url>https://hevs-isi.github.io/gdx2d/</gdx2d.url>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
   </properties>
 
   <artifactId>gdx2d-lib</artifactId>
