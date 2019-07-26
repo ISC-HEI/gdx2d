@@ -52,7 +52,7 @@ Kotlin has a few noticeable characteristics :
 - lateinit
 - No single line multiple declaration
 - No lateinit on non-nullable stuff (int, ...)
-- can't define a class attribute  'var miaou : Int'  without ''= X'
+- can't define a class attribute  'var miaou : Int'  without '= X'
 - No implicit conversions of numeric type (ex : no int to float, no Byte to Int), but you can do Float * Int
 - Code written outside a class (ex: main) will be stored as static elements of a 'FileName'Kt class
 - Things are public by default
@@ -74,6 +74,7 @@ Kotlin has a few noticeable characteristics :
 - Each body of code return the value of its last statement (run { .. } if .. else ..
 - Pattern matching instead of switch case
 - Function arguments are immutable
+- Class are final by default, (can't be extended), unless they have the 'open' modifier
 
 
  
@@ -85,3 +86,4 @@ In addition of the Java -> Kotlin changes :
 - Function return type should be explicitely defined
 - Function can't return a anonymous class type
 - You can use the return keyword in a lambda to return from the lambda by using label
+- Can't have a class and a object defined with the same name
