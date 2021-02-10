@@ -35,7 +35,7 @@ public class Turtle {
 		// Write the pixel corresponding to the position
 		Color oldColor = g.sbGetColor();
 		g.setColor(color);
-		g.setPixel((float) x, (float) y);
+		g.setPixel(x, y);
 		g.setColor(oldColor);
 	}
 

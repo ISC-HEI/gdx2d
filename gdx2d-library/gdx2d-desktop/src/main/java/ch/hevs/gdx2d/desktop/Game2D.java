@@ -50,8 +50,7 @@ public class Game2D implements ApplicationListener {
 	public Game2D(PortableApplication app) {
 		this.app = app;
 	}
-
-	@Override
+	
 	public void create() {
 		shapeRenderer = new ShapeRenderer();
 		batch = new SpriteBatch();
@@ -87,7 +86,6 @@ public class Game2D implements ApplicationListener {
 	/**
 	 * Mostly delegates rendering to the {@link #app} class
 	 */
-	@Override
 	public void render() {
 		g.begin();
 		app.onGraphicRender(g);
@@ -97,14 +95,12 @@ public class Game2D implements ApplicationListener {
 	/**
 	 * Called when the screen has been resized.
 	 */
-	@Override
 	public void resize(int width, int height) {
 	}
 
 	/**
 	 * Handles application life-cycle on Android and others.
 	 */
-	@Override
 	public void pause() {
 		app.onPause();
 	}
@@ -112,7 +108,6 @@ public class Game2D implements ApplicationListener {
 	/**
 	 * Handles application life-cycle on Android and others.
 	 */
-	@Override
 	public void resume() {
 		app.onResume();
 	}
@@ -120,7 +115,6 @@ public class Game2D implements ApplicationListener {
 	/**
 	 * Called to remove all the allocated resources.
 	 */
-	@Override
 	public void dispose() {
 		PhysicsWorld.dispose();
 		g.dispose();

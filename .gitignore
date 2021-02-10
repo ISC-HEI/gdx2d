@@ -4,6 +4,7 @@ bin/
 gen/
 target/
 proguard/
+student
 
 .settings
 *.class

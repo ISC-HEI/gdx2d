@@ -5,7 +5,7 @@ The gdx2d library project contains two modules:
 1. The first module is the `core` library. It is not platform dependent.
 2. The second module is the `desktop` native back end needed to run `gdx2d` on a PC. It uses the core module as a dependency.
 
-At this time, the Android back end is not available. The current library implementation is based on Libgdx version `1.5.6`.
+At this time, the Android back end is not available. The current library implementation is based on Libgdx version `1.9.8`.
 
 ## Installation
 

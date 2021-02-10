@@ -7,11 +7,18 @@
     @author Christopher Métrailler (mei@hevs.ch)
     @version 1.1
   -->
-  <parent>
-    <groupId>ch.hevs.gdx2d</groupId>
-    <artifactId>gdx2d-parent</artifactId>
-    <version>1.0</version>
-  </parent>
+
+  <groupId>ch.hevs.gdx2d</groupId>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+    <libgdx.version>1.9.8</libgdx.version>
+    <gdx2d.version>1.2.2</gdx2d.version>
+    <gdx2d.url>https://hevs-isi.github.io/gdx2d/</gdx2d.url>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+  </properties>
 
   <artifactId>gdx2d-lib</artifactId>
   <packaging>pom</packaging>

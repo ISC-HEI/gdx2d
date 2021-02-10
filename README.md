@@ -8,6 +8,8 @@ The gdx2d project is a simple to use 2d game and graphics framework. It is multi
 
 More information about gdx2d can be found on the [official project website](https://hevs-isi.github.io/gdx2d/).
 
+For informations about how to use this repository and develop things in it, see CONTRIBUTING.md
+
 ## What can it do?
 The library contains simple to use graphical primitives such as lines, circles, rectangles. In addition, there are methods to draw pictures, rotate them, scale them etc. Physics simulation is also supported (using Box2D) as well as music and sound playing.
 
@@ -29,12 +31,12 @@ It is multi-platform so that you can run your code on desktop computers (running
 Using the framework, the following code displays a shrinking/growing circle running smoothly:
 
 ```java
-package hevs.gdx2d.demos.simple;
+package ch.hevs.gdx2d.demos.simple
 
-import com.badlogic.gdx.Gdx;
-import hevs.gdx2d.lib.GdxGraphics;
-import hevs.gdx2d.lib.PortableApplication;
-import com.badlogic.gdx.graphics.Color;
+import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 
 /**
  * A very simple demonstration on how to display something animated with the
@@ -43,40 +45,36 @@ import com.badlogic.gdx.graphics.Color;
  * @author Pierre-André Mudry (mui)
  * @version 1.0
  */
-public class DemoSimpleAnimation extends PortableApplication {
-    int radius = 5, speed = 1;
-    int screenHeight, screenWidth;
+class DemoSimpleAnimation : PortableApplication() {
+    var radius = 5f
+    var speed = 1f
 
-    @Override
-    public void onInit() {
+    override fun onInit() {
         // Sets the window title
-        setTitle("Simple demo, mui 2013");
-
-        screenHeight = Gdx.graphics.getHeight();
-        screenWidth = Gdx.graphics.getWidth();
+        setTitle("Simple demo, mui 2013")
     }
 
-    @Override
-    public void onGraphicRender(GdxGraphics g) {
+    override fun onGraphicRender(g: GdxGraphics) {
 
         // Clears the screen
-        g.clear();
-        g.drawAntiAliasedCircle(screenWidth / 2, screenHeight / 2, radius, Color.BLUE);
+        g.clear()
+        g.drawAntiAliasedCircle(g.screenWidth / 2f, g.screenHeight / 2f, radius, Color.BLUE)
 
         // If reaching max or min size, invert the growing direction
         if (radius >= 100 || radius <= 3) {
-            speed *= -1;
+            speed *= -1
         }
 
         // Modify the radius
-        radius += speed;
+        radius += speed
 
-        g.drawSchoolLogo();
+        g.drawSchoolLogo()
+        g.drawFPS()
     }
+}
 
-    public static void main(String[] args) {
-        new DemoSimpleAnimation();
-    }
+fun main(args: Array<String>) {
+  DemoSimpleAnimation()
 }
 ```
 

@@ -11,6 +11,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
+dependency-reduced-pom.xml
 
 # External tool builders
 .externalToolBuilders/
