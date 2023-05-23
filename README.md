@@ -51,7 +51,7 @@ class DemoSimpleAnimation : PortableApplication() {
 
     override fun onInit() {
         // Sets the window title
-        setTitle("Simple demo, mui 2013")
+        setTitle("Simple demo")
     }
 
     override fun onGraphicRender(g: GdxGraphics) {
