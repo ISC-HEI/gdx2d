@@ -6,7 +6,7 @@ The gdx2d project is a simple to use 2d game and graphics framework. It is multi
   <a href="https://www.youtube.com/watch?v=eoVrifa1Xd0" target="_blank"><img src="https://rawgit.com/hevs-isi/gdx2d-videofile/master/logo/logo_640.png?raw=true" alt="Logo"/></a>
 </p>
 
-More information about gdx2d can be found on the [official project website](https://hevs-isi.github.io/gdx2d/).
+More information about gdx2d can be found on the [official project website](https://isc-hei.github.io/gdx2d/).
 
 For informations about how to use this repository and develop things in it, see CONTRIBUTING.md
 
@@ -79,7 +79,9 @@ fun main(args: Array<String>) {
 ```
 
 ## Who did this and why?
-It was developed for the [inf1 course](http://inf1.begincoding.net) taught at [HES-SO Valais / Systems engineering](http://hevs.ch/isi) by Pierre-André Mudry. The framework was written by P.-A. Mudry & N. Chatton with the help of C. Métrailler. The list of contributors is [available here](https://github.com/hevs-isi/gdx2d/graphs/contributors).
+It was first developed for the [inf1 course](http://inf1.begincoding.net) taught at [HES-SO Valais / Systems engineering](http://hevs.ch/isi) by Pierre-André Mudry. It has then been adapted for the [_101 Fundamentals of programming 1_](https://isc.hevs.ch/learn/enrol/index.php?id=2) course of [ISC bachelor degree programme](https://www.hevs.ch/isc). 
+
+The framework was written by P.-A. Mudry & N. Chatton with the help of C. Métrailler. Some work has then been done by M. Pignat et C. Papon. A full list of contributors is [available here](https://github.com/hevs-isi/gdx2d/graphs/contributors).
 
 ## License
 The gdx2d project is licensed under the [Apache 2.0 license](https://github.com/hevs-isi/gdx2d/blob/master/LICENSE).
