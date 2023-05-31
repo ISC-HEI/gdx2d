@@ -13,11 +13,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-    <libgdx.version>1.9.8</libgdx.version>
-    <gdx2d.version>1.2.2</gdx2d.version>
+    <libgdx.version>1.11.0</libgdx.version>
+    <gdx2d.version>1.3.0</gdx2d.version>
     <gdx2d.url>https://hevs-isi.github.io/gdx2d/</gdx2d.url>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <artifactId>gdx2d-lib</artifactId>
@@ -57,13 +57,13 @@
       <!-- Box2DLights extension -->
       <groupId>com.badlogicgames.box2dlights</groupId>
       <artifactId>box2dlights</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
     <dependency>
       <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers</artifactId>
-      <version>${libgdx.version}</version>
+      <groupId>com.badlogicgames.gdx-controllers</groupId>
+      <artifactId>gdx-controllers-core</artifactId>
+      <version>2.2.1</version>
     </dependency>
   </dependencies>
 

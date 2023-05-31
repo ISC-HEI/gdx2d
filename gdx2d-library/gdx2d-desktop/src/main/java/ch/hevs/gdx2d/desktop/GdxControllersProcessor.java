@@ -61,25 +61,20 @@ class GdxControllersProcessor extends ControllerAdapter {
 		return false;
 	}
 
-	@Override
-	public boolean povMoved(Controller controller, int povCode, PovDirection value) {
-		app.onControllerPovMoved(controller, povCode, value);
-		return false;
-	}
 
-	@Override
+	//@Override
 	public boolean xSliderMoved(Controller controller, int sliderCode, boolean value) {
 		app.onControllerXSliderMoved(controller, sliderCode, value);
 		return false;
 	}
 
-	@Override
+	//@Override
 	public boolean ySliderMoved(Controller controller, int sliderCode, boolean value) {
 		app.onControllerYSliderMoved(controller, sliderCode, value);
 		return false;
 	}
 
-	@Override
+	//@Override
 	public boolean accelerometerMoved(Controller controller, int accelerometerCode, Vector3 value) {
 		app.onControllerAccelerometerMoved(controller, accelerometerCode, value);
 		return false;

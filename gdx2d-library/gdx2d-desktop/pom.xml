@@ -63,16 +63,9 @@
     </dependency>
     <dependency>
       <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
+      <groupId>com.badlogicgames.gdx-controllers</groupId>
       <artifactId>gdx-controllers-desktop</artifactId>
-      <version>${libgdx.version}</version>
-    </dependency>
-    <dependency>
-      <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers-platform</artifactId>
-      <version>${libgdx.version}</version>
-      <classifier>natives-desktop</classifier>
+      <version>2.2.1</version>
     </dependency>
   </dependencies>
 

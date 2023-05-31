@@ -7,7 +7,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -293,11 +292,6 @@ public abstract class PortableApplication
 
 	@Override
 	public void onControllerAxisMoved(Controller controller, int axisCode, float value) {
-
-	}
-
-	@Override
-	public void onControllerPovMoved(Controller controller, int povCode, PovDirection value) {
 
 	}
 

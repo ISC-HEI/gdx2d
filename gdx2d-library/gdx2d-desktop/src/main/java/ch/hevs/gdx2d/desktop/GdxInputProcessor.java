@@ -50,7 +50,7 @@ class GdxInputProcessor extends InputAdapter {
 		return false;
 	}
 
-	@Override
+	//@Override
 	public boolean scrolled(int amount) {
 		app.onScroll(amount);
 		return false;

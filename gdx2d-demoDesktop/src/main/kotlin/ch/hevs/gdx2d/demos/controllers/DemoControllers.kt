@@ -3,7 +3,6 @@ package ch.hevs.gdx2d.demos.controllers
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.controllers.Controller
 import com.badlogic.gdx.controllers.Controllers
-import com.badlogic.gdx.controllers.PovDirection
 
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.desktop.Xbox
@@ -135,9 +134,6 @@ class DemoControllers : PortableApplication(700, 700, false) {
             rightSickVal.y = value
     }
 
-    override fun onControllerPovMoved(controller: Controller, povCode: Int, value: PovDirection) {
-        Logger.log(TAG, "POV: $value")
-    }
 }
 
 
