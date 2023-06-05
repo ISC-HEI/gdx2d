@@ -4,7 +4,7 @@ import ch.hevs.gdx2d.demos.simple.DemoCircles
 import ch.hevs.gdx2d.desktop.Game2D
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.Version
-import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas
+import com.badlogic.gdx.backends.lwjgl3.LwjglAWTCanvas
 import com.javaswingcomponents.accordion.JSCAccordion
 import com.javaswingcomponents.accordion.TabOrientation
 import com.javaswingcomponents.accordion.plaf.steel.SteelAccordionUI

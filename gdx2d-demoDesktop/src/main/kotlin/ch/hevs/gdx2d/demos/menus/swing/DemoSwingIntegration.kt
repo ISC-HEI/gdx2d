@@ -1,5 +1,5 @@
 package ch.hevs.gdx2d.demos.menus.swing
-
+/*
 
 import ch.hevs.gdx2d.demos.physics.DemoSimplePhysics
 import ch.hevs.gdx2d.desktop.Game2D
@@ -15,7 +15,7 @@ class DemoSwingIntegration : JFrame() {
 
     var current = 0
 
-    var canvasList = ArrayList<LwjglAWTCanvas>()
+    var canvasList = ArrayList<Lwjgl3AWTCanvas>()
 
     init {
         defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
@@ -64,3 +64,4 @@ class DemoSwingIntegration : JFrame() {
 fun main(args: Array<String>) {
   SwingUtilities.invokeLater { DemoSwingIntegration() }
 }
+ */

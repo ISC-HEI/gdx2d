@@ -4,8 +4,8 @@ import java.awt.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -338,9 +338,9 @@ public abstract class PortableApplication
 		assert (!onAndroid());
 		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 
-		LwjglApplicationConfiguration config = GdxConfig.getLwjglConfig(width, height, fullScreen);
+		Lwjgl3ApplicationConfiguration config = GdxConfig.getLwjglConfig(width, height, fullScreen);
 
 		Game2D theGame = new Game2D(this);
-		new LwjglApplication(theGame, config);
+    Lwjgl3Application a = new Lwjgl3Application(theGame, config);
 	}
 }
