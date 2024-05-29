@@ -23,7 +23,7 @@ The advantage of using gdx2d is that you can develop your code in Java on your s
 The library itself is a wrapper around a very nice library called [libGDX](https://libgdx.badlogicgames.com/) which provides almost everything to the library. The current project version is based on libGDX version `1.5.6`.
 
 ## Documentation
-The Javadoc API of this library can be found [here](https://hevs-isi.github.io/gdx2d/javadoc/). More information about the project can be found on the [official website](https://hevs-isi.github.io/gdx2d/).
+The Javadoc API of this library can be found [here](https://isc-hei.github.io/gdx2d/javadoc/). More information about the project can be found on the [official website](https://isc-hei.github.io/gdx2d/).
 
 ## What do I get?
 It is multi-platform so that you can run your code on desktop computers (running either Windows, Linux or Mac) but also on mobile devices running Android. It is based on libGDX but provides a much simpler interface and multiple demo programs to get started.
