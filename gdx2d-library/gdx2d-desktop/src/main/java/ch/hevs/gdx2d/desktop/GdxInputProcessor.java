@@ -51,8 +51,8 @@ class GdxInputProcessor extends InputAdapter {
 	}
 
 	@Override
-	public boolean scrolled(int amount) {
-		app.onScroll(amount);
+	public boolean scrolled(float amountX, float amountY) {
+		app.onScroll((int)amountY);  // Convert to int for backwards compatibility
 		return false;
 	}
 

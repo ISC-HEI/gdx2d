@@ -1,7 +1,6 @@
 package ch.hevs.gdx2d.lib.interfaces;
 
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector3;
 
 /**
@@ -73,9 +72,9 @@ public interface ControllersInterface {
 	 *
 	 * @param controller the corresponding controller
 	 * @param povCode the POV code
-	 * @param value the POV direction
+	 * @param value the POV direction as an integer (removed PovDirection enum for compatibility)
 	 */
-	void onControllerPovMoved(Controller controller, int povCode, PovDirection value);
+	void onControllerPovMoved(Controller controller, int povCode, int value);
 
 	/**
 	 * An x-slider on the {@link Controller} moved.

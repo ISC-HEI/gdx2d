@@ -6,12 +6,12 @@ package ch.hevs.gdx2d.lib;
 public class Version {
 
   /** Copyright and authors information. */
-  public final static String COPY = "mui, chn, mei, pim (c) 2012-2016";
+  public final static String COPY = "mui, chn, mei, pim (c) 2012-2025";
 
   /**
    * Current version name of the gdx2d library (major.minor.revision).
    */
-  public final static String VERSION = "1.2.2";
+  public final static String VERSION = "1.2.3";
 
   /**
    * Indicates if it is a debug or release version.

@@ -926,6 +926,16 @@ public class GdxGraphics implements Disposable {
 	}
 
 	/**
+	 * Set a new camera for rendering.
+	 *
+	 * @param camera the new camera to use
+	 */
+	public void setCamera(OrthographicCamera camera) {
+		this.camera = camera;
+		cameraUpdated();
+	}
+
+	/**
 	 * Draw the current assigned shader.
 	 */
 	public void drawShader() {

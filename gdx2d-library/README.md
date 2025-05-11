@@ -65,10 +65,11 @@ The `gdx2d-core` dependencies are:
 
 The `gdx2d-desktop` dependencies are:
 
- * `com.badlogicgames.gdx:gdx-backend-lwjgl:${libgdx.version}`
+ * `com.badlogicgames.gdx:gdx-backend-lwjgl3:${libgdx.version}`
  * `com.badlogicgames.gdx:gdx-platform:${libgdx.version}`
  * `com.badlogicgames.gdx:gdx-box2d-platform:${libgdx.version}`
  * `com.badlogicgames.gdx:gdx-freetype-platform:${libgdx.version}`
+ * `com.badlogicgames.gdx:gdx-backend-lwjgl:${libgdx.version}` (for Swing integration)
 
 ## Library resources
 
