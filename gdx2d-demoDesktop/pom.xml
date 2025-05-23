@@ -44,6 +44,28 @@
       <version>${kotlin.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-backend-lwjgl3</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+
+    <!-- For Swing integration with LWJGL2 -->
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-backend-lwjgl</artifactId>
+      <version>${libgdx.version}</version>
+    </dependency>
+
+    <!-- For LWJGL2 natives required for Swing integration -->
+    <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-platform</artifactId>
+      <version>${libgdx.version}</version>
+      <classifier>natives-desktop</classifier>
+    </dependency>
+
   </dependencies>
 
   <build>

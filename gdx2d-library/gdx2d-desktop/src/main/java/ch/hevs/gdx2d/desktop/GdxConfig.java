@@ -1,42 +1,70 @@
 package ch.hevs.gdx2d.desktop;
 
 import com.badlogic.gdx.Files;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 
 /**
  * Default configuration for {@code gdx2d} applications running on desktop.
  *
  * @author Pierre-André Mudry (mui)
+ * @version 1.1
  */
 public class GdxConfig {
 
-	// FIXME: only used for desktop applications, must not be included in the library project
+    /**
+     * Get LWJGL configuration with default settings (500x500 window)
+     *
+     * @return LWJGL application configuration
+     */
+    public static Lwjgl3ApplicationConfiguration getLwjglConfig() {
+        return getLwjglConfig(500, 500, false);
+    }
 
-	static public LwjglApplicationConfiguration getLwjglConfig(int width, int height, boolean fullScreen) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.resizable = false;
-		config.useGL30 = false;
-		config.height = height;
-		config.width = width;
-		config.fullscreen = fullScreen;
-		config.title = "Gdx2d desktop application";
-		config.vSyncEnabled = true; // Ignored under Linux
-		config.foregroundFPS = 60; // Target value if vSync not working
-		config.backgroundFPS = config.foregroundFPS;
-		config.samples = 3; // Multi-sampling enables anti-alias for lines
-		config.forceExit = false; // Setting true calls system.exit(), with no coming back
+    /**
+     * Get LWJGL configuration
+     * <p/>
+     * Default resolution available for the windowed mode:
+     * <ul>
+     * <li>640 * 480 (4:3)
+     * <li>800 * 600 (4:3)
+     * <li>1024 * 768 (4:3)
+     * <li>1280 * 720 (16:9)
+     * <li>1366 * 768 (16:9)
+     * <li>1600 * 900 (16:9)
+     * <li>1920 * 1080 (16:9)
+     * </ul>
+     *
+     * @param width      Window width
+     * @param height     Window height
+     * @param fullScreen Create a fullscreen window
+     * @return The configuration for LWJGL
+     */
+    public static Lwjgl3ApplicationConfiguration getLwjglConfig(int width, int height, boolean fullScreen) {
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setResizable(false);
+        config.useVsync(true);
+        config.setTitle("Gdx2d desktop application");
 
-		final String os = System.getProperty("os.name").toLowerCase();
+        // Set window size
+        config.setWindowedMode(width, height);
 
-		// Under windows, the icon *must* be the small one
-		if (os.contains("win")) {
-			config.addIcon("res/lib/icon16.png", Files.FileType.Internal);
-		}
+        if (fullScreen) {
+            config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
+        }
 
-		config.addIcon("res/lib/icon32.png", Files.FileType.Internal);
-		config.addIcon("res/lib/icon64.png", Files.FileType.Internal);
+        // Set up initial background color to black
+        config.setInitialBackgroundColor(Color.BLACK);
 
-		return config;
-	}
+        // 4 samples for multi-sampling enables anti-alias for lines
+        config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 4);
 
+        // Use OpenGL 2.0 for compatibility (major=2, minor=0)
+        config.setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.GL20, 2, 0);
+
+        // Set window icons
+        config.setWindowIcon("res/lib/icon16.png", "res/lib/icon32.png", "res/lib/icon64.png");
+
+        return config;
+    }
 }

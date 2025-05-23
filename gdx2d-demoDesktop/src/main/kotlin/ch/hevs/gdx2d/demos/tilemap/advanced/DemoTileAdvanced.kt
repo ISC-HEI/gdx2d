@@ -58,7 +58,7 @@ class DemoTileAdvanced : PortableApplication() {
 
         // Camera follows the hero
         g.zoom(zoom)
-        g.moveCamera(hero.position.x, hero.position.y, tiledLayer.width * tiledLayer.tileWidth, tiledLayer.height * tiledLayer.tileHeight)
+        g.moveCamera(hero.position.x.toFloat(), hero.position.y.toFloat(), (tiledLayer.width * tiledLayer.tileWidth).toFloat(), (tiledLayer.height * tiledLayer.tileHeight).toFloat())
 
         // Render the tilemap
         tiledMapRenderer.setView(g.camera)

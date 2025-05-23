@@ -4,14 +4,15 @@ import java.awt.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import ch.hevs.gdx2d.lib.interfaces.*;
+
+import javax.swing.SwingUtilities;
 
 /**
  * The base class that should be sub-classed by all {@code gdx2d} applications. To get the functionality required you
@@ -113,9 +114,24 @@ public abstract class PortableApplication
 			height = gd.getDisplayMode().getHeight();
 		}
 
-		// We only create a context when we were not built from the DemoSelector
-		if (!onAndroid() && !fromDemoSelector() && CreateLwjglApplication)
-			createLwjglApplication(width, height, fullScreen);
+		// Store parameters for deferred creation
+		this.deferredWidth = width;
+		this.deferredHeight = height;
+		this.deferredFullScreen = fullScreen;
+		
+		// Schedule creation for after constructor completes
+		if (!onAndroid() && !fromDemoSelector() && CreateLwjglApplication) {
+			// Check if we're on macOS - GLFW requires main thread
+			String osName = System.getProperty("os.name").toLowerCase();
+			if (osName.contains("mac")) {
+				// On macOS: Set flag and let run() method handle creation
+				pendingCreation = true;
+				// Call .run() from main method after object construction
+			} else {
+				// On other platforms: Use EDT which works fine
+				SwingUtilities.invokeLater(() -> createLwjglApplication(deferredWidth, deferredHeight, deferredFullScreen));
+			}
+		}
 	}
 
 	/**
@@ -129,8 +145,15 @@ public abstract class PortableApplication
 	 */
 	@Deprecated
 	public PortableApplication(boolean onAndroid, int width, int height, boolean fullScreen) {
-		if (!onAndroid && !fromDemoSelector() && CreateLwjglApplication)
-			createLwjglApplication(width, height, fullScreen);
+		// DEFER LibGDX application creation until after construction completes
+		this.deferredWidth = width;
+		this.deferredHeight = height;
+		this.deferredFullScreen = fullScreen;
+		
+		// Schedule creation for after constructor completes
+		if (!onAndroid && !fromDemoSelector() && CreateLwjglApplication) {
+			SwingUtilities.invokeLater(() -> createLwjglApplication(deferredWidth, deferredHeight, deferredFullScreen));
+		}
 	}
 
 	private boolean fromDemoSelector() {
@@ -297,8 +320,8 @@ public abstract class PortableApplication
 	}
 
 	@Override
-	public void onControllerPovMoved(Controller controller, int povCode, PovDirection value) {
-
+	public void onControllerPovMoved(Controller controller, int povCode, int value) {
+		// Updated to use int instead of PovDirection for compatibility with gdx-controllers 2.x
 	}
 
 	@Override
@@ -340,13 +363,33 @@ public abstract class PortableApplication
 	// TODO This is ugly and only required for the DemoSwingIntegration to prevent the creation of context
 	public static boolean CreateLwjglApplication = true;
 
+	// Fields to store deferred creation parameters
+	private int deferredWidth;
+	private int deferredHeight;
+	private boolean deferredFullScreen;
+	private boolean pendingCreation = false;
+
+	/**
+	 * Start the application. Call this after construction to complete LibGDX initialization.
+	 * This handles platform-specific threading requirements automatically.
+	 * 
+	 * Usage: new MyGame().run()
+	 */
+	public void run() {
+		if (pendingCreation) {
+			createLwjglApplication(deferredWidth, deferredHeight, deferredFullScreen);
+			pendingCreation = false;
+		}
+		// On non-macOS platforms, SwingUtilities.invokeLater already handled creation
+	}
+
+
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
 		assert (!onAndroid());
 		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 
-		LwjglApplicationConfiguration config = GdxConfig.getLwjglConfig(width, height, fullScreen);
-
+		Lwjgl3ApplicationConfiguration config = GdxConfig.getLwjglConfig(width, height, fullScreen);
 		Game2D theGame = new Game2D(this);
-		new LwjglApplication(theGame, config);
+		new Lwjgl3Application(theGame, config);
 	}
 }

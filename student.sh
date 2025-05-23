@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Exit on error
+set -e
+
 mvn clean 
 
 #Package library
@@ -15,5 +18,7 @@ cp -r gdx2d-demoDesktop student
 cp -r gdx2d-helloDesktop student
 cp -r lib student
 cp gdx2d-library/gdx2d-desktop/target/*.jar student/lib
-sed -i 's/<!--STUDENT_RELEASE//g' student/pom.xml
-sed -i 's/STUDENT_RELEASE-->//g' student/pom.xml
+sed -e 's/<!--STUDENT_RELEASE//g' -e 's/STUDENT_RELEASE-->//g' student/pom.xml > student/pom.xml.tmp
+mv student/pom.xml.tmp student/pom.xml
+
+echo 'done :-)'

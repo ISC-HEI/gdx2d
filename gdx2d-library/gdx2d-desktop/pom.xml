@@ -37,9 +37,11 @@
 
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-backend-lwjgl</artifactId>
+      <artifactId>gdx-backend-lwjgl3</artifactId>
       <version>${libgdx.version}</version>
     </dependency>
+
+    <!-- Default desktop natives -->
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-platform</artifactId>
@@ -47,33 +49,31 @@
       <classifier>natives-desktop</classifier>
     </dependency>
 
+
+    <!-- Box2D extension -->
     <dependency>
-      <!-- Box2D extension -->
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-box2d-platform</artifactId>
       <classifier>natives-desktop</classifier>
       <version>${libgdx.version}</version>
     </dependency>
+
+
+    <!-- Box2DLights extension -->
     <dependency>
-      <!-- Box2DLights extension -->
       <groupId>com.badlogicgames.gdx</groupId>
       <artifactId>gdx-freetype-platform</artifactId>
       <version>${libgdx.version}</version>
       <classifier>natives-desktop</classifier>
     </dependency>
+
     <dependency>
       <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
+      <groupId>com.badlogicgames.gdx-controllers</groupId>
       <artifactId>gdx-controllers-desktop</artifactId>
-      <version>${libgdx.version}</version>
+      <version>2.2.2</version>
     </dependency>
-    <dependency>
-      <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers-platform</artifactId>
-      <version>${libgdx.version}</version>
-      <classifier>natives-desktop</classifier>
-    </dependency>
+
   </dependencies>
 
   <build>

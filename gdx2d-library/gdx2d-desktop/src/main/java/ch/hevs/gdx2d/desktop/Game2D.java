@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import ch.hevs.gdx2d.lib.GdxGraphics;
 import ch.hevs.gdx2d.lib.Version;
@@ -31,12 +30,6 @@ import javax.swing.JFrame;
 public class Game2D implements ApplicationListener {
 
 	public static GdxGraphics g;
-
-	// Force to load native libraries (for Android Proguard)
-	// FIXME Is this really required?
-	static {
-		GdxNativesLoader.load();
-	}
 
 	public OrthographicCamera camera;
 	protected PortableApplication app;
@@ -96,6 +89,10 @@ public class Game2D implements ApplicationListener {
 	 * Called when the screen has been resized.
 	 */
 	public void resize(int width, int height) {
+		// Update camera when window is resized
+		camera.setToOrtho(false, width, height);
+		camera.update();
+		//g.setCamera(camera);
 	}
 
 	/**

@@ -61,25 +61,29 @@ class GdxControllersProcessor extends ControllerAdapter {
 		return false;
 	}
 
-	@Override
-	public boolean povMoved(Controller controller, int povCode, PovDirection value) {
+	// PovDirection was removed in gdx-controllers 2.x, replaced with direct button handling
+	// This method no longer exists in the API
+	public boolean povMoved(Controller controller, int povCode, int value) {
 		app.onControllerPovMoved(controller, povCode, value);
 		return false;
 	}
 
-	@Override
+	// Methods below no longer exist in the gdx-controllers 2.x API
+	// Kept for compatibility with old code but no longer called
+
+	// No longer in the API
 	public boolean xSliderMoved(Controller controller, int sliderCode, boolean value) {
 		app.onControllerXSliderMoved(controller, sliderCode, value);
 		return false;
 	}
 
-	@Override
+	// No longer in the API
 	public boolean ySliderMoved(Controller controller, int sliderCode, boolean value) {
 		app.onControllerYSliderMoved(controller, sliderCode, value);
 		return false;
 	}
 
-	@Override
+	// No longer in the API
 	public boolean accelerometerMoved(Controller controller, int accelerometerCode, Vector3 value) {
 		app.onControllerAccelerometerMoved(controller, accelerometerCode, value);
 		return false;
