@@ -172,6 +172,7 @@ public abstract class DesktopApplication
 		List<String> jvmArgs = new ArrayList<>();
 		jvmArgs.add(System.getProperty("java.home") + File.separator + "bin" + File.separator + "java");
 		jvmArgs.add("-XstartOnFirstThread");
+		jvmArgs.add("--enable-native-access=ALL-UNNAMED");
 		// Is the original command a -jar launch?
 		if (mainClass.endsWith(".jar") || mainParts[0].endsWith(".jar")) {
 			jvmArgs.add("-jar");

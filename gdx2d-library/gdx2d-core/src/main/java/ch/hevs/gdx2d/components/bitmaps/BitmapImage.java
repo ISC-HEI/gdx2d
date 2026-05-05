@@ -72,14 +72,14 @@ public final class BitmapImage implements Disposable {
 	}
 
 	/**
-	 * Mirrors the image left <-> right
+	 * Mirrors the image left &lt;-&gt; right
 	 */
 	public void mirrorLeftRight() {
 		tRegion.flip(true, false);
 	}
 
 	/**
-	 * Mirrors the image up <-> down
+	 * Mirrors the image up &lt;-&gt; down
 	 */
 	public void mirrorUpDown() {
 		tRegion.flip(false, true);

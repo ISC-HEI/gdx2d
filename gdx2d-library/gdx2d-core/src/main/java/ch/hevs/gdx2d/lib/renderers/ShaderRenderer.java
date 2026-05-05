@@ -88,7 +88,7 @@ public class ShaderRenderer implements Disposable {
 			Gdx.app.exit();
 		}
 
-		if (shader.getLog().length() != 0 && !shader.getLog().contains("No errors"))
+		if (shader.getLog().length() != 0 && shader.getLog().toUpperCase().contains("ERROR"))
 			Logger.log("Shader message - " + shader.getLog());
 
 		// Creates a batch with the size of the texture
