@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 import ch.hevs.gdx2d.lib.GdxGraphics;
@@ -60,9 +59,8 @@ public class Game2D implements ApplicationListener {
 
 		g = new GdxGraphics(shapeRenderer, batch, camera);
 
-		// Register multiple input processors for gestures, mouse and keyboard events
+		// Register the input processor for mouse and keyboard events
 		final InputMultiplexer multiplexer = new InputMultiplexer();
-		multiplexer.addProcessor(new GestureDetector(new GdxGestureDetector(app))); // Gestures
 		multiplexer.addProcessor(new GdxInputProcessor(app)); // Mouse and keyboard inputs
 
 		Gdx.input.setInputProcessor(multiplexer);

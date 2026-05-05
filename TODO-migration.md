@@ -8,7 +8,7 @@ libgdx 1.9.8 (Kotlin + Android + LWJGL2) to libgdx 1.14.0
 
 - [x] **Phase 0** — Park non-desktop / non-Scala code, introduce Scala toolchain, Scala hello smoke test, bump `maven-shade-plugin` 2.4.2 → 3.5.0, bump `maven-javadoc-plugin` 2.10.3 → 3.6.3 (fixes JDK 24 compatibility)
 - [x] **Phase 1** — Strip Android code from `gdx2d-library`, rename `PortableApplication` → `DesktopApplication`, rename `TouchInterface` → `MouseInterface`
-- [ ] **Phase 2** — Drop `GestureInterface` entirely
+- [x] **Phase 2** — Drop `GestureInterface` entirely (deleted `GestureInterface.java`, `GdxGestureDetector.java`, and 6 gesture callback stubs from `DesktopApplication` + `RenderingScreen`; removed `GestureDetector` registration from `Game2D`)
 - [ ] **Phase 3** — Bump libgdx 1.9.8 → 1.14.0, migrate LWJGL2 → LWJGL3, bump box2dlights to 1.5
 - [ ] **Phase 4** — Scala port of hello/demos, Scala rewrite of `DemoSelectorGUI`
 - [ ] **Phase 5** — Port demos one by one

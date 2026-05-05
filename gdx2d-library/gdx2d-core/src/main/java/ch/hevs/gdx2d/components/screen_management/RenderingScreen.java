@@ -1,7 +1,6 @@
 package ch.hevs.gdx2d.components.screen_management;
 
 import ch.hevs.gdx2d.lib.GdxGraphics;
-import ch.hevs.gdx2d.lib.interfaces.GestureInterface;
 import ch.hevs.gdx2d.lib.interfaces.KeyboardInterface;
 import ch.hevs.gdx2d.lib.interfaces.MouseInterface;
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +11,7 @@ import com.badlogic.gdx.utils.Disposable;
  * Basic interface for all rendering screens
  * @author Pierre-André Mudry
  */
-public abstract class RenderingScreen implements KeyboardInterface, MouseInterface, GestureInterface, Disposable {
+public abstract class RenderingScreen implements KeyboardInterface, MouseInterface, Disposable {
 	// Default physics world, shoudl not be present but prevents the app to crash
 	// FIXME this is because we keep an instance of world in memory and the library is still
 	// loaded (IMO)
@@ -31,35 +30,11 @@ public abstract class RenderingScreen implements KeyboardInterface, MouseInterfa
 	}
 
 	@Override
-	public void onFling(float velocityX, float velocityY, int button) {
-	}
-
-	@Override
-	public void onLongPress(float x, float y) {
-	}
-
-	@Override
-	public void onPan(float x, float y, float deltaX, float deltaY) {
-	}
-
-	@Override
-	public void onPinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-	}
-
-	@Override
 	public void onRelease(int x, int y, int button) {
 	}
 
 	@Override
 	public void onScroll(int amount) {
-	}
-
-	@Override
-	public void onTap(float x, float y, int count, int button) {
-	}
-
-	@Override
-	public void onZoom(float initialDistance, float distance) {
 	}
 
 	@Override

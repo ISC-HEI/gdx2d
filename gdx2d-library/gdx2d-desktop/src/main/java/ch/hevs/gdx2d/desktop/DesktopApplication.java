@@ -7,10 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.math.Vector2;
-
 import ch.hevs.gdx2d.lib.interfaces.GameInterface;
-import ch.hevs.gdx2d.lib.interfaces.GestureInterface;
 import ch.hevs.gdx2d.lib.interfaces.KeyboardInterface;
 import ch.hevs.gdx2d.lib.interfaces.MouseInterface;
 
@@ -22,14 +19,13 @@ import ch.hevs.gdx2d.lib.interfaces.MouseInterface;
  * @see MouseInterface
  * @see KeyboardInterface
  * @see GameInterface
- * @see GestureInterface
  *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Metrailler (mei)
  * @version 2.0
  */
 public abstract class DesktopApplication
-		implements MouseInterface, KeyboardInterface, GameInterface, GestureInterface {
+		implements MouseInterface, KeyboardInterface, GameInterface {
 
 	// Default window dimensions
 	private static final int DEFAULT_HEIGHT = 500;
@@ -175,32 +171,6 @@ public abstract class DesktopApplication
 
 	@Override
 	public void onResume() {
-	}
-
-	/* GestureInterface callbacks */
-
-	@Override
-	public void onZoom(float initialDistance, float distance) {
-	}
-
-	@Override
-	public void onTap(float x, float y, int count, int button) {
-	}
-
-	@Override
-	public void onPinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-	}
-
-	@Override
-	public void onPan(float x, float y, float deltaX, float deltaY) {
-	}
-
-	@Override
-	public void onLongPress(float x, float y) {
-	}
-
-	@Override
-	public void onFling(float velocityX, float velocityY, int button) {
 	}
 
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
