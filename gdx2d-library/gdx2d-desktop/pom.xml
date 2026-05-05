@@ -69,7 +69,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.3</version>
+        <version>3.6.3</version>
         <configuration>
           <!-- Aggregate the doc from 'gdx2d-core' to include all the doc in one place -->
           <includeDependencySources>true</includeDependencySources>
