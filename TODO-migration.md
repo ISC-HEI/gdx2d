@@ -9,7 +9,7 @@ libgdx 1.9.8 (Kotlin + Android + LWJGL2) to libgdx 1.14.0
 - [x] **Phase 0** — Park non-desktop / non-Scala code, introduce Scala toolchain, Scala hello smoke test, bump `maven-shade-plugin` 2.4.2 → 3.5.0, bump `maven-javadoc-plugin` 2.10.3 → 3.6.3 (fixes JDK 24 compatibility)
 - [x] **Phase 1** — Strip Android code from `gdx2d-library`, rename `PortableApplication` → `DesktopApplication`, rename `TouchInterface` → `MouseInterface`
 - [x] **Phase 2** — Drop `GestureInterface` entirely (deleted `GestureInterface.java`, `GdxGestureDetector.java`, and 6 gesture callback stubs from `DesktopApplication` + `RenderingScreen`; removed `GestureDetector` registration from `Game2D`)
-- [ ] **Phase 3** — Bump libgdx 1.9.8 → 1.14.0, migrate LWJGL2 → LWJGL3, bump box2dlights to 1.5
+- [x] **Phase 3** — Bump libgdx 1.9.8 → 1.14.0, migrate LWJGL2 → LWJGL3, bump box2dlights to 1.5, fix scrolled() signature, fix `com.badlogic.gdx.utils.StringBuilder` removal, add macOS `-XstartOnFirstThread` auto-restart helper
 - [ ] **Phase 4** — Scala port of hello/demos, Scala rewrite of `DemoSelectorGUI`
 - [ ] **Phase 5** — Port demos one by one
 
@@ -68,13 +68,25 @@ Kotlin sources parked in `src_to_do/` reference this under the old
 name `PortableApplication.CreateLwjglApplication`; the Scala rewrites
 in Phase 4/5 must use `DesktopApplication.CreateLwjglApplication`.
 
-## Phase 3 checklist (libgdx bump)
+## Phase 3 changes (done)
 
-- [ ] `<libgdx.version>1.9.8</libgdx.version>` → `1.14.0` in `gdx2d-library/pom.xml`
-- [ ] Bump box2dlights to `1.5` in `gdx2d-library/pom.xml`
-- [ ] Replace `gdx-backend-lwjgl` with `gdx-backend-lwjgl3` in `gdx2d-library/gdx2d-desktop/pom.xml`
-- [ ] Rewrite `GdxConfig.java`: `LwjglApplicationConfiguration` → `Lwjgl3ApplicationConfiguration` with setter API (`setWindowedMode`, `useVsync`, `setForegroundFPS`, `setIdleFPS`, `setBackBufferConfig` for samples, `setWindowIcon`)
-- [ ] Rewrite `DesktopApplication.createLwjglApplication`: `LwjglApplication` → `Lwjgl3Application`
-- [ ] Fix `GdxInputProcessor.scrolled(int)` → `scrolled(float amountX, float amountY)`; forward `Math.round(amountY)`
-- [ ] Keep the `CreateLwjglApplication` static flag name for student-code continuity (still needed by future Swing-integration demos)
-- [ ] If `maven-shade-plugin` 3.5.0 + libgdx 1.14 fat-jar fails on service file conflicts, add `META-INF/services/*` merger transformer
+- Bumped `<libgdx.version>` from 1.9.8 to **1.14.0** in `gdx2d-library/pom.xml`
+- Bumped box2dlights from 1.4 to **1.5**
+- Replaced `gdx-backend-lwjgl` with `gdx-backend-lwjgl3` in `gdx2d-library/gdx2d-desktop/pom.xml`
+- Rewrote `GdxConfig.java` to use `Lwjgl3ApplicationConfiguration` (`setResizable`, `useVsync`, `setForegroundFPS`, `setIdleFPS`, `setBackBufferConfig` for samples, `setTitle`, `setFullscreenMode`/`setWindowedMode`, `setWindowIcon`).
+- Rewrote `DesktopApplication.createLwjglApplication` to instantiate `Lwjgl3Application` with `Lwjgl3ApplicationConfiguration`.
+- Fixed `GdxInputProcessor.scrolled(int)` → `scrolled(float amountX, float amountY)`; forwards `Math.round(amountY)` to keep `MouseInterface.onScroll(int)` stable.
+- Removed now-removed `com.badlogic.gdx.utils.StringBuilder` import from `ShaderRenderer.java` (the JDK one is resolved automatically).
+- Added `startNewJvmIfRequired()` helper to `DesktopApplication`: on macOS, if the JVM was not launched with `-XstartOnFirstThread`, spawn a child JVM with the flag and wait for it. This is required because LWJGL3's GLFW must run on the first thread on macOS.
+
+## Phase 3 runtime notes
+
+The Scala hello runs on arm64 macOS with `libgdx 1.14.0` — verified
+by launching `gdx2d-helloDesktop-1.2.2.jar`: window opens and the log
+prints `libgdx v1.14.0`. Two harmless LWJGL warnings appear on modern
+JDKs (`Unsupported JNI version`, `sun.misc.Unsafe` deprecation); they
+are JVM-side issues that LWJGL will address in future releases. A
+shader linker warning (`vTexCoord/vSurfacePosition not read by
+fragment shader`) also appears — it comes from gdx2d's own shaders in
+`res/lib/fragment_include.glsl` and was always there; modern GLSL
+compilers are more vocal about it.

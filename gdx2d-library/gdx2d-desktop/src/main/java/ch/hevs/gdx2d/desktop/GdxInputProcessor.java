@@ -50,8 +50,10 @@ class GdxInputProcessor extends InputAdapter {
 	}
 
 	@Override
-	public boolean scrolled(int amount) {
-		app.onScroll(amount);
+	public boolean scrolled(float amountX, float amountY) {
+		// libgdx 1.12+ exposes the vertical component as amountY (positive means scrolled down).
+		// Round to an int to preserve the gdx2d public API onScroll(int).
+		app.onScroll(Math.round(amountY));
 		return false;
 	}
 

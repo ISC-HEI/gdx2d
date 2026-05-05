@@ -2,11 +2,17 @@ package ch.hevs.gdx2d.desktop;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import ch.hevs.gdx2d.lib.interfaces.GameInterface;
 import ch.hevs.gdx2d.lib.interfaces.KeyboardInterface;
 import ch.hevs.gdx2d.lib.interfaces.MouseInterface;
@@ -64,6 +70,12 @@ public abstract class DesktopApplication
 	 * @param fullScreen {@code true} to launch full-screen
 	 */
 	public DesktopApplication(int width, int height, boolean fullScreen) {
+		// On macOS GLFW must run on the first thread. If we are not on it,
+		// re-exec the JVM with -XstartOnFirstThread and exit the current process.
+		if (!fromDemoSelector() && CreateLwjglApplication && startNewJvmIfRequired()) {
+			return;
+		}
+
 		if (fullScreen) {
 			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			width = gd.getDisplayMode().getWidth();
@@ -73,6 +85,84 @@ public abstract class DesktopApplication
 		// We only create a context when we were not built from the DemoSelector
 		if (!fromDemoSelector() && CreateLwjglApplication)
 			createLwjglApplication(width, height, fullScreen);
+	}
+
+	/**
+	 * On macOS, GLFW requires the main thread to be the first thread of the
+	 * process, which in turn requires the JVM to be started with the
+	 * {@code -XstartOnFirstThread} flag. If we are not already in that
+	 * situation, spawn a new JVM with the flag and exit the current process.
+	 *
+	 * @return {@code true} if a child JVM was spawned (and the caller should
+	 *         return immediately without launching libgdx).
+	 */
+	private static boolean startNewJvmIfRequired() {
+		String osName = System.getProperty("os.name").toLowerCase();
+		if (!osName.contains("mac")) {
+			return false;
+		}
+
+		// Use a simple sentinel env var to avoid an infinite restart loop.
+		if ("true".equals(System.getenv("GDX2D_STARTED_ON_FIRST_THREAD"))) {
+			return false;
+		}
+
+		// If the user already added -XstartOnFirstThread, nothing to do.
+		List<String> inputArgs = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments();
+		for (String arg : inputArgs) {
+			if (arg.equals("-XstartOnFirstThread")) {
+				return false;
+			}
+		}
+
+		String classPath = System.getProperty("java.class.path");
+		String mainClass = System.getProperty("sun.java.command");
+		if (mainClass == null || mainClass.isEmpty()) {
+			System.err.println("Warning: running on macOS without -XstartOnFirstThread and "
+					+ "the main class could not be determined. GLFW will crash. "
+					+ "Re-run the JVM manually with -XstartOnFirstThread.");
+			return false;
+		}
+		// sun.java.command may contain the jar path (e.g. "-jar foo.jar arg1 arg2")
+		// or a class name followed by arguments. Preserve the form.
+		String[] mainParts = mainClass.split(" ", 2);
+
+		List<String> jvmArgs = new ArrayList<>();
+		jvmArgs.add(System.getProperty("java.home") + File.separator + "bin" + File.separator + "java");
+		jvmArgs.add("-XstartOnFirstThread");
+		// Is the original command a -jar launch?
+		if (mainClass.endsWith(".jar") || mainParts[0].endsWith(".jar")) {
+			jvmArgs.add("-jar");
+			jvmArgs.add(mainParts[0]);
+		} else {
+			jvmArgs.add("-cp");
+			jvmArgs.add(classPath);
+			jvmArgs.add(mainParts[0]);
+		}
+		if (mainParts.length > 1) {
+			for (String a : mainParts[1].split(" ")) {
+				if (!a.isEmpty()) jvmArgs.add(a);
+			}
+		}
+
+		try {
+			ProcessBuilder pb = new ProcessBuilder(jvmArgs);
+			pb.redirectErrorStream(true);
+			pb.environment().put("GDX2D_STARTED_ON_FIRST_THREAD", "true");
+			Process process = pb.start();
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					System.out.println(line);
+				}
+			}
+			int exitCode = process.waitFor();
+			System.exit(exitCode);
+			return true;
+		} catch (IOException | InterruptedException e) {
+			System.err.println("Failed to spawn child JVM with -XstartOnFirstThread: " + e);
+			return false;
+		}
 	}
 
 	private boolean fromDemoSelector() {
@@ -176,9 +266,9 @@ public abstract class DesktopApplication
 	private void createLwjglApplication(int width, int height, boolean fullScreen) {
 		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 
-		LwjglApplicationConfiguration config = GdxConfig.getLwjglConfig(width, height, fullScreen);
+		Lwjgl3ApplicationConfiguration config = GdxConfig.getLwjgl3Config(width, height, fullScreen);
 
 		Game2D theGame = new Game2D(this);
-		new LwjglApplication(theGame, config);
+		new Lwjgl3Application(theGame, config);
 	}
 }

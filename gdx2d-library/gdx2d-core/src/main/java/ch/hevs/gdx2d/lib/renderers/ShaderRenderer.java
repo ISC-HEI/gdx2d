@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.StringBuilder;
 
 /**
  * Render things using a GLSL shader program included in a file.
