@@ -6,10 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 import ch.hevs.gdx2d.lib.interfaces.*;
 
@@ -21,14 +18,13 @@ import ch.hevs.gdx2d.lib.interfaces.*;
  * @see KeyboardInterface
  * @see GameInterface
  * @see GestureInterface
- * @see ControllersInterface
  *
  * @author Pierre-André Mudry (mui)
  * @author Christopher Metrailler (mei)
  * @version 1.2
  */
 public abstract class PortableApplication
-		implements TouchInterface, KeyboardInterface, GameInterface, GestureInterface, ControllersInterface {
+		implements TouchInterface, KeyboardInterface, GameInterface, GestureInterface {
 
 	// Default window dimensions
 	private static final int DEFAULT_HEIGHT = 500;
@@ -267,53 +263,6 @@ public abstract class PortableApplication
 
 	@Override
 	public void onFling(float velocityX, float velocityY, int button) {
-	}
-
-	/* ControllersInterface callbacks */
-
-	@Override
-	public void onControllerConnected(Controller controller) {
-		// FIXME: not called on Windows with XBox One game-pad
-	}
-
-	@Override
-	public void onControllerDisconnected(Controller controller) {
-
-	}
-
-	@Override
-	public void onControllerKeyDown(Controller controller, int buttonCode) {
-
-	}
-
-	@Override
-	public void onControllerKeyUp(Controller controller, int buttonCode) {
-
-	}
-
-	@Override
-	public void onControllerAxisMoved(Controller controller, int axisCode, float value) {
-
-	}
-
-	@Override
-	public void onControllerPovMoved(Controller controller, int povCode, PovDirection value) {
-
-	}
-
-	@Override
-	public void onControllerXSliderMoved(Controller controller, int sliderCode, boolean value) {
-		// FIXME: not called on Windows with XBox One game-pad
-	}
-
-	@Override
-	public void onControllerYSliderMoved(Controller controller, int sliderCode, boolean value) {
-		// FIXME: not called on Windows with XBox One game-pad
-	}
-
-	@Override
-	public void onControllerAccelerometerMoved(Controller controller, int accelerometerCode, Vector3 value) {
-		// FIXME: not called on Windows with XBox One game-pad
 	}
 
 	/**

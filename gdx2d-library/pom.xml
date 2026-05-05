@@ -59,12 +59,7 @@
       <artifactId>box2dlights</artifactId>
       <version>1.4</version>
     </dependency>
-    <dependency>
-      <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers</artifactId>
-      <version>${libgdx.version}</version>
-    </dependency>
+    <!-- Controllers extension parked; see TODO-migration.md -->
   </dependencies>
 
   <build>
@@ -98,7 +93,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>2.4.2</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <phase>package</phase>

@@ -3,7 +3,6 @@ package ch.hevs.gdx2d.desktop;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -42,7 +41,6 @@ public class Game2D implements ApplicationListener {
 	protected PortableApplication app;
 	protected ShapeRenderer shapeRenderer;
 	protected SpriteBatch batch;
-	private boolean controllerEnable = true;
 
 	/**
 	 * Default constructor
@@ -50,7 +48,7 @@ public class Game2D implements ApplicationListener {
 	public Game2D(PortableApplication app) {
 		this.app = app;
 	}
-	
+
 	public void create() {
 		shapeRenderer = new ShapeRenderer();
 		batch = new SpriteBatch();
@@ -71,16 +69,7 @@ public class Game2D implements ApplicationListener {
 
 		Gdx.input.setInputProcessor(multiplexer);
 
-		// Register the controllers input (extension required)
-		if(controllerEnable){ //See https://github.com/hevs-isi/gdx2d/issues/148
-			Controllers.clearListeners();
-			Controllers.addListener(new GdxControllersProcessor(app));
-		}
-
 		app.onInit(); // Initialize app
-
-		// FIXME: should we enumerate the controllers here and call the connect method ?
-		// app.onControllerConnected();
 	}
 
 	/**
@@ -119,10 +108,5 @@ public class Game2D implements ApplicationListener {
 		PhysicsWorld.dispose();
 		g.dispose();
 		app.onDispose();
-	}
-	
-	public Game2D withoutController(){
-		controllerEnable = false;
-		return this;
 	}
 }

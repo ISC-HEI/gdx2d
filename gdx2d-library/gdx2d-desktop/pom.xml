@@ -61,19 +61,7 @@
       <version>${libgdx.version}</version>
       <classifier>natives-desktop</classifier>
     </dependency>
-    <dependency>
-      <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers-desktop</artifactId>
-      <version>${libgdx.version}</version>
-    </dependency>
-    <dependency>
-      <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers-platform</artifactId>
-      <version>${libgdx.version}</version>
-      <classifier>natives-desktop</classifier>
-    </dependency>
+    <!-- Controllers extension parked; see TODO-migration.md -->
   </dependencies>
 
   <build>

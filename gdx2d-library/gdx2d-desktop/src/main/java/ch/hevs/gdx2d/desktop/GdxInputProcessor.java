@@ -1,9 +1,8 @@
 package ch.hevs.gdx2d.desktop;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.controllers.Controllers;
+
 
 /**
  * Input mouse and keyboard processor for gdx2d.
@@ -20,7 +19,7 @@ class GdxInputProcessor extends InputAdapter {
 	/**
 	 * Input mouse and keyboard processor for gdx2d.
 	 *
-	 * This processor must be registered manually to the {@link Controllers} class.
+	 * This processor must be registered manually.
 	 *
 	 * @param app the portable application (cannot be null)
 	 * @throws IllegalArgumentException if the application is {@code null}

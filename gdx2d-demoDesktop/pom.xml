@@ -2,10 +2,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!--
-    Maven build script for the gdx2d core library.
+    Maven build script for the gdx2d demos module.
 
-    @author Christopher Métrailler (mei@hevs.ch)
-    @version 1.1
+    NOTE: Kotlin demos are currently parked under src_to_do/ during the
+    libgdx 1.14 migration. This module currently produces an empty jar.
+    See TODO-migration.md at the repository root.
   -->
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
@@ -17,7 +18,7 @@
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
-  <description>gdx2d demo desktop </description>
+  <description>gdx2d demos (currently empty, awaiting Scala rewrite)</description>
   <version>${gdx2d.version}</version>
 
   <dependencies>
@@ -26,29 +27,9 @@
       <artifactId>gdx2d-desktop</artifactId>
       <version>${gdx2d.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>com.javaswingcomponents</groupId>
-      <artifactId>accordion</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
-      <version>${kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-test</artifactId>
-      <version>${kotlin.version}</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>
-    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-
     <resources>
       <resource>
         <directory>data</directory>
@@ -57,61 +38,10 @@
 
     <plugins>
       <plugin>
-        <!-- Build an executable JAR -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.1.0</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>ch.hevs.gdx2d.demos.DemoSelectorKt</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-
-      <!--Flat jar-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>2.4.2</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <version>${kotlin.version}</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <jvmTarget>1.8</jvmTarget>
-        </configuration>
       </plugin>
     </plugins>
   </build>
-
 </project>

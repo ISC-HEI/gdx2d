@@ -20,7 +20,7 @@ For each feature, a Java demo is provided for simple integration. Here are some 
 ## Why has this framework been developed?
 The advantage of using gdx2d is that you can develop your code in Java on your standard desktop computer like any other Java application and then deploy the same code, with a single click, on an Android phone or tablet. Of course, you have to take into consideration the fact that some of your code is a bit different for Android (for instance, you don't have accelerometers on your PC). 
 
-The library itself is a wrapper around a very nice library called [libGDX](https://libgdx.badlogicgames.com/) which provides almost everything to the library. The current project version is based on libGDX version `1.5.6`.
+The library itself is a wrapper around a very nice library called [libGDX](https://libgdx.com/) which provides almost everything to the library. The current project version is based on libGDX version `1.5.6`.
 
 ## Documentation
 The Javadoc API of this library can be found [here](https://isc-hei.github.io/gdx2d/javadoc/). More information about the project can be found on the [official website](https://isc-hei.github.io/gdx2d/).
