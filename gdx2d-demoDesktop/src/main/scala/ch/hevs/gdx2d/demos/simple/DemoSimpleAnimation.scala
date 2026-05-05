@@ -17,7 +17,7 @@ class DemoSimpleAnimation extends DesktopApplication {
   private var speed: Float = 1f
 
   override def onInit(): Unit = {
-    setTitle("Simple demo, mui 2013")
+    setTitle("Simple demo, mui 2026")
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {

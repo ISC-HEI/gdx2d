@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 import ch.hevs.gdx2d.lib.interfaces.GameInterface;
 import ch.hevs.gdx2d.lib.interfaces.KeyboardInterface;
 import ch.hevs.gdx2d.lib.interfaces.MouseInterface;
@@ -32,6 +33,14 @@ import ch.hevs.gdx2d.lib.interfaces.MouseInterface;
  */
 public abstract class DesktopApplication
 		implements MouseInterface, KeyboardInterface, GameInterface {
+
+	// Eagerly load the libgdx native libraries so that gdx2d classes such as
+	// Pixmap can be instantiated from subclass field initializers (which run
+	// before launch() creates the Lwjgl3Application that would normally
+	// trigger native loading).
+	static {
+		GdxNativesLoader.load();
+	}
 
 	// Default window dimensions
 	private static final int DEFAULT_HEIGHT = 500;
