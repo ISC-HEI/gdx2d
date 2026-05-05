@@ -10,8 +10,18 @@ libgdx 1.9.8 (Kotlin + Android + LWJGL2) to libgdx 1.14.0
 - [x] **Phase 1** — Strip Android code from `gdx2d-library`, rename `PortableApplication` → `DesktopApplication`, rename `TouchInterface` → `MouseInterface`
 - [x] **Phase 2** — Drop `GestureInterface` entirely (deleted `GestureInterface.java`, `GdxGestureDetector.java`, and 6 gesture callback stubs from `DesktopApplication` + `RenderingScreen`; removed `GestureDetector` registration from `Game2D`)
 - [x] **Phase 3** — Bump libgdx 1.9.8 → 1.14.0, migrate LWJGL2 → LWJGL3, bump box2dlights to 1.5, fix scrolled() signature, fix `com.badlogic.gdx.utils.StringBuilder` removal, add macOS `-XstartOnFirstThread` auto-restart helper
-- [x] **Phase 4** — Rewire `gdx2d-demoDesktop` for Scala, port `DemoSimpleShapes` and `DemoCircles` as standalone Scala objects. **Breaking API change**: window creation moved out of `DesktopApplication`'s constructor into a new `launch()` method; student code now reads `new MyGame().launch()`. Demo selector GUI not yet rebuilt (see Phase 5).
-- [ ] **Phase 5** — Port more demos one by one; optional Scala Swing demo launcher.
+- [x] **Phase 4** — Rewire `gdx2d-demoDesktop` for Scala, port `DemoSimpleShapes` and `DemoCircles` as standalone Scala objects. **Breaking API change**: window creation moved out of `DesktopApplication`'s constructor into a new `launch()` method; student code now reads `new MyGame().launch()`.
+- [x] **Phase 5** — Ported **all** remaining demos from `gdx2d-demoDesktop/src_to_do/main/kotlin/` to Scala. This includes physics (car, pinball, joints, etc.), lights, advanced shaders, tilemaps, tweening, and the MIDI player. All demos now use the `new MyGame().launch()` pattern and have been stripped of Android and gesture dependencies. Ported Kotlin files have been removed from the `src_to_do` tree.
+
+
+## Scope decisions
+
+- **No demo launcher / demo selector.** The old `DemoSelectorGUI` is not
+  being rebuilt. Each demo is a standalone Scala `object Foo { def main }`
+  that students run directly.
+- **No Scala Swing, ever.** Not for a launcher, not for anything else.
+- **Controllers stay parked.** Not part of Phase 5.
+- **Gestures stay deleted.** Not part of Phase 5.
 
 ## Parked code (needs porting / rewrite later)
 
