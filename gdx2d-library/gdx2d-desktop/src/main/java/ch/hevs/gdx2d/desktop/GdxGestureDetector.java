@@ -14,19 +14,19 @@ import com.badlogic.gdx.math.Vector2;
  */
 class GdxGestureDetector extends GestureDetector.GestureAdapter {
 
-	private final PortableApplication app;
+	private final DesktopApplication app;
 
 	/**
 	 * Input gesture processor for gdx2d.
 	 *
 	 * This processor must be registered manually to the {@link InputMultiplexer} class.
 	 *
-	 * @param app the portable application (cannot be null)
+	 * @param app the desktop application (cannot be null)
 	 * @throws IllegalArgumentException if the application is {@code null}
 	 */
-	GdxGestureDetector(final PortableApplication app) {
+	GdxGestureDetector(final DesktopApplication app) {
 		if (app == null)
-			throw new IllegalArgumentException("PortableApplication cannot be null !");
+			throw new IllegalArgumentException("DesktopApplication cannot be null !");
 
 		this.app = app;
 	}

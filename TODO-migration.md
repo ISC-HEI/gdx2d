@@ -6,8 +6,8 @@ libgdx 1.9.8 (Kotlin + Android + LWJGL2) to libgdx 1.14.0
 
 ## Phase status
 
-- [x] **Phase 0** — Park non-desktop / non-Scala code, introduce Scala toolchain, Scala hello smoke test
-- [ ] **Phase 1** — Strip Android code from `gdx2d-library`, rename `PortableApplication` to `DesktopApplication`, rename `TouchInterface` to `MouseInterface`
+- [x] **Phase 0** — Park non-desktop / non-Scala code, introduce Scala toolchain, Scala hello smoke test, bump `maven-shade-plugin` 2.4.2 → 3.5.0, bump `maven-javadoc-plugin` 2.10.3 → 3.6.3 (fixes JDK 24 compatibility)
+- [x] **Phase 1** — Strip Android code from `gdx2d-library`, rename `PortableApplication` → `DesktopApplication`, rename `TouchInterface` → `MouseInterface`
 - [ ] **Phase 2** — Drop `GestureInterface` entirely
 - [ ] **Phase 3** — Bump libgdx 1.9.8 → 1.14.0, migrate LWJGL2 → LWJGL3, bump box2dlights to 1.5
 - [ ] **Phase 4** — Scala port of hello/demos, Scala rewrite of `DemoSelectorGUI`
@@ -54,14 +54,19 @@ both `gdx2d-library/pom.xml` and `gdx2d-library/gdx2d-desktop/pom.xml`.
 The `onController*` callbacks have been removed from
 `PortableApplication.java`.
 
-## Phase 1 checklist (Android strip)
+## Phase 1 changes (done)
 
-- [ ] Delete `gdx2d-library/gdx2d-core/src/main/java/ch/hevs/gdx2d/lib/interfaces/AndroidResolver.java`
-- [ ] `PortableApplication`: delete `onAndroid()`, the `onAndroid` field, deprecated `boolean onAndroid` constructors, `getAndroidResolver()`, `setAndroidResolver()`
-- [ ] Remove `Gdx.input.vibrate(300)` call in the `onKeyDown(Keys.MENU)` branch
-- [ ] Rename `PortableApplication` → `DesktopApplication` (file + class + imports in `Game2D`, `GdxInputProcessor`, `GdxGestureDetector`, `HelloScala`)
-- [ ] Rename `TouchInterface` → `MouseInterface`
-- [ ] Grep core for `Gdx.app.getType() == ApplicationType.Android` branches, remove
+- Deleted `gdx2d-library/gdx2d-core/src/main/java/ch/hevs/gdx2d/lib/interfaces/AndroidResolver.java`
+- Deleted old `PortableApplication.java`; replaced with `DesktopApplication.java` (simpler: no Android detection, no `onAndroid` field, no deprecated `boolean onAndroid` constructors, no `getAndroidResolver()`/`setAndroidResolver()`, no `Gdx.input.vibrate(...)` call, no controllers hooks)
+- Renamed `TouchInterface` → `MouseInterface` (rewrote javadoc to drop Android notes)
+- Updated references across `Game2D`, `GdxInputProcessor`, `GdxGestureDetector`, `RenderingScreen`, `Utils`, `GdxGraphics` (javadoc), `HelloScala`
+- Removed the stale `HelloWorld.java` that lived under `gdx2d-helloDesktop/src/main/java/` — helloDesktop is a Scala-only module now.
+
+The `DesktopApplication.CreateLwjglApplication` static boolean is
+preserved for future demo-selector / Swing-integration compatibility.
+Kotlin sources parked in `src_to_do/` reference this under the old
+name `PortableApplication.CreateLwjglApplication`; the Scala rewrites
+in Phase 4/5 must use `DesktopApplication.CreateLwjglApplication`.
 
 ## Phase 3 checklist (libgdx bump)
 

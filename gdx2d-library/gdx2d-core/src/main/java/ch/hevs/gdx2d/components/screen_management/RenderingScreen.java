@@ -3,7 +3,7 @@ package ch.hevs.gdx2d.components.screen_management;
 import ch.hevs.gdx2d.lib.GdxGraphics;
 import ch.hevs.gdx2d.lib.interfaces.GestureInterface;
 import ch.hevs.gdx2d.lib.interfaces.KeyboardInterface;
-import ch.hevs.gdx2d.lib.interfaces.TouchInterface;
+import ch.hevs.gdx2d.lib.interfaces.MouseInterface;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Disposable;
  * Basic interface for all rendering screens
  * @author Pierre-André Mudry
  */
-public abstract class RenderingScreen implements KeyboardInterface, TouchInterface, GestureInterface, Disposable {
+public abstract class RenderingScreen implements KeyboardInterface, MouseInterface, GestureInterface, Disposable {
 	// Default physics world, shoudl not be present but prevents the app to crash
 	// FIXME this is because we keep an instance of world in memory and the library is still
 	// loaded (IMO)

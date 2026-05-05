@@ -18,34 +18,32 @@ import javax.swing.JFrame;
 
 /**
  * A wrapper for the {@link ApplicationListener} class.
- * <p/>
- * Links together a {@link PortableApplication}, which is the class instantiated by the user and {@link GdxGraphics}.
+ * <p>
+ * Links together a {@link DesktopApplication}, which is the class instantiated by the user and {@link GdxGraphics}.
  * This link is made by proper calls at {@link GdxGraphics} for important events such as rendering (in {@link #render()}
  * method) or scaling (in {@link #resize(int, int)}).
  *
  * @author Pierre-André Mudry (mui)
  * @author Nils Chatton
- * @version 1.1
+ * @version 2.0
  */
 public class Game2D implements ApplicationListener {
 
 	public static GdxGraphics g;
 
-	// Force to load native libraries (for Android Proguard)
-	// FIXME Is this really required?
 	static {
 		GdxNativesLoader.load();
 	}
 
 	public OrthographicCamera camera;
-	protected PortableApplication app;
+	protected DesktopApplication app;
 	protected ShapeRenderer shapeRenderer;
 	protected SpriteBatch batch;
 
 	/**
 	 * Default constructor
 	 */
-	public Game2D(PortableApplication app) {
+	public Game2D(DesktopApplication app) {
 		this.app = app;
 	}
 

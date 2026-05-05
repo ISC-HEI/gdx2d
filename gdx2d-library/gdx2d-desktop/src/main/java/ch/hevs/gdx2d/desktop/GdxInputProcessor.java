@@ -14,19 +14,19 @@ import com.badlogic.gdx.InputAdapter;
  */
 class GdxInputProcessor extends InputAdapter {
 
-	private final PortableApplication app;
+	private final DesktopApplication app;
 
 	/**
 	 * Input mouse and keyboard processor for gdx2d.
 	 *
 	 * This processor must be registered manually.
 	 *
-	 * @param app the portable application (cannot be null)
+	 * @param app the desktop application (cannot be null)
 	 * @throws IllegalArgumentException if the application is {@code null}
 	 */
-	GdxInputProcessor(final PortableApplication app) {
+	GdxInputProcessor(final DesktopApplication app) {
 		if (app == null)
-			throw new IllegalArgumentException("PortableApplication cannot be null !");
+			throw new IllegalArgumentException("DesktopApplication cannot be null !");
 
 		this.app = app;
 	}

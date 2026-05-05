@@ -1,6 +1,6 @@
 package ch.hevs.gdx2d.hello
 
-import ch.hevs.gdx2d.desktop.PortableApplication
+import ch.hevs.gdx2d.desktop.DesktopApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
 
@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.Color
  * integration smoke test across every phase of the libgdx 1.14
  * migration.
  */
-class HelloScala extends PortableApplication(500, 500) {
+class HelloScala extends DesktopApplication(500, 500) {
 
   override def onInit(): Unit = {
     setTitle("Hello gdx2d (Scala)")
