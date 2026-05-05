@@ -10,8 +10,8 @@ libgdx 1.9.8 (Kotlin + Android + LWJGL2) to libgdx 1.14.0
 - [x] **Phase 1** — Strip Android code from `gdx2d-library`, rename `PortableApplication` → `DesktopApplication`, rename `TouchInterface` → `MouseInterface`
 - [x] **Phase 2** — Drop `GestureInterface` entirely (deleted `GestureInterface.java`, `GdxGestureDetector.java`, and 6 gesture callback stubs from `DesktopApplication` + `RenderingScreen`; removed `GestureDetector` registration from `Game2D`)
 - [x] **Phase 3** — Bump libgdx 1.9.8 → 1.14.0, migrate LWJGL2 → LWJGL3, bump box2dlights to 1.5, fix scrolled() signature, fix `com.badlogic.gdx.utils.StringBuilder` removal, add macOS `-XstartOnFirstThread` auto-restart helper
-- [ ] **Phase 4** — Scala port of hello/demos, Scala rewrite of `DemoSelectorGUI`
-- [ ] **Phase 5** — Port demos one by one
+- [x] **Phase 4** — Rewire `gdx2d-demoDesktop` for Scala, port `DemoSimpleShapes` and `DemoCircles` as standalone Scala objects. **Breaking API change**: window creation moved out of `DesktopApplication`'s constructor into a new `launch()` method; student code now reads `new MyGame().launch()`. Demo selector GUI not yet rebuilt (see Phase 5).
+- [ ] **Phase 5** — Port more demos one by one; optional Scala Swing demo launcher.
 
 ## Parked code (needs porting / rewrite later)
 
@@ -90,3 +90,37 @@ shader linker warning (`vTexCoord/vSurfacePosition not read by
 fragment shader`) also appears — it comes from gdx2d's own shaders in
 `res/lib/fragment_include.glsl` and was always there; modern GLSL
 compilers are more vocal about it.
+
+## Phase 4 breaking API change: `launch()`
+
+LWJGL3's `Lwjgl3Application` constructor blocks the calling thread
+(the main thread on macOS) to run the game loop inline. This is a
+fundamental difference from LWJGL2, which spawned a separate thread
+for the game loop. As a consequence, the old gdx2d pattern where
+`PortableApplication`'s constructor directly instantiated the LWJGL
+app is broken: Scala (and Kotlin) subclass fields initialized via
+`val x = ...` are not yet set when the superclass constructor calls
+`onInit()`.
+
+The fix is to split construction from launching. The new pattern:
+
+```scala
+class MyGame extends DesktopApplication(500, 500) {
+  private val things = ... // safely initialized before launch()
+
+  override def onInit(): Unit = { ... }
+  override def onGraphicRender(g: GdxGraphics): Unit = { ... }
+}
+
+object MyGame {
+  def main(args: Array[String]): Unit = new MyGame().launch()
+}
+```
+
+`DesktopApplication.launch()` performs the macOS `-XstartOnFirstThread`
+dance if required, then creates the `Lwjgl3Application`. Student code
+must be updated when migrating to gdx2d 2.x.
+
+The `DesktopApplication.CreateLwjglApplication` static flag is still
+available: set it to `false` before calling `launch()` to short-circuit
+the LWJGL window creation (for future embed-in-Swing use cases).

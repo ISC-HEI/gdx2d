@@ -28,6 +28,6 @@ class HelloScala extends DesktopApplication(500, 500) {
 
 object HelloScala {
   def main(args: Array[String]): Unit = {
-    new HelloScala()
+    new HelloScala().launch()
   }
 }

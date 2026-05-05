@@ -37,23 +37,29 @@ public abstract class DesktopApplication
 	private static final int DEFAULT_HEIGHT = 500;
 	private static final int DEFAULT_WIDTH = 500;
 
+	private final int windowWidth;
+	private final int windowHeight;
+	private final boolean fullScreenRequested;
+
 	/**
 	 * Escape hatch used by the demo selector / Swing integration demos to
 	 * construct a {@link DesktopApplication} without spinning up an LWJGL
-	 * context. Set to {@code false} before calling {@code super(...)} when you
+	 * context. Set to {@code false} before calling {@link #launch()} when you
 	 * intend to host the game in an existing Swing/AWT window.
 	 */
 	public static boolean CreateLwjglApplication = true;
 
 	/**
 	 * Creates an application using {@code gdx2d} with a default window size.
+	 * The LWJGL window is only created when {@link #launch()} is called.
 	 */
 	public DesktopApplication() {
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 
 	/**
-	 * Creates a windowed {@code gdx2d} application.
+	 * Creates a windowed {@code gdx2d} application. The LWJGL window is only
+	 * created when {@link #launch()} is called.
 	 *
 	 * @param width  The width of the window
 	 * @param height The height of the window
@@ -63,28 +69,55 @@ public abstract class DesktopApplication
 	}
 
 	/**
-	 * Creates a {@code gdx2d} application, optionally full-screen.
+	 * Creates a {@code gdx2d} application, optionally full-screen. The LWJGL
+	 * window is only created when {@link #launch()} is called.
 	 *
 	 * @param width      The width of the window (ignored in full-screen)
 	 * @param height     The height of the window (ignored in full-screen)
 	 * @param fullScreen {@code true} to launch full-screen
 	 */
 	public DesktopApplication(int width, int height, boolean fullScreen) {
+		this.windowWidth = width;
+		this.windowHeight = height;
+		this.fullScreenRequested = fullScreen;
+	}
+
+	/**
+	 * Start the LWJGL3 game loop for this application.
+	 * <p>
+	 * This method BLOCKS on the calling thread (which must be the main
+	 * thread on macOS) until the window is closed. On macOS, if the JVM
+	 * was not launched with {@code -XstartOnFirstThread}, a child JVM is
+	 * spawned with the flag and this process exits.
+	 * <p>
+	 * Call this from your {@code main} method after instantiating the
+	 * application, for example:
+	 * <pre>
+	 *   public static void main(String[] args) {
+	 *     new MyGame().launch();
+	 *   }
+	 * </pre>
+	 */
+	public void launch() {
 		// On macOS GLFW must run on the first thread. If we are not on it,
 		// re-exec the JVM with -XstartOnFirstThread and exit the current process.
-		if (!fromDemoSelector() && CreateLwjglApplication && startNewJvmIfRequired()) {
+		if (CreateLwjglApplication && startNewJvmIfRequired()) {
 			return;
 		}
 
-		if (fullScreen) {
-			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-			width = gd.getDisplayMode().getWidth();
-			height = gd.getDisplayMode().getHeight();
+		if (!CreateLwjglApplication) {
+			return;
 		}
 
-		// We only create a context when we were not built from the DemoSelector
-		if (!fromDemoSelector() && CreateLwjglApplication)
-			createLwjglApplication(width, height, fullScreen);
+		int w = windowWidth;
+		int h = windowHeight;
+		if (fullScreenRequested) {
+			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			w = gd.getDisplayMode().getWidth();
+			h = gd.getDisplayMode().getHeight();
+		}
+
+		createLwjglApplication(w, h, fullScreenRequested);
 	}
 
 	/**
@@ -163,20 +196,6 @@ public abstract class DesktopApplication
 			System.err.println("Failed to spawn child JVM with -XstartOnFirstThread: " + e);
 			return false;
 		}
-	}
-
-	private boolean fromDemoSelector() {
-		String className = "DemoSelectorGUI";
-
-		StackTraceElement[] callStack = Thread.currentThread().getStackTrace();
-
-		for (StackTraceElement elem : callStack) {
-			if (elem.getClassName().contains(className)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**

@@ -2,11 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!--
-    Maven build script for the gdx2d demos module.
+    Maven build script for the gdx2d demos module (Scala).
 
-    NOTE: Kotlin demos are currently parked under src_to_do/ during the
-    libgdx 1.14 migration. This module currently produces an empty jar.
-    See TODO-migration.md at the repository root.
+    Demos are now standalone Scala objects with their own main(), no demo
+    selector yet. See TODO-migration.md.
   -->
   <parent>
     <groupId>ch.hevs.gdx2d</groupId>
@@ -18,7 +17,7 @@
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
-  <description>gdx2d demos (currently empty, awaiting Scala rewrite)</description>
+  <description>gdx2d demos (Scala)</description>
   <version>${gdx2d.version}</version>
 
   <dependencies>
@@ -27,9 +26,16 @@
       <artifactId>gdx2d-desktop</artifactId>
       <version>${gdx2d.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
+    <sourceDirectory>${project.basedir}/src/main/scala</sourceDirectory>
+
     <resources>
       <resource>
         <directory>data</directory>
@@ -41,6 +47,33 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.1.0</version>
+      </plugin>
+
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>4.8.1</version>
+        <configuration>
+          <scalaVersion>${scala.version}</scalaVersion>
+          <scalaCompatVersion>${scala.compat.version}</scalaCompatVersion>
+        </configuration>
+        <executions>
+          <execution>
+            <id>scala-compile-first</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>add-source</goal>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>scala-test-compile</id>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
