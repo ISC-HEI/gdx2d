@@ -1,4 +1,4 @@
-# Welcome to gdx2d [![Build Status]
+# Welcome to gdx2d 
 
 The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. 
 
