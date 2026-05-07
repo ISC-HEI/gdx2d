@@ -1,9 +1,11 @@
-# Welcome to gdx2d [![Build Status](https://travis-ci.org/hevs-isi/gdx2d.svg?branch=master)](https://travis-ci.org/hevs-isi/gdx2d) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/ch.hevs.gdx2d/gdx2d-core/badge.svg)](http://search.maven.org/#search%7Cga%7C1%7Cch.hevs.gdx2d)
+# Welcome to gdx2d [![Build Status]
 
 The gdx2d project is a simple to use 2d game and graphics framework. It is multi-platform (working on Windows, Linux and Android). It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering. 
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=eoVrifa1Xd0" target="_blank"><img src="https://rawgit.com/hevs-isi/gdx2d-videofile/master/logo/logo_640.png?raw=true" alt="Logo"/></a>
+  <a href="https://www.youtube.com/watch?v=eoVrifa1Xd0" target="_blank">
+    <img src="https://raw.githubusercontent.com/hevs-isi/gdx2d-videofile/master/logo/logo_640.png" alt="Logo"/>
+  </a>
 </p>
 
 More information about gdx2d can be found on the [official project website](https://hevs-isi.github.io/gdx2d/).
