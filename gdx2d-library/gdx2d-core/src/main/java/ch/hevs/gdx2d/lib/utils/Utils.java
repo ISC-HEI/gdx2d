@@ -47,7 +47,7 @@ public class Utils {
 	public static void assertGdxLoaded(Class c) {
 		if (Gdx.graphics == null || Gdx.graphics.getGL20() == null) {
 			final String error = String.format("Gdx must be loaded to create a '%s'. It can only be created in the onInit "
-			+ "method of a class extending PortableApplication (or must be called from within this method).",
+			+ "method of a class extending DesktopApplication (or must be called from within this method).",
 			c.getSimpleName());
 			throw new GdxRuntimeException(error);
 		}
@@ -75,7 +75,7 @@ public class Utils {
 		if (callFromWrongLocation) {
       		throw new GdxRuntimeException(
             		"This new instance shall be created in a call subsequent from the onInit() method "
-              		+ "from the class implementing PortableApplication");
+              		+ "from the class implementing DesktopApplication");
 		}
 	}
 }

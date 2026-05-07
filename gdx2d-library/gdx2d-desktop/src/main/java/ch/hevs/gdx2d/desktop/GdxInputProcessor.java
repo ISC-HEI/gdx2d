@@ -1,9 +1,8 @@
 package ch.hevs.gdx2d.desktop;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.controllers.Controllers;
+
 
 /**
  * Input mouse and keyboard processor for gdx2d.
@@ -15,19 +14,19 @@ import com.badlogic.gdx.controllers.Controllers;
  */
 class GdxInputProcessor extends InputAdapter {
 
-	private final PortableApplication app;
+	private final DesktopApplication app;
 
 	/**
 	 * Input mouse and keyboard processor for gdx2d.
 	 *
-	 * This processor must be registered manually to the {@link Controllers} class.
+	 * This processor must be registered manually.
 	 *
-	 * @param app the portable application (cannot be null)
+	 * @param app the desktop application (cannot be null)
 	 * @throws IllegalArgumentException if the application is {@code null}
 	 */
-	GdxInputProcessor(final PortableApplication app) {
+	GdxInputProcessor(final DesktopApplication app) {
 		if (app == null)
-			throw new IllegalArgumentException("PortableApplication cannot be null !");
+			throw new IllegalArgumentException("DesktopApplication cannot be null !");
 
 		this.app = app;
 	}
@@ -51,8 +50,10 @@ class GdxInputProcessor extends InputAdapter {
 	}
 
 	@Override
-	public boolean scrolled(int amount) {
-		app.onScroll(amount);
+	public boolean scrolled(float amountX, float amountY) {
+		// libgdx 1.12+ exposes the vertical component as amountY (positive means scrolled down).
+		// Round to an int to preserve the gdx2d public API onScroll(int).
+		app.onScroll(Math.round(amountY));
 		return false;
 	}
 

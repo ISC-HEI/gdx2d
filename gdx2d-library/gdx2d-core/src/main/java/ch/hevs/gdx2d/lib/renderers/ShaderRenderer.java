@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 import ch.hevs.gdx2d.lib.utils.Logger;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.StringBuilder;
 
 /**
  * Render things using a GLSL shader program included in a file.
@@ -89,7 +88,7 @@ public class ShaderRenderer implements Disposable {
 			Gdx.app.exit();
 		}
 
-		if (shader.getLog().length() != 0 && !shader.getLog().contains("No errors"))
+		if (shader.getLog().length() != 0 && shader.getLog().toUpperCase().contains("ERROR"))
 			Logger.log("Shader message - " + shader.getLog());
 
 		// Creates a batch with the size of the texture

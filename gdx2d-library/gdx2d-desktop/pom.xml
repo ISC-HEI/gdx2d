@@ -37,7 +37,7 @@
 
     <dependency>
       <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-backend-lwjgl</artifactId>
+      <artifactId>gdx-backend-lwjgl3</artifactId>
       <version>${libgdx.version}</version>
     </dependency>
     <dependency>
@@ -61,19 +61,7 @@
       <version>${libgdx.version}</version>
       <classifier>natives-desktop</classifier>
     </dependency>
-    <dependency>
-      <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers-desktop</artifactId>
-      <version>${libgdx.version}</version>
-    </dependency>
-    <dependency>
-      <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers-platform</artifactId>
-      <version>${libgdx.version}</version>
-      <classifier>natives-desktop</classifier>
-    </dependency>
+    <!-- Controllers extension parked; see TODO-migration.md -->
   </dependencies>
 
   <build>
@@ -81,7 +69,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.3</version>
+        <version>3.6.3</version>
         <configuration>
           <!-- Aggregate the doc from 'gdx2d-core' to include all the doc in one place -->
           <includeDependencySources>true</includeDependencySources>

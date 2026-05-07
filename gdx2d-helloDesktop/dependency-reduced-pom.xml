@@ -9,9 +9,9 @@
   <artifactId>gdx2d-helloDesktop</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <version>${gdx2d.version}</version>
-  <description>gdx2d hello desktop</description>
+  <description>gdx2d hello desktop (Scala)</description>
   <build>
-    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+    <sourceDirectory>${project.basedir}/src/main/scala</sourceDirectory>
     <resources>
       <resource>
         <directory>data</directory>
@@ -26,14 +26,14 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>ch.hevs.gdx2d.hello.HelloKotlinKt</mainClass>
+              <mainClass>ch.hevs.gdx2d.hello.HelloScala</mainClass>
             </manifest>
           </archive>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>2.4.2</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -44,27 +44,29 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <version>${kotlin.version}</version>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>4.8.1</version>
         <executions>
           <execution>
-            <id>compile</id>
-            <phase>compile</phase>
+            <id>scala-compile-first</id>
+            <phase>process-resources</phase>
             <goals>
+              <goal>add-source</goal>
               <goal>compile</goal>
             </goals>
           </execution>
           <execution>
-            <id>test-compile</id>
-            <phase>test-compile</phase>
+            <id>scala-test-compile</id>
+            <phase>process-test-resources</phase>
             <goals>
-              <goal>test-compile</goal>
+              <goal>testCompile</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
-          <jvmTarget>1.8</jvmTarget>
+          <scalaVersion>${scala.version}</scalaVersion>
+          <scalaCompatVersion>${scala.compat.version}</scalaCompatVersion>
         </configuration>
       </plugin>
       <plugin>
@@ -88,19 +90,4 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-test</artifactId>
-      <version>1.3.31</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>kotlin-test-common</artifactId>
-          <groupId>org.jetbrains.kotlin</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-  </dependencies>
 </project>
-

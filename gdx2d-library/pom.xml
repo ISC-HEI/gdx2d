@@ -13,11 +13,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-    <libgdx.version>1.9.8</libgdx.version>
+    <libgdx.version>1.14.0</libgdx.version>
     <gdx2d.version>1.2.2</gdx2d.version>
     <gdx2d.url>https://hevs-isi.github.io/gdx2d/</gdx2d.url>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <artifactId>gdx2d-lib</artifactId>
@@ -57,14 +57,9 @@
       <!-- Box2DLights extension -->
       <groupId>com.badlogicgames.box2dlights</groupId>
       <artifactId>box2dlights</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
     </dependency>
-    <dependency>
-      <!-- Controllers extension -->
-      <groupId>com.badlogicgames.gdx</groupId>
-      <artifactId>gdx-controllers</artifactId>
-      <version>${libgdx.version}</version>
-    </dependency>
+    <!-- Controllers extension parked; see TODO-migration.md -->
   </dependencies>
 
   <build>
@@ -98,7 +93,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>2.4.2</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -144,10 +139,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.3</version>
+        <version>3.6.3</version>
         <configuration>
-          <additionalparam>${javadoc.opts}</additionalparam>
+          <doclint>none</doclint>
           <failOnError>false</failOnError>
+          <failOnWarnings>false</failOnWarnings>
+          <detectLinks>false</detectLinks>
+          <detectJavaApiLink>false</detectJavaApiLink>
           <author>true</author>
           <version>true</version>
           <use>true</use>
@@ -158,8 +156,8 @@
           <notimestamp>true</notimestamp>
           <doctitle><![CDATA[
             <h1>${project.artifactId}</h1>
-            <p>gdx2d is a simple to use 2d game framework. It is multi-platform (working on Windows, Linux and Android).
-            It is Java based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.</p>
+            <p>gdx2d is a simple to use 2d desktop game framework.
+            It is Java/Scala based with the heavy-lifting done in native code (i.e. C/C++), for example for physics rendering.</p>
             <p>Website: <a target="_parent" href="${gdx2d.url}">${gdx2d.url}</a></p>
             <hr>
             Artifact name: ${project.groupId}:${project.artifactId}<br>
@@ -169,11 +167,7 @@
             Version: <b>${project.version}</b><br>
           ]]></doctitle>
           <bottom>
-            <![CDATA[Copyright &#169; 2014-2016 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">https://github.com/hevs-isi/gdx2d</a>]]></bottom>
-          <links>
-            <link>http://docs.oracle.com/javase/6/docs/api/</link>
-            <link>https://libgdx.badlogicgames.com/nightlies/docs/api/</link>
-          </links>
+            <![CDATA[Copyright &#169; 2014-2024 gdx2d - <a target="_parent" href="https://github.com/hevs-isi/gdx2d">https://github.com/hevs-isi/gdx2d</a>]]></bottom>
         </configuration>
         <executions>
           <execution>

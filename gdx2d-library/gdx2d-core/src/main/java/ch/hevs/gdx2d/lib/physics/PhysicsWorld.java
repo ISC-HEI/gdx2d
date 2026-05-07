@@ -4,6 +4,7 @@ import ch.hevs.gdx2d.components.physics.utils.PhysicsConstants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.Vector;
@@ -17,6 +18,10 @@ import java.util.Vector;
  * @version 1.02
  */
 public class PhysicsWorld {
+	static {
+		Box2D.init();
+	}
+
 	// Contains the object to be removed at each simulation step
 	private static final Vector<Body> toRemove = new Vector<Body>();
 

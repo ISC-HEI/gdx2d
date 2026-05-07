@@ -1,7 +1,8 @@
 package ch.hevs.gdx2d.desktop;
 
 import com.badlogic.gdx.Files;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
 
 /**
  * Default configuration for {@code gdx2d} applications running on desktop.
@@ -10,31 +11,30 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
  */
 public class GdxConfig {
 
-	// FIXME: only used for desktop applications, must not be included in the library project
+	static public Lwjgl3ApplicationConfiguration getLwjgl3Config(int width, int height, boolean fullScreen) {
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setResizable(false);
+		config.useVsync(true); // Ignored under Linux
+		config.setForegroundFPS(60); // Target value if vSync not working
+		config.setIdleFPS(60);
+		// Multi-sampling enables anti-alias for lines (MSAA = 3 samples)
+		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 3);
+		config.setTitle("Gdx2d desktop application");
 
-	static public LwjglApplicationConfiguration getLwjglConfig(int width, int height, boolean fullScreen) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.resizable = false;
-		config.useGL30 = false;
-		config.height = height;
-		config.width = width;
-		config.fullscreen = fullScreen;
-		config.title = "Gdx2d desktop application";
-		config.vSyncEnabled = true; // Ignored under Linux
-		config.foregroundFPS = 60; // Target value if vSync not working
-		config.backgroundFPS = config.foregroundFPS;
-		config.samples = 3; // Multi-sampling enables anti-alias for lines
-		config.forceExit = false; // Setting true calls system.exit(), with no coming back
-
-		final String os = System.getProperty("os.name").toLowerCase();
-
-		// Under windows, the icon *must* be the small one
-		if (os.contains("win")) {
-			config.addIcon("res/lib/icon16.png", Files.FileType.Internal);
+		if (fullScreen) {
+			config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
+		} else {
+			config.setWindowedMode(width, height);
 		}
 
-		config.addIcon("res/lib/icon32.png", Files.FileType.Internal);
-		config.addIcon("res/lib/icon64.png", Files.FileType.Internal);
+		// Under windows, the icon *must* be the small one (16x16 first)
+		if (SharedLibraryLoader.isWindows) {
+			config.setWindowIcon(Files.FileType.Internal,
+					"res/lib/icon16.png", "res/lib/icon32.png", "res/lib/icon64.png");
+		} else {
+			config.setWindowIcon(Files.FileType.Internal,
+					"res/lib/icon32.png", "res/lib/icon64.png");
+		}
 
 		return config;
 	}

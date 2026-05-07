@@ -25,3 +25,4 @@ out/
 .gradle/
 build/
 *.db
+gdx2d-game

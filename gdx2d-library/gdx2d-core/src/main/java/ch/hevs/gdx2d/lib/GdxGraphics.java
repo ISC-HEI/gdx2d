@@ -264,9 +264,9 @@ public class GdxGraphics implements Disposable {
 
 	/**
 	 * Begin drawing.
-	 * <p/>
+	 * <p>
 	 * Usually called by {@code Game2D} before
-	 * {@code ch.hevs.gdx2d.desktop.PortableApplication#onGraphicRender(GdxGraphics)}.
+	 * {@code ch.hevs.gdx2d.desktop.DesktopApplication#onGraphicRender(GdxGraphics)}.
 	 */
 	public void begin() {
 		// Empty
@@ -274,9 +274,9 @@ public class GdxGraphics implements Disposable {
 
 	/**
 	 * End drawing.
-	 * <p/>
+	 * <p>
 	 * Usually called by {@code Game2D} before
-	 * {@code ch.hevs.gdx2d.desktop.PortableApplication#onGraphicRender(GdxGraphics)}.
+	 * {@code ch.hevs.gdx2d.desktop.DesktopApplication#onGraphicRender(GdxGraphics)}.
 	 */
 	public void end() {
 		checkMode(RenderingMode.NONE);

@@ -19,6 +19,13 @@ import com.badlogic.gdx.utils.Array;
  * @version 1.3
  */
 public abstract class AbstractPhysicsObject implements ContactListener, BodyInterface {
+	static {
+		// Ensure Box2D native library is loaded before any Box2D shape/body
+		// is created. Required since libgdx 1.12+ which no longer auto-loads
+		// the native library on class init.
+		com.badlogic.gdx.physics.box2d.Box2D.init();
+	}
+
 	// Reusable object for creating other objects
 	static final private BodyDef bodyDef = new BodyDef();
 	private final float p2m = PhysicsConstants.P2M;
